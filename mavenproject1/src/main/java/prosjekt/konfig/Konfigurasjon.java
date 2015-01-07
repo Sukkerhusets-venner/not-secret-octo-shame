@@ -19,7 +19,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 @EnableWebMvc  // mvc annotation
-@ComponentScan(basePackages = {"springmvc.kontroller"}) // pakken der controllerne ligger
+@ComponentScan(basePackages = {"prosjekt.kontroller"}) // pakken der controllerne ligger
 public class Konfigurasjon extends WebMvcConfigurationSupport {
 
     @Bean
