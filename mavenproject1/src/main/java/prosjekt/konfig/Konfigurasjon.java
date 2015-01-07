@@ -12,28 +12,23 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
-import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
-import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc  // mvc annotation
 @ComponentScan(basePackages = {"prosjekt.kontroller"}) // pakken der controllerne ligger
 public class Konfigurasjon extends WebMvcConfigurationSupport {
-
+    
     @Bean
-    public TilesConfigurer tilesConfigurer() {
-        return new TilesConfigurer();
-    }
-
-    @Bean
-    public TilesViewResolver tilesViewResolver() {
-        TilesViewResolver tilesViewResolver = new TilesViewResolver();
-        //tilesViewResolver.setOrder(0);
-        return tilesViewResolver;
-    }
-
+    public InternalResourceViewResolver getInternalResourceView() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/jsp/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    } 
+    
     @Bean
     public ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();

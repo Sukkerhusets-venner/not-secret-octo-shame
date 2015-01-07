@@ -17,13 +17,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class hovedkontroller {
    
     // brukes for å gjøre om de valgte personene fra tekst til Person-objekt
-    @InitBinder
+   /* @InitBinder
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
         //binder.registerCustomEditor(Person.class, new PersonEditor(personService));
-    }
+    } */
     
     @RequestMapping("/")
-    public String index(){
+    public String visStartView(){
         return "index";
     }
     
