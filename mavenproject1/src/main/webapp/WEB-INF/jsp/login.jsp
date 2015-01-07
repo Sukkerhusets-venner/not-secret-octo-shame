@@ -17,5 +17,7 @@
     
                 </table>
             </form:form>
+        <br>
+        <a href="<c:url value="registrer"/>" >Har du ikke bruker? Registrer deg her da vel!</a>
     </body>
 </html>
