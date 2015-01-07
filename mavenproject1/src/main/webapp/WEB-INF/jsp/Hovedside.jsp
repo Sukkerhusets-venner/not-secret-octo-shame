@@ -1,7 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
     <%@include file="../../includes/head.jspf" %>
+<html>
+
     <body>
-        <h1>Hello World!</h1
-        <h2>Hello World!</h2>
+        <h1>DETTE ER VÅR HOVEDSIDE</h1>
     </body>
 </html>

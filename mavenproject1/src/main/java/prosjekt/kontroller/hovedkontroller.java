@@ -22,10 +22,6 @@ public class hovedkontroller {
         //binder.registerCustomEditor(Person.class, new PersonEditor(personService));
     } */
     
-    @RequestMapping("/")
-    public String visStartView(){
-        return "index";
-    }
     
     //Sørger for å gi en feilside når feil oppstår, merk at vi godt kunne hatt
     //flere slike feilhåndterere og håndtert ulike feil mer spesifikt
