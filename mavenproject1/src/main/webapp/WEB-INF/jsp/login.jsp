@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
     <%@include file="../../includes/head.jspf" %>
     <body>
             <form:form method="POST" modelAttribute="loginform" >
@@ -10,7 +9,7 @@
                     </tr>
                     <tr>
                         <td> Passord: </td>
-                        <td><form:input path ="bruker.passord" /></td>
+                        <td><form:input type="password" path ="bruker.passord" /></td>
                     </tr>
                     <tr>
                     <td><input type='submit' value="SEND"></td>

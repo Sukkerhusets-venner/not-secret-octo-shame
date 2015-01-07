@@ -15,7 +15,6 @@ public class loginKontroller {
     
     @RequestMapping(method = RequestMethod.GET)
     public String showForm(@ModelAttribute Loginform loginform){
-
         return "login";
     }
     
