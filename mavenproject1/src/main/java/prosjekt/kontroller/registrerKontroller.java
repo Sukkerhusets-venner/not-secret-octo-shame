@@ -19,4 +19,9 @@ public class registrerKontroller {
         return "registrer";
     }
     
+    @RequestMapping(value = "/send")
+    public String showForm(@ModelAttribute Loginform loginform){
+        return "login";
+    }
+    
 }
