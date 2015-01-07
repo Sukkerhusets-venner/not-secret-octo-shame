@@ -12,7 +12,7 @@
                         <td><form:input type="password" path ="bruker.passord" /></td>
                     </tr>
                     <tr>
-                    <td><input type='submit' value="SEND"></td>
+                    <td><input type='submit' value="Log inn"></td>
                     </tr>
     
                 </table>

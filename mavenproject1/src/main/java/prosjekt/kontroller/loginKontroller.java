@@ -18,4 +18,9 @@ public class loginKontroller {
         return "login";
     }
     
+    @RequestMapping (method = RequestMethod.POST)
+    public String login () {
+        return "Hovedside";
+    }
+    
 }
