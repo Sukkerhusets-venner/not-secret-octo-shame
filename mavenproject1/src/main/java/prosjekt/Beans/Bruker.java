@@ -6,6 +6,15 @@ public class Bruker {
     
     String brukernavn;
     String passord;
+    String epost;
+
+    public String getEpost() {
+        return epost;
+    }
+
+    public void setEpost(String epost) {
+        this.epost = epost;
+    }
 
     public String getBrukernavn() {
         return brukernavn;
