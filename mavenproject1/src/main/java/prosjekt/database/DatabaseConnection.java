@@ -5,24 +5,17 @@
  */
 package prosjekt.database;
 
-<<<<<<< HEAD
 import prosjekt.Domene.User;
-=======
 import java.security.MessageDigest;
->>>>>>> FETCH_HEAD
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-<<<<<<< HEAD
 import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
-=======
 import java.util.Random;
-import prosjekt.Beans.*;
->>>>>>> FETCH_HEAD
+import prosjekt.Domene.*;
 
 /**
  *
