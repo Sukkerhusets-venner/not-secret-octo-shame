@@ -108,7 +108,17 @@ public class DatabaseConnection {
         return false;
     }
     public User getUser(int user_id) {
+        ResultSet resultSet = null;
         String sqlStatement = "SELECT*FROM User WHERE User_id=" + user_id;
+        User use = null;
+        
+        try {
+        PreparedStatement pstmt = connection.prepareStatement(sqlStatement); 
+        
+        return use;
+        } catch(Exception e) {
+            printErrorMessage(e, "getUser");
+        }
         
         return null;
     }
