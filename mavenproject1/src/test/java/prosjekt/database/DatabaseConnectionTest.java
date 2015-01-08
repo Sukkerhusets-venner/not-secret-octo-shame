@@ -1,3 +1,4 @@
+
 package prosjekt.database;
 
 import org.junit.After;
