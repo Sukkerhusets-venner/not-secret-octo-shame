@@ -24,9 +24,5 @@ public class registrerKontroller {
     public String showForm(){
         return "game";
     }
-    @RequestMapping(value="/jSpill")
-    public String gojSpill(){
-        return "jSpill";
-    }
     
 }
