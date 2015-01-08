@@ -6,13 +6,13 @@
             <table>
                 <tr>
                     <td>Brukernavn : </td>
-                    <td><form:input path="bruker.brukernavn" /></td>
-                    <td><form:errors path="bruker.brukernavn" /></td>
+                    <td><form:input path="user.username" /></td>
+                    <td><form:errors path="user.username" /></td>
                 </tr>
                 <tr>
                     <td>Epost : </td>
-                    <td><form:input path="bruker.epost" /></td>
-                    <td><form:errors path="bruker.epost" /></td>
+                    <td><form:input path="user.email" /></td>
+                    <td><form:errors path="user.email" /></td>
                 </tr>
                 <tr>
                     <td><input type="submit" value="SEND"></td>

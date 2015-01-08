@@ -5,11 +5,11 @@
                 <table>
                     <tr>
                          <td> Brukernavn : </td>
-                         <td><form:input path="bruker.brukernavn" /></td>
+                         <td><form:input path="user.username" /></td>
                     </tr>
                     <tr>
                         <td> Passord: </td>
-                        <td><form:input type="password" path ="bruker.passord" /></td>
+                        <td><form:input type="password" path ="user.password" /></td>
                     </tr>
                     <tr>
                     <td><input type='submit' value="Log inn"></td>
