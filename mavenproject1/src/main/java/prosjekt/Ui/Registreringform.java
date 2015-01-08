@@ -6,24 +6,24 @@
 
 package prosjekt.Ui;
 
-import prosjekt.Beans.Bruker;
+import prosjekt.Beans.User;
 
 /**
  *
  * @author balder
  */
 public class Registreringform {
-    private Bruker bruker;
+    private User user;
     
     public Registreringform () {
-            setBruker (new Bruker());
+            setUser (new User());
     }
     
-    public Bruker getBruker () {
-        return bruker;
+    public User getUser () {
+        return user;
     }
     
-    public void setBruker (Bruker bruker) {
-        this.bruker = bruker;
+    public void setUser (User user) {
+        this.user = user;
     }
 }

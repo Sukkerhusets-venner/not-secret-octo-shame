@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import prosjekt.Beans.*;
 
 /**
  *
@@ -63,7 +64,7 @@ public class DatabaseConnection {
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setString(1, email);
             pstmt.setString(2 , password);
-
+            
             resultSet = pstmt.executeQuery( );
 
             if (resultSet.next()) {
@@ -76,11 +77,12 @@ public class DatabaseConnection {
         return false;
     }
     
-    //public boolean registerUser(User user){
-    //    return false;
-    //}
+    public boolean registerUser(User user){
+    
+        return false;
+    }
 
-    public void printErrorMessage(Exception e, String message) {
+    private void printErrorMessage(Exception e, String message) {
         System.err.println("*** Feil oppstått: " + message + ". ***");
         e.printStackTrace(System.err);
     }
