@@ -4,7 +4,6 @@ package prosjekt.kontroller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import prosjekt.Ui.Loginform;
 import prosjekt.Ui.Registreringform;
 
@@ -17,10 +16,17 @@ public class registrerKontroller {
     public String showForm(@ModelAttribute Registreringform registreringform){
         return "registrer";
     }
-    
     @RequestMapping(value = "/send")
     public String showForm(@ModelAttribute Loginform loginform){
         return "login";
+    }
+    @RequestMapping(value = "/game")
+    public String showForm(){
+        return "game";
+    }
+    @RequestMapping(value="/jSpill")
+    public String gojSpill(){
+        return "jSpill";
     }
     
 }
