@@ -11,7 +11,6 @@ import prosjekt.Ui.Registreringform;
 
 
 @Controller
-@RequestMapping("/")
 public class registrerKontroller {
     
     @RequestMapping(value = "/registrer")

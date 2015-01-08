@@ -10,15 +10,14 @@ import prosjekt.Ui.Loginform;
 
 
 @Controller
-@RequestMapping("/")
 public class loginKontroller {
     
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/")
     public String showForm(@ModelAttribute Loginform loginform){
         return "login";
     }
     
-    @RequestMapping (method = RequestMethod.POST)
+    @RequestMapping (value = "/Log inn")
     public String login () {
         return "Hovedside";
     }
