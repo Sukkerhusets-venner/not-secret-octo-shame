@@ -19,5 +19,6 @@
             </form:form>
         <br>
         <a href="<c:url value="registrer"/>" >Har du ikke bruker? Registrer deg her da vel!</a>
+        <a href ="<c:url value="jSpill" />" >Meeep </a>
     </body>
 </html>

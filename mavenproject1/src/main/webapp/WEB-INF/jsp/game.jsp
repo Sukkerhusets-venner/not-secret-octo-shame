@@ -78,8 +78,6 @@
         
     <body>
     <section id="content">
-           
-        
         <section class="block"> 
              <p>Oppgave 1</p>
             <p>Du skal finne feilen i koden så begge rutene blir like.</p>
