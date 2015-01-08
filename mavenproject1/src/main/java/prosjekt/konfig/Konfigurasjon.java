@@ -20,15 +20,13 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc  // mvc annotation
 @ComponentScan(basePackages = {"prosjekt.kontroller"}) // pakken der controllerne ligger
 public class Konfigurasjon extends WebMvcConfigurationSupport {
-    
     @Bean
     public InternalResourceViewResolver getInternalResourceView() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/WEB-INF/jsp/");
         resolver.setSuffix(".jsp");
         return resolver;
-    } 
-    
+    }
     @Bean
     public ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
@@ -40,7 +38,10 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
     // Hvor finnes statisk ressurser som bilder/ css/ js osv.
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/").setCachePeriod(31556926);
+        registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/resources/").setCachePeriod(31556926);
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
+        registry.addResourceHandler("/img/**").addResourceLocations("/img/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
 
     @Override

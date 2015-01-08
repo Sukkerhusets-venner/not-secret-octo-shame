@@ -99,7 +99,11 @@ public class DatabaseConnection {
 
         return false;
     }
-
+    public User getUser(int user_id) {
+        String sqlStatement = "SELECT*FROM User WHERE User_id=" + user_id;
+        
+        return null;
+    }
     private void printErrorMessage(Exception e, String message) {
         System.err.println("*** Feil oppstått: " + message + ". ***");
         e.printStackTrace(System.err);
