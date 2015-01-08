@@ -28,9 +28,10 @@ public class DatabaseConnection {
      */
     public DatabaseConnection() {
 
-        String databasePath = "158.38.48.10:3306";   // MAA FYLLES INN !Q!!!!!!
+        connection = null;
+        String databasePath = "jdbc:mysql://158.38.48.10:3306/team6";   // MAA FYLLES INN !Q!!!!!!
         String databaseUserName = "team6";
-        String databasePassword = "team62015";
+        String databasePassword = "Team62015";
         String dbDriver = "com.mysql.jdbc.Driver";
 
         try {
@@ -45,6 +46,10 @@ public class DatabaseConnection {
         }
     }
 
+    public boolean checkConnection(){
+        return connection != null;
+    }
+    
     public void closeConnection() {
 
         if (connection != null) {
@@ -82,7 +87,7 @@ public class DatabaseConnection {
     public boolean registerUser(User user) {
 
         String sqlStatement = "INSERT INTO User(user_id, name, email, password) "
-                + "Values (DEFAULT, ?, ?, ?)";
+                + "VALUES (DEFAULT, ?, ?, ?)";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setString(1, user.getUsername());
@@ -104,12 +109,15 @@ public class DatabaseConnection {
         
         return null;
     }
+    
+    
     private void printErrorMessage(Exception e, String message) {
         System.err.println("*** Feil oppstått: " + message + ". ***");
         e.printStackTrace(System.err);
     }
 
-    public void rollBack() {
+    
+    private void rollBack() {
         try {
             if (connection != null && !connection.getAutoCommit()) {
                 connection.rollback();
@@ -140,6 +148,7 @@ public class DatabaseConnection {
         return null;
     }
 
+    
     private String generatePassword() {
 
         Random random = new Random();
