@@ -22,5 +22,9 @@ public class registrerKontroller {
     public String showForm(@ModelAttribute Loginform loginform){
         return "login";
     }
+    @RequestMapping(value = "/game")
+    public String showForm(){
+        return "game";
+    }
     
 }
