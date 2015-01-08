@@ -99,7 +99,7 @@
 
         <section class="block">        
             <p>HTML</p>
-            <textarea class="codeBox" id="htmlView"></textarea>
+            <textarea class="codeBox" id="htmlView" disabled=""></textarea>
         </section>
     </section>
 </html>
