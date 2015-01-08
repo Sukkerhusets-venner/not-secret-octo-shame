@@ -15,6 +15,7 @@ import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import prosjekt.database.DatabaseConnection;
 
 @Configuration
 @EnableWebMvc  // mvc annotation
@@ -72,5 +73,10 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
             System.out.println(" Konfig.Feil ved henting av conncetion() " + e);
         }
         return dmds;
+    }
+    
+    @Bean 
+    public DatabaseConnection database() {
+        return new DatabaseConnection();
     }
 }
