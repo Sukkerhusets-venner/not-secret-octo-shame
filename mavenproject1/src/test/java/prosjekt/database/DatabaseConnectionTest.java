@@ -83,8 +83,8 @@ public class DatabaseConnectionTest {
         int user_id = 0;
         DatabaseConnection instance = new DatabaseConnection();
         User expResult = null;
-        User result = instance.getUser(user_id);
-        assertEquals(expResult, result);
+        //User result = instance.getUser(user_id);
+        //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

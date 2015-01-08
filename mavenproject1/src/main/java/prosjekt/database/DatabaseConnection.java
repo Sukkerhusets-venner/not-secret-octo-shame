@@ -107,8 +107,18 @@ public class DatabaseConnection {
 
         return false;
     }
-    public User getUser(int user_id) {
-        String sqlStatement = "SELECT*FROM User WHERE User_id=" + user_id;
+    public User getUser() {
+        ResultSet resultSet = null;
+        String sqlStatement = "SELECT*FROM User WHERE email=";
+        User use = null;
+        
+        try {
+        PreparedStatement pstmt = connection.prepareStatement(sqlStatement); 
+        
+        return use;
+        } catch(Exception e) {
+            printErrorMessage(e, "getUser");
+        }
         
         return null;
     }

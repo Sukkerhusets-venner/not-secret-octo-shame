@@ -81,4 +81,6 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
     public DatabaseConnection database() {
         return new DatabaseConnection();
     }
+    
+    
 }
