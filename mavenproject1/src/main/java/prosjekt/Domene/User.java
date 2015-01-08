@@ -1,5 +1,5 @@
 
-package prosjekt.Beans;
+package prosjekt.Domene;
 
 
 public class User {

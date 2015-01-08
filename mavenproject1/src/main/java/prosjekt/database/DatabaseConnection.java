@@ -5,13 +5,15 @@
  */
 package prosjekt.database;
 
+import prosjekt.Domene.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import prosjekt.Beans.*;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -20,10 +22,11 @@ import prosjekt.Beans.*;
 public class DatabaseConnection {
 
     private Connection connection;
-
+    private DataSource dataSource;
     /**
      *
      */
+    
     public DatabaseConnection() {
 
         String databasePath = "158.38.48.10:3306";   // MAA FYLLES INN !Q!!!!!!
