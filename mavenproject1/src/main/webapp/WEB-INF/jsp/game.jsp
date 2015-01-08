@@ -81,8 +81,8 @@
            
         
         <section class="block"> 
-             <p>Oppgave</p>
-            <p>Du skal sette bakgrunnsfargen på siden til fargen #b0c4de.</p>
+             <p>Oppgave 1</p>
+            <p>Du skal finne feilen i koden så begge rutene blir like.</p>
             <input type="button" value="Se resultat" id="viewResult">
             <input type="button" value="Sammenlign" id="compare">
             <p>Løsning | Din kode</p>
