@@ -15,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import prosjekt.database.DatabaseConnection;
 
@@ -40,22 +41,17 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
     // Hvor finnes statisk ressurser som bilder/ css/ js osv.
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/Web Pages/resources/resources/").setCachePeriod(31556926);
-        registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
-        registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
-        registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
-        
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/Web Pages/resources/")
+                .setCachePeriod(31556926);
     }
     
-    @Bean
-    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent ) {
-        System.gc();
-    }
     @Override
     @Bean
     public HandlerMapping resourceHandlerMapping() {
         AbstractHandlerMapping handlerMapping = (AbstractHandlerMapping) super.resourceHandlerMapping();
         handlerMapping.setOrder(-1);
+        ((SimpleUrlHandlerMapping) handlerMapping).setInterceptors(getInterceptors()); // bug fix
         return handlerMapping;
     }
 

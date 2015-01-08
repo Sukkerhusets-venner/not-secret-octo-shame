@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" session="true" pageEncoding="UTF-8"%>
     <%@include file="../../includes/head.jspf" %>
     <body>
             <form:form method="POST" modelAttribute="loginform" action ="Log inn" >
