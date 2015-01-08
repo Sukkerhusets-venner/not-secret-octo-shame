@@ -47,10 +47,7 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
         
     }
     
-    @Bean
-    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent ) {
-        System.gc();
-    }
+
     @Override
     @Bean
     public HandlerMapping resourceHandlerMapping() {
@@ -85,4 +82,6 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
     public DatabaseConnection database() {
         return new DatabaseConnection();
     }
+    
+    
 }

@@ -1,6 +1,8 @@
 
 package prosjekt.kontroller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,11 +26,15 @@ public class loginKontroller {
     }
     
     @RequestMapping (value = "Log inn")
-    public String login (@ModelAttribute Loginform loginform) {
+    public String login (HttpServletRequest request,@ModelAttribute Loginform loginform) {
         System.out.println( loginform.getUser().getEmail() + " " + loginform.getUser().getPassword());
-        if (database.checkLogin(loginform.getUser().getEmail(), loginform.getUser().getPassword()))
-        return "Hovedside";
-        else return "login";
+        if (database.checkLogin(loginform.getUser().getEmail(), loginform.getUser().getPassword())) {
+            HttpSession session = request.getSession();
+            session.setAttribute ("Username", loginform.getUser().getEmail());
+            return "Hovedside";
+        } else {
+            return "login";
+        }
     }
     
     @RequestMapping (value = "/logincheat")

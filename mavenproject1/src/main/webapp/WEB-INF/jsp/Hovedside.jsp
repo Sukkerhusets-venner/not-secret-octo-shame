@@ -5,5 +5,7 @@
     <body>
         <h1>DETTE ER VÅR HOVEDSIDE</h1>
         <a href="<c:url value="game"/>" >spillet!</a>
+        <br> <p> Hallo <%= session.getAttribute("Username") %> </p>
+                
     </body>
 </html>
