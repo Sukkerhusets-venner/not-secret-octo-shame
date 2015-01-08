@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
     <%@include file="../../includes/head.jspf" %>
     <body>
-            <form:form method="POST" modelAttribute="loginform" >
+            <form:form method="POST" modelAttribute="loginform" action ="Log inn" >
                 <table>
                     <tr>
                          <td> Brukernavn : </td>

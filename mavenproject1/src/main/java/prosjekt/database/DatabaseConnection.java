@@ -5,15 +5,24 @@
  */
 package prosjekt.database;
 
+<<<<<<< HEAD
 import prosjekt.Domene.User;
+=======
+import java.security.MessageDigest;
+>>>>>>> FETCH_HEAD
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+<<<<<<< HEAD
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+=======
+import java.util.Random;
+import prosjekt.Beans.*;
+>>>>>>> FETCH_HEAD
 
 /**
  *
@@ -66,9 +75,9 @@ public class DatabaseConnection {
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setString(1, email);
-            pstmt.setString(2 , password);
-            
-            resultSet = pstmt.executeQuery( );
+            pstmt.setString(2, password);
+
+            resultSet = pstmt.executeQuery();
 
             if (resultSet.next()) {
                 //Login sucessfull
@@ -79,9 +88,25 @@ public class DatabaseConnection {
         }
         return false;
     }
-    
-    public boolean registerUser(User user){
-    
+
+    public boolean registerUser(User user) {
+
+        String sqlStatement = "INSERT INTO User(user_id, name, email, password) "
+                + "Values (DEFAULT, ?, ?, ?)";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, user.getEmail());
+            pstmt.setString(3, hashString(generatePassword()));
+
+            pstmt.executeQuery();
+            
+            return true;
+        } catch (Exception e) {
+            rollBack();
+            printErrorMessage(e, "Registrer bruker");
+        }
+
         return false;
     }
     public User getUser(int user_id) {
@@ -92,5 +117,58 @@ public class DatabaseConnection {
     private void printErrorMessage(Exception e, String message) {
         System.err.println("*** Feil oppstått: " + message + ". ***");
         e.printStackTrace(System.err);
+    }
+
+    public void rollBack() {
+        try {
+            if (connection != null && !connection.getAutoCommit()) {
+                connection.rollback();
+            }
+        } catch (SQLException e) {
+            printErrorMessage(e, "rollback()");
+        }
+    }
+    
+
+    private String hashString(String string) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            string = "mitt passord er apekatt";
+
+            md.update(string.getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            byte[] digest = md.digest();
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < digest.length; i++) {
+                sb.append(Integer.toHexString((digest[i] & 0xFF) | 0x100).substring(1, 3));
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+
+        return null;
+    }
+
+    private String generatePassword() {
+
+        Random random = new Random();
+        StringBuilder tmp = new StringBuilder();
+
+        for (char ch = '0'; ch <= '9'; ++ch) {
+            tmp.append(ch);
+        }
+        for (char ch = 'a'; ch <= 'z'; ++ch) {
+            tmp.append(ch);
+        }
+
+        char[] symbols = tmp.toString().toCharArray();
+        char[] buf = new char[10];
+
+        for (int idx = 0; idx < buf.length; ++idx) {
+            buf[idx] = symbols[random.nextInt(symbols.length)];
+        }
+        String passord = new String(buf);
+        return passord;
     }
 }
