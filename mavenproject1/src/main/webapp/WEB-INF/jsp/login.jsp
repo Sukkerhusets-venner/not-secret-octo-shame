@@ -21,5 +21,7 @@
         <a href="<c:url value="registrer"/>" >Har du ikke bruker? Registrer deg her da vel!</a>
         
         <br> <br> <a href ="<c:url value = "logincheat"/>" > login cheat for de som ikke gidder/kan logge inn :) </a>
+
+        <br> <br> <a href ="<c:url value="jSpill" />" >Meeep </a>
     </body>
 </html>
