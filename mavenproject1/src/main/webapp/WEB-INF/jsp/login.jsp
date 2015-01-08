@@ -5,7 +5,7 @@
                 <table>
                     <tr>
                          <td> Brukernavn : </td>
-                         <td><form:input path="user.username" /></td>
+                         <td><form:input path="user.email" /></td>
                     </tr>
                     <tr>
                         <td> Passord: </td>
@@ -19,5 +19,9 @@
             </form:form>
         <br>
         <a href="<c:url value="registrer"/>" >Har du ikke bruker? Registrer deg her da vel!</a>
+        
+        <br> <br> <a href ="<c:url value = "logincheat"/>" > login cheat for de som ikke gidder/kan logge inn :) </a>
+
+        <br> <br> <a href ="<c:url value="jSpill" />" >Meeep </a>
     </body>
 </html>

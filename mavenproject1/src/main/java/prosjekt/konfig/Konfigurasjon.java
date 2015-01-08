@@ -15,6 +15,7 @@ import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import prosjekt.database.DatabaseConnection;
 
 @Configuration
 @EnableWebMvc  // mvc annotation
@@ -38,10 +39,11 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
     // Hvor finnes statisk ressurser som bilder/ css/ js osv.
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/resources/").setCachePeriod(31556926);
-        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
-        registry.addResourceHandler("/img/**").addResourceLocations("/img/");
-        registry.addResourceHandler("/js/**").addResourceLocations("/js/");
+        registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/Web Pages/resources/resources/").setCachePeriod(31556926);
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
+        registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
+        registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
+        
     }
 
     @Override
@@ -72,5 +74,10 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
             System.out.println(" Konfig.Feil ved henting av conncetion() " + e);
         }
         return dmds;
+    }
+    
+    @Bean 
+    public DatabaseConnection database() {
+        return new DatabaseConnection();
     }
 }

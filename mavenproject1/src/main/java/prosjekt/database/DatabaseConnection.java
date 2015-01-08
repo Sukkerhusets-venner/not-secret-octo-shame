@@ -5,6 +5,7 @@
  */
 package prosjekt.database;
 
+import prosjekt.Domene.User;
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,8 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.sql.DataSource;
 import java.util.Random;
-import prosjekt.Beans.*;
+import prosjekt.Domene.*;
 
 /**
  *
@@ -22,10 +24,11 @@ import prosjekt.Beans.*;
 public class DatabaseConnection {
 
     private Connection connection;
-
+    private DataSource dataSource;
     /**
      *
      */
+    
     public DatabaseConnection() {
 
         connection = null;

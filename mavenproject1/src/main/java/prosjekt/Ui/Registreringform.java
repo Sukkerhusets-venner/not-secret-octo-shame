@@ -6,7 +6,7 @@
 
 package prosjekt.Ui;
 
-import prosjekt.Beans.User;
+import prosjekt.Domene.User;
 
 /**
  *
