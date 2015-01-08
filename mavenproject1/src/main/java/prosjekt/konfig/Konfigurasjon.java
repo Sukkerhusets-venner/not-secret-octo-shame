@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -45,7 +46,11 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
         
     }
-
+    
+    @Bean
+    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent ) {
+        System.gc();
+    }
     @Override
     @Bean
     public HandlerMapping resourceHandlerMapping() {
