@@ -12,12 +12,13 @@ import prosjekt.Ui.Loginform;
 @Controller
 public class loginKontroller {
     
-    @RequestMapping(value = "/")
+    
+    @RequestMapping(value = "/*")
     public String showForm(@ModelAttribute Loginform loginform){
         return "login";
     }
     
-    @RequestMapping (value = "/Log inn")
+    @RequestMapping (value = "Log inn")
     public String login () {
         return "Hovedside";
     }
