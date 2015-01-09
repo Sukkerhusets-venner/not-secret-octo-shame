@@ -28,13 +28,26 @@ public class registrerKontroller {
     }
     @RequestMapping(value = "/send")
     public String showForm(@ModelAttribute Registreringform registreringform, Model model){
+        
+        boolean returnregister = false;
+        
         if (!emailer.validator (registreringform.getUser().getEmail())) {
             model.addAttribute("emailError", "Du må skrive inn en gyldig email adresse");
+            returnregister = true;
+        }
+        
+        if (registreringform.getUser().getUsername().isEmpty()) {
+            model.addAttribute("usernameEmptyError", "Du må skrive inn et brukernavn");
+            returnregister = true;
+        }
+        
+        if (returnregister) {
             return "registrer";
         }
-        if (database.registerUser(registreringform.getUser())) {
-            emailer.email(registreringform.getUser().getEmail(), registreringform.getUser().getUsername(),
-                            database.getUser(registreringform.getUser().getEmail()).getPassword());
+        
+        String password = database.registerUser(registreringform.getUser());
+        if (password != null) {
+            emailer.email(registreringform.getUser().getEmail(), registreringform.getUser().getUsername(), password);
             return "registerSuccess";
         } else {
             model.addAttribute("registerError", "En bruker med denne emailen er allerede registrert");

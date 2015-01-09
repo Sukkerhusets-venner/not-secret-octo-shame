@@ -30,6 +30,22 @@ public class loginKontroller {
     @RequestMapping (value = "Log inn")
     public String login (HttpServletRequest request,@ModelAttribute Loginform loginform, Model model) {
 
+        boolean returnlogin = false;
+        
+        if (loginform.getUser().getEmail().isEmpty()) {
+            model.addAttribute("usernameEmptyError", "Du må skrive inn et brukernavn");
+            returnlogin = true;
+        }
+        
+        if (loginform.getUser().getPassword().isEmpty()) {
+            model.addAttribute("passwordEmptyError", "Du må skrive inn et passord");
+            returnlogin = true;
+        }
+        
+        if (returnlogin) {
+            return "login";
+        }
+        
         if (database.checkLogin(loginform.getUser().getEmail(), loginform.getUser().getPassword())) {
             HttpSession session = request.getSession();
             session.setAttribute ("Username", database.getUser(loginform.getUser().getEmail()).getUsername());

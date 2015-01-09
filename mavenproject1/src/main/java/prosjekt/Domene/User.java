@@ -6,18 +6,20 @@ public class User {
 
     int id;
     String username;
-    String password;
     String email;
+    String password;
 
-    public User(int id, String username, String password, String email) {
+    public User() {
+    };
+    
+    public User(int id, String username, String email, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
     }
-    
 
-    public User(String username, String password, String email) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -29,10 +31,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-    
-    public User () {
-        
     }
 
     public String getUsername() {
@@ -89,6 +87,4 @@ public class User {
         return true;
     }
 
-    
-    
 }

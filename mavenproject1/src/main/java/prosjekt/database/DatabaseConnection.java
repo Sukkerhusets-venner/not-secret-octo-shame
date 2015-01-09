@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.sql.DataSource;
 import java.util.Random;
 import prosjekt.Domene.*;
@@ -25,9 +26,7 @@ public class DatabaseConnection {
 
     private Connection connection;
     private DataSource dataSource;
-    /**
-     *
-     */
+
     
     public DatabaseConnection() {
 
@@ -49,9 +48,11 @@ public class DatabaseConnection {
         }
     }
 
+    
     public boolean checkConnection(){
         return connection != null;
     }
+    
     
     public void closeConnection() {
 
@@ -64,8 +65,11 @@ public class DatabaseConnection {
         }
     }
 
+    
     public boolean checkLogin(String email, String password) {
 
+        password = hashString(password);
+        
         ResultSet resultSet = null;
         String query
                 = "SELECT email, password FROM User WHERE email = ? and password = ? ";
@@ -87,26 +91,31 @@ public class DatabaseConnection {
         return false;
     }
 
-    public boolean registerUser(User user) {
+    
+    public String registerUser(User user) {
 
         String sqlStatement = "INSERT INTO User(user_id, name, email, password) "
                 + "VALUES (DEFAULT, ?, ?, ?)";
         try {
+            String generatedPassword = generatePassword();
+            
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getEmail());
-            pstmt.setString(3, hashString(generatePassword()));
+            pstmt.setString(3, hashString(generatedPassword));
 
             pstmt.executeUpdate();
             
-            return true;
+            return generatedPassword;
         } catch (Exception e) {
             rollBack();
             printErrorMessage(e, "Registrer bruker");
         }
 
-        return false;
+        return null;
     }
+    
+    
     public User getUser(String email) {
         ResultSet resultSet = null;
         String sqlStatement = "SELECT*FROM User WHERE email=?";
@@ -135,6 +144,7 @@ public class DatabaseConnection {
         return null;
     }
     
+    
     public boolean editUser(User user){
         
         String sqlStatement = "UPDATE User SET "
@@ -157,14 +167,15 @@ public class DatabaseConnection {
 
         return false;
     }
+
     
     public boolean deleteUser(User user) {
         
-        String sqlStatement = "DELETE FROM User + WHERE email=?";
+        String sqlStatement = "DELETE FROM User WHERE User.user_id=?";
         
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-            pstmt.setString(1, user.getEmail());
+            pstmt.setInt(1, user.getId());
             
             pstmt.executeUpdate();
             
@@ -173,6 +184,26 @@ public class DatabaseConnection {
             printErrorMessage(e, "delete user failed");
         }
         return false;
+    }
+    
+    public ArrayList<User> getUsers() {
+        String sqlStatement = "SELECT name, email, approved FROM User "; //join on score hvor godkjenningen vil ligg
+        ArrayList<User> user = new ArrayList<User>();
+        ResultSet resultSet = null;
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            
+            pstmt.executeUpdate();
+
+            while (resultSet.next()) {
+                user.add(getUser(resultSet.getString(1)));
+            }
+            return user;
+
+        } catch (Exception e) {
+            printErrorMessage(e, "feil i getUsers list");
+        }
+        return null;
     }
     
     
@@ -193,10 +224,9 @@ public class DatabaseConnection {
     }
     
 
-    private String hashString(String string) {
+    public String hashString(String string) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            string = "mitt passord er apekatt";
 
             md.update(string.getBytes("UTF-8")); // Change this to "UTF-16" if needed
             byte[] digest = md.digest();
