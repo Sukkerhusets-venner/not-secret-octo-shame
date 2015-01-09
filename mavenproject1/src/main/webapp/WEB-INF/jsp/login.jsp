@@ -25,7 +25,7 @@
                                 <a href="<c:url value="registrer"/>" class="register" >Registrer</a>
 
                                 <input type="submit" name="submit" value="Login" class="button" />
-                                <i class="errorMessage"><c:if test = "${not empty loginError}"> <c:out value = "${loginError}"/> </c:if></i>
+                                <i class="errorMessage" id="loginError"><c:if test = "${not empty loginError}"> <c:out value = "${loginError}"/> </c:if></i>
                                 </div>
 
                         </form:form>
