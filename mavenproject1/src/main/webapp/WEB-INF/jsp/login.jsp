@@ -23,6 +23,7 @@
         
         <br> <br> <a href ="<c:url value = "logincheat"/>" > login cheat for de som ikke gidder/kan logge inn :) </a>
 
-        <br> <br> <a href ="<c:url value="jSpill" />" >Meeep </a>
+        <br> <br> <a href ="<c:url value="snake" />" >Snakes! </a>
+         
     </body>
 </html>
