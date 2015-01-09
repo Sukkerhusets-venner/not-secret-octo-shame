@@ -107,15 +107,25 @@ public class DatabaseConnection {
 
         return false;
     }
-    public User getUser() {
+    public User getUser(String email) {
         ResultSet resultSet = null;
-        String sqlStatement = "SELECT*FROM User WHERE email=";
-        User use = null;
+        String sqlStatement = "SELECT*FROM User WHERE email=?";
+        User user = null;
+        
         
         try {
-        PreparedStatement pstmt = connection.prepareStatement(sqlStatement); 
+        PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+        pstmt.setString(1, user.getEmail());
+        resultSet = pstmt.executeQuery(sqlStatement);
         
-        return use;
+        
+        while (resultSet.next()) {
+            String userName = resultSet.getString(1);
+            String password = resultSet.getString(3);
+            user = new User(userName, email, password);       
+        }
+       
+        return user;
         } catch(Exception e) {
             printErrorMessage(e, "getUser");
         }
