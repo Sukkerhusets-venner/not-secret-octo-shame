@@ -7,7 +7,8 @@
                 <tr>
                     <td>Brukernavn : </td>
                     <td><form:input path="user.username" /></td>
-                    <td><form:errors path="user.username" /></td>               
+                    <td><form:errors path="user.username" /></td>      
+                    <td> <c:if test = "${not empty usernameEmptyError}"> <c:out value = "${usernameEmptyError}"/> </c:if> </td>
                 </tr>
                 <tr>
                     <td>Epost : </td>
