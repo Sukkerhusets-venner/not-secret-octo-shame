@@ -20,5 +20,7 @@
                 </tr>
             </table>
         </form:form>
+        
+        <br> <br> <a href ="<c:url value = "registrertest"/>" > registertest </a>
     </body>
 </html>
