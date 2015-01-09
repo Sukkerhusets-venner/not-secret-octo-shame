@@ -133,6 +133,23 @@ public class DatabaseConnection {
         return null;
     }
     
+    public boolean deleteUser(User user ) {
+        
+        String sqlStatement = "DELETE FROM User + WHERE email=?";
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            pstmt.setString(1, user.getEmail());
+            
+            pstmt.executeUpdate();
+            
+            return true;
+        } catch (Exception e) {
+            printErrorMessage(e, "delete user failed");
+        }
+        return false;
+    }
+    
     
     private void printErrorMessage(Exception e, String message) {
         System.err.println("*** Feil oppstått: " + message + ". ***");
