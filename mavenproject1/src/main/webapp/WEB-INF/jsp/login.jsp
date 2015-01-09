@@ -7,7 +7,7 @@
             <form:form method="POST" modelAttribute="loginform" action ="Log inn" >
                 <table>
                     <tr>
-                         <td> Brukernavn : </td>
+                         <td> Email : </td>
                          <td><form:input path="user.email" /></td>
                         <td> <c:if test = "${not empty usernameEmptyError}"> <c:out value = "${usernameEmptyError}"/> </c:if> </td>
                     </tr>
