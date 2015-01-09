@@ -7,12 +7,13 @@
                 <tr>
                     <td>Brukernavn : </td>
                     <td><form:input path="user.username" /></td>
-                    <td><form:errors path="user.username" /></td>
+                    <td><form:errors path="user.username" /></td>               
                 </tr>
                 <tr>
                     <td>Epost : </td>
                     <td><form:input path="user.email" /></td>
                     <td><form:errors path="user.email" /></td>
+                    <td> <c:if test = "${not empty emailError}"> <c:out value = "${emailError}"/> </c:if> </td>
                 </tr>
                 <tr>
                     <td><input type="submit" value="SEND"></td>
