@@ -49,7 +49,7 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
     @Bean
     public HandlerMapping resourceHandlerMapping() {
         AbstractHandlerMapping handlerMapping = (AbstractHandlerMapping) super.resourceHandlerMapping();
-        handlerMapping.setOrder(-1);
+        //handlerMapping.setOrder(-1);
         ((SimpleUrlHandlerMapping) handlerMapping).setInterceptors(getInterceptors()); // bug fix
         return handlerMapping;
     }
@@ -57,23 +57,6 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
-    }
-    
-    @Bean
-    public DataSource dataSource(){
-        String url = "jdbc:mysql://158.38.48.10:3306/team6";
-        String username = "team6";
-        String password = "Team62015";
-        DriverManagerDataSource dmds = new DriverManagerDataSource(url, username, password);
-        dmds.setDriverClassName("org.apache.derby.jdbc.ClientDriver");
-        try{
-            Connection con = dmds.getConnection();
-            System.out.println(" *********  Konfig " + con );
-            //getAllePersoner(con); //brukes for testing av oppkobling
-        }catch(Exception e){
-            System.out.println(" Konfig.Feil ved henting av conncetion() " + e);
-        }
-        return dmds;
     }
     
     @Bean 
