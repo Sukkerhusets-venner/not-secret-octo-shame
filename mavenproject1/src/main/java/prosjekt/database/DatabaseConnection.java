@@ -91,25 +91,27 @@ public class DatabaseConnection {
     }
 
     
-    public boolean registerUser(User user) {
+    public String registerUser(User user) {
 
         String sqlStatement = "INSERT INTO User(user_id, name, email, password) "
                 + "VALUES (DEFAULT, ?, ?, ?)";
         try {
+            String generatedPassword = generatePassword();
+            
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getEmail());
-            pstmt.setString(3, hashString(generatePassword()));
+            pstmt.setString(3, hashString(generatedPassword));
 
             pstmt.executeUpdate();
             
-            return true;
+            return generatedPassword;
         } catch (Exception e) {
             rollBack();
             printErrorMessage(e, "Registrer bruker");
         }
 
-        return false;
+        return null;
     }
     
     
