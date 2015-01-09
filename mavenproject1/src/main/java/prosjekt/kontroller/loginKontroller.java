@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,13 +28,14 @@ public class loginKontroller {
     }
     
     @RequestMapping (value = "Log inn")
-    public String login (HttpServletRequest request,@ModelAttribute Loginform loginform) {
-        System.out.println( loginform.getUser().getEmail() + " " + loginform.getUser().getPassword());
+    public String login (HttpServletRequest request,@ModelAttribute Loginform loginform, Model model) {
+
         if (database.checkLogin(loginform.getUser().getEmail(), loginform.getUser().getPassword())) {
             HttpSession session = request.getSession();
             session.setAttribute ("Username", loginform.getUser().getEmail());
             return "Hovedside";
         } else {
+            model.addAttribute("loginError", "Feil email/passord");
             return "login";
         }
     }

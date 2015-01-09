@@ -12,7 +12,8 @@
                         <td><form:input type="password" path ="user.password" /></td>
                     </tr>
                     <tr>
-                    <td><input type='submit' value="Log inn"></td>
+                        <td><input type='submit' value="Log inn"> </td>
+                        <td> <c:if test = "${not empty loginError}"> <c:out value = "${loginError}"/> </c:if> </td>
                     </tr>
     
                 </table>
