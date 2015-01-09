@@ -1,15 +1,8 @@
-<%@ page pageEncoding="UTF-8" %>
-<%@page import="org.springframework.web.servlet.resource.ResourceUrlProvider" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!--<spring:url value="/css/style.css" var="resourceUrl"/>
-        <link rel="stylesheet" href="src/main/webapp/resources/css/style.css" />
-        <link rel="stylesheet" href="src/main/webapp/css/style.css" />
-       <link rel="stylesheet" href="${resourceUrl}" />-->
-        <title>JSP Page</title>
-    </head>
-    <p>Url1: ${resourceUrl}</p>
+        <link href="resources/css/style.css" rel="stylesheet" type="text/css"/>
+    

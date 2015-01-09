@@ -5,24 +5,25 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
+import prosjekt.lytter.contextListener;
 
 public class InitialiserDispatcherServlet implements WebApplicationInitializer {
 
     @Override
-    public void onStartup(final ServletContext servletContext) throws ServletException {
-        registerDispatcherServlet(servletContext);
-    }
-
-    private void registerDispatcherServlet(final ServletContext servletContext) {
-        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.register(Konfigurasjon.class);
-
-        DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
-
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", dispatcherServlet);
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        WebApplicationContext context = getContext();
+        servletContext.addListener(new contextListener(context));
+        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(context));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
+    }
+    
+    private AnnotationConfigWebApplicationContext getContext(){
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+        context.register(Konfigurasjon.class);
+        return context;
     }
 }

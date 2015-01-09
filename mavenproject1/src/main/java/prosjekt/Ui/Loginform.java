@@ -6,8 +6,6 @@ import prosjekt.Domene.User;
 
 public class Loginform {
     
-    
-    
     private User user;
     
     public Loginform () {
