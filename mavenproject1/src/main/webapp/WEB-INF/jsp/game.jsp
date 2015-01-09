@@ -40,14 +40,7 @@
                 setRenderedResult($("#resultFrame"), startingHtml, startingCss);
 
 		editorHtml.getDoc().setValue(startingHtml);
-		editorCss.getDoc().setValue(startingCss);
-		
-                               
-                $("#viewResult").click(function() {
-                    setRenderedResult($("#resultFrame"), editorHtml.getDoc().getValue(), editorCss.getDoc().getValue());
-                });
-                
-               
+		editorCss.getDoc().setValue(startingCss);                     
                 
                 $("#compare").click(function() { 
                     
@@ -107,6 +100,9 @@
 	    						        lineNumbers: true,
 	    						      	mode: "text/css"
 	    		});
+                        editorCss.on('change', function(e){
+                            setRenderedResult($("#resultFrame"), editorHtml.getDoc().getValue(), editorCss.getDoc().getValue());
+                        });
     		</script>
         </section>
 
@@ -118,6 +114,9 @@
 	    								        mode: "text/html",
 	    								        lineNumbers: true,
 	    		});
+                        editorHtml.on('change', function(e){
+                            setRenderedResult($("#resultFrame"), editorHtml.getDoc().getValue(), editorCss.getDoc().getValue());
+                        });
 		</script>
         </section>
     </section>
