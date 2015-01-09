@@ -97,7 +97,7 @@ public class DatabaseConnection {
             pstmt.setString(2, user.getEmail());
             pstmt.setString(3, hashString(generatePassword()));
 
-            pstmt.executeQuery();
+            pstmt.executeUpdate();
             
             return true;
         } catch (Exception e) {
@@ -115,8 +115,8 @@ public class DatabaseConnection {
         
         try {
         PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-        pstmt.setString(1, user.getEmail());
-        resultSet = pstmt.executeQuery(sqlStatement);
+        pstmt.setString(1, email);
+        resultSet = pstmt.executeQuery();
         
         
         while (resultSet.next()) {
@@ -133,7 +133,7 @@ public class DatabaseConnection {
         return null;
     }
     
-    public boolean deleteUser(User user ) {
+    public boolean deleteUser(User user) {
         
         String sqlStatement = "DELETE FROM User + WHERE email=?";
         
