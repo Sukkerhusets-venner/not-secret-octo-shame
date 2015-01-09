@@ -34,16 +34,6 @@ public class DatabaseConnectionTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of closeConnection method, of class DatabaseConnection.
-     */
-//    @Test
-//    public void testCloseConnection() {
-//        System.out.println("closeConnection");
-//        DatabaseConnection instance = new DatabaseConnection();
-//        instance.closeConnection();
-//        assertEquals(instance.)
-//    }
 
     /**
      * Test of checkLogin method, of class DatabaseConnection.
@@ -65,13 +55,11 @@ public class DatabaseConnectionTest {
     @Test
     public void testRegisterUser() {
         System.out.println("registerUser");
-        User user = null;
+        User user = new User("test", "test@test.no", "test");
         DatabaseConnection instance = new DatabaseConnection();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.registerUser(user);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -110,6 +98,21 @@ public class DatabaseConnectionTest {
         System.out.println("closeConnection");
         DatabaseConnection instance = new DatabaseConnection();
         instance.closeConnection();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of editUser method, of class DatabaseConnection.
+     */
+    @Test
+    public void testEditUser() {
+        System.out.println("editUser");
+        User user = null;
+        DatabaseConnection instance = new DatabaseConnection();
+        boolean expResult = false;
+        boolean result = instance.editUser(user);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

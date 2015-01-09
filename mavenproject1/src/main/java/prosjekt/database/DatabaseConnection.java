@@ -120,17 +120,42 @@ public class DatabaseConnection {
         
         
         while (resultSet.next()) {
-            String userName = resultSet.getString(1);
-            String password = resultSet.getString(3);
-            user = new User(userName, email, password);       
+            int id = (Integer) resultSet.getObject(1);
+            String userName = resultSet.getString(2);
+            String password = resultSet.getString(4);
+            user = new User(id, userName, email, password);       
         }
        
         return user;
+        
         } catch(Exception e) {
             printErrorMessage(e, "getUser");
         }
         
         return null;
+    }
+    
+    public boolean editUser(User user){
+        
+        String sqlStatement = "UPDATE User SET "
+                + " id = DEFAULT, username = ? ,email = ?, password = ? "
+                + "WHERE User.id = ?";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, user.getEmail());
+            pstmt.setString(3, user.getPassword());
+            pstmt.setInt(4, user.getId());
+
+            pstmt.executeUpdate();
+            
+            return true;
+        } catch (Exception e) {
+            rollBack();
+            printErrorMessage(e, "Forandre bruker");
+        }
+
+        return false;
     }
     
     public boolean deleteUser(User user) {
