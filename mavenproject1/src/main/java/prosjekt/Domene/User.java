@@ -1,12 +1,16 @@
-
 package prosjekt.Domene;
 
-
 public class User {
-    
+
     String username;
     String password;
     String email;
+
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 
     public String getUsername() {
         return username;
@@ -32,8 +36,4 @@ public class User {
         this.email = email;
     }
 
-    
-    
-    
-    
 }
