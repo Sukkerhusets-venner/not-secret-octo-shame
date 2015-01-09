@@ -1,6 +1,9 @@
 <%@page contentType="text/html" session="true" pageEncoding="UTF-8"%>
     <%@include file="../../includes/head.jspf" %>
+    <title>Log inn</title>
+    </head>
     <body>
+            <div class="midForm">
             <form:form method="POST" modelAttribute="loginform" action ="Log inn" >
                 <table>
                     <tr>
@@ -18,6 +21,7 @@
     
                 </table>
             </form:form>
+            </div>
         <br>
         <a href="<c:url value="registrer"/>" >Har du ikke bruker? Registrer deg her da vel!</a>
         

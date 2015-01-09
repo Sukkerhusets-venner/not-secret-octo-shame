@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
     <%@include file="../../includes/head.jspf" %>
+    <title>Registrer</title>
+</head>
     <body>
         <form:form method="POST" modelAttribute="registreringform" action="send" >
             <table>
