@@ -17,6 +17,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import prosjekt.database.DatabaseConnection;
+import prosjekt.mailservice.emailer;
 
 @Configuration
 @EnableWebMvc  // mvc annotation
@@ -62,6 +63,11 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
     @Bean 
     public DatabaseConnection database() {
         return new DatabaseConnection();
+    }
+    
+    @Bean
+    public emailer emailer () {
+        return new emailer();
     }
     
     

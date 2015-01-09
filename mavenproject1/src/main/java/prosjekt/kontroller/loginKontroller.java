@@ -32,7 +32,7 @@ public class loginKontroller {
 
         if (database.checkLogin(loginform.getUser().getEmail(), loginform.getUser().getPassword())) {
             HttpSession session = request.getSession();
-            session.setAttribute ("Username", loginform.getUser().getEmail());
+            session.setAttribute ("Username", database.getUser(loginform.getUser().getEmail()).getUsername());
             return "Hovedside";
         } else {
             model.addAttribute("loginError", "Feil email/passord");

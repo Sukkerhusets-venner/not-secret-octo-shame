@@ -16,6 +16,7 @@
                 </tr>
                 <tr>
                     <td><input type="submit" value="SEND"></td>
+                    <td> <c:if test = "${not empty registerError}"> <c:out value = "${registerError}"/> </c:if> </td>
                 </tr>
             </table>
         </form:form>
