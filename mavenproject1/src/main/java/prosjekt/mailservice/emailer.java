@@ -1,63 +1,64 @@
 package prosjekt.mailservice;
 
+
+
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+
 public class emailer {
-
-    private String sender = "chil@noreply.com"; //Vår email !
-    private String recipient;
-    private String host;
-
-    public emailer(String to, String h) {
-        recipient = to;
-        this.host = h;
-    }
     
-    public void setMailer(String from){
-        this.sender = from;
-    }
-    
-    public String getMailer(){
-        return sender;
-    }
-    
-    public void setHost(String h){
-        this.host = h;
-    }
-    public String getHost(){
-        return host;
-    } 
+    /**
+     *
+     * @param toEmail
+     * @param toUsername
+     * @param toPassword
+     */
+    public static void email (String toEmail, String toUsername, String toPassword){
+        
+        final String to = toEmail;
+        final String fromUsername = "PassordBotCHIL@gmail.com";
+        final String fromPassword = "CHIL1234";
+        Properties properties = new Properties ();
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
 
-    public boolean sendMessage(String subject, String message) {
-      
-        boolean success = false;
-        Properties properties = System.getProperties();
-        properties.setProperty("mail.smtp.host", host);
-
-        Session session = Session.getDefaultInstance(properties);
-
+        Session session = Session.getInstance(properties,
+          new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(fromUsername, fromPassword);
+            }
+          });
+        
         try {
-            // Create a default MimeMessage object.
-            MimeMessage mmessage = new MimeMessage(session);
-            // Set From: header field of the header.
-            mmessage.setFrom(new InternetAddress(sender));
-            // Set To: header field of the header.
-            mmessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+         // Create a default MimeMessage object.
+         MimeMessage message = new MimeMessage(session);
 
-            // Set Subject: header field
-            mmessage.setSubject(subject);
+         // Set From: header field of the header.
+         message.setFrom(new InternetAddress(fromUsername));
 
-            // Now set the actual message
-            mmessage.setText(message);
+         message.setRecipients(Message.RecipientType.TO,
+                InternetAddress.parse(to));
+            message.setSubject("Ditt Passord for CHIL");
+            message.setText("Hei " + toUsername
+                + "\n\nHer er det nye passordet ditt til CHIL: " + toPassword);
 
-            // Send message
-            Transport.send(mmessage);
-            success = true;
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
-        }
-        return success;
+
+         // Send message
+         Transport.send(message);
+      }catch (MessagingException mex) {
+         mex.printStackTrace();
+        }          
+     }
+    
+    public static boolean validator (String email) {
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+        Matcher m = p.matcher(email);
+        return m.matches();
     }
-}
+  }

@@ -1,7 +1,5 @@
 package prosjekt.konfig;
 
-import java.sql.Connection;
-import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,15 +11,16 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import prosjekt.database.DatabaseConnection;
+import prosjekt.mailservice.emailer;
 
 @Configuration
 @EnableWebMvc  // mvc annotation
 @ComponentScan(basePackages = {"prosjekt.kontroller"}) // pakken der controllerne ligger
 public class Konfigurasjon extends WebMvcConfigurationSupport {
+    
     @Bean
     public InternalResourceViewResolver getInternalResourceView() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -29,27 +28,27 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
         resolver.setSuffix(".jsp");
         return resolver;
     }
+    
     @Bean
     public ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
         source.setBasename("/WEB-INF/messages");
         return source;
     }
-
     // equivalents for <mvc:resources/> tags
     // Hvor finnes statisk ressurser som bilder/ css/ js osv.
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations("classpath:/Web Pages/resources/")
-                .setCachePeriod(31556926);
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+                //.addResourceLocations("classpath:/Web Pages/resources/")
+                //.setCachePeriod(31556926);
     }
     
     @Override
     @Bean
     public HandlerMapping resourceHandlerMapping() {
         AbstractHandlerMapping handlerMapping = (AbstractHandlerMapping) super.resourceHandlerMapping();
-        //handlerMapping.setOrder(-1);
+        handlerMapping.setOrder(-1);
         ((SimpleUrlHandlerMapping) handlerMapping).setInterceptors(getInterceptors()); // bug fix
         return handlerMapping;
     }
@@ -62,6 +61,11 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
     @Bean 
     public DatabaseConnection database() {
         return new DatabaseConnection();
+    }
+    
+    @Bean
+    public emailer emailer () {
+        return new emailer();
     }
     
     
