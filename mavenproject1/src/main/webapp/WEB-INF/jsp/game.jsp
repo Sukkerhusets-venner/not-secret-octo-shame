@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html>
-    <head>
+<%@include file="../../includes/head.jspf" %>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <%@include file="../../includes/html2canvas.jspf" %>
-        <%@include file="../../includes/resemble.jspf" %>
+        <script src="resources/js/resemble.js"></script>
+	<script src="resources/js/html2canvas.js"></script>
+	<link rel="stylesheet" href="resources/css/codemirror.css">
+	<script src="resources/js/codemirror.js"></script>
+	<script src="resources/js/xml.js"></script>
+	<script src="resources/js/css.js"></script>
+	<script src="resources/js/beautify-css.js"></script>
+	<script src="resources/js/beautify-html.js"></script>
+
         <style>
             .block {
                 float: left;
@@ -23,20 +28,23 @@
             $(document).ready(function() {
                 
                 var solutionHtml = "<!DOCTYPE html><html><body><h1>Hei</h1> Her skal du finne CSS feilen </body></html>";
-                var solutionCss = "body {background-color: white;} h1 { color: blue; text-align: center; }";
+                var solutionCss = "body {background-color: white; color: black;} h1 { color: blue; text-align: center; }";
                 
-                var startingHtml = "<!DOCTYPE html><html><body><h1>Hei</h1> Her skal du finne CSS feilen </body></html>";
-                var startingCss = "body {background-color: black;} h1 { color: grey; text-align: left; }";
+                var sHtml = "<!DOCTYPE html><html><body><h1>Hei</h1> Her skal du finne CSS feilen </body></html>";
+                var sCss = "body {background-color: black; color: white;} h1 { color: grey; text-align: left; }";
                
+               	var startingHtml = style_html(sHtml);
+		var startingCss = css_beautify(sCss);
                 
                 setRenderedResult($("#solutionFrame"), solutionHtml, solutionCss);
                 setRenderedResult($("#resultFrame"), startingHtml, startingCss);
 
-                $("#htmlView").val(startingHtml); 
-                $("#cssView").val(startingCss); 
+		editorHtml.getDoc().setValue(startingHtml);
+		editorCss.getDoc().setValue(startingCss);
+		
                                
                 $("#viewResult").click(function() {
-                    setRenderedResult($("#resultFrame"), $("#htmlView").val(), $("#cssView").val());
+                    setRenderedResult($("#resultFrame"), editorHtml.getDoc().getValue(), editorCss.getDoc().getValue());
                 });
                 
                
@@ -92,12 +100,25 @@
 
         <section class="block">        
             <p>CSS</p>
-            <textarea class="codeBox" id="cssView"></textarea>
+            <form><textarea id="cssView" name="css"></textarea></form>
+	    	<script>
+	    		var editorCss = CodeMirror.fromTextArea(document.getElementById("cssView"), {
+	    						        extraKeys: {"Ctrl-Space": "autocomplete"},
+	    						        lineNumbers: true,
+	    						      	mode: "text/css"
+	    		});
+    		</script>
         </section>
 
         <section class="block">        
             <p>HTML</p>
-            <textarea class="codeBox" id="htmlView" disabled=""></textarea>
+            <form><textarea id="htmlView" name="html"></textarea></form>
+	    	<script>
+	                var editorHtml = CodeMirror.fromTextArea(document.getElementById("htmlView"), {
+	    								        mode: "text/html",
+	    								        lineNumbers: true,
+	    		});
+		</script>
         </section>
     </section>
 </html>
