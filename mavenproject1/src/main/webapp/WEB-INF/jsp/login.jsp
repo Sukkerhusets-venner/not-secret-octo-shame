@@ -7,12 +7,14 @@
             <form:form method="POST" modelAttribute="loginform" action ="Log inn" >
                 <table>
                     <tr>
-                         <td> Brukernavn : </td>
+                         <td> Email : </td>
                          <td><form:input path="user.email" /></td>
+                        <td> <c:if test = "${not empty usernameEmptyError}"> <c:out value = "${usernameEmptyError}"/> </c:if> </td>
                     </tr>
                     <tr>
                         <td> Passord: </td>
                         <td><form:input type="password" path ="user.password" /></td>
+                        <td> <c:if test = "${not empty passwordEmptyError}"> <c:out value = "${passwordEmptyError}"/> </c:if> </td>
                     </tr>
                     <tr>
                         <td><input type='submit' value="Log inn"> </td>
