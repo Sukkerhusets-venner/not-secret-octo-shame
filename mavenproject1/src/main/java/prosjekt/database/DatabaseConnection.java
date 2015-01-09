@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.sql.DataSource;
 import java.util.Random;
 import prosjekt.Domene.*;
@@ -183,6 +184,26 @@ public class DatabaseConnection {
             printErrorMessage(e, "delete user failed");
         }
         return false;
+    }
+    
+    public ArrayList<User> getUsers() {
+        String sqlStatement = "SELECT name, email, approved FROM User "; //join on score hvor godkjenningen vil ligg
+        ArrayList<User> user = new ArrayList<User>();
+        ResultSet resultSet = null;
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            
+            pstmt.executeUpdate();
+
+            while (resultSet.next()) {
+                user.add(getUser(resultSet.getString(1)));
+            }
+            return user;
+
+        } catch (Exception e) {
+            printErrorMessage(e, "feil i getUsers list");
+        }
+        return null;
     }
     
     
