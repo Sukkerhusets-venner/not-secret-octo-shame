@@ -3,6 +3,59 @@ html, body{
     min-height: 100%    
 }
 html{
-    background-image: url('../img/pattern-arhh.png');
     background:azure;
+    background:
+         -webkit-linear-gradient(45deg, hsla(133, 100%, 95%, 1) 0%, hsla(133, 100%, 95%, 0) 70%),
+         -webkit-linear-gradient(315deg, hsla(133, 92%, 93%, 1) 10%, hsla(133, 92%, 93%, 0) 80%),
+         -webkit-linear-gradient(225deg, hsla(140, 83%, 80%, 1) 10%, hsla(140, 83%, 80%, 0) 80%),
+         -webkit-linear-gradient(135deg, hsla(67, 64%, 77%, 1) 100%, hsla(67, 64%, 77%, 0) 70%);
+     background:
+         linear-gradient(45deg, hsla(133, 100%, 95%, 1) 0%, hsla(133, 100%, 95%, 0) 70%),
+         linear-gradient(135deg, hsla(133, 92%, 93%, 1) 10%, hsla(133, 92%, 93%, 0) 80%),
+         linear-gradient(225deg, hsla(140, 83%, 80%, 1) 10%, hsla(140, 83%, 80%, 0) 80%),
+         linear-gradient(315deg, hsla(67, 64%, 77%, 1) 100%, hsla(67, 64%, 77%, 0) 70%);
+
+    background:
+        -webkit-linear-gradient(45deg, hsla(53, 93%, 89%, 1) 0%, hsla(53, 93%, 89%, 0) 70%),
+        -webkit-linear-gradient(315deg, hsla(237, 78%, 91%, 1) 10%, hsla(237, 78%, 91%, 0) 80%),
+        -webkit-linear-gradient(225deg, hsla(105, 82%, 91%, 1) 10%, hsla(105, 82%, 91%, 0) 80%),
+        -webkit-linear-gradient(135deg, hsla(105, 79%, 91%, 1) 100%, hsla(105, 79%, 91%, 0) 70%);
+}
+p, a, i, li, th, td, dt, dd, ul, h2, h3{
+    color: #444;
+    text-shadow: 0px 1px 0 rgba(256,256,256,0.5);
+}
+.bordered{
+    box-shadow: 1px 1px 1px black;
+    
+}
+.outer-center {
+    float: right;
+    bottom: 50%;
+    right: 50%;
+    position: relative;
+}
+.inner-center {
+    bottom: -50%;
+    float: right;
+    right: -50%;
+    position: relative;
+}
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+}
+.clear {
+    clear: both;
 }
