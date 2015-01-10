@@ -33,6 +33,7 @@
                 <div id="profil">
                     <p>Brukernavn: <%=session.getAttribute("Username")%></p>
                     <p>Email: <c:out value = "${loginform.user.email}"/></p>
+                    <p><a href="snake">Snakes!</a></p>
                 </div>
             </div>
             <div id="selectMenu">
