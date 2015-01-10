@@ -3,6 +3,7 @@ package prosjekt.kontroller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import prosjekt.Ui.Loginform;
 import prosjekt.database.DatabaseConnection;
-
-
 
 @Controller
 public class loginKontroller {
@@ -28,25 +27,11 @@ public class loginKontroller {
     }
     
     @RequestMapping (value = "Log inn")
-    public String login (HttpServletRequest request,@ModelAttribute Loginform loginform, Model model) {
-
+    public String login (@Valid @ModelAttribute Loginform loginform, HttpServletRequest request, Model model) {
         boolean returnlogin = false;
         
-        if (loginform.getUser().getEmail().isEmpty()) {
-            model.addAttribute("usernameEmptyError", "Du må skrive inn et brukernavn");
-            returnlogin = true;
-        }
-        
-        if (loginform.getUser().getPassword().isEmpty()) {
-            model.addAttribute("passwordEmptyError", "Du må skrive inn et passord");
-            returnlogin = true;
-        }
-        
-        if (returnlogin) {
-            return "login";
-        }
-        
         if (database.checkLogin(loginform.getUser().getEmail(), loginform.getUser().getPassword())) {
+            
             HttpSession session = request.getSession();
             session.setAttribute ("Username", database.getUser(loginform.getUser().getEmail()).getUsername());
             return "Hovedside";

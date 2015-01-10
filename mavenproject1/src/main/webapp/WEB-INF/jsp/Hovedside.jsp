@@ -1,32 +1,6 @@
-<%@page import="java.util.Enumeration"%>
 <%@page contentType="text/html" session="true" pageEncoding="UTF-8"%>
-<% /**
-     * Fallback
-     */
-    boolean tilgang = false;
-
-    try {
-        //session.getAttribute("Username")
-        // hvis validert! -- metode???
-        if (session.getAttribute("Username") != null || !session.getAttribute("Username").equals("null")) {
-            tilgang = true;
-        }
-        Enumeration<String> s = session.getAttributeNames();
-        while (s.hasMoreElements()) {
-            String st = s.nextElement();
-            if (st.equals("Username")) {
-                tilgang = true;
-            }
-        }
-    } catch (Exception e) {
-        // ???
-        response.sendRedirect("error");
-    }
-    if (tilgang) {
-%>
 <%@include file="../../includes/head.jspf" %>
 <link href="resources/css/niceMainpage.css" rel="stylesheet" type="text/css"/>
-<link href="resources/css/loader.css" rel="stylesheet" type="text/css"/>
 <title>Hovedside</title>
 </head>
 <html>
@@ -47,15 +21,9 @@
                     <!-- ---------------------------- -->
                 </div>
             </div>
-            <div id="loadBkgr">
-                <div class="container">
-                    <div class="part"></div>
-                    <div class="part"></div>
-                    <div class="part"></div>
-                    <div class="part"></div>
-                    <div class="part"></div>
-                </div>
-                <!--<figure></figure>-->
+            <div id="stuff">
+                <p><c:out value = "${User.username}"/> Model</p>
+                <p><%=session.getAttribute("Username")%> Session</p>
             </div>
             <div id="selectMenu">
                 <span>&#9312;</span>
@@ -63,10 +31,6 @@
                 <span>&#9314;</span>
             </div>
         </div>
+        
     </body>
-    <% } else { %>
-    <body>
-        <p> Hmm.. fant ikke brukeren din? </p>
-    </body>
-    <% }%>
 </html>

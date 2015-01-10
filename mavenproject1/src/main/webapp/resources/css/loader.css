@@ -1,4 +1,13 @@
-@import url(http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
+/*
+    Loader 1
+    (html): <div class="container">
+                    <div class="part"></div>
+                    <div class="part"></div>
+                    <div class="part"></div>
+                    <div class="part"></div>
+                    <div class="part"></div>
+            </div>
+*/
 .container {
   width: 100%;
   height: 100%;
@@ -83,7 +92,11 @@
   }
 }
 /*
-* {
+//   Loader 2
+//  (html): <figure></figure>
+
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
+*{
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }

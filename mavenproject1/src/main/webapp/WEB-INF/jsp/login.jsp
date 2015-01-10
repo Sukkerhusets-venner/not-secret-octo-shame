@@ -5,7 +5,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <form:form method="POST" modelAttribute="loginform" action ="Log inn" name="login-form" class="login-form"  >
+        <form:form method="POST" modelAttribute="loginform" action ="Log inn" name="login-form" class="login-form">
             <div class="header">
                 <h1>Login</h1>
                 <span>Venligst log inn eller registrer deg som bruker.</span>
@@ -19,16 +19,16 @@
 
             <div class="footer">
                 <a href="<c:url value="registrer"/>" class="register" >Registrer</a>
-
                 <input type="submit" name="submit" value="Login" class="button" />
-                <i class="errorMessage" id="loginError"><c:if test = "${not empty loginError}"> <c:out value = "${loginError}"/> </c:if></i>
-                <%
-                    // For at logincheat skal fungere (Må fjærnes)
-                    session.setAttribute("Username", "sopp");
-                %>
-                <a href="logincheat">Logincheat</a>
+                <i class="errorMessage" id="loginError">
+                    <c:out value = "${loginError}"/>
+                    <form:errors path="user.email" />
+                    <form:errors path="user.password" />
+                </i>
+                
                 </div>
         </form:form>
     </div>
+    <a href="logincheat" style="position:fixed; left:3rem; bottom:2rem;">Logincheat</a>
 </body>
 </html>

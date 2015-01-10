@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prosjekt.lytter;
 
 import javax.servlet.ServletContextEvent;
@@ -19,22 +14,18 @@ public class contextListener extends ContextLoaderListener {
         super(context);
     }
     
-    @Override
+    @Override // Trigger = åpner program
     public void contextInitialized(ServletContextEvent event){
-        //File folder = getFileFromURL();
-        //folder.getAbsolutePath());
-        //System.gc();
+        System.gc();
     }
-/*
-    private File getFileFromURL() {
-        URL url = this.getClass().getClassLoader().getResource("/style.css");
-        File file = null;
-        try {
-            file = new File(url.toURI());
-        } catch (URISyntaxException e) {
-            file = new File(url.getPath());
-        } finally {
-            return file;
-        }
+    @Override // Trigger = lukker program
+    public void contextDestroyed(ServletContextEvent event){
+        System.gc(); // rydder opp - vil ikke bruke unødig data
+    }
+    /*  
+    * Her kan du legge til en lytter for events mot servlets.  
+    *   - Veldig kjekt for å jobbe rundt spring
+    private appListener implements SerlvetEventListener{
+
     }*/
 }
