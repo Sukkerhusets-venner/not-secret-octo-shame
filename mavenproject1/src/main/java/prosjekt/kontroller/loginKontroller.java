@@ -28,10 +28,7 @@ public class loginKontroller {
     
     @RequestMapping (value = "Log inn")
     public String login (@Valid @ModelAttribute Loginform loginform, HttpServletRequest request, Model model) {
-        boolean returnlogin = false;
-        
         if (database.checkLogin(loginform.getUser().getEmail(), loginform.getUser().getPassword())) {
-            
             HttpSession session = request.getSession();
             session.setAttribute ("Username", database.getUser(loginform.getUser().getEmail()).getUsername());
             return "Hovedside";

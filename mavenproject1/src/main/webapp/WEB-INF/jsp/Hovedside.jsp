@@ -21,9 +21,19 @@
                     <!-- ---------------------------- -->
                 </div>
             </div>
+    <!--  Eksempel: admin::
+    <sec:authorize access="hasRole('admin')"></sec:authorize> -->
             <div id="stuff">
-                <p><c:out value = "${User.username}"/> Model</p>
-                <p><%=session.getAttribute("Username")%> Session</p>
+                <div id="spill">
+                    
+                </div>
+                <div id="hiscore">
+                    
+                </div>
+                <div id="profil">
+                    <p>Brukernavn: <%=session.getAttribute("Username")%></p>
+                    <p>Email: <c:out value = "${loginform.user.email}"/></p>
+                </div>
             </div>
             <div id="selectMenu">
                 <span>&#9312;</span>

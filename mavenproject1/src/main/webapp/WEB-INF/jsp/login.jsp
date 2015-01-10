@@ -29,6 +29,7 @@
                 </div>
         </form:form>
     </div>
+    <% session.setAttribute("Username", "Logincheat"); %>
     <a href="logincheat" style="position:fixed; left:3rem; bottom:2rem;">Logincheat</a>
 </body>
 </html>

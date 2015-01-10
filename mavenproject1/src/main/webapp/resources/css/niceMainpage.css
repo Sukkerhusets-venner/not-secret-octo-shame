@@ -131,3 +131,10 @@ body {
 #selectMenu span:hover{
     color: rgba(5, 5, 5, 0.4);
 }
+#profil{
+    
+}
+#profil p{
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
