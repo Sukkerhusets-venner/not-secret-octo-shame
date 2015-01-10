@@ -1,20 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=Bree+Serif);
-
-::selection {
-    color: #fff;
-    background: #f676b2; /* Safari */
-}
-::-moz-selection {
-    color: #fff;
-    background: #f676b2; /* Firefox */
-}
-*{
-    margin: 0;
-    padding: 0;
-    border: none;
-    outline: none;
-}
-
 body {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight:300;
@@ -22,9 +5,10 @@ body {
     text-decoration: none;
     height: 500px;
 }
-
+div{
+    text-align: center;   
+}
 #wrapper {
-    /* Center wrapper perfectly */
     width: 300px;
     height: 400px;
     margin: 70px auto;
@@ -164,6 +148,10 @@ CONTENT
     overflow: auto;
 
     background: #d4dedf;
+    
+    background: -webkit-radial-gradient(top,#dee8e9,#d2dcdd);
+    background: radial-gradient(at top,#dee8e9,#d2dcdd);
+    
     border-top: 1px solid #fff;
 
     box-shadow: inset 0 1px 0 rgba(0,0,0,0.15);
@@ -228,7 +216,6 @@ CONTENT
     padding: 10px;
     margin-right: 15px;
     cursor: pointer;
-    text-decoration: none;
     font-family: 'Bree Serif', serif;
     font-weight: 300;
     font-size: 18px;

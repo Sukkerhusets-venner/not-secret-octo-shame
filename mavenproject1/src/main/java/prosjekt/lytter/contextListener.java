@@ -23,7 +23,7 @@ public class contextListener extends ContextLoaderListener {
     public void contextInitialized(ServletContextEvent event){
         //File folder = getFileFromURL();
         //folder.getAbsolutePath());
-    
+        //System.gc();
     }
 /*
     private File getFileFromURL() {
