@@ -9,7 +9,7 @@ public class Loginform {
     
     @Valid
     private User user;
-    
+     
     public Loginform () {
         setUser (new User());
     }

@@ -11,5 +11,6 @@
             <h3>Der gikk det galt!</h3>
             <center><div id="ftknapp"><a href="login">Tilbake</a></div></center>
         </div>
+        <p><spring:message code="feilside.unntak" /> ${unntak}</p>
 </body>
 </html>
