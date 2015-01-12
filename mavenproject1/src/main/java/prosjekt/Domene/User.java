@@ -1,11 +1,19 @@
 package prosjekt.Domene;
 
 import java.util.Objects;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class User {
 
     int id;
+    @NotNull
+    @NotEmpty
     String username;
+    @NotNull
+    @NotEmpty
+    @Email
     String email;
     String password;
 

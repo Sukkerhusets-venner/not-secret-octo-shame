@@ -6,8 +6,9 @@ public class Task {
 
     int tasknr;
     String strTask = null; // streng fra database
-    String actualTask = null; // kun getter. Oppgaven som tolket streng
-    String answer = null; // kun setter. Svaret fra bruker
+    String taskHtml = null; // html delen av oppgaven
+    String taskCss = null; //css delen av oppgaven
+    String answer = null; //Svaret fra bruker
     int maxPoeng; // max poeng på oppgaven
     int poeng; // kun getter. Brukerens poeng på oppgaven
     String type = null; // setter type (snake, hangman osv)
@@ -22,11 +23,15 @@ public class Task {
     // Setter lagret streng til noe vi kan bruke som en oppgave
     private void loadTask() {
 
-        String[] del = strTask.split("§D"); // HTMLKODE ! CSSKODE ! type
-        this.type = del[2];
+        String[] del = strTask.split("§D"); // HTMLKODE §D CSSKODE §D type
+        try{
+            this.type = del[2];
+        }catch(ArrayIndexOutOfBoundsException ae){
+            this.type = "default";
+        }
 
         String[] bygg = interpretHtmlString(del[0]);
-        this.actualTask = buildString(bygg); // setter oppgave
+        this.taskHtml = buildString(bygg); // setter oppgave
     }
 
     private String buildString(String[] list) {
@@ -84,34 +89,19 @@ public class Task {
         }
         return list;
     }
-
-    // Danner en liste av kodeord ( brukes til å tolke input fra bruker)
-    private String[] stripAnswer(String str) {
-        String[] list = new String[0];
-        boolean codeWord = false;
-        StringBuilder word = new StringBuilder();
-        int nextItem = 0;
-
-        for (int i = 0; i < strTask.length(); i++) {
-            char charAt = strTask.charAt(i);
-            if (charAt == '<' || charAt == '{') {
-                list = addStr(list, word.toString());
-                word = new StringBuilder();
-                codeWord = true;
-            }
-            word.append(charAt);
-            if ((codeWord && charAt == '>') || (codeWord && charAt == '}')) {
-                list = addStr(list, word.toString());
-                word = new StringBuilder();
+    private String interpretAnswer(String str){
+        StringBuilder out = new StringBuilder();
+        for(int i = 0; i < str.length(); i++){
+            char charAt = str.charAt(i);
+            switch(charAt){
+                case '<': out.append("&lt;"); break;
+                case '>': out.append("&gt;"); break;
+                default: out.append(charAt); break;
             }
         }
-        // dersom koden ikke sluttet med > eller }
-        if (word.length() > 0) {
-            list = addStr(list, word.toString());
-        }
-        return list;
+        return out.toString();
     }
-
+   
     // List utility
     private String[] addStr(String[] list, String item) {
         String[] tmp = list;
@@ -129,39 +119,14 @@ public class Task {
         if (answer == null) {
             return 0;
         }
-        int d = LevenshteinDistance(answer, actualTask);
+        int d = LevenshteinDistance(interpretAnswer(answer), taskHtml);
         if (d > maxPoeng) {
             poeng = 0;
         } else {
             poeng = maxPoeng - d;
         }
-        // this.poeng = quickCompare(answer, actualTask);
-        return poeng;
+        return d;
     }
-
-    // Sammenlikner ord istedet for bokstaver. Return = poeng 
-    private int quickCompare(String ans, String fasit) {
-        int points = 0;
-        int len = 0;
-        String[] svar = stripAnswer(ans);
-        String[] actual = interpretHtmlString(fasit);
-
-        if (svar.length >= actual.length) {
-            len = actual.length;
-        } else {
-            len = svar.length;
-        }
-        for (int i = 0; i < len; i++) {
-            if (svar[i].equals(actual[i])) {
-                points++;
-            }
-        }
-        Double pros = (poeng) / ((double) svar.length);
-        points = (int) java.lang.Math.floor(pros * maxPoeng);
-
-        return points;
-    }
-
     // Lavenstein distance implementasjon
     public int LevenshteinDistance(String s0, String s1) {
         int len0 = s0.length() + 1;
@@ -222,8 +187,11 @@ public class Task {
         this.maxPoeng = maxPoeng;
     }
 
-    public String getActualTask() {
-        return actualTask;
+    public String getTaskHtml() {
+        return taskHtml;
+    }
+    public String getTaskCss(){
+        return this.taskCss;
     }
 
     public int getTasknr() {
