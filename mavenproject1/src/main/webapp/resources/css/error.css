@@ -7,8 +7,8 @@
     background: #f3f3f3;
     border: 1px solid #fff;
     border-radius: 2px;
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-
+    font-family: 'Bree Serif', serif;
+    
     box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
@@ -19,7 +19,7 @@ h1{
     font-weight: 300;
     font-size: 5rem;
     line-height: 2.5rem;
-    color: #666;
+    color: #888;
     text-align: center;
     padding-top: 1.5rem;
     padding-bottom: 1rem;
@@ -28,7 +28,7 @@ h1{
 h3{
     text-align:center;
     padding-top: 1rem;
-    color: #666;
+    color: #999;
 }
 #ftknapp{
     margin-top: 2rem;
@@ -37,27 +37,25 @@ h3{
     padding: 1rem 1rem 1rem 1rem;
     margin-bottom: 2rem;
 
-    background: rgba(30,30,30,0.3);
-    background: #63b6db; /* Old browsers */
-    background: -moz-linear-gradient(top, #ddd 0%, #bbb 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ddd), color-stop(100%,#bbb)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #ddd 0%,#bbb 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #ddd 0%,#bbb 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #ddd 0%,#bbb 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #ddd 0%,#bbb 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ddd', endColorstr='#bbb',GradientType=0 ); /* IE6-9 */
+    background: #56c2e1;
     
-    box-shadow: 0 1px 1px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.5);
-    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.5);
-    border: 1px solid #999;
+    box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+    -moz-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+    -webkit-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+    border: 1px solid #56c2e1;
 }
 #ftknapp a{
     padding: 1rem 1rem 1rem 1rem;
     text-shadow: none;
+    color: #eee;
+}
+#ftknapp:hover{
+    box-shadow: inset 0 0 2px rgba(136,136,136,0.85);
+    -moz-box-shadow: inset 0 0 2px rgba(136,136,136,0.85);
+    -webkit-box-shadow: inset 0 0 2px rgba(136,136,136,0.85);
 }
 #ftknapp:hover > a{
-    color: #eee;
+    color: #666;
 }
 #ftknapp:active{
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
