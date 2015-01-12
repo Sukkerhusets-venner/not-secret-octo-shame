@@ -47,7 +47,7 @@ public class loginKontroller {
     @ExceptionHandler(Exception.class)
     public ModelAndView handleError(HttpServletRequest req, Exception exception) {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("melding", "feilmelding.generell");
+        mav.addObject("melding", "feilmelding.generell"); //feilmelding.generelt finnes ikke
         mav.addObject("unntak",exception);
         mav.setViewName("error");
         return mav;
