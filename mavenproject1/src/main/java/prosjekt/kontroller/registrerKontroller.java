@@ -63,11 +63,5 @@ public class registrerKontroller {
     @RequestMapping (value = "/registrertest")
     public String registertest () {
         return "registerSuccess";
-    }
-    
-    @RequestMapping(value = "/game")
-    public String showForm(){
-        return "game";
-    }
-    
+    }    
 }
