@@ -223,10 +223,11 @@ public class DatabaseConnection {
                 hsList.add(new UserScore(userName, hiScore));
                 i++;
             }
+            hsList.sort(null);
             
             return hsList;
         } catch (Exception e){
-            printErrorMessage(e, "Feil i getHighScoreList");
+            printErrorMessage(e, "HighScoreList");
         }
         
         return null;
