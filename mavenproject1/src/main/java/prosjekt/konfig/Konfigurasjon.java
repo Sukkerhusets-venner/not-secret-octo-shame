@@ -32,23 +32,24 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
     @Bean
     public ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
-        source.setBasename("/WEB-INF/messages");
+        source.setBasename("/WEB-INF/messages/messages");
         return source;
     }
-    // equivalents for <mvc:resources/> tags
-    // Hvor finnes statisk ressurser som bilder/ css/ js osv.
+    
+    //Setter statiske ressurser som bilder/ css/ js osv.
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
                 //.addResourceLocations("classpath:/Web Pages/resources/")
-                //.setCachePeriod(31556926);
+                //.setCachePeriod(31556926); //vi bruker gc
     }
     
     @Override
     @Bean
     public HandlerMapping resourceHandlerMapping() {
         AbstractHandlerMapping handlerMapping = (AbstractHandlerMapping) super.resourceHandlerMapping();
-        handlerMapping.setOrder(-1);
+        // VIKTIG : For at ressurser skal bli public å ikke bare kopieres må vi initialisere en contextloader 
+        handlerMapping.setOrder(-1); // setter loadpriority til -1 (lavt nummer = laster først, default = 0)
         ((SimpleUrlHandlerMapping) handlerMapping).setInterceptors(getInterceptors()); // bug fix
         return handlerMapping;
     }

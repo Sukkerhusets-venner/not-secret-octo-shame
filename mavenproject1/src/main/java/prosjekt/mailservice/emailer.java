@@ -1,13 +1,10 @@
 package prosjekt.mailservice;
 
-
-
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.mail.*;
 import javax.mail.internet.*;
-
 
 public class emailer {
     
