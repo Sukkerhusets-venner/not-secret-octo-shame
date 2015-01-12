@@ -31,7 +31,6 @@
         var oppgNr = 1;
         var oppgTekst = "Du skal finne feilen i CSS-koden så begge rutene blir like.";
         $(document).ready(function() {
-                
                 var solutionHtml = "<!DOCTYPE html><html><body><h1>Hei</h1> Her skal du finne CSS feilen </body></html>";
                 var solutionCss = "body {background-color: white; color: black;} h1 { color: blue; text-align: center; }";
                 
