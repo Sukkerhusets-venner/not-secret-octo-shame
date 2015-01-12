@@ -14,7 +14,7 @@
                 </div>
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
-                    <div><a href="#">Spillet</a>
+                    <div><a href="game">Spillet</a>
                     </div><div><a href="#">HiScore</a>
                     </div><div><a href="#">Profil</a>
                     </div>
