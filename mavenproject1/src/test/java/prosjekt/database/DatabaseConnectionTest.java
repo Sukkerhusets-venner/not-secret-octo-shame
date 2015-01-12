@@ -1,6 +1,7 @@
 
 package prosjekt.database;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -8,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import prosjekt.Domene.User;
+import prosjekt.Domene.UserScore;
 
 /**
  *
@@ -33,6 +35,35 @@ public class DatabaseConnectionTest {
     @After
     public void tearDown() {
     }
+
+
+    /**
+     * Test of getUsers method, of class DatabaseConnection.
+     */
+    @Test
+    public void testGetUsers() {
+        System.out.println("getUsers");
+        DatabaseConnection instance = new DatabaseConnection();
+        ArrayList<User> expResult = null;
+        ArrayList<User> result = instance.getUsers();
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of getHighScoreList method, of class DatabaseConnection.
+     */
+    @Test
+    public void testGetHighScoreList() {
+        System.out.println("getHighScoreList");
+        DatabaseConnection instance = new DatabaseConnection();
+        ArrayList<UserScore> expResult = null;
+        ArrayList<UserScore> result = instance.getHighScoreList();
+        assertEquals(expResult, result);
+        
+    }
+
+  
 
 
 
