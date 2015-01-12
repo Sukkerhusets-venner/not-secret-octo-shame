@@ -177,16 +177,21 @@ public class DatabaseConnection {
     }
 
     public ArrayList<User> getUsers() {
-        String sqlStatement = "SELECT name, email, approved FROM User "; //join on score hvor godkjenningen vil ligg
-        ArrayList<User> user = new ArrayList<User>();
+        String sqlStatement = "SELECT * FROM User "; //join on score hvor godkjenningen vil ligg
+        ArrayList<User> user = new ArrayList<>();
         ResultSet resultSet = null;
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-
-            pstmt.executeUpdate();
+           
+            resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
-                user.add(getUser(resultSet.getString(1)));
+                int id = (Integer) resultSet.getObject(1);
+                String userName = resultSet.getString(2);
+                String email = resultSet.getString(3);
+                String password = resultSet.getString(4);
+                user.add(new User(id, userName, email, password));
+                //user.add(getUser(resultSet.getString(1)));
             }
             return user;
 

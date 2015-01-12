@@ -25,7 +25,12 @@
         </style>
         
         <script>
-            $(document).ready(function() {
+        //"Read only" variabler.
+        var roCSS = false;
+        var roHTML = true; 
+        var oppgNr = 1;
+        var oppgTekst = "Du skal finne feilen i CSS-koden så begge rutene blir like.";
+        $(document).ready(function() {
                 
                 var solutionHtml = "<!DOCTYPE html><html><body><h1>Hei</h1> Her skal du finne CSS feilen </body></html>";
                 var solutionCss = "body {background-color: white; color: black;} h1 { color: blue; text-align: center; }";
@@ -80,8 +85,8 @@
     <body>
     <section id="content">
         <section class="block"> 
-             <p>Oppgave 1</p>
-            <p>Du skal finne feilen i koden så begge rutene blir like.</p>
+            <h3>Oppgave <script>document.write(oppgNr)</script></h3>
+            <p><script>document.write(oppgTekst)</script></p>
             <input type="button" value="Sammenlign" id="compare">
             <p>Løsning | Din kode</p>
             <div id="solutionDiv">
@@ -97,7 +102,8 @@
 	    		var editorCss = CodeMirror.fromTextArea(document.getElementById("cssView"), {
 	    						        extraKeys: {"Ctrl-Space": "autocomplete"},
 	    						        lineNumbers: true,
-	    						      	mode: "text/css"
+	    						      	mode: "text/css",
+                                                                readOnly: roCSS
 	    		});
                         editorCss.on('change', function(e){
                             setRenderedResult($("#resultFrame"), editorHtml.getDoc().getValue(), editorCss.getDoc().getValue());
@@ -112,6 +118,7 @@
 	                var editorHtml = CodeMirror.fromTextArea(document.getElementById("htmlView"), {
 	    								        mode: "text/html",
 	    								        lineNumbers: true,
+                                                                                readOnly: roHTML
 	    		});
                         editorHtml.on('change', function(e){
                             setRenderedResult($("#resultFrame"), editorHtml.getDoc().getValue(), editorCss.getDoc().getValue());
