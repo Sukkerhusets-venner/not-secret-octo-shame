@@ -193,7 +193,7 @@ public class DatabaseConnection {
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
            
-            pstmt.executeUpdate();
+            resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
                 int id = (Integer) resultSet.getObject(1);
