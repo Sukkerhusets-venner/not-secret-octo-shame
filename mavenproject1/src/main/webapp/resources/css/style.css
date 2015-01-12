@@ -2,11 +2,11 @@
 
 ::selection {
     color: #fff;
-    background: #f676b2; /* Safari */
+    background: #f676b2;
 }
 ::-moz-selection {
     color: #fff;
-    background: #f676b2; /* Firefox */
+    background: #f676b2;
 }
 *{
     margin: 0;

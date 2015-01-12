@@ -9,16 +9,6 @@
         <title>Tasktester</title>
     </head>
     <body>
-    <center>
-        
-        
-        
-    </center>
-        
-        
-        
-        
-        
         <%
             Assignment a = new Assignment();
             a.addTask("dD");
@@ -27,7 +17,7 @@
             out.println(t.getStrTask());
             out.println(t.getTaskHtml());
             t.setMaxPoeng(10);
-            t.setAnswer("<div></div>");
+            t.setAnswer("<div>ost</div>");
             out.println(t.getAnswer());
             out.println(t.getPoeng());
         %>

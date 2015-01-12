@@ -6,14 +6,6 @@ import java.util.List;
 import prosjekt.Domene.Task;
 
 public class Assignment {
-    /*
-    *   Codes:
-    *   §T = new Task
-    *   §D = Divide task ( HTML §D CSS §D Type )
-    *   § = not code (if code) or code (if not code) (default = code)
-    *   Example: p§My paragraph!§P§D§Dsnake = <p>My paragraph!</p> (assignment type=snake)
-    */
-    
     private int id;
     private List<Task> task = new ArrayList<Task>();
     private int currentTask = 0;
