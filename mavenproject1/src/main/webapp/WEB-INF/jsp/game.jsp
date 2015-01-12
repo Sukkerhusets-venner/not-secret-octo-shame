@@ -27,7 +27,9 @@
         <script>
         //"Read only" variabler.
         var roCSS = false;
-        var roHTML = true;    
+        var roHTML = true; 
+        var oppgNr = 1;
+        var oppgTekst = "Du skal finne feilen i CSS-koden så begge rutene blir like.";
         $(document).ready(function() {
                 
                 var solutionHtml = "<!DOCTYPE html><html><body><h1>Hei</h1> Her skal du finne CSS feilen </body></html>";
@@ -83,8 +85,8 @@
     <body>
     <section id="content">
         <section class="block"> 
-             <p>Oppgave 1</p>
-            <p>Du skal finne feilen i koden så begge rutene blir like.</p>
+            <h3>Oppgave <script>document.write(oppgNr)</script></h3>
+            <p><script>document.write(oppgTekst)</script></p>
             <input type="button" value="Sammenlign" id="compare">
             <p>Løsning | Din kode</p>
             <div id="solutionDiv">
