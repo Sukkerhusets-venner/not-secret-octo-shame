@@ -27,7 +27,6 @@ public class DatabaseConnection {
     private Connection connection;
     private DataSource dataSource;
 
-    
     public DatabaseConnection() {
 
         connection = null;
@@ -48,12 +47,10 @@ public class DatabaseConnection {
         }
     }
 
-    
-    public boolean checkConnection(){
+    public boolean checkConnection() {
         return connection != null;
     }
-    
-    
+
     public void closeConnection() {
 
         if (connection != null) {
@@ -65,11 +62,10 @@ public class DatabaseConnection {
         }
     }
 
-    
     public boolean checkLogin(String email, String password) {
 
         password = hashString(password);
-        
+
         ResultSet resultSet = null;
         String query
                 = "SELECT email, password FROM User WHERE email = ? and password = ? ";
@@ -91,21 +87,20 @@ public class DatabaseConnection {
         return false;
     }
 
-    
     public String registerUser(User user) {
 
         String sqlStatement = "INSERT INTO User(user_id, name, email, password) "
                 + "VALUES (DEFAULT, ?, ?, ?)";
         try {
             String generatedPassword = generatePassword();
-            
+
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getEmail());
             pstmt.setString(3, hashString(generatedPassword));
 
             pstmt.executeUpdate();
-            
+
             return generatedPassword;
         } catch (Exception e) {
             rollBack();
@@ -114,39 +109,35 @@ public class DatabaseConnection {
 
         return null;
     }
-    
-    
+
     public User getUser(String email) {
         ResultSet resultSet = null;
         String sqlStatement = "SELECT*FROM User WHERE email=?";
         User user = null;
-        
-        
+
         try {
-        PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-        pstmt.setString(1, email);
-        resultSet = pstmt.executeQuery();
-        
-        
-        while (resultSet.next()) {
-            int id = (Integer) resultSet.getObject(1);
-            String userName = resultSet.getString(2);
-            String password = resultSet.getString(4);
-            user = new User(id, userName, email, password);       
-        }
-       
-        return user;
-        
-        } catch(Exception e) {
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            pstmt.setString(1, email);
+            resultSet = pstmt.executeQuery();
+
+            while (resultSet.next()) {
+                int id = (Integer) resultSet.getObject(1);
+                String userName = resultSet.getString(2);
+                String password = resultSet.getString(4);
+                user = new User(id, userName, email, password);
+            }
+
+            return user;
+
+        } catch (Exception e) {
             printErrorMessage(e, "getUser");
         }
-        
+
         return null;
     }
-    
-    
-    public boolean editUser(User user){
-        
+
+    public boolean editUser(User user) {
+
         String sqlStatement = "UPDATE User SET "
                 + " id = DEFAULT, username = ? ,email = ?, password = ? "
                 + "WHERE User.id = ?";
@@ -158,7 +149,7 @@ public class DatabaseConnection {
             pstmt.setInt(4, user.getId());
 
             pstmt.executeUpdate();
-            
+
             return true;
         } catch (Exception e) {
             rollBack();
@@ -168,31 +159,30 @@ public class DatabaseConnection {
         return false;
     }
 
-    
     public boolean deleteUser(User user) {
-        
+
         String sqlStatement = "DELETE FROM User WHERE User.user_id=?";
-        
+
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setInt(1, user.getId());
-            
+
             pstmt.executeUpdate();
-            
+
             return true;
         } catch (Exception e) {
             printErrorMessage(e, "delete user failed");
         }
         return false;
     }
-    
+
     public ArrayList<User> getUsers() {
         String sqlStatement = "SELECT name, email, approved FROM User "; //join on score hvor godkjenningen vil ligg
         ArrayList<User> user = new ArrayList<User>();
         ResultSet resultSet = null;
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-            
+
             pstmt.executeUpdate();
 
             while (resultSet.next()) {
@@ -205,14 +195,43 @@ public class DatabaseConnection {
         }
         return null;
     }
-    
-    
+
+    public ArrayList<UserScore> getHighScoreList() {
+        final int NUMBER_OF_HIGHSCORES_SHOWN = 10;
+        
+        String sql = "SELECT  User.name, MAX(Score.score) FROM User "
+                + "JOIN Game ON ( User.user_id = Game.user_id)"
+                + "JOIN Score ON ( Game.score_id = Score.score_id)"
+                + "GROUP BY User.user_id";
+        ArrayList<UserScore> hsList = new ArrayList();
+        ResultSet resultSet = null;
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            resultSet = pstmt.executeQuery();
+            
+            int i = 0;
+            while (resultSet.next() && i < NUMBER_OF_HIGHSCORES_SHOWN){
+                String userName = resultSet.getString(1);
+                int hiScore = resultSet.getInt(2);
+                
+                hsList.add(new UserScore(userName, hiScore));
+                i++;
+            }
+            
+            return hsList;
+        } catch (Exception e){
+            printErrorMessage(e, "Feil i getHighScoreList");
+        }
+        
+        return null;
+    }
+
     private void printErrorMessage(Exception e, String message) {
         System.err.println("*** Feil oppstått: " + message + ". ***");
         e.printStackTrace(System.err);
     }
 
-    
     private void rollBack() {
         try {
             if (connection != null && !connection.getAutoCommit()) {
@@ -222,7 +241,6 @@ public class DatabaseConnection {
             printErrorMessage(e, "rollback()");
         }
     }
-    
 
     public String hashString(String string) {
         try {
@@ -243,7 +261,6 @@ public class DatabaseConnection {
         return null;
     }
 
-    
     private String generatePassword() {
 
         Random random = new Random();
