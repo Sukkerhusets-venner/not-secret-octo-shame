@@ -10,8 +10,9 @@ public class Task {
     String answer = null; // kun setter. Svaret fra bruker
     int maxPoeng; // max poeng på oppgaven
     int poeng; // kun getter. Brukerens poeng på oppgaven
+    String type = null; // setter type (snake, hangman osv)
 
-    private Task(int tasknr, String stask) {
+    public Task(int tasknr, String stask) {
         this.tasknr = tasknr;
         this.strTask = stask;
 
@@ -20,7 +21,11 @@ public class Task {
 
     // Setter lagret streng til noe vi kan bruke som en oppgave
     private void loadTask() {
-        String[] bygg = stripString(strTask);
+
+        String[] del = strTask.split("§D"); // HTMLKODE ! CSSKODE ! type
+        this.type = del[2];
+
+        String[] bygg = interpretHtmlString(del[0]);
         this.actualTask = buildString(bygg); // setter oppgave
     }
 
@@ -46,26 +51,41 @@ public class Task {
     }
 
     // Tolker streng fra database. MANGLER STØTTE!
-    private String[] stripString(String str) {
+    private String[] interpretHtmlString(String str) {
         String[] list = new String[strTask.length()];
+        StringBuilder sentance = new StringBuilder(); //not supported code or sentances
+        boolean codeWord = true;
         for (int i = 0; i < strTask.length(); i++) {
             char charAt = strTask.charAt(i);
-            switch (charAt) {
-                case 'd':
-                    list[i] = "<div>";
-                    break;
-                case 'D':
-                    list[i] = "<div>";
-                    break;
-                //*** Legg til flere! ***
-                default:
-                    list[i] = "";
+
+            if (codeWord) {
+                switch (charAt) {
+                    case '§':
+                        codeWord = !codeWord;
+                        break;
+                    case 'd':
+                        list[i] = "&lt;div&gt;"; // Viktig! ikke bruk < eller >. (blir tolket som tagger i html)
+                        break;
+                    case 'D':
+                        list[i] = "&lt;/div&gt;";
+                        break;
+                    //*** Legg til flere! ***
+                    default:
+                        list[i] = String.valueOf(charAt); // skal ikke intreffe
+                        break;
+                }
+            }else{
+                if(charAt == '§'){
+                    codeWord = !codeWord;
+                }else{
+                    sentance.append(charAt);
+                }
             }
         }
         return list;
     }
 
-    // Tolker streng fra bruker.
+    // Danner en liste av kodeord ( brukes til å tolke input fra bruker)
     private String[] stripAnswer(String str) {
         String[] list = new String[0];
         boolean codeWord = false;
@@ -124,7 +144,7 @@ public class Task {
         int points = 0;
         int len = 0;
         String[] svar = stripAnswer(ans);
-        String[] actual = stripString(fasit);
+        String[] actual = interpretHtmlString(fasit);
 
         if (svar.length >= actual.length) {
             len = actual.length;
@@ -184,6 +204,14 @@ public class Task {
 
         // the distance is the cost for transforming all letters in both strings        
         return cost[len0 - 1];
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getMaxPoeng() {

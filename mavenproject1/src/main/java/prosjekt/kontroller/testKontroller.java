@@ -14,4 +14,8 @@ public class testKontroller {
     public String snake(){
         return "snake";
     }
+    @RequestMapping("/taskTester*")
+    public String test(){
+        return "taskTester";
+    }
 }

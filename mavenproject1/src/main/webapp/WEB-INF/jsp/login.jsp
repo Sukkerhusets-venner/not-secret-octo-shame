@@ -11,9 +11,9 @@
                 <span>Venligst log inn eller registrer deg som bruker.</span>
             </div>
             <div class="content">
-                <form:input path="user.email" class="input username" required="true" placeholder="Email" />
+                <form:input path="user.email" class="input username"  placeholder="Email" />
                 <div class="user-icon"><img src="resources/img/user.png" /></div>
-                <form:input type="password" path ="user.password" class="input password" required="true" placeholder="Passord" />
+                <form:input type="password" path ="user.password" class="input password"  placeholder="Passord" />
                 <div class="pass-icon"><img src="resources/img/lock.png" /></div>	
             </div>
 

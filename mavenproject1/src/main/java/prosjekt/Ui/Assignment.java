@@ -1,18 +1,31 @@
 
 package prosjekt.Ui;
 
+import java.util.ArrayList;
 import java.util.List;
 import prosjekt.Domene.Task;
 
 public class Assignment {
+    /*
+    *   Codes:
+    *   §T = new Task
+    *   §D = Divide task ( HTML §D CSS §D Type )
+    *   § = not code (if code) or code (if not code) (default = code)
+    *   Example: p§My paragraph!§P§D§Dsnake = <p>My paragraph!</p> (assignment type=snake)
+    */
     
     private int id;
-    private List<Task> task = null;
-    private List<Task> completed = null;
+    private List<Task> task = new ArrayList<Task>();
     private int currentTask = 0;
     
-    public Assignment(int id){
-        this.id = id;
+    public Assignment(){}
+    public Assignment(String strAssignment){
+        String[] tasks = strAssignment.split("§T");
+    }
+    
+    public void addTask(String strTask){
+        Task t = new Task(task.size(), strTask);
+        task.add(t);
     }
     public Task nextTask(){
         if(currentTask >= task.size()){
