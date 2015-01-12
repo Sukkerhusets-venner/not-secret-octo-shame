@@ -64,9 +64,6 @@ public class DatabaseConnectionTest {
     }
 
   
-
-
-
     /**
      * Test of registerUser method, of class DatabaseConnection.
      */
