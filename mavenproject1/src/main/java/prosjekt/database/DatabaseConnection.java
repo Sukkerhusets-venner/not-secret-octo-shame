@@ -189,7 +189,7 @@ public class DatabaseConnection {
                 String email = resultSet.getString(3);
                 String password = resultSet.getString(4);
                 user.add(new User(id, userName, email, password));
-                //user.add(getUser(resultSet.getString(1)));
+                user.add(getUser(resultSet.getString(1)));
             }
             return user;
 
@@ -221,7 +221,7 @@ public class DatabaseConnection {
                 hsList.add(new UserScore(userName, hiScore));
                 i++;
             }
-            hsList.sort(null);
+            Collections.sort(hsList);
             Collections.reverse(hsList);
             
             return hsList;

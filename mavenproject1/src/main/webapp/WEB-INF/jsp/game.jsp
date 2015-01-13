@@ -126,7 +126,7 @@
         <section class="block"> 
             <h3 id="oppgnummer">Oppgave <script>document.write(oppgNr)</script></h3>
             <p>${assignment.getCurrentTask().getDescription()}</p>
-            <p>L?sning | Din kode</p>
+            <p>Løsning | Din kode</p>
             <div id="solutionDiv">
                 <iframe class="renderedFrame" id="solutionFrame" src="about:blank"></iframe>
                 <iframe class="renderedFrame" id="resultFrame" src="about:blank"></iframe>
