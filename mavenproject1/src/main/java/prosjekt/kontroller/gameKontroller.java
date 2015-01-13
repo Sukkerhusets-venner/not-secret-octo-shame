@@ -9,6 +9,7 @@ package prosjekt.kontroller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 import prosjekt.Ui.Assignment;
+import prosjekt.database.DatabaseConnection;
 
 /**
  *
@@ -25,6 +27,9 @@ import prosjekt.Ui.Assignment;
 @SessionAttributes({"assignment"})
 public class gameKontroller {
     
+    @Autowired
+    private DatabaseConnection database;
+    
     @ModelAttribute("assignment")
     public Assignment makeAssignment(){
         return new Assignment();
@@ -32,6 +37,7 @@ public class gameKontroller {
     
     @RequestMapping (value = "game")
     public String game (@ModelAttribute(value="assignment") Assignment assignment, Model model) {
+        assignment.setAllTasks(database.getTasks(1));
         return "game";
     }
     
