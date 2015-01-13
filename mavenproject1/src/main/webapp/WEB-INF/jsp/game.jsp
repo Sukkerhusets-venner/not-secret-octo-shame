@@ -22,6 +22,7 @@
             .renderedFrame, .codeBox {
                 width: 250px; height: 200px
             }
+            
             #compare {
                 float: right;
                 padding: 11px 25px;
@@ -94,12 +95,12 @@
                 var sCss = "";
                 if(type === "Css"){
                     sHtml = solutionHtml;
-                    sCss = "";
+                    sCss = "//Her må du skrive inn din Css-kode";
                     editorHtml.setOption("readOnly", true);
                     editorCss.setOption("readOnly", false);
                     oppgTekst = "Her må du skrive Css-kode slik at bildene under blir like";
                 } else if(type === "Html"){
-                    sHtml = "";
+                    sHtml = "//Her må du skrive inn din Html-kode";
                     sCss = solutionCss;
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", true);
