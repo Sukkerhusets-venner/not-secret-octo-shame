@@ -92,7 +92,6 @@
                 var type = "${assignment.getCurrentTask().getType()}";
                 var sHtml = "";
                 var sCss = "";
-                
                 if(type === "Css"){
                     sHtml = solutionHtml;
                     sCss = "";
@@ -116,6 +115,7 @@
                 editorCss.getDoc().setValue(startingCss);
                 
                 document.getElementById("oppgnummer").innerHTML = "Oppgave "+oppgNr;
+                document.getElementById("oppgtekst").innerHTML = oppgTekst;
             }
         </script>
     </head>
@@ -125,8 +125,8 @@
     </form:form>
     <section id="content">
         <section class="block"> 
-            <h3 id="oppgnummer">Oppgave <script>document.write(oppgNr)</script></h3>
-            <p>${assignment.getCurrentTask().getDescription()}</p>
+            <h3 id="oppgnummer"></h3>
+            <p id="oppgtekst"></p>
             <p>Løsning | Din kode</p>
             <div id="solutionDiv">
                 <iframe class="renderedFrame" id="solutionFrame" src="about:blank"></iframe>
