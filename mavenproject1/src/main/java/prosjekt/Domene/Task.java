@@ -14,26 +14,12 @@ public class Task {
     int poeng; // kun getter. Brukerens poeng på oppgaven
     String type = null; // setter type (snake, hangman osv)
 
-    public Task(){
-        taskHtml = "<html><body><h1>Hei</h1>Hjelp, formatteringen er helt gal</body></html>";
-        taskCss = "body {background-color: white; color: blue;} h1 { color: red; text-align: center; }";
-        description = "Her skal du endre på Css-delen slik at bildene under blir like.";
-        type = "Css";
-    }
-    public Task(String s){
-        taskHtml = "<html><body><h1>Hei</h1>Løs meg!</body></html>";
-        taskCss = "body {background-color: white; color: blue;} h1 { color: red; text-align: center; }";
-        description = "Her skal du endre på Html-delen slik at bildene under blir like.";
-        type = "Html";
-    }
-    
-    public Task(int tasknr, String type, String taskHtml, String taskCss, int poeng) {
+       public Task(int tasknr, String type, String taskHtml, String taskCss, int poeng) {
         this.tasknr = tasknr;
         this.type = type;
         this.taskHtml = taskHtml;
         this.taskCss = taskCss;
-        this.poeng = poeng;
-        
+        this.poeng =poeng;
     }
     
     public Task(int tasknr, String stask) {

@@ -64,4 +64,8 @@ public class registrerKontroller {
     public String registertest () {
         return "registerSuccess";
     }    
+    @RequestMapping (value = "/hangman")
+    public String hangman () {
+        return "hangman";
+    }
 }

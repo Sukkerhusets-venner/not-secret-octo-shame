@@ -109,14 +109,10 @@ $(document).ready(function () {
             showProfil();
         }
     });
-    $("#buttons div a").mouseout(function () {
-        quickFix();
-    });
     $("#buttons div a").click(function(){
         $("#stuff").remove();
         $(".container").css("height", "5rem");
         $(".container").css("margin-top", "8rem");
         $(".container div").css("visibility", "visible");
     });
-    
 });

@@ -10,16 +10,7 @@ public class Assignment {
     private List<Task> task = new ArrayList<Task>();
     private int currentTask = 0;
     
-    public Assignment(){
-        Task testTask = new Task();
-        Task testTask2 = new Task("2");
-        task.add(testTask);
-        task.add(testTask2);
-    }
-    
-    public Assignment(String strAssignment){
-        String[] tasks = strAssignment.split("§T");
-    }
+    public Assignment(){}
     
     public void addTask(String strTask){
         Task t = new Task(task.size(), strTask);

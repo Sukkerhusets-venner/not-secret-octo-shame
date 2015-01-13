@@ -15,6 +15,7 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import prosjekt.Ui.EditUser;
 import prosjekt.Ui.Loginform;
 import prosjekt.database.DatabaseConnection;
 import prosjekt.mailservice.emailer;

@@ -87,7 +87,6 @@
             function setUp(){
                 oppgNr = "${assignment.getCurrentTaskNr()}";
                 oppgNr++;
-                oppgTekst = "${assignment.getCurrentTask().getDescription()}";
                 var solutionHtml = "${assignment.getCurrentTask().getTaskHtml()}";
                 var solutionCss = "${assignment.getCurrentTask().getTaskCss()}";
                 var type = "${assignment.getCurrentTask().getType()}";
@@ -99,11 +98,13 @@
                     sCss = "";
                     editorHtml.setOption("readOnly", true);
                     editorCss.setOption("readOnly", false);
+                    oppgTekst = "Her må du skrive Css-kode slik at bildene under blir like";
                 } else if(type === "Html"){
                     sHtml = "";
                     sCss = solutionCss;
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", true);
+                    oppgTekst = "Her må du skrive Html-kode slik at bildene under blir like";
                 }
                 
                	var startingHtml = style_html(sHtml);
@@ -126,7 +127,7 @@
         <section class="block"> 
             <h3 id="oppgnummer">Oppgave <script>document.write(oppgNr)</script></h3>
             <p>${assignment.getCurrentTask().getDescription()}</p>
-            <p>L?sning | Din kode</p>
+            <p>Løsning | Din kode</p>
             <div id="solutionDiv">
                 <iframe class="renderedFrame" id="solutionFrame" src="about:blank"></iframe>
                 <iframe class="renderedFrame" id="resultFrame" src="about:blank"></iframe>
