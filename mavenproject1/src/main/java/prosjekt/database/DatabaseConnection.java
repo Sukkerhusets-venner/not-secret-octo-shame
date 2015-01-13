@@ -233,7 +233,9 @@ public class DatabaseConnection {
         return null;
     }
 
-    public ScoreProfile getScoreProfile(User user) {
+    public ArrayList<ScoreProfile> getScoreProfile(User user) {
+        
+        ArrayList<ScoreProfile> list = new ArrayList();
         ResultSet resultSet = null;
         String sqlStatement = "SELECT Problemset.set_id, Problemset.max_points,"
                 + " Score.score, Score.date FROM User"
@@ -252,10 +254,10 @@ public class DatabaseConnection {
                 int maxPoints = resultSet.getInt(2);
                 int points = resultSet.getInt(3);
                 String date = resultSet.getString(4);
-                sp = new ScoreProfile(id, maxPoints, points, date);
+                list.add(new ScoreProfile(id, maxPoints, points, date));
             }
 
-            return sp;
+            return list;
 
         } catch (Exception e) {
             printErrorMessage(e, "getScoreProfile");
@@ -265,7 +267,7 @@ public class DatabaseConnection {
     }
 
     private void printErrorMessage(Exception e, String message) {
-        System.err.println("*** Feil oppstått: " + message + ". ***");
+        System.err.println("*** Feil oppstÃ¥tt: " + message + ". ***");
         e.printStackTrace(System.err);
     }
 
