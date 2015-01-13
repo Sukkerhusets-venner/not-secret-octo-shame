@@ -77,11 +77,6 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
         return new Loginform();
     }
     
-    @Bean
-    public EditUser byttbrukernavnform(){
-        return new EditUser();
-    }
-    
     @Bean(name="simpleMappingExceptionResolver")
     public SimpleMappingExceptionResolver createSimpleMappingExceptionResolver() {
         SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();

@@ -28,12 +28,12 @@ public class testKontroller {
         return "taskTester";
     }
     @RequestMapping("/testprofile")
-    public String testprofile( @ModelAttribute EditUser byttbrukernavnform){
+    public String testprofile( @ModelAttribute Loginform byttbrukernavnform){
         return "testprofile";
     }
     
     @RequestMapping (value = "byttBrukernavn")
-        public String byttbrukernavn (@ModelAttribute EditUser byttbrukernavnform) {
-         return "testprofile";
+        public  void byttbrukernavn (@ModelAttribute Loginform byttbrukernavnform) {
+
     }
 }
