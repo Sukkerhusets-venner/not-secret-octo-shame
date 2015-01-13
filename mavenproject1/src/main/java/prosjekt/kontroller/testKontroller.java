@@ -27,13 +27,5 @@ public class testKontroller {
     public String test(){
         return "taskTester";
     }
-    @RequestMapping("/testprofile")
-    public String testprofile( @ModelAttribute Loginform byttbrukernavnform){
-        return "testprofile";
-    }
-    
-    @RequestMapping (value = "byttBrukernavn")
-        public  void byttbrukernavn (@ModelAttribute Loginform byttbrukernavnform) {
 
-    }
 }
