@@ -40,7 +40,6 @@ public class loginKontroller {
             session.setAttribute ("Username", database.getUser(loginform.getUser().getEmail()).getUsername());
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScoreList(hiScores);
-            session.setAttribute("Email", loginform.getUser().getEmail());
             return "Hovedside";
         } else {
             model.addAttribute("loginError", "Feil email/passord");
