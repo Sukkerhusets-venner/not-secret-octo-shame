@@ -25,8 +25,7 @@
                     <form:errors path="user.email" />
                     <form:errors path="user.password" />
                 </i>
-                
-                </div>
+            </div>
         </form:form>
     </div>
     <% session.setAttribute("Username", "Logincheat"); %>

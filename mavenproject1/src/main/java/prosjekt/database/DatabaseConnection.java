@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prosjekt.database;
 
 import prosjekt.Domene.User;
+import prosjekt.Ui.Assignment;
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.sql.DataSource;
 import java.util.Random;
 import prosjekt.Domene.*;
@@ -26,6 +23,8 @@ public class DatabaseConnection {
 
     private Connection connection;
     private DataSource dataSource;
+    
+    private final int NUMBER_OF_HIGHSCORES_SHOWN = 10;
 
     public DatabaseConnection() {
 
@@ -182,7 +181,7 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-           
+
             resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
@@ -203,38 +202,102 @@ public class DatabaseConnection {
 
     public ArrayList<UserScore> getHighScoreList() {
         final int NUMBER_OF_HIGHSCORES_SHOWN = 10;
-        
+
         String sql = "SELECT  User.name, MAX(Score.score) FROM User "
                 + "JOIN Game ON ( User.user_id = Game.user_id)"
                 + "JOIN Score ON ( Game.score_id = Score.score_id)"
                 + "GROUP BY User.user_id";
         ArrayList<UserScore> hsList = new ArrayList();
         ResultSet resultSet = null;
-        
+
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             resultSet = pstmt.executeQuery();
-            
+
             int i = 0;
-            while (resultSet.next() && i < NUMBER_OF_HIGHSCORES_SHOWN){
+            while (resultSet.next() && i < NUMBER_OF_HIGHSCORES_SHOWN) {
                 String userName = resultSet.getString(1);
                 int hiScore = resultSet.getInt(2);
-                
+
                 hsList.add(new UserScore(userName, hiScore));
                 i++;
             }
             hsList.sort(null);
+            Collections.reverse(hsList);
             
             return hsList;
-        } catch (Exception e){
+        } catch (Exception e) {
             printErrorMessage(e, "HighScoreList");
         }
-        
+
         return null;
     }
 
+    public ArrayList<ScoreProfile> getScoreProfile(User user) {
+        
+        ArrayList<ScoreProfile> list = new ArrayList();
+        ResultSet resultSet = null;
+        String sqlStatement = "SELECT Problemset.set_id, Problemset.max_points,"
+                + " Score.score, Score.date FROM User"
+                + " JOIN Game ON User.user_id = ?"
+                + " JOIN Problemset ON Problemset.set_id = Game.set_id"
+                + " JOIN Score ON Score.score_id = Game.score_id";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            pstmt.setInt(1, user.getId());
+            resultSet = pstmt.executeQuery();
+            ScoreProfile sp = null;
+            
+            while (resultSet.next()) {
+                int id =  resultSet.getInt(1);
+                int maxPoints = resultSet.getInt(2);
+                int points = resultSet.getInt(3);
+                String date = resultSet.getString(4);
+                list.add(new ScoreProfile(id, maxPoints, points, date));
+            }
+
+            return list;
+
+        } catch (Exception e) {
+            printErrorMessage(e, "getScoreProfile");
+        }
+
+        return null;
+    }
+    
+    public ArrayList<Task> getTasks(int set_id) {
+        ArrayList<Task> list = new ArrayList();
+        ResultSet resultSet = null;
+        String sqlStatement = "SELECT*FROM Task JOIN TaskSet ON(Task.task_id" +
+                "TaskSet.task_id) JOIN Problemset"
+                + " ON(TaskSet.set_id = Problemset.set_id) WHERE Problemset.set_id"
+                + "= ?";
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            pstmt.setInt(1,set_id );
+            resultSet = pstmt.executeQuery();
+            
+            while(resultSet.next()) {
+                String type = resultSet.getString(2);
+                String html = resultSet.getString(3);
+                String css = resultSet.getString(4);
+                int points = resultSet.getInt(5);
+                list.add(new Task(set_id, type, html, css, points));
+            }
+            return list;
+        }
+        catch (Exception e) {
+            printErrorMessage(e, " feil i getTasks");
+        }
+
+        return null;
+        
+    }
+
     private void printErrorMessage(Exception e, String message) {
-        System.err.println("*** Feil oppstått: " + message + ". ***");
+        System.err.println("*** Feil oppstÃ¥tt: " + message + ". ***");
         e.printStackTrace(System.err);
     }
 
@@ -261,7 +324,7 @@ public class DatabaseConnection {
             }
             return sb.toString();
         } catch (Exception e) {
-            System.out.println("Error");
+            System.out.println("HASH Error");
         }
 
         return null;
