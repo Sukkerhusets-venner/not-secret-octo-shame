@@ -26,6 +26,13 @@ public class Task {
         description = "Her skal du endre på Html-delen slik at bildene under blir like.";
         type = "Html";
     }
+       public Task(int tasknr, String type, String taskHtml, String taskCss, int poeng) {
+        this.tasknr = tasknr;
+        this.type = type;
+        this.taskHtml = taskHtml;
+        this.taskCss = taskCss;
+        this.poeng =poeng;
+    }
     
     public Task(int tasknr, String stask) {
         this.tasknr = tasknr;
