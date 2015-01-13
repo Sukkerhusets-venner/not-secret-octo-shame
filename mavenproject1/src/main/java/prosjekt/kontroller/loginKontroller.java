@@ -1,6 +1,7 @@
 
 package prosjekt.kontroller;
 
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+import prosjekt.Domene.UserScore;
 import prosjekt.Ui.Loginform;
 import prosjekt.database.DatabaseConnection;
 
@@ -36,6 +38,8 @@ public class loginKontroller {
         if (database.checkLogin(loginform.getUser().getEmail(), loginform.getUser().getPassword())) {
             HttpSession session = request.getSession();
             session.setAttribute ("Username", database.getUser(loginform.getUser().getEmail()).getUsername());
+            ArrayList<UserScore> hiScores = database.getHighScoreList();
+            loginform.setHiScoreList(hiScores);
             return "Hovedside";
         } else {
             model.addAttribute("loginError", "Feil email/passord");
@@ -54,13 +58,6 @@ public class loginKontroller {
         mav.addObject("unntak",exception);
         mav.setViewName("error");
         return mav;
-    }
-    // Det er tilfeller hvor exceptionHandler ikke handler feilen ^-^ (eks localhost/prosjekt/side/side/side...)
-    @ResponseStatus(value=HttpStatus.NOT_FOUND)
-    public ModelAndView error(HttpServletRequest req){
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("unntak","404: Not found");
-        mav.setViewName("error");
-        return mav;
-    }
+    }// Det er tilfeller hvor exceptionHandler ikke behandler feilen ^-^ (eks localhost/prosjekt/side/side/side...)
+    // Implementert en global lytter - se GlobalExceptionHandler.class
 }

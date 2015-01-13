@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prosjekt.kontroller;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,15 +43,22 @@ class GlobalExceptionHandler implements Thread.UncaughtExceptionHandler, Handler
         return mav;
     }
     
+    @ResponseStatus(value=HttpStatus.NOT_FOUND) //404
+    public ModelAndView error(HttpServletRequest req){
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("unntak","404: Not found");
+        mav.setViewName("error");
+        return mav;
+    }
+    
     // Default
     @ExceptionHandler(value = Exception.class)
     public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
         // If the exception is annotated with @ResponseStatus rethrow it and let
-        // the framework handle it - like the OrderNotFoundException example
-        // at the start of this post.
-        // AnnotationUtils is a Spring Framework utility class.
-        if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null)
+        // the framework handle it
+        if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null){
             throw e;
+        }
 
         // Otherwise setup and send the user to a default error-view.
         ModelAndView mav = new ModelAndView();
@@ -79,5 +81,14 @@ class GlobalExceptionHandler implements Thread.UncaughtExceptionHandler, Handler
     public void uncaughtException(Thread t, Throwable e) {
         System.out.println(t.toString());
         System.out.println("Throwable: " + e.getMessage());
+        redir(t,e);
+    }
+    // Må redirecte til feilside
+    private ModelAndView redir(Thread t, Throwable e){
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("exception", e);
+        mav.addObject("Thread", t.toString());
+        mav.setViewName(DEFAULT_ERROR_VIEW);
+        return mav;
     }
 }
