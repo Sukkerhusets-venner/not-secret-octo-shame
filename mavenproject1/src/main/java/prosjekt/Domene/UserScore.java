@@ -14,6 +14,7 @@ public class UserScore implements Comparable<UserScore> {
     private String username;
     private int highScore;
 
+    
     public UserScore(String username, int highScore) {
         this.username = username;
         this.highScore = highScore;

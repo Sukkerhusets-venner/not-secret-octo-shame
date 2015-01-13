@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prosjekt.database;
 
 import prosjekt.Domene.User;
@@ -14,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.sql.DataSource;
 import java.util.Random;
 import prosjekt.Domene.*;
@@ -26,6 +22,8 @@ public class DatabaseConnection {
 
     private Connection connection;
     private DataSource dataSource;
+    
+    private final int NUMBER_OF_HIGHSCORES_SHOWN = 10;
 
     public DatabaseConnection() {
 
@@ -224,7 +222,8 @@ public class DatabaseConnection {
                 i++;
             }
             hsList.sort(null);
-
+            Collections.reverse(hsList);
+            
             return hsList;
         } catch (Exception e) {
             printErrorMessage(e, "HighScoreList");
