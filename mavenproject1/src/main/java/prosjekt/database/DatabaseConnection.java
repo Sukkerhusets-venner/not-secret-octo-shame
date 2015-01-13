@@ -22,8 +22,6 @@ public class DatabaseConnection {
 
     private Connection connection;
     private DataSource dataSource;
-    
-    private final int NUMBER_OF_HIGHSCORES_SHOWN = 10;
 
     public DatabaseConnection() {
 
@@ -87,6 +85,10 @@ public class DatabaseConnection {
 
     public String registerUser(User user) {
 
+        if (!checkUserName(user.getUsername()) || !checkEmail(user.getEmail())){
+            return null;
+        }
+        
         String sqlStatement = "INSERT INTO User(user_id, name, email, password) "
                 + "VALUES (DEFAULT, ?, ?, ?)";
         try {
@@ -200,6 +202,7 @@ public class DatabaseConnection {
     }
 
     public ArrayList<UserScore> getHighScoreList() {
+
         final int NUMBER_OF_HIGHSCORES_SHOWN = 10;
 
         String sql = "SELECT  User.name, MAX(Score.score) FROM User "
@@ -223,7 +226,7 @@ public class DatabaseConnection {
             }
             hsList.sort(null);
             Collections.reverse(hsList);
-            
+
             return hsList;
         } catch (Exception e) {
             printErrorMessage(e, "HighScoreList");
@@ -233,7 +236,7 @@ public class DatabaseConnection {
     }
 
     public ArrayList<ScoreProfile> getScoreProfile(User user) {
-        
+
         ArrayList<ScoreProfile> list = new ArrayList();
         ResultSet resultSet = null;
         String sqlStatement = "SELECT Problemset.set_id, Problemset.max_points,"
@@ -247,9 +250,9 @@ public class DatabaseConnection {
             pstmt.setInt(1, user.getId());
             resultSet = pstmt.executeQuery();
             ScoreProfile sp = null;
-            
+
             while (resultSet.next()) {
-                int id =  resultSet.getInt(1);
+                int id = resultSet.getInt(1);
                 int maxPoints = resultSet.getInt(2);
                 int points = resultSet.getInt(3);
                 String date = resultSet.getString(4);
@@ -263,6 +266,50 @@ public class DatabaseConnection {
         }
 
         return null;
+    }
+
+    private boolean checkUserName(String userName) {
+
+        ResultSet resultSet = null;
+        String query
+                = "SELECT name FROM User WHERE name = ? ";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, userName);
+
+            resultSet = pstmt.executeQuery();
+
+            if (resultSet.next()) {
+                //Allerede i databasen (Opptatt)
+                return false;
+            }
+        } catch (Exception e) {
+            printErrorMessage(e, "CheckUserName");
+        }
+        return true;
+    }
+
+    private boolean checkEmail(String email) {
+
+        ResultSet resultSet = null;
+        String query
+                = "SELECT email FROM User WHERE email = ? ";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, email);
+
+            resultSet = pstmt.executeQuery();
+
+            if (resultSet.next()) {
+                //Allerede i databasen (Opptatt)
+                return false;
+            }
+        } catch (Exception e) {
+            printErrorMessage(e, "CheckUserName");
+        }
+        return true;
     }
 
     private void printErrorMessage(Exception e, String message) {
