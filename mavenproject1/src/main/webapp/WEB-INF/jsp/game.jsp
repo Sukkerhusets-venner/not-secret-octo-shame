@@ -87,7 +87,6 @@
             function setUp(){
                 oppgNr = "${assignment.getCurrentTaskNr()}";
                 oppgNr++;
-                oppgTekst = "${assignment.getCurrentTask().getDescription()}";
                 var solutionHtml = "${assignment.getCurrentTask().getTaskHtml()}";
                 var solutionCss = "${assignment.getCurrentTask().getTaskCss()}";
                 var type = "${assignment.getCurrentTask().getType()}";
@@ -99,11 +98,13 @@
                     sCss = "";
                     editorHtml.setOption("readOnly", true);
                     editorCss.setOption("readOnly", false);
+                    oppgTekst = "Her må du skrive Css-kode slik at bildene under blir like";
                 } else if(type === "Html"){
                     sHtml = "";
                     sCss = solutionCss;
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", true);
+                    oppgTekst = "Her må du skrive Html-kode slik at bildene under blir like";
                 }
                 
                	var startingHtml = style_html(sHtml);
