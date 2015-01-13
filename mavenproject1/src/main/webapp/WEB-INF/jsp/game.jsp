@@ -95,12 +95,12 @@
                 var sCss = "";
                 if(type === "Css"){
                     sHtml = solutionHtml;
-                    sCss = "//Her må du skrive inn din Css-kode";
+                    sCss = "/*Her må du skrive inn din Css-kode*/";
                     editorHtml.setOption("readOnly", true);
                     editorCss.setOption("readOnly", false);
                     oppgTekst = "Her må du skrive Css-kode slik at bildene under blir like";
                 } else if(type === "Html"){
-                    sHtml = "//Her må du skrive inn din Html-kode";
+                    sHtml = "<!--Her må du skrive inn din Html-kode-->";
                     sCss = solutionCss;
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", true);
@@ -120,7 +120,7 @@
             }
         </script>
     </head>
-        
+    
     <body>
     <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
     </form:form>
