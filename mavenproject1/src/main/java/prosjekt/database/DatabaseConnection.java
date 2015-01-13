@@ -1,6 +1,7 @@
 package prosjekt.database;
 
 import prosjekt.Domene.User;
+import prosjekt.Ui.Assignment;
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -263,6 +264,36 @@ public class DatabaseConnection {
         }
 
         return null;
+    }
+    
+    public ArrayList<Task> getTasks(int set_id) {
+        ArrayList<Task> list = new ArrayList();
+        ResultSet resultSet = null;
+        String sqlStatement = "SELECT*FROM Task JOIN TaskSet ON(Task.task_id" +
+                "TaskSet.task_id) JOIN Problemset"
+                + " ON(TaskSet.set_id = Problemset.set_id) WHERE Problemset.set_id"
+                + "= ?";
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            pstmt.setInt(1,set_id );
+            resultSet = pstmt.executeQuery();
+            
+            while(resultSet.next()) {
+                String type = resultSet.getString(2);
+                String html = resultSet.getString(3);
+                String css = resultSet.getString(4);
+                int points = resultSet.getInt(5);
+                list.add(new Task(set_id, type, html, css, points));
+            }
+            return list;
+        }
+        catch (Exception e) {
+            printErrorMessage(e, " feil i getTasks");
+        }
+
+        return null;
+        
     }
 
     private void printErrorMessage(Exception e, String message) {
