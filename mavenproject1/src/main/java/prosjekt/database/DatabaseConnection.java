@@ -182,7 +182,7 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-           
+
             resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
@@ -203,33 +203,64 @@ public class DatabaseConnection {
 
     public ArrayList<UserScore> getHighScoreList() {
         final int NUMBER_OF_HIGHSCORES_SHOWN = 10;
-        
+
         String sql = "SELECT  User.name, MAX(Score.score) FROM User "
                 + "JOIN Game ON ( User.user_id = Game.user_id)"
                 + "JOIN Score ON ( Game.score_id = Score.score_id)"
                 + "GROUP BY User.user_id";
         ArrayList<UserScore> hsList = new ArrayList();
         ResultSet resultSet = null;
-        
+
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             resultSet = pstmt.executeQuery();
-            
+
             int i = 0;
-            while (resultSet.next() && i < NUMBER_OF_HIGHSCORES_SHOWN){
+            while (resultSet.next() && i < NUMBER_OF_HIGHSCORES_SHOWN) {
                 String userName = resultSet.getString(1);
                 int hiScore = resultSet.getInt(2);
-                
+
                 hsList.add(new UserScore(userName, hiScore));
                 i++;
             }
             hsList.sort(null);
-            
+
             return hsList;
-        } catch (Exception e){
+        } catch (Exception e) {
             printErrorMessage(e, "HighScoreList");
         }
-        
+
+        return null;
+    }
+
+    public ScoreProfile getScoreProfile(User user) {
+        ResultSet resultSet = null;
+        String sqlStatement = "SELECT Problemset.set_id, Problemset.max_points,"
+                + " Score.score, Score.date FROM User"
+                + " JOIN Game ON User.user_id = ?"
+                + " JOIN Problemset ON Problemset.set_id = Game.set_id"
+                + " JOIN Score ON Score.score_id = Game.score_id";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            pstmt.setInt(1, user.getId());
+            resultSet = pstmt.executeQuery();
+            ScoreProfile sp = null;
+            
+            while (resultSet.next()) {
+                int id =  resultSet.getInt(1);
+                int maxPoints = resultSet.getInt(2);
+                int points = resultSet.getInt(3);
+                String date = resultSet.getString(4);
+                sp = new ScoreProfile(id, maxPoints, points, date);
+            }
+
+            return sp;
+
+        } catch (Exception e) {
+            printErrorMessage(e, "getScoreProfile");
+        }
+
         return null;
     }
 
@@ -261,7 +292,7 @@ public class DatabaseConnection {
             }
             return sb.toString();
         } catch (Exception e) {
-            System.out.println("Error");
+            System.out.println("HASH Error");
         }
 
         return null;
