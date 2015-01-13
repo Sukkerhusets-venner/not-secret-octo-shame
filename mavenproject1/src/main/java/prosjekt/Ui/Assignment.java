@@ -10,7 +10,13 @@ public class Assignment {
     private List<Task> task = new ArrayList<Task>();
     private int currentTask = 0;
     
-    public Assignment(){}
+    public Assignment(){
+        Task testTask = new Task();
+        Task testTask2 = new Task("2");
+        task.add(testTask);
+        task.add(testTask2);
+    }
+    
     public Assignment(String strAssignment){
         String[] tasks = strAssignment.split("§T");
     }
@@ -19,15 +25,14 @@ public class Assignment {
         Task t = new Task(task.size(), strTask);
         task.add(t);
     }
-    public Task nextTask(){
-        if(currentTask >= task.size()){
-            return null;
-        }else{
-            currentTask++;
-            return task.get(currentTask);
+    public int nextTask(){
+        if(currentTask < task.size()-1){
+            return currentTask++;
         }
+        return -1;
     }
     public Task getCurrentTask() {return task.get(currentTask);}
+    public int getCurrentTaskNr() {return currentTask;}
     public void setCurrentTask(int currentTask) {this.currentTask = currentTask;}
     // retur = antall oppgaver
     public int getTaskNumber(){
@@ -45,10 +50,11 @@ public class Assignment {
     }
     public List<Task> getAllTasks(){return task;}
     public Task getTask(int tnr){
-        for (Task t : task){
+        /*for (Task t : task){
             if(t.getTasknr() == tnr) return t;
         }
-        return null;
+        return null;*/
+        return task.get(id);
     }
     public void setAllTasks(List<Task> allTasks){this.task = allTasks;}
 }

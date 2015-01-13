@@ -22,29 +22,34 @@
             .renderedFrame, .codeBox {
                 width: 250px; height: 200px
             }
+            #compare {
+                float: right;
+                padding: 11px 25px;
+
+                font-family: 'Bree Serif', serif;
+                font-weight: 300;
+                font-size: 18px;
+                color: #fff;
+                text-shadow: 0px 1px 0 rgba(0,0,0,0.25);
+
+                background: #56c2e1;
+                border: 1px solid #46b3d3;
+                border-radius: 5px;
+                cursor: pointer;
+
+                box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+                -moz-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+                -webkit-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+            }
         </style>
-        
+       
         <script>
         //"Read only" variabler.
-        var roCSS = false;
-        var roHTML = true; 
-        var oppgNr = 1;
-        var oppgTekst = "Du skal finne feilen i CSS-koden så begge rutene blir like.";
+        var oppgNr = 0;
+        var oppgTekst = "";
         $(document).ready(function() {
-                var solutionHtml = "<!DOCTYPE html><html><body><h1>Hei</h1> Her skal du finne CSS feilen </body></html>";
-                var solutionCss = "body {background-color: white; color: black;} h1 { color: blue; text-align: center; }";
-                
-                var sHtml = "<!DOCTYPE html><html><body><h1>Hei</h1> Her skal du finne CSS feilen </body></html>";
-                var sCss = "body {background-color: black; color: white;} h1 { color: grey; text-align: left; }";
                
-               	var startingHtml = style_html(sHtml);
-		var startingCss = css_beautify(sCss);
-                
-                setRenderedResult($("#solutionFrame"), solutionHtml, solutionCss);
-                setRenderedResult($("#resultFrame"), startingHtml, startingCss);
-
-		editorHtml.getDoc().setValue(startingHtml);
-		editorCss.getDoc().setValue(startingCss);                     
+                setUp();                 
                 
                 $("#compare").click(function() { 
                     
@@ -75,23 +80,58 @@
                 if(resultUrl && solutionUrl) {
                     resemble(resultUrl).compareTo(solutionUrl).onComplete(function(data){
                         alert("Likhet: " + (100 - data.misMatchPercentage) + "%");
+                        document.forms["nesteOppgave"].submit();
                     });            
                 }
+            }
+            function setUp(){
+                oppgNr = "${assignment.getCurrentTaskNr()}";
+                oppgNr++;
+                oppgTekst = "${assignment.getCurrentTask().getDescription()}";
+                var solutionHtml = "${assignment.getCurrentTask().getTaskHtml()}";
+                var solutionCss = "${assignment.getCurrentTask().getTaskCss()}";
+                var type = "${assignment.getCurrentTask().getType()}";
+                var sHtml = "";
+                var sCss = "";
+                
+                if(type === "Css"){
+                    sHtml = solutionHtml;
+                    sCss = "";
+                    editorHtml.setOption("readOnly", true);
+                    editorCss.setOption("readOnly", false);
+                } else if(type === "Html"){
+                    sHtml = "";
+                    sCss = solutionCss;
+                    editorHtml.setOption("readOnly", false);
+                    editorCss.setOption("readOnly", true);
+                }
+                
+               	var startingHtml = style_html(sHtml);
+		var startingCss = css_beautify(sCss);
+                
+                setRenderedResult($("#solutionFrame"), solutionHtml, solutionCss);
+                setRenderedResult($("#resultFrame"), startingHtml, startingCss);
+                editorHtml.getDoc().setValue(startingHtml );
+                editorCss.getDoc().setValue(startingCss);
+                
+                document.getElementById("oppgnummer").innerHTML = "Oppgave "+oppgNr;
             }
         </script>
     </head>
         
     <body>
+    <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
+    </form:form>
     <section id="content">
         <section class="block"> 
-            <h3>Oppgave <script>document.write(oppgNr)</script></h3>
-            <p><script>document.write(oppgTekst)</script></p>
-            <input type="button" value="Sammenlign" id="compare">
-            <p>Løsning | Din kode</p>
+            <h3 id="oppgnummer">Oppgave <script>document.write(oppgNr)</script></h3>
+            <p>${assignment.getCurrentTask().getDescription()}</p>
+            <p>L?sning | Din kode</p>
             <div id="solutionDiv">
                 <iframe class="renderedFrame" id="solutionFrame" src="about:blank"></iframe>
                 <iframe class="renderedFrame" id="resultFrame" src="about:blank"></iframe>
             </div>
+            <input type="button" value="SVAR" id="compare">
         </section>
 
         <section class="block">        
@@ -102,7 +142,7 @@
 	    						        extraKeys: {"Ctrl-Space": "autocomplete"},
 	    						        lineNumbers: true,
 	    						      	mode: "text/css",
-                                                                readOnly: roCSS
+                                                                readOnly: false
 	    		});
                         editorCss.on('change', function(e){
                             setRenderedResult($("#resultFrame"), editorHtml.getDoc().getValue(), editorCss.getDoc().getValue());
@@ -117,7 +157,7 @@
 	                var editorHtml = CodeMirror.fromTextArea(document.getElementById("htmlView"), {
 	    								        mode: "text/html",
 	    								        lineNumbers: true,
-                                                                                readOnly: roHTML
+                                                                                readOnly: false
 	    		});
                         editorHtml.on('change', function(e){
                             setRenderedResult($("#resultFrame"), editorHtml.getDoc().getValue(), editorCss.getDoc().getValue());
