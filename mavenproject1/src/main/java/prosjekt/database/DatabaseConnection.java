@@ -8,7 +8,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.sql.DataSource;
@@ -29,7 +28,7 @@ public class DatabaseConnection {
     public DatabaseConnection() {
 
         connection = null;
-        String databasePath = "jdbc:mysql://158.38.48.10:3306/team6";   // MAA FYLLES INN !Q!!!!!!
+        String databasePath = "jdbc:mysql://158.38.48.10:3306/team6";  
         String databaseUserName = "team6";
         String databasePassword = "Team62015";
         String dbDriver = "com.mysql.jdbc.Driver";
