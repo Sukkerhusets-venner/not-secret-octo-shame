@@ -1,5 +1,6 @@
 package prosjekt.konfig;
 
+import java.util.Properties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,9 +11,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import prosjekt.Ui.Loginform;
 import prosjekt.database.DatabaseConnection;
 import prosjekt.mailservice.emailer;
 
@@ -67,6 +70,23 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
     @Bean
     public emailer emailer () {
         return new emailer();
+    }
+    @Bean
+    public Loginform loginform(){
+        return new Loginform();
+    }
+    
+    @Bean(name="simpleMappingExceptionResolver")
+    public SimpleMappingExceptionResolver createSimpleMappingExceptionResolver() {
+        SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();
+
+        Properties mappings = new Properties();
+        mappings.setProperty("DatabaseException", "databaseError");
+
+        r.setExceptionMappings(mappings);
+        r.setDefaultErrorView("error"); 
+        r.setExceptionAttribute("exception");
+        return r;
     }
     
     

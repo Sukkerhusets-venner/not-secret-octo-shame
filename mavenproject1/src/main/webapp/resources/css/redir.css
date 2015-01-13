@@ -1,0 +1,37 @@
+
+#wrapper {
+    width: 33rem;
+    height: 15rem;
+    margin: 0 auto;
+    background: #f3f3f3;
+    border: 1px solid #fff;
+    border-radius: 2px;
+    font-family: 'Bree Serif', serif;
+    
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+}
+
+h1{
+    font-weight: 300;
+    font-size: 5rem;
+    line-height: 2.5rem;
+    color: #888;
+    text-align: center;
+    padding-top: 3rem;
+    padding-bottom: 1rem;
+}
+
+h2{
+    text-align:center;
+    padding-top: 0.9rem;
+    color: #999;
+}
+h3{
+    text-align: center;
+    padding-top: 0.7rem;
+    color: #aaa;
+}
+
