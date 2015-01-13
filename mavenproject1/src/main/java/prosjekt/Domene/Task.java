@@ -34,15 +34,6 @@ public class Task {
         this.poeng =poeng;
     }
     
-    public Task(int tasknr, String type, String taskHtml, String taskCss, int poeng) {
-        this.tasknr = tasknr;
-        this.type = type;
-        this.taskHtml = taskHtml;
-        this.taskCss = taskCss;
-        this.poeng = poeng;
-        
-    }
-    
     public Task(int tasknr, String stask) {
         this.tasknr = tasknr;
         this.strTask = stask;
