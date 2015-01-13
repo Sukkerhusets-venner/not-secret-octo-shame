@@ -268,7 +268,7 @@ public class DatabaseConnection {
     public ArrayList<Task> getTasks(int set_id) {
         ArrayList<Task> list = new ArrayList();
         ResultSet resultSet = null;
-        String sqlStatement = "SELECT*FROM Task JOIN TaskSet ON(Task.task_id" +
+        String sqlStatement = "SELECT Task.task_id, Task.type, Task.html, Task.css, Task.points FROM Task JOIN TaskSet ON(Task.task_id" +
                 "TaskSet.task_id) JOIN Problemset"
                 + " ON(TaskSet.set_id = Problemset.set_id) WHERE Problemset.set_id"
                 + "= ?";
@@ -279,11 +279,12 @@ public class DatabaseConnection {
             resultSet = pstmt.executeQuery();
             
             while(resultSet.next()) {
+                int task_id = resultSet.getInt(1);
                 String type = resultSet.getString(2);
                 String html = resultSet.getString(3);
                 String css = resultSet.getString(4);
                 int points = resultSet.getInt(5);
-                list.add(new Task(set_id, type, html, css, points));
+                list.add(new Task(task_id, type, html, css, points));
             }
             return list;
         }
