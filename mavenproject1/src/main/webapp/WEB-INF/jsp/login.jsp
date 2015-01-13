@@ -1,6 +1,13 @@
 <%@page contentType="text/html" session="true" pageEncoding="UTF-8"%>
 <%@include file="../../includes/head.jspf" %>
 <link href="resources/css/niceLogin.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+    function usinp(elem){
+        var s = $(elem).val();
+        var Re = new RegExp("\\s", "g");
+        $(elem).val(s.replace(Re,""));
+    }
+</script>
 <title>Log inn</title>
 </head>
 <body>
@@ -11,9 +18,9 @@
                 <span>Venligst log inn eller registrer deg som bruker.</span>
             </div>
             <div class="content">
-                <form:input path="user.email" class="input username"  placeholder="Email" required="true" />
+                <form:input path="user.email" oninput="usinp(this)" type="email" class="input username"  placeholder="Email" required="true" />
                 <div class="user-icon"><img src="resources/img/user.png" /></div>
-                <form:input type="password" path ="user.password" class="input password" required="true" placeholder="Passord" />
+                <form:input type="password" oninput="usinp(this)" path ="user.password" class="input password" required="true" placeholder="Passord" />
                 <div class="pass-icon"><img src="resources/img/lock.png" /></div>	
             </div>
 
