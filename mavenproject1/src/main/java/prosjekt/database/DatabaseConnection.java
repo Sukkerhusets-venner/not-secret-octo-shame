@@ -1,13 +1,13 @@
 package prosjekt.database;
 
 import prosjekt.Domene.User;
+import prosjekt.Ui.Assignment;
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.sql.DataSource;
@@ -26,7 +26,7 @@ public class DatabaseConnection {
     public DatabaseConnection() {
 
         connection = null;
-        String databasePath = "jdbc:mysql://158.38.48.10:3306/team6";   // MAA FYLLES INN !Q!!!!!!
+        String databasePath = "jdbc:mysql://158.38.48.10:3306/team6";  
         String databaseUserName = "team6";
         String databasePassword = "Team62015";
         String dbDriver = "com.mysql.jdbc.Driver";
@@ -266,6 +266,36 @@ public class DatabaseConnection {
         }
 
         return null;
+    }
+    
+    public ArrayList<Task> getTasks(int set_id) {
+        ArrayList<Task> list = new ArrayList();
+        ResultSet resultSet = null;
+        String sqlStatement = "SELECT*FROM Task JOIN TaskSet ON(Task.task_id" +
+                "TaskSet.task_id) JOIN Problemset"
+                + " ON(TaskSet.set_id = Problemset.set_id) WHERE Problemset.set_id"
+                + "= ?";
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            pstmt.setInt(1,set_id );
+            resultSet = pstmt.executeQuery();
+            
+            while(resultSet.next()) {
+                String type = resultSet.getString(2);
+                String html = resultSet.getString(3);
+                String css = resultSet.getString(4);
+                int points = resultSet.getInt(5);
+                list.add(new Task(set_id, type, html, css, points));
+            }
+            return list;
+        }
+        catch (Exception e) {
+            printErrorMessage(e, " feil i getTasks");
+        }
+
+        return null;
+        
     }
 
     private boolean checkUserName(String userName) {

@@ -1,101 +1,9 @@
 <%@page contentType="text/html" session="true" pageEncoding="UTF-8"%>
 <%@include file="../../includes/head.jspf" %>
 <link href="resources/css/niceMainpage.css" rel="stylesheet" type="text/css"/>
+<link href="resources/css/loader.css" rel="stylesheet" type="text/css" />
 <title>Hovedside</title>
-<script type="text/javascript">
-
-    var REFRESH_TIMER = 5000;
-    $(document).ready(function () {
-        var a = $("#spill");
-        var b = $("#hiscore");
-        var c = $("#profil");
-        a.css("visibility", "visible");
-
-        var divVist = 0;
-        var timer = setInterval(function () {
-            divVist++;
-            if (divVist >= 3) {
-                divVist = 0;
-            }
-            switch (divVist) {
-                case 0:
-                    c.fadeTo(500, 0, function () {
-                        c.css("visibility", "hidden");
-                        a.css("visibility", "visible");
-                        a.fadeTo(500, 1);
-                    });
-                    break;
-                case 1:
-                    a.fadeTo(500, 0, function () {
-                        a.css("visibility", "hidden");
-                        b.css("visibility", "visible");
-                        b.fadeTo(500, 1);
-                    });
-                    break;
-                case 2:
-                    b.fadeTo(500, 0, function () {
-                        b.css("visibility", "hidden");
-                        c.css("visibility", "visible");
-                        c.fadeTo(500, 1);
-                    });
-                    break;
-            }
-        }, REFRESH_TIMER);
-        $("#buttons div").hover(function (event) {
-            var elem = $(event.target);
-            clearInterval(timer);
-            if (elem.html().equals("Spillet") && a.css("visiblity").equals("hidden")) {
-                
-            }
-        });
-        /*function() showSpill(){
-            if(c.css("visiblity").equals("visible")){
-                c.fadeTo(500, 0, function () {
-                        c.css("visibility", "hidden");
-                        a.css("visibility", "visible");
-                        a.fadeTo(500, 1);
-                });
-            }else if(b.css("visiblity").equals("visible")){
-                b.fadeTo(500, 0, function () {
-                        b.css("visibility", "hidden");
-                        a.css("visibility", "visible");
-                        a.fadeTo(500, 1);
-                });
-            }
-        }
-        function() showHiScore(){
-            if(a.css("visiblity").equals("visible")){
-                a.fadeTo(500, 0, function () {
-                        a.css("visibility", "hidden");
-                        b.css("visibility", "visible");
-                        b.fadeTo(500, 1);
-                });
-            }else if(c.css("visiblity").equals("visible")){
-                c.fadeTo(500, 0, function () {
-                        c.css("visibility", "hidden");
-                        b.css("visibility", "visible");
-                        b.fadeTo(500, 1);
-                });
-            }
-        }
-        function() showProfil(){
-            if(a.css("visiblity").equals("visible")){
-                a.fadeTo(500, 0, function () {
-                        a.css("visibility", "hidden");
-                        c.css("visibility", "visible");
-                        c.fadeTo(500, 1);
-                });
-            }else if(b.css("visiblity").equals("visible")){
-                b.fadeTo(500, 0, function () {
-                        b.css("visibility", "hidden");
-                        c.css("visibility", "visible");
-                        c.fadeTo(500, 1);
-                });
-            }
-        }*/
-
-    });
-</script>
+<script src="resources/js/menyKontroll.js"></script>
 </head>
 <html>
     <body>
@@ -146,6 +54,13 @@
                     <p><a href="snake">Snakes!</a></p>
                     <p><a href="taskTester">Test</a></p>
                 </div>
+            </div>
+            <div class="container">
+                    <div class="part"></div>
+                    <div class="part"></div>
+                    <div class="part"></div>
+                    <div class="part"></div>
+                    <div class="part"></div>
             </div>
             <div id="selectMenu">
                 <span id="s1">&#9312;</span>

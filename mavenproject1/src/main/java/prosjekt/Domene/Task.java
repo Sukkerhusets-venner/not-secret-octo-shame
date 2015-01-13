@@ -9,10 +9,24 @@ public class Task {
     String taskHtml = null; // html delen av oppgaven
     String taskCss = null; //css delen av oppgaven
     String answer = null; //Svaret fra bruker
+    String description = null; //Oppgavebeskrivelse
     int maxPoeng; // max poeng på oppgaven
     int poeng; // kun getter. Brukerens poeng på oppgaven
     String type = null; // setter type (snake, hangman osv)
 
+    public Task(){
+        taskHtml = "<html><body><h1>Hei</h1>Hjelp, formatteringen er helt gal</body></html>";
+        taskCss = "body {background-color: white; color: blue;} h1 { color: red; text-align: center; }";
+        description = "Her skal du endre på Css-delen slik at bildene under blir like.";
+        type = "Css";
+    }
+    public Task(String s){
+        taskHtml = "<html><body><h1>Hei</h1>Løs meg!</body></html>";
+        taskCss = "body {background-color: white; color: blue;} h1 { color: red; text-align: center; }";
+        description = "Her skal du endre på Html-delen slik at bildene under blir like.";
+        type = "Html";
+    }
+    
     public Task(int tasknr, String stask) {
         this.tasknr = tasknr;
         this.strTask = stask;
@@ -216,5 +230,13 @@ public class Task {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
