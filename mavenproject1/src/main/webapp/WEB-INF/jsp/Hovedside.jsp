@@ -1,6 +1,7 @@
 <%@page contentType="text/html" session="true" pageEncoding="UTF-8"%>
 <%@include file="../../includes/head.jspf" %>
 <link href="resources/css/niceMainpage.css" rel="stylesheet" type="text/css"/>
+<link href="resources/css/loader.css" rel="stylesheet" type="text/css" />
 <title>Hovedside</title>
 <script src="resources/js/menyKontroll.js"></script>
 </head>
@@ -54,6 +55,13 @@
                     <p><a href="taskTester">Test</a></p>
                     <p><a href="testprofile">Test profile</a></p>
                 </div>
+            </div>
+            <div class="container">
+                    <div class="part"></div>
+                    <div class="part"></div>
+                    <div class="part"></div>
+                    <div class="part"></div>
+                    <div class="part"></div>
             </div>
             <div id="selectMenu">
                 <span id="s1">&#9312;</span>

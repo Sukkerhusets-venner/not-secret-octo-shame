@@ -5,12 +5,18 @@
 var REFRESH_TIMER = 3000;
 
 $(document).ready(function () {
+    
+    $(".container").css("height", "0");
+    $(".container").css("margin-top", "0");
+    $(".container div").css("visibility", "hidden");
+    $("#stuff").css("height", "15rem");
+    
+    
     var a = $("#spill");
     var b = $("#hiscore");
     var c = $("#profil");
     a.css("visibility", "visible");
-
-
+    
     function showHiScore() {
         if (a.css("visibility").toString() === ("visible")) {
             a.fadeTo(500, 0, function () {
@@ -106,4 +112,11 @@ $(document).ready(function () {
     $("#buttons div a").mouseout(function () {
         quickFix();
     });
+    $("#buttons div a").click(function(){
+        $("#stuff").remove();
+        $(".container").css("height", "5rem");
+        $(".container").css("margin-top", "8rem");
+        $(".container div").css("visibility", "visible");
+    });
+    
 });
