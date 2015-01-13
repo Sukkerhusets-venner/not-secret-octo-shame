@@ -1,0 +1,22 @@
+<script src="resources/js/profile.js"></script>
+<link href="resources/css/profile.css" rel="stylesheet">
+<!DOCTYPE html>
+<html> 
+    <body>
+        <h1>Din Profil:</h1>
+        <div id="usernameChange">
+        <div id="popupUsername">
+        <form action="#" id="form" method="post" name="form">
+        <img id="close" src="images/3.png" onclick ="div_hide()">
+        <h2> Bytt Brukernavn </h2>
+        <hr>
+        <input id="oldName" name="nameOld" placeholder="Ditt gamle navn" type="text">
+        <input id="newName" name="nameNew" placeholder="Ditt nye navn" type="text">
+        <a href="javascript:%20check_empty()" id="submit">Send</a>
+        </form>
+        </div>
+        </div>
+        
+        <button id="popup" onclick="passord_show()">Nytt brukernavn</button>
+        
+

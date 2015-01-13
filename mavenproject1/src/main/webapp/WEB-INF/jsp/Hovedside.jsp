@@ -35,6 +35,7 @@
                     <p>Email: <c:out value = "${loginform.user.email}"/></p>
                     <p><a href="snake">Snakes!</a></p>
                     <p><a href="taskTester">Test</a></p>
+                    <p><a href="testprofile">Test profile</a></p>
                 </div>
             </div>
             <div id="selectMenu">
