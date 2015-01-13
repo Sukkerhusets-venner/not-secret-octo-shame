@@ -268,8 +268,8 @@ public class DatabaseConnection {
     public ArrayList<Task> getTasks(int set_id) {
         ArrayList<Task> list = new ArrayList();
         ResultSet resultSet = null;
-        String sqlStatement = "SELECT Task.task_id, Task.type, Task.html, Task.css, Task.points FROM Task JOIN TaskSet ON(Task.task_id" +
-                "TaskSet.task_id) JOIN Problemset"
+        String sqlStatement = "SELECT Task.task_id, Task.type, Task.html, Task.css, Task.points FROM Task "
+                + "JOIN TaskSet ON(Task.task_id = TaskSet.task_id) JOIN Problemset"
                 + " ON(TaskSet.set_id = Problemset.set_id) WHERE Problemset.set_id"
                 + "= ?";
         
