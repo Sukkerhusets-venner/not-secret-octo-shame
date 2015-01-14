@@ -140,6 +140,7 @@ Hangman.prototype = {
                 if (blank_spots && blank_spots.length === 0) {
                     self.result = true;
                     self.checkGameStatus();
+                    self.result = false;
                 }                
             }
         } else {
@@ -173,10 +174,9 @@ Hangman.prototype = {
     },
     checkGameStatus: function () {
         var self = this;
-//        self.single_char.val("").attr("disabled", "disabled").removeClass("red");
         if (self.result) {
             self.insertMessage("won");
-//            self.single_char.val("").attr("disabled", "disabled").removeClass("red");
+            self.points += self.attempts_left * 10;
             self.task_done.push(self.current_task);
             if (self.task_done.length === self.all_questions.length){
                 self.single_char.val("").attr("disabled", "disabled").removeClass("red");
@@ -185,8 +185,7 @@ Hangman.prototype = {
             }
         } else {
             self.insertMessage("lost");
-//            var game2 = new Hangman('abcde');
-//            game2.init();
+            self.points -= 25;
             self.init();
         }
     }

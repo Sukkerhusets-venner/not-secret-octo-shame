@@ -11,6 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+<<<<<<< HEAD
+=======
+import org.springframework.web.servlet.ModelAndView;
+import prosjekt.Domene.User;
+>>>>>>> FETCH_HEAD
 import prosjekt.Domene.UserScore;
 import prosjekt.Ui.Loginform;
 import prosjekt.database.DatabaseConnection;
@@ -38,6 +43,8 @@ public class loginKontroller {
         if (database.checkLogin(loginform.getUser().getEmail(), loginform.getUser().getPassword())) {
             HttpSession session = request.getSession();
             session.setAttribute ("Username", database.getUser(loginform.getUser().getEmail()).getUsername());
+            session.setAttribute("currentUser", new User( database.getUser(loginform.getUser().getEmail()).getUsername(), 
+                    loginform.getUser().getEmail(), loginform.getUser().getPassword()));
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScoreList(hiScores);
             return "Hovedside";
