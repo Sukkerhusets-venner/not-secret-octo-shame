@@ -62,23 +62,6 @@ $(document).ready(function () {
             });
         }
     }
-    function quickFix() { // kjapp test/bugfix
-        var abool = (a.css("visibility").toString() === ("visible"));
-        var bbool = (b.css("visibility").toString() === ("visible"));
-        var cbool = (c.css("visibility").toString() === ("visible"));
-        if (abool && bbool) {
-            a.css("visibility", "hidden");
-            b.css("visibility", "hidden");
-        } else if (abool && cbool) {
-            a.css("visibility", "hidden");
-            c.css("visibility", "hidden");
-        } else if (bbool && cbool) {
-            b.css("visibility", "hidden");
-            c.css("visibility", "hidden");
-        }
-        a.css("visibility", "visible");
-    }
-
     var divVist = 0;
     var timer = setInterval(function () {
         divVist++;

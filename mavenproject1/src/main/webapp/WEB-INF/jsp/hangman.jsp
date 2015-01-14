@@ -16,7 +16,11 @@
   <div class="header">
     <h1>Hangman</h1>
   </div>
-            <div id="question_input"></div>
+  <div id="question_input"></div>
+  <div class="point_input"> 
+      <span class="points_input_text">Points: <div id="point_input"></div></span>
+      <span class="point_input"></span>
+  </div>
   <div class="content">
     <div class="left_part">
       <div class="user_input">
