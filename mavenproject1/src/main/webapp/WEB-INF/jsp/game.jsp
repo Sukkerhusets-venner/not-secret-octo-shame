@@ -22,6 +22,7 @@
             .renderedFrame, .codeBox {
                 width: 250px; height: 200px
             }
+            
             #compare {
                 float: right;
                 padding: 11px 25px;
@@ -92,15 +93,14 @@
                 var type = "${assignment.getCurrentTask().getType()}";
                 var sHtml = "";
                 var sCss = "";
-                
                 if(type === "Css"){
                     sHtml = solutionHtml;
-                    sCss = "";
+                    sCss = "/*Her må du skrive inn din Css-kode*/";
                     editorHtml.setOption("readOnly", true);
                     editorCss.setOption("readOnly", false);
                     oppgTekst = "Her må du skrive Css-kode slik at bildene under blir like";
                 } else if(type === "Html"){
-                    sHtml = "";
+                    sHtml = "<!--Her må du skrive inn din Html-kode-->";
                     sCss = solutionCss;
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", true);
@@ -116,17 +116,18 @@
                 editorCss.getDoc().setValue(startingCss);
                 
                 document.getElementById("oppgnummer").innerHTML = "Oppgave "+oppgNr;
+                document.getElementById("oppgtekst").innerHTML = oppgTekst;
             }
         </script>
     </head>
-        
+    
     <body>
     <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
     </form:form>
     <section id="content">
         <section class="block"> 
-            <h3 id="oppgnummer">Oppgave <script>document.write(oppgNr)</script></h3>
-            <p>${assignment.getCurrentTask().getDescription()}</p>
+            <h3 id="oppgnummer"></h3>
+            <p id="oppgtekst"></p>
             <p>Løsning | Din kode</p>
             <div id="solutionDiv">
                 <iframe class="renderedFrame" id="solutionFrame" src="about:blank"></iframe>
