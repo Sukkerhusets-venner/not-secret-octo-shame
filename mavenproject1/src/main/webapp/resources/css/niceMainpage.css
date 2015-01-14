@@ -36,6 +36,7 @@ body {
     padding: 1.5rem 3rem 1.5rem 3rem;
 }
 #buttons{
+    z-index: 2;
     text-align: center;
     height: 5.5rem;
 }
@@ -135,9 +136,3 @@ body {
     margin-top: 1rem;
     margin-left: 1rem;
 }
-#stuff div{
-    position: absolute;
-    visibility: hidden;
-}
-
-
