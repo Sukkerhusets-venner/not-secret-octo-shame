@@ -81,26 +81,28 @@
                 if(resultUrl && solutionUrl) {
                     resemble(resultUrl).compareTo(solutionUrl).onComplete(function(data){
                         alert("Likhet: " + (100 - data.misMatchPercentage) + "%");
+                        document.forms["nesteOppgave"].elements["score"].value = toInt(100 - data.misMatchPercentage);
                         document.forms["nesteOppgave"].submit();
                     });            
                 }
             }
+            function toInt(n){ return Math.round(Number(n)); };
             function setUp(){
                 oppgNr = "${assignment.getCurrentTaskNr()}";
                 oppgNr++;
-                var solutionHtml = "${assignment.getCurrentTask().getTaskHtml()}";
-                var solutionCss = "${assignment.getCurrentTask().getTaskCss()}";
+                var solutionHtml = "${assignment.getCurrentTask().getAnswerHtml()}";
+                var solutionCss = "${assignment.getCurrentTask().getAnswerCss()}";
                 var type = "${assignment.getCurrentTask().getType()}";
                 var sHtml = "";
                 var sCss = "";
                 if(type === "Css"){
                     sHtml = solutionHtml;
-                    sCss = "/*Her må du skrive inn din Css-kode*/";
+                    sCss = "${assignment.getCurrentTask().getTaskCss()}";
                     editorHtml.setOption("readOnly", true);
                     editorCss.setOption("readOnly", false);
                     oppgTekst = "Her må du skrive Css-kode slik at bildene under blir like";
                 } else if(type === "Html"){
-                    sHtml = "<!--Her må du skrive inn din Html-kode-->";
+                    sHtml = "${assignment.getCurrentTask().getTaskHtml()}";
                     sCss = solutionCss;
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", true);
@@ -123,6 +125,7 @@
     
     <body>
     <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
+         <input type="hidden" name="score" value=''>
     </form:form>
     <section id="content">
         <section class="block"> 
