@@ -68,4 +68,8 @@ public class registrerKontroller {
     public String hangman () {
         return "hangman";
     }
+    @RequestMapping (value = "/login")
+    public String login () {
+        return "login";
+    }
 }

@@ -26,7 +26,9 @@
                 <i class="errorMessage"><c:if test = "${not empty emailError}"> <c:out value = "${emailError}"/> </c:if></i>
                 <i class="errorMessage"><c:if test = "${not empty registerError}"> <c:out value = "${registerError}"/> </c:if></i>
                 </div>
-        </form:form>
+                 </form:form>
+          <a href="login" style="position:fixed; left:3rem; bottom:2rem;">Gå tilbake</a>      
+               
     </div>
 </body>
 </html>
