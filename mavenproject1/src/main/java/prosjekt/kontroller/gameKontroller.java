@@ -47,13 +47,15 @@ public class gameKontroller {
     }
     
     @RequestMapping (value = "nesteOppgave")
-    public String nesteOppg (@ModelAttribute(value="assignment") Assignment assignment,WebRequest request, HttpServletRequest user, Model model) {
+    public String nesteOppg (@ModelAttribute(value="assignment") Assignment assignment,WebRequest request,@ModelAttribute Loginform loginform, HttpServletRequest user, Model model) {
         int tasknr = assignment.nextTask();
         if(tasknr != -1){
             return "game";
         } else {   
-            database.registerScore( database.getUser(((User)user.getSession().getAttribute("currentUser")).getEmail())  , assignment.sumUp() , 1);
-            
+            User u = database.getUser(((User)user.getSession().getAttribute("currentUser")).getEmail());
+            database.registerScore( u  , assignment.sumUp() , 1);
+            loginform.setUser(u);
+            loginform.setHiScoreList(database.getHighScoreList());
             request.removeAttribute("assignment", WebRequest.SCOPE_SESSION);
             model.addAttribute("assignment", makeAssignment());
             return "Hovedside";
