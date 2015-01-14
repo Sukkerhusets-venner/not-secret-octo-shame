@@ -325,6 +325,7 @@ public class DatabaseConnection {
             pstmt.setInt(1, user.getId());
             pstmt.setInt(2, setId);
             pstmt.setInt(3, scoreId);
+            pstmt.executeUpdate();
             
             return true;
             

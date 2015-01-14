@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+import prosjekt.Domene.User;
 import prosjekt.Domene.UserScore;
 import prosjekt.Ui.Loginform;
 import prosjekt.database.DatabaseConnection;
@@ -38,6 +39,8 @@ public class loginKontroller {
         if (database.checkLogin(loginform.getUser().getEmail(), loginform.getUser().getPassword())) {
             HttpSession session = request.getSession();
             session.setAttribute ("Username", database.getUser(loginform.getUser().getEmail()).getUsername());
+            session.setAttribute("currentUser", new User( database.getUser(loginform.getUser().getEmail()).getUsername(), 
+                    loginform.getUser().getEmail(), loginform.getUser().getPassword()));
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScoreList(hiScores);
             return "Hovedside";
@@ -51,13 +54,17 @@ public class loginKontroller {
     public String login () {
         return "Hovedside";
     }
-    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String meh(){
+        return "error";
+    }
+   /* @ExceptionHandler(Exception.class)
     public ModelAndView handleError(HttpServletRequest req, Exception exception) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("melding", "feilmelding.generell"); //feilmelding.generelt finnes ikke
         mav.addObject("unntak",exception);
         mav.setViewName("error");
         return mav;
-    }// Det er tilfeller hvor exceptionHandler ikke behandler feilen ^-^ (eks localhost/prosjekt/side/side/side...)
+    }*/// Det er tilfeller hvor exceptionHandler ikke behandler feilen ^-^ (eks localhost/prosjekt/side/side/side...)
     // Implementert en global lytter - se GlobalExceptionHandler.class
 }
