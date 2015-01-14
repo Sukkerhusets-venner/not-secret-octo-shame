@@ -48,6 +48,7 @@
         //"Read only" variabler.
         var oppgNr = 0;
         var oppgTekst = "";
+        var timescore = 0;
         $(document).ready(function() {
                
                 setUp();                 
@@ -80,14 +81,28 @@
             function resembleIfBothLoaded(resultUrl, solutionUrl) { 
                 if(resultUrl && solutionUrl) {
                     resemble(resultUrl).compareTo(solutionUrl).onComplete(function(data){
-                        alert("Likhet: " + (100 - data.misMatchPercentage) + "%");
-                        document.forms["nesteOppgave"].elements["score"].value = toInt(100 - data.misMatchPercentage);
+                        var poengsum = 0;
+                        var skillscore = 0;
+                        if(data.misMatchPercentage <= 5){
+                            skillscore = toInt((5-data.misMatchPercentage)*18)
+                        }
+                        poengsum = timescore + skillscore; 
+                        alert("Veldig bra, du har nå kommet til neste oppgave.\n\n Din skillscore ble: "+skillscore+
+                        "/90.\nDin tidscore ble "+timescore+"/10\n\nDin poengsum ble: "+poengsum+"/100. Gratulerer!!");
+                        document.forms["nesteOppgave"].elements["score"].value = poengsum;
                         document.forms["nesteOppgave"].submit();
                     });            
                 }
             }
+            
             function toInt(n){ return Math.round(Number(n)); };
             function setUp(){
+                timescore = 10;
+                setInterval(function(){
+                    if(timescore > 0){
+                        timescore--;
+                    }
+                },30000);
                 oppgNr = "${assignment.getCurrentTaskNr()}";
                 oppgNr++;
                 var solutionHtml = "${assignment.getCurrentTask().getAnswerHtml()}";
