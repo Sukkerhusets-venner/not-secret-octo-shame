@@ -306,22 +306,25 @@ public class DatabaseConnection {
     public boolean registerScore(User user, int score, int setId){
         
         java.sql.Date date = new java.sql.Date(new java.util.Date().getTime() );
-        String sql1 = "INSERT INTO Score VALUES (DEFAULT, ?, ?); ";
+        String sql1 = "INSERT INTO Score VALUES (DEFAULT, ?, ?)";
         String sql2 = "INSERT INTO Game VALUES (?, ?, LAST_INSERT_ID())";
         
         ResultSet resultSet = null;
         
         try{
+            connection.setAutoCommit(false);
             PreparedStatement pstmt = connection.prepareStatement(sql1);
+            PreparedStatement pstmt2 = connection.prepareStatement(sql2);
             pstmt.setInt(1, score);
             pstmt.setDate(2, date);
-            pstmt.executeUpdate();
             
+            pstmt2.setInt(1, user.getId());
+            pstmt2.setInt(2, setId);
             
-            pstmt = connection.prepareStatement(sql2);
-            pstmt.setInt(1, user.getId());
-            pstmt.setInt(2, setId);
             pstmt.executeUpdate();
+            pstmt2.executeUpdate();
+            
+            connection.commit();
             
             return true;
             
