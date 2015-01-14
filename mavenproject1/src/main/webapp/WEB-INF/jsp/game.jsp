@@ -19,7 +19,7 @@
                 float: left;
                 margin: 5px;
                 padding: 5px;
-                background-color: #dddddd;
+                background-color: #f3f3f3;
             }
             
             .renderedFrame, .codeBox {
