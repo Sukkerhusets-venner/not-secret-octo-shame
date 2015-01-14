@@ -29,6 +29,7 @@
                 <c:if test="${meny == 1 or empty meny}">
                     <div id="spill">
                     <h3>Spill</h3>
+                    <a href="game">Press this link</a>
                     </div>
                 </c:if>
                 <c:if test="${meny == 2}">
