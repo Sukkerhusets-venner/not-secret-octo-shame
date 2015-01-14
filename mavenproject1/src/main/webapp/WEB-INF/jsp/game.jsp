@@ -83,8 +83,8 @@
                     resemble(resultUrl).compareTo(solutionUrl).onComplete(function(data){
                         var poengsum = 0;
                         var skillscore = 0;
-                        if(data.misMatchPercentage <= 5){
-                            skillscore = toInt((5-data.misMatchPercentage)*18)
+                        if(data.misMatchPercentage <= 4){
+                            skillscore = toInt((4-data.misMatchPercentage)*22.5);
                         }
                         poengsum = timescore + skillscore; 
                         alert("Veldig bra, du har nå kommet til neste oppgave.\n\n Din skillscore ble: "+skillscore+
