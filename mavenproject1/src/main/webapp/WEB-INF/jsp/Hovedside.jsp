@@ -17,7 +17,7 @@
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
                     <div><a href="mk1">Spillet</a>
-                    </div><div><a href="mk2">HiScore</a>
+                    </div><div><a href="mk2">Resultater</a>
                     </div><div><a href=mk3>Profil</a>
                     </div>
                     <!-- ---------------------------- -->
@@ -54,12 +54,14 @@
                 </c:if>
                 <c:if test="${meny == 3}">
                 <div id="profil">
-                    <h3> Profil </h3>
-                    <p>Brukernavn: <%=session.getAttribute("Username")%></p>
-                    <p>Email: <c:out value = "${loginform.user.email}"/></p>
-                    <p><a href="snake">Snakes!</a></p>
-                    <p><a href="taskTester">Test</a></p>
-
+                    <div>
+                        <p>Brukernavn: ${loginform.user.username}</p>
+                        <p>Email: <c:out value = "${loginform.user.email}"/></p>
+                    </div>
+                    <div>
+                        
+                        
+                    </div>
                 </div>
                 </c:if>
             </div>
