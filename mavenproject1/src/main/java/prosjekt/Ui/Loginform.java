@@ -27,7 +27,7 @@ public final class Loginform {
         this.user = user;
     }
     
-    public void setHiScoreList(ArrayList<UserScore> list){
+    public void setHiScore(ArrayList<UserScore> list){
         this.hiScore = list;
     }
     public UserScore getUserScore(int nr){

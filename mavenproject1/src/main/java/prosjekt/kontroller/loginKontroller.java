@@ -11,16 +11,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import prosjekt.Domene.User;
 import prosjekt.Domene.UserScore;
 import prosjekt.Ui.Loginform;
 import prosjekt.database.DatabaseConnection;
 
 @Controller
+@SessionAttributes({"loginform"})
 public class loginKontroller {
     
     @Autowired
     private DatabaseConnection database;
+    
+    
+     @ModelAttribute("loginform")
+    public Loginform makeAssignment(){
+        return new Loginform();
+    }
     
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String meh(){
@@ -31,7 +39,7 @@ public class loginKontroller {
         return "login";
     }
     @RequestMapping (value = "Log inn")
-    public String login (@ModelAttribute Loginform loginform, HttpServletRequest request, Model model) {
+    public String login (@ModelAttribute(value="loginform") Loginform loginform, HttpServletRequest request, Model model) {
         if(loginform.getUser().getPassword().isEmpty() || loginform.getUser().getEmail().isEmpty()){
             model.addAttribute("loginError", "Fyll inn alle feltene");
             return "login";
@@ -42,7 +50,7 @@ public class loginKontroller {
             session.setAttribute("currentUser", new User( database.getUser(loginform.getUser().getEmail()).getUsername(), 
                     loginform.getUser().getEmail(), loginform.getUser().getPassword()));
             ArrayList<UserScore> hiScores = database.getHighScoreList();
-            loginform.setHiScoreList(hiScores);
+            loginform.setHiScore(hiScores);
             return "Hovedside";
         } else {
             model.addAttribute("loginError", "Feil email/passord");
