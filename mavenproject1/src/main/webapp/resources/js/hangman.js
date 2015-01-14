@@ -140,6 +140,7 @@ Hangman.prototype = {
                 if (blank_spots && blank_spots.length === 0) {
                     self.result = true;
                     self.checkGameStatus();
+                    self.result = false;
                 }                
             }
         } else {
