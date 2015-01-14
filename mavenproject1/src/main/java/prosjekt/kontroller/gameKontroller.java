@@ -21,6 +21,7 @@ import org.springframework.web.context.request.WebRequest;
 import prosjekt.Domene.User;
 import prosjekt.Domene.UserScore;
 import prosjekt.Ui.Assignment;
+import prosjekt.Ui.Loginform;
 import prosjekt.database.DatabaseConnection;
 
 /**
@@ -46,13 +47,13 @@ public class gameKontroller {
     }
     
     @RequestMapping (value = "nesteOppgave")
-    public String nesteOppg (@ModelAttribute(value="assignment") Assignment assignment, WebRequest request, HttpServletRequest user, Model model) {
+    public String nesteOppg (@ModelAttribute(value="assignment") Assignment assignment,WebRequest request, HttpServletRequest user, Model model) {
         int tasknr = assignment.nextTask();
         if(tasknr != -1){
             return "game";
-        } else {
-                
+        } else {   
             database.registerScore( database.getUser(((User)user.getSession().getAttribute("currentUser")).getEmail())  , assignment.sumUp() , 1);
+            
             request.removeAttribute("assignment", WebRequest.SCOPE_SESSION);
             model.addAttribute("assignment", makeAssignment());
             return "Hovedside";
