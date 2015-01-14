@@ -15,7 +15,7 @@ public class Task {
     int poeng; // kun getter. Brukerens poeng på oppgaven
     String type = null; // setter type (snake, hangman osv)
 
-       public Task(int tasknr, String type, String taskHtml, String answerHtml, String answerCss, String taskCss, int poeng) {
+       public Task(int tasknr, String type, String taskHtml, String answerHtml, String taskCss, String answerCss, int poeng) {
         this.tasknr = tasknr;
         this.type = type;
         this.taskHtml = taskHtml;
