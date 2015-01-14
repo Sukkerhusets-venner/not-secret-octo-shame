@@ -91,8 +91,8 @@
                         }
                         poengsum = timescore + skillscore;
                         reset();
-			alertify.alert("Veldig bra, du har nå kommet til neste oppgave.\n\n Din skillscore ble: "+skillscore+
-                        "/90.\nDin tidscore ble "+timescore+"/10\n\nDin poengsum ble: "+poengsum+"/100. Gratulerer!!"
+			alertify.alert("Veldig bra, du har nå kommet til neste oppgave.<br/><br/> Din skillscore ble: "+skillscore+
+                        "/90.<br/>Din tidscore ble "+timescore+"/10<br/><br/>Din poengsum ble: "+poengsum+"/100. <br/><br/>Gratulerer!!<br/><br/>"
                         ,function (e) {
                             if(e){
                                 document.forms["nesteOppgave"].elements["score"].value = poengsum;
