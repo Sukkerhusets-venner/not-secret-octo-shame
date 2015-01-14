@@ -10,6 +10,9 @@
 	<script src="resources/js/css.js"></script>
 	<script src="resources/js/beautify-css.js"></script>
 	<script src="resources/js/beautify-html.js"></script>
+        <script src="resources/js/alertify.min.js"></script>
+        <link rel="stylesheet" href="resources/css/alertify.core.css" />
+	<link rel="stylesheet" href="resources/css/alertify.default.css" id="toggleCSS" />
 
         <style>
             .block {
@@ -86,11 +89,16 @@
                         if(data.misMatchPercentage <= 4){
                             skillscore = toInt((4-data.misMatchPercentage)*22.5);
                         }
-                        poengsum = timescore + skillscore; 
-                        alert("Veldig bra, du har nå kommet til neste oppgave.\n\n Din skillscore ble: "+skillscore+
-                        "/90.\nDin tidscore ble "+timescore+"/10\n\nDin poengsum ble: "+poengsum+"/100. Gratulerer!!");
-                        document.forms["nesteOppgave"].elements["score"].value = poengsum;
-                        document.forms["nesteOppgave"].submit();
+                        poengsum = timescore + skillscore;
+                        reset();
+			alertify.alert("Veldig bra, du har nå kommet til neste oppgave.\n\n Din skillscore ble: "+skillscore+
+                        "/90.\nDin tidscore ble "+timescore+"/10\n\nDin poengsum ble: "+poengsum+"/100. Gratulerer!!"
+                        ,function (e) {
+                            if(e){
+                                document.forms["nesteOppgave"].elements["score"].value = poengsum;
+                                document.forms["nesteOppgave"].submit();
+                            }
+                        });
                     });            
                 }
             }
@@ -135,6 +143,18 @@
                 document.getElementById("oppgnummer").innerHTML = "Oppgave "+oppgNr;
                 document.getElementById("oppgtekst").innerHTML = oppgTekst;
             }
+            function reset () {
+                $("#toggleCSS").attr("href", "resources/css/alertify.default.css");
+		alertify.set({
+			labels : {
+				ok     : "OK",
+                                cancel : "Cancel"
+			},
+				delay : 5000,
+				buttonReverse : false,
+				buttonFocus   : "ok"
+			});
+		}
         </script>
     </head>
     
