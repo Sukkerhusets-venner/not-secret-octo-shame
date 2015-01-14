@@ -306,8 +306,8 @@ public class DatabaseConnection {
     public boolean registerScore(User user, int score, int setId){
         
         java.sql.Date date = new java.sql.Date(new java.util.Date().getTime() );
-        String sql1 = "INSERT INTO Score VALUES (DEFAULT, ?, ?)";
-        String sql2 = "INSERT INTO Game VALUES (?, ?, ?)";
+        String sql1 = "INSERT INTO Score VALUES (DEFAULT, ?, ?); ";
+        String sql2 = "INSERT INTO Game VALUES (?, ?, LAST_INSERT_ID())";
         
         ResultSet resultSet = null;
         
@@ -317,14 +317,10 @@ public class DatabaseConnection {
             pstmt.setDate(2, date);
             pstmt.executeUpdate();
             
-            pstmt = connection.prepareStatement("SELECT LAST_INSERT_ID()");
-            resultSet = pstmt.executeQuery();
-            int scoreId = resultSet.getInt(1);
             
             pstmt = connection.prepareStatement(sql2);
             pstmt.setInt(1, user.getId());
             pstmt.setInt(2, setId);
-            pstmt.setInt(3, scoreId);
             pstmt.executeUpdate();
             
             return true;
