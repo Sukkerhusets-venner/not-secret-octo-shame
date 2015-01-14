@@ -4,6 +4,7 @@ import prosjekt.Domene.User;
 import prosjekt.Ui.Assignment;
 import java.security.MessageDigest;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -299,6 +300,39 @@ public class DatabaseConnection {
         
     }
 
+    public boolean registerScore(User user, int score, int setId){
+        
+        java.sql.Date date = new java.sql.Date(new java.util.Date().getTime() );
+        String sql1 = "INSERT INTO Score VALUES (DEFAULT, ?, ?)";
+        String sql2 = "INSERT INTO Game VALUES (?, ?, ?)";
+        
+        ResultSet resultSet = null;
+        
+        try{
+            PreparedStatement pstmt = connection.prepareStatement(sql1);
+            pstmt.setInt(1, score);
+            pstmt.setDate(2, date);
+            pstmt.executeUpdate();
+            
+            pstmt = connection.prepareStatement("SELECT LAST_INSERT_ID()");
+            resultSet = pstmt.executeQuery();
+            int scoreId = resultSet.getInt(1);
+            
+            pstmt = connection.prepareStatement(sql2);
+            pstmt.setInt(1, user.getId());
+            pstmt.setInt(2, setId);
+            pstmt.setInt(3, scoreId);
+            
+            return true;
+            
+        } catch (Exception e){
+            rollBack();
+            printErrorMessage(e, "Registrer poeng");
+        }
+        
+        return false;
+    }
+    
     private boolean checkUserName(String userName) {
 
         ResultSet resultSet = null;
