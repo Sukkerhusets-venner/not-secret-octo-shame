@@ -51,13 +51,17 @@ public class loginKontroller {
     public String login () {
         return "Hovedside";
     }
-    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String meh(){
+        return "error";
+    }
+   /* @ExceptionHandler(Exception.class)
     public ModelAndView handleError(HttpServletRequest req, Exception exception) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("melding", "feilmelding.generell"); //feilmelding.generelt finnes ikke
         mav.addObject("unntak",exception);
         mav.setViewName("error");
         return mav;
-    }// Det er tilfeller hvor exceptionHandler ikke behandler feilen ^-^ (eks localhost/prosjekt/side/side/side...)
+    }*/// Det er tilfeller hvor exceptionHandler ikke behandler feilen ^-^ (eks localhost/prosjekt/side/side/side...)
     // Implementert en global lytter - se GlobalExceptionHandler.class
 }
