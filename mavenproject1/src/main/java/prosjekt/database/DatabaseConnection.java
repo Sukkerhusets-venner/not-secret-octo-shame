@@ -282,9 +282,11 @@ public class DatabaseConnection {
                 int task_id = resultSet.getInt(1);
                 String des = resultSet.getString(2);
                 String html = resultSet.getString(3);
-                String css = resultSet.getString(4);
-                int points = resultSet.getInt(5);
-                list.add(new Task(task_id, des, html, css, points));
+                String answer = resultSet.getString(4);
+                String css = resultSet.getString(5);
+                String answerCss = resultSet.getString(6);
+                int points = resultSet.getInt(7);
+                list.add(new Task(task_id, des, html, answer, css, answerCss, points));
             }
             return list;
         }
