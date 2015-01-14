@@ -3,10 +3,10 @@
  */
 .alertify,
 .alertify-log {
-	font-family: sans-serif;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;;
 }
 .alertify {
-	background: #FFF;
+	background: #f3f3f3;
 	border: 10px solid #333; /* browsers that don't support rgba */
 	border: 10px solid rgba(0,0,0,.7);
 	border-radius: 8px;
