@@ -8,17 +8,20 @@ public class Task {
     String strTask = null; // streng fra database
     String taskHtml = null; // html delen av oppgaven
     String taskCss = null; //css delen av oppgaven
-    String answer = null; //Svaret fra bruker
+    String answerHtml = null; //Svaret fra bruker
+    String answerCss = null;
     String description = null; //Oppgavebeskrivelse
     int maxPoeng; // max poeng på oppgaven
     int poeng; // kun getter. Brukerens poeng på oppgaven
     String type = null; // setter type (snake, hangman osv)
 
-       public Task(int tasknr, String type, String taskHtml, String taskCss, int poeng) {
+       public Task(int tasknr, String type, String taskHtml, String answerHtml, String taskCss, String answerCss, int poeng) {
         this.tasknr = tasknr;
         this.type = type;
         this.taskHtml = taskHtml;
+        this.answerHtml = answerHtml;
         this.taskCss = taskCss;
+        this.answerCss = answerCss;
         this.poeng =poeng;
     }
     
@@ -125,10 +128,10 @@ public class Task {
     }
 
     public int getPoeng() {
-        if (answer == null) {
+        if (answerHtml == null) {
             return 0;
         }
-        int d = LevenshteinDistance(interpretAnswer(answer), taskHtml);
+        int d = LevenshteinDistance(interpretAnswer(answerHtml), taskHtml);
         if (d > maxPoeng) {
             poeng = 0;
         } else {
@@ -220,11 +223,19 @@ public class Task {
     }
 
     public String getAnswer() {
-        return answer;
+        return answerHtml;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setAnswer(String answerHtml) {
+        this.answerHtml = answerHtml;
+    }
+    
+    public String getAwnserCss() {
+        return answerCss;
+    }
+    
+    public void setAnswerCss(String awnserCss) {
+        this.answerCss = answerCss;
     }
     
     public String getDescription() {

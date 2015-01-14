@@ -10,6 +10,7 @@ function Hangman(user_id) {
     this.current_task = null;
     this.task_done = [];
     this.all_questions = [];
+    this.points = 0;
     //TODO: figure out a better way to initialize messages
     this.messages = {
         "correct": "Your guess was correct. Good going!!",
@@ -79,6 +80,7 @@ Hangman.prototype = {
         self.current_task = n;
         self.question = listQ[n];
         self.processData(listQ[n], 'question_input');
+        self.processData(self.points, 'point_input');
         self.answer = listA[n];
         self.processData(Array(listA[n].length+1).join("_"), 'input_fields');
     },

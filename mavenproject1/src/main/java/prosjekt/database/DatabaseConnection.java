@@ -272,7 +272,8 @@ public class DatabaseConnection {
     public ArrayList<Task> getTasks(int set_id) {
         ArrayList<Task> list = new ArrayList();
         ResultSet resultSet = null;
-        String sqlStatement = "SELECT Task.task_id, Task.des, Task.html, Task.css, Task.points FROM Task "
+        String sqlStatement = "SELECT Task.task_id, Task.des, Task.start_html, Task.fasit_html, "
+                + "Task.start_css, Task.fasit_css, Task.points FROM Task "
                 + "JOIN TaskSet ON(Task.task_id = TaskSet.task_id) JOIN Problemset"
                 + " ON(TaskSet.set_id = Problemset.set_id) WHERE Problemset.set_id"
                 + "= ?";
@@ -286,9 +287,11 @@ public class DatabaseConnection {
                 int task_id = resultSet.getInt(1);
                 String des = resultSet.getString(2);
                 String html = resultSet.getString(3);
-                String css = resultSet.getString(4);
-                int points = resultSet.getInt(5);
-                list.add(new Task(task_id, des, html, css, points));
+                String answerHtml = resultSet.getString(4);
+                String css = resultSet.getString(5);
+                String answerCss = resultSet.getString(6);
+                int points = resultSet.getInt(7);
+                list.add(new Task(task_id, des, html, answerHtml, css, answerCss, points));
             }
             return list;
         }
