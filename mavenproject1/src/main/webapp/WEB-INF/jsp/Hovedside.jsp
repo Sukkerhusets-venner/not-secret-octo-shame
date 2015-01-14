@@ -47,7 +47,7 @@
 
                             </c:forEach></table>
                         </c:if><c:if test="${empty loginform.hiScore}">
-                        <p> Fant ingen Hiscores (hvis du har brukt <b>logincheat</b> vil du ikke finne noen!)</p>
+                        <p> Fant ingen Hiscores</p>
                     </c:if>
                 </div>
                 </c:if>
