@@ -15,7 +15,7 @@ public class Assignment {
     public int sumUp(){
         int sum = 0;
         for (int i = 0; i < delscores.length; i++) {
-            sum = delscores[i];
+            sum += delscores[i];
         }
         return sum;
     }
@@ -35,7 +35,7 @@ public class Assignment {
         task.add(t);
     }
     public int nextTask(){
-        delscores[currentTask] = score;
+        setDelscore();
         if(currentTask < task.size()-1){
             return currentTask++;
         }
@@ -67,7 +67,7 @@ public class Assignment {
         delscores = new int[task.size()];
     }
     
-    public void setDelscore(int score){
+    public void setDelscore(){
         if(currentTask < task.size()){
             delscores[currentTask] = score;
         }
