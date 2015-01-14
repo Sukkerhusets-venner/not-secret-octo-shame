@@ -222,19 +222,19 @@ public class Task {
         this.strTask = strTask;
     }
 
-    public String getAnswer() {
+    public String getAnswerHtml() {
         return answerHtml;
     }
 
-    public void setAnswer(String answerHtml) {
+    public void setAnswerHtml(String answerHtml) {
         this.answerHtml = answerHtml;
     }
     
-    public String getAwnserCss() {
+    public String getAnswerCss() {
         return answerCss;
     }
     
-    public void setAnswerCss(String awnserCss) {
+    public void setAnswerCss(String answerCss) {
         this.answerCss = answerCss;
     }
     

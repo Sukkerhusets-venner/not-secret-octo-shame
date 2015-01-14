@@ -9,6 +9,24 @@ public class Assignment {
     private int id;
     private List<Task> task = new ArrayList<Task>();
     private int currentTask = 0;
+    private int[] delscores;
+    private int score;
+    
+    public int sumUp(){
+        int sum = 0;
+        for (int i = 0; i < delscores.length; i++) {
+            sum = delscores[i];
+        }
+        return sum;
+    }
+    
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
     
     public Assignment(){}
     
@@ -17,6 +35,7 @@ public class Assignment {
         task.add(t);
     }
     public int nextTask(){
+        delscores[currentTask] = score;
         if(currentTask < task.size()-1){
             return currentTask++;
         }
@@ -33,7 +52,7 @@ public class Assignment {
     public int getCompleted() {
         int ant = 0;
         for(Task t : task){
-            if(t.getAnswer() != null){
+            if(t.getAnswerHtml() != null){
                 ant++;
             }
         }
@@ -41,11 +60,23 @@ public class Assignment {
     }
     public List<Task> getAllTasks(){return task;}
     public Task getTask(int tnr){
-        /*for (Task t : task){
-            if(t.getTasknr() == tnr) return t;
-        }
-        return null;*/
         return task.get(id);
     }
-    public void setAllTasks(List<Task> allTasks){this.task = allTasks;}
+    public void setAllTasks(List<Task> allTasks){
+        this.task = allTasks;
+        delscores = new int[task.size()];
+    }
+    
+    public void setDelscore(int score){
+        if(currentTask < task.size()){
+            delscores[currentTask] = score;
+        }
+    }
+    public int getDelscore(int nummer){
+        if (nummer > -1 && nummer < task.size()){
+            return delscores[nummer];
+        } else {
+            return -1;
+        }
+    }
 }
