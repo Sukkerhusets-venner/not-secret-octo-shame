@@ -4,6 +4,7 @@ import prosjekt.Domene.User;
 import prosjekt.Ui.Assignment;
 import java.security.MessageDigest;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,8 +23,6 @@ public class DatabaseConnection {
 
     private Connection connection;
     private DataSource dataSource;
-    
-    private final int NUMBER_OF_HIGHSCORES_SHOWN = 10;
 
     public DatabaseConnection() {
 
@@ -87,6 +86,10 @@ public class DatabaseConnection {
 
     public String registerUser(User user) {
 
+        if (!checkUserName(user.getUsername()) || !checkEmail(user.getEmail())){
+            return null;
+        }
+        
         String sqlStatement = "INSERT INTO User(user_id, name, email, password) "
                 + "VALUES (DEFAULT, ?, ?, ?)";
         try {
@@ -200,6 +203,7 @@ public class DatabaseConnection {
     }
 
     public ArrayList<UserScore> getHighScoreList() {
+
         final int NUMBER_OF_HIGHSCORES_SHOWN = 10;
 
         String sql = "SELECT  User.name, MAX(Score.score) FROM User "
@@ -223,7 +227,7 @@ public class DatabaseConnection {
             }
             Collections.sort(hsList);
             Collections.reverse(hsList);
-            
+
             return hsList;
         } catch (Exception e) {
             printErrorMessage(e, "HighScoreList");
@@ -233,7 +237,7 @@ public class DatabaseConnection {
     }
 
     public ArrayList<ScoreProfile> getScoreProfile(User user) {
-        
+
         ArrayList<ScoreProfile> list = new ArrayList();
         ResultSet resultSet = null;
         String sqlStatement = "SELECT Problemset.set_id, Problemset.max_points,"
@@ -247,9 +251,9 @@ public class DatabaseConnection {
             pstmt.setInt(1, user.getId());
             resultSet = pstmt.executeQuery();
             ScoreProfile sp = null;
-            
+
             while (resultSet.next()) {
-                int id =  resultSet.getInt(1);
+                int id = resultSet.getInt(1);
                 int maxPoints = resultSet.getInt(2);
                 int points = resultSet.getInt(3);
                 String date = resultSet.getString(4);
@@ -297,6 +301,83 @@ public class DatabaseConnection {
 
         return null;
         
+    }
+
+    public boolean registerScore(User user, int score, int setId){
+        
+        java.sql.Date date = new java.sql.Date(new java.util.Date().getTime() );
+        String sql1 = "INSERT INTO Score VALUES (DEFAULT, ?, ?)";
+        String sql2 = "INSERT INTO Game VALUES (?, ?, ?)";
+        
+        ResultSet resultSet = null;
+        
+        try{
+            PreparedStatement pstmt = connection.prepareStatement(sql1);
+            pstmt.setInt(1, score);
+            pstmt.setDate(2, date);
+            pstmt.executeUpdate();
+            
+            pstmt = connection.prepareStatement("SELECT LAST_INSERT_ID()");
+            resultSet = pstmt.executeQuery();
+            int scoreId = resultSet.getInt(1);
+            
+            pstmt = connection.prepareStatement(sql2);
+            pstmt.setInt(1, user.getId());
+            pstmt.setInt(2, setId);
+            pstmt.setInt(3, scoreId);
+            
+            return true;
+            
+        } catch (Exception e){
+            rollBack();
+            printErrorMessage(e, "Registrer poeng");
+        }
+        
+        return false;
+    }
+    
+    private boolean checkUserName(String userName) {
+
+        ResultSet resultSet = null;
+        String query
+                = "SELECT name FROM User WHERE name = ? ";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, userName);
+
+            resultSet = pstmt.executeQuery();
+
+            if (resultSet.next()) {
+                //Allerede i databasen (Opptatt)
+                return false;
+            }
+        } catch (Exception e) {
+            printErrorMessage(e, "CheckUserName");
+        }
+        return true;
+    }
+
+    private boolean checkEmail(String email) {
+
+        ResultSet resultSet = null;
+        String query
+                = "SELECT email FROM User WHERE email = ? ";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, email);
+
+            resultSet = pstmt.executeQuery();
+
+            if (resultSet.next()) {
+                //Allerede i databasen (Opptatt)
+                return false;
+            }
+        } catch (Exception e) {
+            printErrorMessage(e, "CheckUserName");
+        }
+        return true;
     }
 
     private void printErrorMessage(Exception e, String message) {
