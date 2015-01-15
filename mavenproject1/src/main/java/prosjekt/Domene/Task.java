@@ -10,8 +10,23 @@ public class Task {
     String taskHtml = null; // html delen av oppgaven
     String taskCss = null; //css delen av oppgaven
     String answerHtml = null; //Svaret fra bruker
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public int getDiff() {
+        return diff;
+    }
+
+    public void setDiff(int diff) {
+        this.diff = diff;
+    }
     String answerCss = null;
-    String description = null; //Oppgavebeskrivelse
     int maxPoeng; // max poeng på oppgaven
     int poeng; // kun getter. Brukerens poeng på oppgaven
     int diff;
@@ -240,13 +255,5 @@ public class Task {
     
     public void setAnswerCss(String answerCss) {
         this.answerCss = answerCss;
-    }
-    
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }
