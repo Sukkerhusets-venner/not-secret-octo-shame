@@ -7,6 +7,15 @@
 <link href="${loaderUrl}" rel="stylesheet" type="text/css" />
 <title>Hovedside</title>
 <script src="${mkjsUrl}"></script>
+
+<script>
+    $(document).ready(function(){
+        //fjernes
+        $("#spill").css("visibility", "hidden");
+        $("#hiscore").css("visibility", "visible");
+        
+    });
+</script>
 </head>
 <html>
     <body>
@@ -34,26 +43,44 @@
                     <a href="game">Press this link</a>
                 </div>
                 <div id="hiscore">
-                    <h3> HiScore </h3>
-                    <c:if test = "${not empty loginform.hiScore}">
-                        <table>
-                            <tr>
-                                <th>Bruker</th>
-                                <th>Score</th>
-                            </tr>
-                            <c:forEach var="UserScore" items="${loginform.hiScore}">
+                    <h2> Resultater </h2>
+                    <div id="drWrap">
+                        <h3>Dine Resultater</h3>
+                        <c:if test = "${not empty ScoreProfile}"></c:if>
+                        <c:if test= "${empty ScoreProfile}">
+                            <p>Fant ingen resultater på deg</p>
+                        </c:if>
+                    </div>
+                    <div id="godkjWrap">
+                        <h3>Godkjenning</h3>
+                        <c:if test = "${not empty ScoreProfile}"></c:if>
+                        <c:if test= "${empty ScoreProfile}">
+                            <p>Fant ingen godkjenningslister</p>
+                        </c:if>
+                    </div>
+                    <div id="highWrap">
+                        <h3>HiScores</h3>
+                        <c:if test = "${not empty loginform.hiScore}">
+                            <table class="finTabell">
+                                <tr>
+                                    <th>Bruker</th>
+                                    <th>Score</th>
+                                </tr>
+                                <c:forEach var="UserScore" items="${loginform.hiScore}">
 
-                                <tr><td><c:out value="${UserScore.username}"/></td>
-                                    <td><c:out value="${UserScore.highScore}"/></td></tr>
+                                    <tr><td><c:out value="${UserScore.username}"/></td>
+                                        <td><c:out value="${UserScore.highScore}"/></td></tr>
 
-                            </c:forEach></table>
-                        </c:if><c:if test="${empty loginform.hiScore}">
-                        <p> Fant ingen Hiscores</p>
-                    </c:if>
+                                </c:forEach></table>
+                            </c:if><c:if test="${empty loginform.hiScore}">
+                            <p> Fant ingen Hiscores</p>
+                            </c:if>
+                    </div>
+                    
                 </div>
                 <div id="profil">
-                        <p>Brukernavn: ${loginform.user.username}</p>
-                        <p>Email: <c:out value = "${loginform.user.email}"/></p>
+                    <p>Brukernavn: ${loginform.user.username}</p>
+                    <p>Email: <c:out value = "${loginform.user.email}"/></p>
                 </div>
             </div>
             <!-- Loader; styres av script -->

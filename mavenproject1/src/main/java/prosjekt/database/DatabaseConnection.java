@@ -266,10 +266,24 @@ public class DatabaseConnection {
         return null;
     }
     
+    public ArrayList<UserScoreOverview> getUserScoreOverview(){
+        
+        ArrayList<UserScoreOverview> uso = new ArrayList();
+        ArrayList<User> users = getUsers();
+        
+        for (User user : users) {
+            ArrayList<ScoreProfile> sp = getScoreProfile(user);
+            
+            uso.add(new UserScoreOverview(user, sp));
+        }
+        
+        return uso;
+    }
+    
     public ArrayList<Task> getTasks(int set_id) {
         ArrayList<Task> list = new ArrayList();
         ResultSet resultSet = null;
-        String sqlStatement = "SELECT Task.task_id, Task.des, Task.diff, Task.start_html, Task.fasit_html, "
+        String sqlStatement = "SELECT Task.task_id, Task.des, Task.task_text, Task.diff, Task.start_html, Task.fasit_html, "
                 + "Task.start_css, Task.fasit_css, Task.points FROM Task "
                 + "JOIN TaskSet ON(Task.task_id = TaskSet.task_id) JOIN Problemset"
                 + " ON(TaskSet.set_id = Problemset.set_id) WHERE Problemset.set_id"
@@ -283,13 +297,14 @@ public class DatabaseConnection {
             while(resultSet.next()) {
                 int task_id = resultSet.getInt(1);
                 String des = resultSet.getString(2);
-                int diff = resultSet.getInt(3);
-                String html = resultSet.getString(4);
-                String answerHtml = resultSet.getString(5);
-                String css = resultSet.getString(6);
+                String text = resultSet.getString(3);
+                int diff = resultSet.getInt(4);
+                String html = resultSet.getString(5);
+                String answerHtml = resultSet.getString(6);
+                String css = resultSet.getString(7);
                 String answerCss = resultSet.getString(7);
-                int points = resultSet.getInt(8);
-                list.add(new Task(task_id, des, diff, html, answerHtml, css, answerCss, points));
+                int points = resultSet.getInt(9);
+                list.add(new Task(task_id, des, text, diff, html, answerHtml, css, answerCss, points));
             }
             return list;
         }

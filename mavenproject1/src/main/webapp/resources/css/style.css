@@ -42,7 +42,7 @@ html{
     -o-background-size: cover;
     background-size: cover;
 }
-a{
+h2, h3, a{
     text-decoration: none;
     color: #444;
 }

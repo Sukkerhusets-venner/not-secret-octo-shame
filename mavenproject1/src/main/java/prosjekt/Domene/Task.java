@@ -6,19 +6,36 @@ public class Task {
 
     int tasknr;
     String strTask = null; // streng fra database
+    String text = null;
     String taskHtml = null; // html delen av oppgaven
     String taskCss = null; //css delen av oppgaven
     String answerHtml = null; //Svaret fra bruker
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public int getDiff() {
+        return diff;
+    }
+
+    public void setDiff(int diff) {
+        this.diff = diff;
+    }
     String answerCss = null;
-    String description = null; //Oppgavebeskrivelse
     int maxPoeng; // max poeng på oppgaven
     int poeng; // kun getter. Brukerens poeng på oppgaven
     int diff;
     String type = null; // setter type (snake, hangman osv)
 
-       public Task(int tasknr, String type, int diff, String taskHtml, String answerHtml, String taskCss, String answerCss, int poeng) {
+       public Task(int tasknr, String type, String text, int diff, String taskHtml, String answerHtml, String taskCss, String answerCss, int poeng) {
         this.tasknr = tasknr;
         this.type = type;
+        this.text = text;
         this.diff = diff;
         this.taskHtml = taskHtml;
         this.answerHtml = answerHtml;
@@ -238,13 +255,5 @@ public class Task {
     
     public void setAnswerCss(String answerCss) {
         this.answerCss = answerCss;
-    }
-    
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }
