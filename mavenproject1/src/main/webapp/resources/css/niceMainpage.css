@@ -22,7 +22,7 @@ body {
 }
 .mptitle{
     background: -webkit-linear-gradient(90deg, rgba(230, 230,  230, 0.15) 0%, rgba(200, 200,  200, 0.15) 100%), 
-                linear-gradient(90deg, rgba(230, 230,  230, 0.1) 0%, rgba(200, 200,  200, 0.1) 100%);
+        linear-gradient(90deg, rgba(230, 230,  230, 0.1) 0%, rgba(200, 200,  200, 0.1) 100%);
     float: left;
     width: 17rem;
 }
@@ -93,14 +93,12 @@ body {
     top: 2.45rem;
     left: 0;
     padding: 2.4rem 3.5rem 2rem 3.5rem
-
 }
 #smiley{
     z-index:-1;
     position: relative;
     float:left;
     bottom: 1rem;
-
 
     transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -133,12 +131,51 @@ body {
 #selectMenu span:hover{
     color: rgba(5, 5, 5, 0.4);
 }
-#stuff div{
+#hiscore, #spill,#profil{
     position: absolute;
     visibility: hidden;
-}
-#hiscore{
-    text-align: center;
     width:  50rem;
-    height: 15rem;
+    text-align: center;
+}
+#hiscore div{
+    display:inline-block;
+}
+#godkjWrap{
+    width: 19.7rem;
+}
+#highWrap{
+    float:right;
+    width: 15.1rem;
+}
+#drWrap{
+    width: 14.9rem
+    
+}
+#hiscore h2{
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
+}
+#hiscore table{
+    margin-left: 2.2rem;
+}
+.finTabell {
+  display: block;
+  font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: auto;
+  width: auto;
+}
+.finTabell th {
+  background-color: #70c469;
+  color: white;
+  font-weight: normal;
+  padding: 4px 6px;
+  text-align: center;
+  border-radius: 1px;
+}
+.finTabell td {
+  background-color: #eeeeee;
+  color: #444;
+  padding: 4px 6px;
+  border-radius: 1px;
 }
