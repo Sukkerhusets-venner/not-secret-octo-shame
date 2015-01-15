@@ -7,7 +7,7 @@ package prosjekt.Domene;
 
 
 /**
- *
+ * BRUKES AV PROFILSIDEN
  * @author Solheim
  */
 public class ScoreProfile {
@@ -15,7 +15,7 @@ public class ScoreProfile {
     private int maxPoints;
     private int points;
     private String date;
-    boolean passed;
+    private boolean passed;
 
     public ScoreProfile(int Taskid, int maxPoints, int points, String date) {
         this.Taskid = Taskid;
@@ -58,5 +58,7 @@ public class ScoreProfile {
         this.date = date;
     }
     
-    
+    public boolean isPassed(){
+        return passed;
+    }
 }

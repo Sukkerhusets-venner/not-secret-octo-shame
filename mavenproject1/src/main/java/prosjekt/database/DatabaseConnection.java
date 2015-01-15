@@ -266,6 +266,20 @@ public class DatabaseConnection {
         return null;
     }
     
+    public ArrayList<UserScoreOverview> getUserScoreOverview(){
+        
+        ArrayList<UserScoreOverview> uso = new ArrayList();
+        ArrayList<User> users = getUsers();
+        
+        for (User user : users) {
+            ArrayList<ScoreProfile> sp = getScoreProfile(user);
+            
+            uso.add(new UserScoreOverview(user, sp));
+        }
+        
+        return uso;
+    }
+    
     public ArrayList<Task> getTasks(int set_id) {
         ArrayList<Task> list = new ArrayList();
         ResultSet resultSet = null;

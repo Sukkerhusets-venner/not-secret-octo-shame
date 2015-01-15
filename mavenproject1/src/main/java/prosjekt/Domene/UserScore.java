@@ -6,7 +6,7 @@
 package prosjekt.Domene;
 
 /**
- *
+ * BRUKES I HIGHSCORELISTE
  * @author Solheim
  */
 public class UserScore implements Comparable<UserScore> {
