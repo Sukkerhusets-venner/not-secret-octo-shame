@@ -280,7 +280,7 @@ public class DatabaseConnection {
     public ArrayList<Task> getTasks(int set_id) {
         ArrayList<Task> list = new ArrayList();
         ResultSet resultSet = null;
-        String sqlStatement = "SELECT Task.task_id, Task.des, Task.task_text Task.diff, Task.start_html, Task.fasit_html, "
+        String sqlStatement = "SELECT Task.task_id, Task.des, Task.task_text, Task.diff, Task.start_html, Task.fasit_html, "
                 + "Task.start_css, Task.fasit_css, Task.points FROM Task "
                 + "JOIN TaskSet ON(Task.task_id = TaskSet.task_id) JOIN Problemset"
                 + " ON(TaskSet.set_id = Problemset.set_id) WHERE Problemset.set_id"
@@ -299,7 +299,7 @@ public class DatabaseConnection {
                 String html = resultSet.getString(5);
                 String answerHtml = resultSet.getString(6);
                 String css = resultSet.getString(7);
-                String answerCss = resultSet.getString(7);
+                String answerCss = resultSet.getString(8);
                 int points = resultSet.getInt(9);
                 list.add(new Task(task_id, des, text, diff, html, answerHtml, css, answerCss, points));
             }
