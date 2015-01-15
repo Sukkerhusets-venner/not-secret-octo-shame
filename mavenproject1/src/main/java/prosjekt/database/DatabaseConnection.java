@@ -60,8 +60,6 @@ public class DatabaseConnection {
     public boolean checkLogin(String email, String password) {
 
         password = hashString(password);
-
-        ResultSet resultSet = null;
         String query = "SELECT email, password FROM User WHERE email = ? and password = ? ";
 
         try {
@@ -69,7 +67,7 @@ public class DatabaseConnection {
             pstmt.setString(1, email);
             pstmt.setString(2, password);
 
-            resultSet = pstmt.executeQuery();
+            ResultSet resultSet = pstmt.executeQuery();
 
             if (resultSet.next()) {
                 //Login sucessfull
@@ -177,11 +175,11 @@ public class DatabaseConnection {
     public ArrayList<User> getUsers() {
         String sqlStatement = "SELECT * FROM User "; //join on score hvor godkjenningen vil ligg
         ArrayList<User> user = new ArrayList<>();
-        ResultSet resultSet = null;
+        
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
 
-            resultSet = pstmt.executeQuery();
+            ResultSet resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
                 int id = (Integer) resultSet.getObject(1);
@@ -189,7 +187,6 @@ public class DatabaseConnection {
                 String email = resultSet.getString(3);
                 String password = resultSet.getString(4);
                 user.add(new User(id, userName, email, password));
-                user.add(getUser(resultSet.getString(1)));
             }
             return user;
 
