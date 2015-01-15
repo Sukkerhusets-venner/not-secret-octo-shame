@@ -6,6 +6,7 @@ public class Task {
 
     int tasknr;
     String strTask = null; // streng fra database
+    String text = null;
     String taskHtml = null; // html delen av oppgaven
     String taskCss = null; //css delen av oppgaven
     String answerHtml = null; //Svaret fra bruker
@@ -16,9 +17,10 @@ public class Task {
     int diff;
     String type = null; // setter type (snake, hangman osv)
 
-       public Task(int tasknr, String type, int diff, String taskHtml, String answerHtml, String taskCss, String answerCss, int poeng) {
+       public Task(int tasknr, String type, String text, int diff, String taskHtml, String answerHtml, String taskCss, String answerCss, int poeng) {
         this.tasknr = tasknr;
         this.type = type;
+        this.text = text;
         this.diff = diff;
         this.taskHtml = taskHtml;
         this.answerHtml = answerHtml;
