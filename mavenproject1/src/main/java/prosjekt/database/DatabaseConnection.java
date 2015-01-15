@@ -302,7 +302,7 @@ public class DatabaseConnection {
                 String html = resultSet.getString(5);
                 String answerHtml = resultSet.getString(6);
                 String css = resultSet.getString(7);
-                String answerCss = resultSet.getString(7);
+                String answerCss = resultSet.getString(8);
                 int points = resultSet.getInt(9);
                 list.add(new Task(task_id, des, text, diff, html, answerHtml, css, answerCss, points));
             }
