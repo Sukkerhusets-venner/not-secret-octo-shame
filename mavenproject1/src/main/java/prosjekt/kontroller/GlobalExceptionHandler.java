@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
-import prosjekt.kontroller.testKontroller.ResourceNotFoundException;
 
 /**
  *
@@ -43,7 +42,7 @@ class GlobalExceptionHandler implements  HandlerExceptionResolver, Thread.Uncaug
         return createMV(e, req.getRequestURL(), "404");
     }
     @ResponseStatus(value = org.springframework.http.HttpStatus.NOT_FOUND)
-    @ExceptionHandler(ResourceNotFoundException.class)
+    @ExceptionHandler(RuntimeException.class)
     public ModelAndView handleMyError(HttpServletRequest req, Exception e){
         //return createMV(e, req.getRequestURL(), "404");
         ModelAndView mav = new ModelAndView();

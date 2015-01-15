@@ -41,10 +41,13 @@ public class loginKontroller {
             session.setAttribute("loginform", loginform);
             session.setAttribute("currentUser", new User( database.getUser(loginform.getUser().getEmail()).getUsername(), 
                     loginform.getUser().getEmail(), loginform.getUser().getPassword()));
-
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScore(hiScores);
+<<<<<<< Updated upstream
             loginform.getUser().setUsername(database.getUser(loginform.getUser().getEmail()).getUsername());
+=======
+            
+>>>>>>> Stashed changes
             return "Hovedside";
         } else {
             model.addAttribute("loginError", "Feil email/passord");

@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class testKontroller {
 
     @ResponseStatus(value = org.springframework.http.HttpStatus.NOT_FOUND)
-    public final class ResourceNotFoundException extends RuntimeException {
-
-    }
+    public final class ResourceNotFoundException extends RuntimeException {}
 
     @RequestMapping("/snake")
     public String snake() {
