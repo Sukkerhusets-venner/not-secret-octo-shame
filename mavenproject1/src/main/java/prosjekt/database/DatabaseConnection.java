@@ -283,7 +283,7 @@ public class DatabaseConnection {
             while(resultSet.next()) {
                 int task_id = resultSet.getInt(1);
                 String des = resultSet.getString(2);
-                String diff = resultSet.getString(3);
+                int diff = resultSet.getInt(3);
                 String html = resultSet.getString(4);
                 String answerHtml = resultSet.getString(5);
                 String css = resultSet.getString(6);
