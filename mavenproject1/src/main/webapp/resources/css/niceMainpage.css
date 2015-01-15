@@ -138,18 +138,19 @@ body {
     text-align: center;
 }
 #hiscore div{
+    float: left;
     display:inline-block;
 }
 #godkjWrap{
+    float: left;
     width: 19.7rem;
 }
 #highWrap{
     float:right;
-    width: 15.1rem;
+    width: 15rem;
 }
 #drWrap{
-    width: 14.9rem
-    
+    width: 15rem
 }
 #hiscore h2{
     margin-top: 0.7rem;
@@ -164,6 +165,7 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow: auto;
   width: auto;
+  
 }
 .finTabell th {
   background-color: #70c469;
@@ -177,5 +179,6 @@ body {
   background-color: #eeeeee;
   color: #444;
   padding: 4px 6px;
+  border: 0;
   border-radius: 1px;
 }
