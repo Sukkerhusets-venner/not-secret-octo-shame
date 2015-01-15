@@ -1,10 +1,8 @@
 package prosjekt.database;
 
 import prosjekt.Domene.User;
-import prosjekt.Ui.Assignment;
 import java.security.MessageDigest;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,8 +62,7 @@ public class DatabaseConnection {
         password = hashString(password);
 
         ResultSet resultSet = null;
-        String query
-                = "SELECT email, password FROM User WHERE email = ? and password = ? ";
+        String query = "SELECT email, password FROM User WHERE email = ? and password = ? ";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
@@ -272,7 +269,7 @@ public class DatabaseConnection {
     public ArrayList<Task> getTasks(int set_id) {
         ArrayList<Task> list = new ArrayList();
         ResultSet resultSet = null;
-        String sqlStatement = "SELECT Task.task_id, Task.des, Task.start_html, Task.fasit_html, "
+        String sqlStatement = "SELECT Task.task_id, Task.des, Task.diff, Task.start_html, Task.fasit_html, "
                 + "Task.start_css, Task.fasit_css, Task.points FROM Task "
                 + "JOIN TaskSet ON(Task.task_id = TaskSet.task_id) JOIN Problemset"
                 + " ON(TaskSet.set_id = Problemset.set_id) WHERE Problemset.set_id"
@@ -286,12 +283,13 @@ public class DatabaseConnection {
             while(resultSet.next()) {
                 int task_id = resultSet.getInt(1);
                 String des = resultSet.getString(2);
-                String html = resultSet.getString(3);
-                String answerHtml = resultSet.getString(4);
-                String css = resultSet.getString(5);
-                String answerCss = resultSet.getString(6);
-                int points = resultSet.getInt(7);
-                list.add(new Task(task_id, des, html, answerHtml, css, answerCss, points));
+                int diff = resultSet.getInt(3);
+                String html = resultSet.getString(4);
+                String answerHtml = resultSet.getString(5);
+                String css = resultSet.getString(6);
+                String answerCss = resultSet.getString(7);
+                int points = resultSet.getInt(8);
+                list.add(new Task(task_id, des, diff, html, answerHtml, css, answerCss, points));
             }
             return list;
         }
@@ -334,6 +332,25 @@ public class DatabaseConnection {
         }
         
         return false;
+    }
+
+    public String changePassword(User user){
+        String sql = "UPDATE User SET User.password = ? WHERE User.user_id = ?";
+        String newPassword = hashString(generatePassword());
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, newPassword);
+            pstmt.setInt(2, user.getId());
+            pstmt.executeUpdate();
+            
+            return newPassword;
+            
+        } catch(Exception e){
+            printErrorMessage(e, "Passordforandring");
+        }
+                
+        return null;        
     }
     
     private boolean checkUserName(String userName) {

@@ -13,11 +13,13 @@ public class Task {
     String description = null; //Oppgavebeskrivelse
     int maxPoeng; // max poeng på oppgaven
     int poeng; // kun getter. Brukerens poeng på oppgaven
+    int diff;
     String type = null; // setter type (snake, hangman osv)
 
-       public Task(int tasknr, String type, String taskHtml, String answerHtml, String taskCss, String answerCss, int poeng) {
+       public Task(int tasknr, String type, int diff, String taskHtml, String answerHtml, String taskCss, String answerCss, int poeng) {
         this.tasknr = tasknr;
         this.type = type;
+        this.diff = diff;
         this.taskHtml = taskHtml;
         this.answerHtml = answerHtml;
         this.taskCss = taskCss;

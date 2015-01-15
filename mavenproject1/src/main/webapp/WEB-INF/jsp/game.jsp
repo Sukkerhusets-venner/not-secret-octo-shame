@@ -10,13 +10,16 @@
 	<script src="resources/js/css.js"></script>
 	<script src="resources/js/beautify-css.js"></script>
 	<script src="resources/js/beautify-html.js"></script>
+        <script src="resources/js/alertify.min.js"></script>
+        <link rel="stylesheet" href="resources/css/alertify.core.css" />
+	<link rel="stylesheet" href="resources/css/alertify.default.css" id="toggleCSS" />
 
         <style>
             .block {
                 float: left;
                 margin: 5px;
                 padding: 5px;
-                background-color: #dddddd;
+                background-color: #f3f3f3;
             }
             
             .renderedFrame, .codeBox {
@@ -48,6 +51,7 @@
         //"Read only" variabler.
         var oppgNr = 0;
         var oppgTekst = "";
+        var timescore = 0;
         $(document).ready(function() {
                
                 setUp();                 
@@ -80,14 +84,33 @@
             function resembleIfBothLoaded(resultUrl, solutionUrl) { 
                 if(resultUrl && solutionUrl) {
                     resemble(resultUrl).compareTo(solutionUrl).onComplete(function(data){
-                        alert("Likhet: " + (100 - data.misMatchPercentage) + "%");
-                        document.forms["nesteOppgave"].elements["score"].value = toInt(100 - data.misMatchPercentage);
-                        document.forms["nesteOppgave"].submit();
+                        var poengsum = 0;
+                        var skillscore = 0;
+                        if(data.misMatchPercentage <= 4){
+                            skillscore = toInt((4-data.misMatchPercentage)*22.5);
+                        }
+                        poengsum = timescore + skillscore;
+                        reset();
+			alertify.alert("Veldig bra, du har nå kommet til neste oppgave.<br/><br/> Din skillscore ble: "+skillscore+
+                        "/90.<br/>Din tidscore ble "+timescore+"/10<br/><br/>Din poengsum ble: "+poengsum+"/100. <br/><br/>Gratulerer!!<br/><br/>"
+                        ,function (e) {
+                            if(e){
+                                document.forms["nesteOppgave"].elements["score"].value = poengsum;
+                                document.forms["nesteOppgave"].submit();
+                            }
+                        });
                     });            
                 }
             }
+            
             function toInt(n){ return Math.round(Number(n)); };
             function setUp(){
+                timescore = 10;
+                setInterval(function(){
+                    if(timescore > 0){
+                        timescore--;
+                    }
+                },30000);
                 oppgNr = "${assignment.getCurrentTaskNr()}";
                 oppgNr++;
                 var solutionHtml = "${assignment.getCurrentTask().getAnswerHtml()}";
@@ -120,6 +143,18 @@
                 document.getElementById("oppgnummer").innerHTML = "Oppgave "+oppgNr;
                 document.getElementById("oppgtekst").innerHTML = oppgTekst;
             }
+            function reset () {
+                $("#toggleCSS").attr("href", "resources/css/alertify.default.css");
+		alertify.set({
+			labels : {
+				ok     : "OK",
+                                cancel : "Cancel"
+			},
+				delay : 5000,
+				buttonReverse : false,
+				buttonFocus   : "ok"
+			});
+		}
         </script>
     </head>
     

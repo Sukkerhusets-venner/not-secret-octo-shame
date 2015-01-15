@@ -1,9 +1,12 @@
 <%@page contentType="text/html" session="true" pageEncoding="UTF-8"%>
 <%@include file="../../includes/head.jspf" %>
-<link href="resources/css/niceMainpage.css" rel="stylesheet" type="text/css"/>
-<link href="resources/css/loader.css" rel="stylesheet" type="text/css" />
+<c:url var="nmpUrl" value="/resources/css/niceMainpage.css" />
+<c:url var="loaderUrl" value="/resources/css/loader.css" />
+<c:url var="mkjsUrl" value="/resources/js/menyKontroll.js" />
+<link href="${nmpUrl}" rel="stylesheet" type="text/css"/>
+<link href="${loaderUrl}" rel="stylesheet" type="text/css" />
 <title>Hovedside</title>
-<script src="resources/js/menyKontroll.js"></script>
+<script src="${mkjsUrl}"></script>
 </head>
 <html>
     <body>
@@ -16,9 +19,9 @@
                 </div>
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
-                    <div><a href="game">Spillet</a>
-                    </div><div><a href="#">HiScore</a>
-                    </div><div><a href="#">Profil</a>
+                    <div><a>Spillet</a>
+                    </div><div><a>Resultater</a>
+                    </div><div><a>Profil</a>
                     </div>
                     <!-- ---------------------------- -->
                 </div>
@@ -28,6 +31,7 @@
             <div id="stuff">
                 <div id="spill">
                     <h3>Spill</h3>
+                    <a href="game">Press this link</a>
                 </div>
                 <div id="hiscore">
                     <h3> HiScore </h3>
@@ -44,29 +48,30 @@
 
                             </c:forEach></table>
                         </c:if><c:if test="${empty loginform.hiScore}">
-                        <p> Fant ingen Hiscores (hvis du har brukt <b>logincheat</b> vil du ikke finne noen!)</p>
+                        <p> Fant ingen Hiscores</p>
                     </c:if>
                 </div>
                 <div id="profil">
-                    <h3> Profil </h3>
-                    <p>Brukernavn: <%=session.getAttribute("Username")%></p>
-                    <p>Email: <c:out value = "${loginform.user.email}"/></p>
-                    <p><a href="snake">Snakes!</a></p>
-                    <p><a href="taskTester">Test</a></p>
+                        <p>Brukernavn: ${loginform.user.username}</p>
+                        <p>Email: <c:out value = "${loginform.user.email}"/></p>
                 </div>
             </div>
+            <!-- Loader; styres av script -->
             <div class="container">
-                    <div class="part"></div>
-                    <div class="part"></div>
-                    <div class="part"></div>
-                    <div class="part"></div>
-                    <div class="part"></div>
+                <div class="part"></div>
+                <div class="part"></div>
+                <div class="part"></div>
+                <div class="part"></div>
+                <div class="part"></div>
             </div>
-            <div id="selectMenu">
-                <span id="s1">&#9312;</span>
-                <span id="s2">&#9313;</span>
-                <span id="s3">&#9314;</span>
-            </div>
+            <noscript><!-- Hvis javascript er slått av -->
+            <style>
+                .container{visibility:hidden;}
+                #stuff{visibility:hidden;}
+            </style>
+            <h2 style="padding: 1rem 1rem 1rem 1rem">Du må slå på javascript for å spille spillet.</h2>
+            </noscript> 
+            <!-- ------------------------ -->
         </div>
     </body>
 </html>

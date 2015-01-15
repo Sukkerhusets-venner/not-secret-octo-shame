@@ -1,6 +1,7 @@
 <%@page contentType="text/html" session="true" pageEncoding="UTF-8"%>
 <%@include file="../../includes/head.jspf" %>
-<link href="resources/css/error.css" rel="stylesheet" type="text/css"/>
+<c:url var="reUrl" value="/resources/css/error.css" />
+<link href="${reUrl}" rel="stylesheet" type="text/css"/>
 <title>Hovedside</title>
 </head>
 <html>
@@ -9,7 +10,8 @@
         <div id="wrapper">
             <h1>404</h1>
             <h3>Der gikk det galt!</h3>
-            <center><div id="ftknapp"><a href="login">Tilbake</a></div></center>
+            <c:url var="loginUrl" value="/login" />
+            <center><div id="ftknapp"><a href="${loginUrl}">Tilbake</a></div></center>
         </div>
         <p><spring:message code="feilside.unntak" /> ${unntak}</p>
 </body>
