@@ -332,6 +332,25 @@ public class DatabaseConnection {
         
         return false;
     }
+
+    public String changePassword(User user){
+        String sql = "UPDATE User SET User.password = ? WHERE User.user_id = ?";
+        String newPassword = hashString(generatePassword());
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, newPassword);
+            pstmt.setInt(2, user.getId());
+            pstmt.executeUpdate();
+            
+            return newPassword;
+            
+        } catch(Exception e){
+            printErrorMessage(e, "Passordforandring");
+        }
+                
+        return null;        
+    }
     
     private boolean checkUserName(String userName) {
 
