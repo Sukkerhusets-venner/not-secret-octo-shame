@@ -1,9 +1,12 @@
 <%@page contentType="text/html" session="true" pageEncoding="UTF-8"%>
 <%@include file="../../includes/head.jspf" %>
-<link href="resources/css/niceMainpage.css" rel="stylesheet" type="text/css"/>
-<link href="resources/css/loader.css" rel="stylesheet" type="text/css" />
+<c:url var="nmpUrl" value="/resources/css/niceMainpage.css" />
+<c:url var="loaderUrl" value="/resources/css/loader.css" />
+<c:url var="mkjsUrl" value="/resources/js/menyKontroll.js" />
+<link href="${nmpUrl}" rel="stylesheet" type="text/css"/>
+<link href="${loaderUrl}" rel="stylesheet" type="text/css" />
 <title>Hovedside</title>
-<script src="resources/js/menyKontroll.js"></script>
+<script src="${mkjsUrl}"></script>
 </head>
 <html>
     <body>
@@ -16,9 +19,9 @@
                 </div>
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
-                    <div><a href="mk1">Spillet</a>
-                    </div><div><a href="mk2">Resultater</a>
-                    </div><div><a href=mk3>Profil</a>
+                    <div><a>Spillet</a>
+                    </div><div><a>Resultater</a>
+                    </div><div><a>Profil</a>
                     </div>
                     <!-- ---------------------------- -->
                 </div>
@@ -26,13 +29,10 @@
             <!--  Eksempel: admin::
             <sec:authorize access="hasRole('admin')"></sec:authorize> -->
             <div id="stuff">
-                <c:if test="${meny == 1 or empty meny}">
-                    <div id="spill">
+                <div id="spill">
                     <h3>Spill</h3>
                     <a href="game">Press this link</a>
-                    </div>
-                </c:if>
-                <c:if test="${meny == 2}">
+                </div>
                 <div id="hiscore">
                     <h3> HiScore </h3>
                     <c:if test = "${not empty loginform.hiScore}">
@@ -51,20 +51,12 @@
                         <p> Fant ingen Hiscores</p>
                     </c:if>
                 </div>
-                </c:if>
-                <c:if test="${meny == 3}">
                 <div id="profil">
-                    <div>
                         <p>Brukernavn: ${loginform.user.username}</p>
                         <p>Email: <c:out value = "${loginform.user.email}"/></p>
-                    </div>
-                    <div>
-                        
-                        
-                    </div>
                 </div>
-                </c:if>
             </div>
+            <!-- Loader; styres av script -->
             <div class="container">
                 <div class="part"></div>
                 <div class="part"></div>
@@ -72,6 +64,14 @@
                 <div class="part"></div>
                 <div class="part"></div>
             </div>
+            <noscript><!-- Hvis javascript er slått av -->
+            <style>
+                .container{visibility:hidden;}
+                #stuff{visibility:hidden;}
+            </style>
+            <h2 style="padding: 1rem 1rem 1rem 1rem">Du må slå på javascript for å spille spillet.</h2>
+            </noscript> 
+            <!-- ------------------------ -->
         </div>
     </body>
 </html>

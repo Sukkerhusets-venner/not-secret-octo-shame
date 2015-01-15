@@ -1,6 +1,7 @@
 <%@page contentType="text/html" session="true" pageEncoding="UTF-8"%>
 <%@include file="../../includes/head.jspf" %>
-<link href="resources/css/niceLogin.css" rel="stylesheet" type="text/css"/>
+<c:url var="niceLogUrl" value="/resources/css/niceLogin.css" />
+<link href="${niceLogUrl}" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">
     function usinp(elem){
         var s = $(elem).val();
@@ -35,7 +36,7 @@
             </div>
         </form:form>
     </div>
-    <% session.setAttribute("Username", "Logincheat"); %>
+    <!-- Husk å fjerne! -->
     <a href="logincheat" style="position:fixed; left:3rem; bottom:2rem;">Logincheat</a>
     <a href="testError" style="position:fixed; left:3rem; bottom:1rem;">Generer en feil</a>
 </body>

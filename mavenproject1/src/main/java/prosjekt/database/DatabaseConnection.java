@@ -1,10 +1,8 @@
 package prosjekt.database;
 
 import prosjekt.Domene.User;
-import prosjekt.Ui.Assignment;
 import java.security.MessageDigest;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,8 +62,7 @@ public class DatabaseConnection {
         password = hashString(password);
 
         ResultSet resultSet = null;
-        String query
-                = "SELECT email, password FROM User WHERE email = ? and password = ? ";
+        String query = "SELECT email, password FROM User WHERE email = ? and password = ? ";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
