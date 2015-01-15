@@ -44,6 +44,7 @@ public class loginKontroller {
 
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScore(hiScores);
+            loginform.getUser().setUsername(database.getUser(loginform.getUser().getEmail()).getUsername());
             return "Hovedside";
         } else {
             model.addAttribute("loginError", "Feil email/passord");
