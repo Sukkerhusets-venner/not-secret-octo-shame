@@ -137,3 +137,8 @@ body {
     position: absolute;
     visibility: hidden;
 }
+#hiscore{
+    text-align: center;
+    width:  50rem;
+    height: 15rem;
+}

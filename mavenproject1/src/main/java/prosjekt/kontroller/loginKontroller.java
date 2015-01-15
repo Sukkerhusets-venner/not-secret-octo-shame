@@ -43,11 +43,7 @@ public class loginKontroller {
                     loginform.getUser().getEmail(), loginform.getUser().getPassword()));
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScore(hiScores);
-<<<<<<< Updated upstream
             loginform.getUser().setUsername(database.getUser(loginform.getUser().getEmail()).getUsername());
-=======
-            
->>>>>>> Stashed changes
             return "Hovedside";
         } else {
             model.addAttribute("loginError", "Feil email/passord");
