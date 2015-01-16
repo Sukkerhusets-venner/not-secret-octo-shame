@@ -39,6 +39,7 @@ public class loginKontroller {
         }else if (database.checkLogin(loginform.getUser().getEmail(), loginform.getUser().getPassword())) {
             HttpSession session = request.getSession();
 
+            session.setAttribute("loginform", loginform);
             session.setAttribute("currentUser", new User( database.getUser(loginform.getUser().getEmail()).getUsername(), 
                     loginform.getUser().getEmail(), loginform.getUser().getPassword()));
             ArrayList<UserScore> hiScores = database.getHighScoreList();
