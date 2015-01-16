@@ -65,6 +65,7 @@
                         "/90.<br/>Din tidscore ble "+timescore+"/10<br/><br/>Din poengsum ble: "+poengsum+"/100. <br/><br/>Gratulerer!!<br/><br/>"
                         ,function (e) {
                             if(e){
+                                document.forms["nesteOppgave"].elements["randomNumber"].value = Math.random();
                                 document.forms["nesteOppgave"].elements["score"].value = poengsum;
                                 document.forms["nesteOppgave"].submit();
                             }
@@ -133,6 +134,7 @@
         
     <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
          <input type="hidden" name="score" value=''>
+         <input type="hidden" name="randomNumber" value=''>
     </form:form>
          <div id="wrapper"> 
               <div class="header">
