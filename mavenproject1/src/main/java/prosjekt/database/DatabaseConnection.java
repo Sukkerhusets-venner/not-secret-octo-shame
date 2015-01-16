@@ -136,7 +136,7 @@ public class DatabaseConnection {
 
         String sqlStatement = "UPDATE User SET "
                 + " id = DEFAULT, username = ? ,email = ?, password = ? "
-                + "WHERE User.id = ?";
+                + "WHERE User.user_id = ?";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setString(1, user.getUsername());
@@ -205,11 +205,10 @@ public class DatabaseConnection {
                 + "JOIN Score ON ( Game.score_id = Score.score_id)"
                 + "GROUP BY User.user_id";
         ArrayList<UserScore> hsList = new ArrayList();
-        ResultSet resultSet = null;
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            resultSet = pstmt.executeQuery();
+            ResultSet resultSet = pstmt.executeQuery();
 
             int i = 0;
             while (resultSet.next() && i < NUMBER_OF_HIGHSCORES_SHOWN) {
