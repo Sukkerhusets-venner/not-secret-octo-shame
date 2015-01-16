@@ -15,11 +15,11 @@
             .renderedFrame, .codeBox {
                 width: 250px; height: 200px
             }
-            
+                 
             #compare {
-                float: right;
+                float: left;
                 padding: 11px 25px;
-
+                width: 50rem;
                 font-family: 'Bree Serif', serif;
                 font-weight: 300;
                 font-size: 18px;
@@ -56,6 +56,7 @@
         linear-gradient(90deg, rgba(230, 230,  230, 0.1) 0%, rgba(200, 200,  200, 0.1) 100%);
     float: left;
     width: 17rem;
+    background-size: cover;
 }
 #wrapper .header h1{
     font-family: 'Bree Serif', serif;

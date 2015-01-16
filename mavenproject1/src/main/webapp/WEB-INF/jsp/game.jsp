@@ -160,7 +160,7 @@
                 <iframe class="renderedFrame" id="solutionFrame" src="about:blank"></iframe>
                 <iframe class="renderedFrame" id="resultFrame" src="about:blank"></iframe>
             </div>
-            <input type="button" value="SVAR" id="compare">
+            
         </section>
 
         <section class="block">        
@@ -194,6 +194,13 @@
 		</script>
         </section>
     </section>
+             <input type="button" value="SVAR" id="compare">
+             <div id="space">  
+             
+             
+             
+             </div>
+                  
   </div>  
 </html>
 
