@@ -24,7 +24,7 @@ import prosjekt.database.DatabaseConnection;
  * @author balder
  */
 @Controller
-@SessionAttributes({"assignment"})
+@SessionAttributes({"assignment","loginform"})
 public class gameKontroller {
     
     @Autowired
