@@ -24,7 +24,7 @@ import prosjekt.database.DatabaseConnection;
  * @author balder
  */
 @Controller
-@SessionAttributes({"assignment"})
+@SessionAttributes({"assignment","loginform"})
 public class gameKontroller {
     
     @Autowired
@@ -38,14 +38,28 @@ public class gameKontroller {
     @RequestMapping (value = "game")
     public String game (@ModelAttribute(value="assignment") Assignment assignment, Model model) {
         assignment.setAllTasks(database.getTasks(1));
-        return "game";
+        switch (assignment.getCurrentTask().getType()) {
+            case "hangman":
+                return "hangmang";
+            case "mpc":
+                return "multiplechoice";
+            default:
+                return "game";
+        }
     }
     
     @RequestMapping (value = "nesteOppgave")
     public String nesteOppg(@ModelAttribute(value="assignment") Assignment assignment, @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, HttpServletRequest user, Model model) {
         int tasknr = assignment.nextTask();
         if(tasknr != -1){
-            return "game";
+            switch (assignment.getCurrentTask().getType()) {
+                case "hangman":
+                    return "hangmang";
+                case "mpc":
+                    return "multiplechoice";
+                default:
+                    return "game";
+            }
         } else {   
             User u = database.getUser(((User)user.getSession().getAttribute("currentUser")).getEmail());
             database.registerScore( u  , assignment.sumUp() , 1);

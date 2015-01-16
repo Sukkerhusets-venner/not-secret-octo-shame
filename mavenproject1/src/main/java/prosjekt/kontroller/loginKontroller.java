@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import prosjekt.Domene.User;
 import prosjekt.Domene.UserScore;
+import prosjekt.Domene.UserScoreOverview;
 import prosjekt.Ui.Loginform;
 import prosjekt.database.DatabaseConnection;
 
@@ -38,12 +39,19 @@ public class loginKontroller {
         }else if (database.checkLogin(loginform.getUser().getEmail(), loginform.getUser().getPassword())) {
             HttpSession session = request.getSession();
 
-            session.setAttribute("loginform", loginform);
             session.setAttribute("currentUser", new User( database.getUser(loginform.getUser().getEmail()).getUsername(), 
                     loginform.getUser().getEmail(), loginform.getUser().getPassword()));
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScore(hiScores);
             loginform.getUser().setUsername(database.getUser(loginform.getUser().getEmail()).getUsername());
+            
+            ArrayList<UserScoreOverview> ov = database.getUserScoreOverview();
+            for(UserScoreOverview o : ov){
+                if(o == null){
+                    ov.remove(o);
+                }
+            }            
+            model.addAttribute("godkjentListe", database.getUserScoreOverview());
             return "Hovedside";
         } else {
             model.addAttribute("loginError", "Feil email/passord");

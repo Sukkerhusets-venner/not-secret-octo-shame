@@ -42,7 +42,7 @@ public class Assignment {
         return -1;
     }
     public Task getCurrentTask() {return task.get(currentTask);}
-    public int getCurrentTaskNr() {return currentTask;}
+    public int getCurrentTaskNr() {return currentTask+1;}
     public void setCurrentTask(int currentTask) {this.currentTask = currentTask;}
     // retur = antall oppgaver
     public int getTaskNumber(){
