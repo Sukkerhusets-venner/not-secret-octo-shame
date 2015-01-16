@@ -59,4 +59,8 @@ public class loginKontroller {
             return "login";
         }
     }
+    @RequestMapping(value = "/hovedside")
+    public String showForm1(@ModelAttribute Loginform loginform){
+        return "Hovedside";
+    }
 }
