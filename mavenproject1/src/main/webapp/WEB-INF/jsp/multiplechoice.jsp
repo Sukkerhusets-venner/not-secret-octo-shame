@@ -60,6 +60,7 @@
                 reset();
                 alertify.alert(svar,function (e) {
                     if(e){
+                        document.forms["nesteOppgave"].elements["randomNumber"].value = Math.random();
                         document.forms["nesteOppgave"].elements["score"].value = poengsum;
                         document.forms["nesteOppgave"].submit();
                     }
@@ -82,6 +83,7 @@
     <body>
         <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
             <input type="hidden" name="score" value=''>
+            <input type="hidden" name="randomNumber" value=''>
         </form:form>
             <div id="wrapper"> 
               <div class="header">
