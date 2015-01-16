@@ -28,9 +28,19 @@ public class loginKontroller {
         return new Loginform();
     }
     @RequestMapping(value = "/*")
-    public String showForm(@ModelAttribute Loginform loginform){
+    public String showForm(@ModelAttribute Loginform loginform, HttpServletRequest req, Model model){
+        HttpSession session = req.getSession();
+        try{
+            User bruker = (User)session.getAttribute("currentUser");
+            model.addAttribute("loggedIn", true);
+        }catch(Exception e){
+            return "login";
+        }
         return "login";
     }
+    
+    
+    
     @RequestMapping (value = "Log inn")
     public String login (@ModelAttribute(value="loginform") Loginform loginform, HttpServletRequest request, Model model) {
         if(loginform.getUser().getPassword().isEmpty() || loginform.getUser().getEmail().isEmpty()){
@@ -46,17 +56,24 @@ public class loginKontroller {
             loginform.setHiScore(hiScores);
             loginform.getUser().setUsername(database.getUser(loginform.getUser().getEmail()).getUsername());
             
-            ArrayList<UserScoreOverview> ov = database.getUserScoreOverview();
-            for(UserScoreOverview o : ov){
-                if(o == null){
-                    ov.remove(o);
-                }
-            }            
-            model.addAttribute("godkjentListe", database.getUserScoreOverview());
             return "Hovedside";
         } else {
             model.addAttribute("loginError", "Feil email/passord");
             return "login";
         }
+    }
+    @RequestMapping (value = "godkjentliste")
+    public String getGodkjentListe(HttpServletRequest req, Model model){
+        
+        HttpSession session = req.getSession();
+        try{
+            User bruker = (User)session.getAttribute("currentUser");
+        }catch(Exception e){
+            return "login";
+        }
+        model.addAttribute("godkjentListe", database.getUserScoreOverview());
+        
+        
+        return "godkjentliste";
     }
 }

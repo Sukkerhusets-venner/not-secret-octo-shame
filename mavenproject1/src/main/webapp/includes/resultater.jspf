@@ -1,0 +1,27 @@
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<h2> Resultater </h2>
+<div id="drWrap">
+    <h3>Dine Resultater</h3>
+    <p>Fant ingen resultater på deg</p>
+</div>
+<iframe id="godkjWrap" src="godkjentliste" scrolling="no"></iframe>
+<div id="highWrap">
+    <h3>HiScores</h3>
+    
+    <c:if test = "${not empty loginform.hiScore}">
+        <table class="finTabell">
+            <tr>
+                <th>Bruker</th>
+                <th>Score</th>
+            </tr>
+            <c:forEach var="UserScore" items="${loginform.hiScore}">
+
+                <tr><td><c:out value="${UserScore.username}"/></td>
+                <td><c:out value="${UserScore.highScore}"/></td></tr>
+
+            </c:forEach></table>
+    </c:if><c:if test="${empty loginform.hiScore}">
+        <p> Fant ingen Hiscores</p>
+    </c:if>
+</div>

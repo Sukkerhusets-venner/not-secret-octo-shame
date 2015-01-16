@@ -43,54 +43,7 @@
                     <a href="game">Press this link</a>
                 </div>
                 <div id="hiscore">
-                    <h2> Resultater </h2>
-                    <div id="drWrap">
-                        <h3>Dine Resultater</h3>
-                            <p>Fant ingen resultater på deg</p>
-                    </div>
-                    <div id="godkjWrap">
-                        <h3>Godkjenning</h3>
-                         <c:if test = "${not empty godkjentListe}">
-                            <table class="finTabell">
-                                <tr>
-                                    <th>Bruker</th>
-                                    <th>Godkjent</th>
-                                </tr>
-                            <c:forEach var="UserScoreOverview" items="${godkjentListe}">
-                                <c:if test="${not empty UserScoreOverview.user.username}">
-                                <tr>
-                                    <td><c:out value="${UserScoreOverview.user.username}"/></td>
-                                    <td>
-                                        <c:if test="${UserScoreOverview.passed}">Ja</c:if>
-                                        <c:if test="${not UserScoreOverview.passed}">Nei</c:if>
-                                    </td>
-                                </tr>
-                                </c:if>
-                            </c:forEach>
-                            </table>
-                        </c:if><c:if test= "${empty godkjentListe}">
-                            <p>Fant ingen resultater på deg</p>
-                        </c:if>
-                    </div>
-                    <div id="highWrap">
-                        <h3>HiScores</h3>
-                        <c:if test = "${not empty loginform.hiScore}">
-                            <table class="finTabell">
-                                <tr>
-                                    <th>Bruker</th>
-                                    <th>Score</th>
-                                </tr>
-                                <c:forEach var="UserScore" items="${loginform.hiScore}">
-
-                                    <tr><td><c:out value="${UserScore.username}"/></td>
-                                        <td><c:out value="${UserScore.highScore}"/></td></tr>
-
-                                </c:forEach></table>
-                            </c:if><c:if test="${empty loginform.hiScore}">
-                            <p> Fant ingen Hiscores</p>
-                            </c:if>
-                    </div>
-                    
+                    <%@include file="../../includes/resultater.jspf"%>
                 </div>
                 <div id="profil">
                     <p>Brukernavn: ${loginform.user.username}</p>
@@ -114,5 +67,10 @@
             </noscript> 
             <!-- ------------------------ -->
         </div>
+                    <c:if test="${loggedIn}">
+                        <div style="position:fixed; top:2rem; right:2rem;">
+                            <a href="Hovedside">Du er logget inn!</a>
+                        </div>
+                    </c:if>
     </body>
 </html>
