@@ -137,7 +137,7 @@
               <div class="header">
                 <div class="mptitle">
                     <div id="smiley"><object type="image/svg+xml" data="resources/img/grin.svg"></object></div>
-                    <h1>Velkommen</h1>
+                    <h1>Spillet</h1>
                 </div>
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
