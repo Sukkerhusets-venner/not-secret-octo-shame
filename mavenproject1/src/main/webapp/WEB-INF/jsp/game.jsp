@@ -82,7 +82,6 @@
                     }
                 },30000);
                 oppgNr = "${assignment.getCurrentTaskNr()}";
-                oppgNr++;
                 var solutionHtml = "${assignment.getCurrentTask().getAnswerHtml()}";
                 var solutionCss = "${assignment.getCurrentTask().getAnswerCss()}";
                 var type = "${assignment.getCurrentTask().getType()}";
