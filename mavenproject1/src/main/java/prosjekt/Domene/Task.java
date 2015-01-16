@@ -4,33 +4,17 @@ import java.util.Random;
 
 public class Task {
 
-    int tasknr;
-    String strTask = null; // streng fra database
-    String text = null;
-    String taskHtml = null; // html delen av oppgaven
-    String taskCss = null; //css delen av oppgaven
-    String answerHtml = null; //Svaret fra bruker
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public int getDiff() {
-        return diff;
-    }
-
-    public void setDiff(int diff) {
-        this.diff = diff;
-    }
-    String answerCss = null;
-    int maxPoeng; // max poeng på oppgaven
-    int poeng; // kun getter. Brukerens poeng på oppgaven
-    int diff;
-    String type = null; // setter type (snake, hangman osv)
+    private int tasknr;
+    private String strTask = null; // streng fra database
+    private String text = null;
+    private String taskHtml = null; // html delen av oppgaven
+    private String taskCss = null; //css delen av oppgaven
+    private String answerHtml = null; //Svaret fra bruker
+    private String answerCss = null;
+    private int maxPoeng; // max poeng på oppgaven
+    private int poeng; // kun getter. Brukerens poeng på oppgaven
+    private int diff;
+    private String type = null; // setter type (snake, hangman osv)
 
        public Task(int tasknr, String type, String text, int diff, String taskHtml, String answerHtml, String taskCss, String answerCss, int poeng) {
         this.tasknr = tasknr;
@@ -222,7 +206,7 @@ public class Task {
         return taskHtml;
     }
     public String getTaskCss(){
-        return this.taskCss;
+        return taskCss;
     }
 
     public int getTasknr() {
@@ -255,5 +239,20 @@ public class Task {
     
     public void setAnswerCss(String answerCss) {
         this.answerCss = answerCss;
+    }
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public int getDiff() {
+        return diff;
+    }
+
+    public void setDiff(int diff) {
+        this.diff = diff;
     }
 }
