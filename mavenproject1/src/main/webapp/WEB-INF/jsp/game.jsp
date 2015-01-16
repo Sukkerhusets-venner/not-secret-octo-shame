@@ -106,6 +106,8 @@
                 
                 setRenderedResult($("#solutionFrame"), solutionHtml, solutionCss);
                 setRenderedResult($("#resultFrame"), startingHtml, startingCss);
+                editorHtml.setSize(380,300);
+                editorCss.setSize(380,300);
                 editorHtml.getDoc().setValue(startingHtml );
                 editorCss.getDoc().setValue(startingCss);
                 
