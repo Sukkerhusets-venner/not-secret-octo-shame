@@ -275,34 +275,6 @@ public class DatabaseConnection {
         return uso;
     }
     
-    public boolean checkChat(User userCurrent, User userOther) {
-        String sqlStatement = "Select Chat.chat_id From Chat "
-                + "Where Chat.user_id1 = ? and Chat.user_id2 = ?"
-                + "Or Chat.user_id2 = ? and Chat.user_id1 = ?" ;
-        
-        ResultSet resultSet = null;
-        
-        try{
-            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-           pstmt.setInt(1, userCurrent.getId());
-           pstmt.setInt(2, userOther.getId());
-          
-           
-           resultSet = pstmt.executeQuery();
-           
-           if (resultSet.next()) {
-                //Allerede i databasen (Opptatt)
-                return false;
-            }
-           
-        }
-        catch(Exception e) {
-            printErrorMessage(e, "feil i CheckChat");
-        }
-        return true;
-            
-        }
-    
     public ArrayList<Task> getTasks(int set_id) {
         ArrayList<Task> list = new ArrayList();
         ResultSet resultSet = null;
@@ -473,7 +445,35 @@ public class DatabaseConnection {
         }
         return false;
     }
-
+    
+    public boolean checkChat(User userCurrent, User userOther) {
+        String sqlStatement = "Select Chat.chat_id From Chat "
+                + "Where Chat.user_id1 = ? and Chat.user_id2 = ?"
+                + "Or Chat.user_id2 = ? and Chat.user_id1 = ?" ;
+        
+        ResultSet resultSet = null;
+        
+        try{
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+           pstmt.setInt(1, userCurrent.getId());
+           pstmt.setInt(2, userOther.getId());
+          
+           
+           resultSet = pstmt.executeQuery();
+           
+           if (resultSet.next()) {
+                //Allerede i databasen (Opptatt)
+                return false;
+            }
+           
+        }
+        catch(Exception e) {
+            printErrorMessage(e, "feil i CheckChat");
+        }
+        return true;
+            
+        }
+    
     private boolean checkUserName(String userName) {
 
         ResultSet resultSet = null;
