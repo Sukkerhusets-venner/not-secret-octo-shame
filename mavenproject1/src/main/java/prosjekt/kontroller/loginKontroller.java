@@ -36,7 +36,9 @@ public class loginKontroller {
         HttpSession session = req.getSession();
         try{
             if(!database.checkConnection()){
-                model.addAttribute("Connection", "Not connected");
+                model.addAttribute("Connection", false);
+            }else{
+                model.addAttribute("Connection", true);
             }
         }catch(Exception e){
             throw e;
@@ -46,7 +48,7 @@ public class loginKontroller {
             User bruker = (User)session.getAttribute("currentUser");
             model.addAttribute("loggedIn", true);
         }catch(Exception e){
-            return "login";
+            model.addAttribute("loggedIn", false);
         }
         return "login";
     }
