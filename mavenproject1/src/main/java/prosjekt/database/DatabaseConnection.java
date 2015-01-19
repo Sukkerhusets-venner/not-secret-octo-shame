@@ -25,7 +25,7 @@ public class DatabaseConnection {
     public DatabaseConnection() {
 
         connection = null;
-        String databasePath = "jdbc:mysql://158.38.48.10:3306/team6";  
+        String databasePath = "jdbc:mysql://158.38.48.10:3306/team6";
         String databaseUserName = "team6";
         String databasePassword = "Team62015";
         String dbDriver = "com.mysql.jdbc.Driver";
@@ -81,10 +81,10 @@ public class DatabaseConnection {
 
     public String registerUser(User user) {
 
-        if (!checkUserName(user.getUsername()) || !checkEmail(user.getEmail())){
+        if (!checkUserName(user.getUsername()) || !checkEmail(user.getEmail())) {
             return null;
         }
-        
+
         String sqlStatement = "INSERT INTO User(user_id, name, email, password) "
                 + "VALUES (DEFAULT, ?, ?, ?)";
         try {
@@ -174,7 +174,7 @@ public class DatabaseConnection {
     public ArrayList<User> getUsers() {
         String sqlStatement = "SELECT * FROM User "; //join on score hvor godkjenningen vil ligg
         ArrayList<User> user = new ArrayList<>();
-        
+
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
 
@@ -260,18 +260,18 @@ public class DatabaseConnection {
 
         return null;
     }
-    
-    public ArrayList<UserScoreOverview> getUserScoreOverview(){
-        
+
+    public ArrayList<UserScoreOverview> getUserScoreOverview() {
+
         ArrayList<UserScoreOverview> uso = new ArrayList();
         ArrayList<User> users = getUsers();
-        
+
         for (User user : users) {
             ArrayList<ScoreProfile> sp = getScoreProfile(user);
-            
+
             uso.add(new UserScoreOverview(user, sp));
         }
-        
+
         return uso;
     }
     
@@ -283,13 +283,13 @@ public class DatabaseConnection {
                 + "JOIN TaskSet ON(Task.task_id = TaskSet.task_id) JOIN Problemset"
                 + " ON(TaskSet.set_id = Problemset.set_id) WHERE Problemset.set_id"
                 + "= ?";
-        
+
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-            pstmt.setInt(1,set_id );
+            pstmt.setInt(1, set_id);
             resultSet = pstmt.executeQuery();
-            
-            while(resultSet.next()) {
+
+            while (resultSet.next()) {
                 int task_id = resultSet.getInt(1);
                 String des = resultSet.getString(2);
                 String text = resultSet.getString(3);
@@ -302,65 +302,204 @@ public class DatabaseConnection {
                 list.add(new Task(task_id, des, text, diff, html, answerHtml, css, answerCss, points));
             }
             return list;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             printErrorMessage(e, " feil i getTasks");
         }
 
         return null;
-        
+
     }
 
-    public boolean registerScore(User user, int score, int setId){
-        
-        java.sql.Date date = new java.sql.Date(new java.util.Date().getTime() );
+    public boolean registerScore(User user, int score, int setId) {
+
+        java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
         String sql1 = "INSERT INTO Score VALUES (DEFAULT, ?, ?)";
         String sql2 = "INSERT INTO Game VALUES (?, ?, LAST_INSERT_ID())";
-        
+
         ResultSet resultSet = null;
-    
-        try{
+
+        try {
             connection.setAutoCommit(false);
             PreparedStatement pstmt = connection.prepareStatement(sql1);
             PreparedStatement pstmt2 = connection.prepareStatement(sql2);
             pstmt.setInt(1, score);
             pstmt.setDate(2, date);
-            
+
             pstmt2.setInt(1, user.getId());
             pstmt2.setInt(2, setId);
-            
+
             pstmt.executeUpdate();
             pstmt2.executeUpdate();
-            
+
             connection.commit();
-            
+
             return true;
-            
-        } catch (Exception e){
+
+        } catch (Exception e) {
             rollBack();
             printErrorMessage(e, "Registrer poeng");
         }
-        
+
         return false;
     }
 
-    public String changePassword(User user){
+    public String changePassword(User user) {
         String sql = "UPDATE User SET User.password = ? WHERE User.user_id = ?";
         String newPassword = hashString(generatePassword());
-        
+
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, newPassword);
             pstmt.setInt(2, user.getId());
             pstmt.executeUpdate();
-            
+
             return newPassword;
-            
-        } catch(Exception e){
+
+        } catch (Exception e) {
             printErrorMessage(e, "Passordforandring");
         }
-                
-        return null;        
+
+        return null;
+    }
+
+    public ArrayList<Message> getChat(User currentUser, User otherUser) {
+
+        String sqlStatement = "SELECT Message.date, Message.text "
+                + "FROM Message "
+                + "JOIN Chat ON Message.chat_id = Chat.chat_id"
+                + "JOIN User ON (Chat.user_id1 = ? AND Chat.user_id2 = ?)"
+                + "OR (Chat.user_id1 = ? AND chat.user_id2 = ?)";
+
+        ArrayList<Message> chat = new ArrayList<>();
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            
+            pstmt.setInt(1, currentUser.getId());
+            pstmt.setInt(2, otherUser.getId());
+            
+            pstmt.setInt(3, otherUser.getId());
+            pstmt.setInt(4, currentUser.getId());
+            
+            
+            ResultSet resultSet = pstmt.executeQuery();
+
+            while (resultSet.next()) {
+                java.sql.Date date = resultSet.getDate(1);
+                String text = resultSet.getString(2);
+
+                chat.add(new Message(date, text));
+            }
+            return chat;
+
+        } catch (Exception e) {
+            printErrorMessage(e, "getChat");
+        }
+        return null;
+    }
+
+    public ArrayList<User> getChatList(User currentUser) {
+
+        String sql = "SELECT User.user_id, User.name, User.email, User.password"
+                + " FROM User"
+                + " JOIN Chat ON (Chat.user_id1 = ? OR Chat.user_id2 = ?)";
+
+        ArrayList<User> chatList = new ArrayList<>();
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, currentUser.getId());
+            ResultSet resultSet = pstmt.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                String email = resultSet.getString(3);
+                String password = resultSet.getString(4);
+                chatList.add(new User(id, name, email, password));
+            }
+            return chatList;
+
+        } catch (Exception e) {
+            printErrorMessage(e, "getChatList");
+        }
+        return null;
+    }
+    
+    public boolean registerChat(Chat chat) {
+        String sqlStatement = "INSERT INTO Chat VALUES (DEFAULT, ?, ?, ?)";
+        
+        try {
+            
+           PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+           pstmt.setInt(1, chat.getUserCurrent().getId());
+           pstmt.setInt(2, chat.getUserOther().getId());
+           pstmt.setBoolean(3, false);
+           
+           pstmt.executeUpdate();
+           
+           return true;
+        } 
+        catch (Exception e) {
+            printErrorMessage(e, "registrer chat");
+        }
+        return false;
+    }
+    
+    public boolean checkChat(User userCurrent, User userOther) {
+        String sqlStatement = "Select Chat.chat_id From Chat "
+                + "Where Chat.user_id1 = ? and Chat.user_id2 = ?"
+                + "Or Chat.user_id2 = ? and Chat.user_id1 = ?" ;
+        
+        ResultSet resultSet = null;
+        
+        try{
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+           pstmt.setInt(1, userCurrent.getId());
+           pstmt.setInt(2, userOther.getId());
+          
+           
+           resultSet = pstmt.executeQuery();
+           
+           if (resultSet.next()) {
+                //Allerede i databasen (Opptatt)
+                return false;
+            }
+           
+        }
+        catch(Exception e) {
+            printErrorMessage(e, "feil i CheckChat");
+        }
+        return true;
+            
+        }
+
+    public boolean registerMessage(Message message, int chatId){
+        String sql = "INSERT INTO Message "
+                + "VALUES (DEFAULT, ?, ?, ?)";
+        
+        String sql2 = "UPDATE Chat SET Chat.read = false "
+                + " WHERE Chat.chat_id = ? ";
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setDate(1, message.getDate());
+            pstmt.setString(2, message.getText());
+            pstmt.setInt(3, chatId);
+            
+            pstmt.executeUpdate();
+            
+            PreparedStatement pstmt2 = connection.prepareStatement(sql2);
+            pstmt2.setInt(1, chatId);
+            
+            pstmt.executeUpdate();
+            
+            return true;
+            
+        } catch (Exception e ){
+            printErrorMessage(e, "registrer melding");
+        }
+        return false;
     }
     
     private boolean checkUserName(String userName) {
