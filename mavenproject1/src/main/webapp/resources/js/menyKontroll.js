@@ -22,10 +22,16 @@ $(document).ready(function () {
         switch(elem){
             case 'Spillet': a.css("visibility", "visible");
                     b.css("visibility", "hidden");
-                    c.css("visibility", "hidden"); break;
+                    c.css("visibility", "hidden");
+                    $("#brukernavnform").css ("visibility", "hidden");
+                    $("#passordform").css ("visibility", "hidden");
+                    break;
             case 'Resultater': b.css("visibility", "visible");
                     a.css("visibility", "hidden");
-                    c.css("visibility", "hidden"); break;
+                    c.css("visibility", "hidden");
+                    $("#brukernavnform").css ("visibility", "hidden");
+                    $("#passordform").css ("visibility", "hidden");
+                    break;
             case 'Profil': c.css("visibility", "visible");
                     a.css("visibility", "hidden");
                     b.css("visibility", "hidden"); break;    
