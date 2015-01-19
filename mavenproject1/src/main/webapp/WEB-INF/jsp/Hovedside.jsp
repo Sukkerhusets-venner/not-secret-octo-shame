@@ -94,35 +94,35 @@
                     
                 </div>
                 <div id="profil">
-                    <p>Brukernavn: ${loginform.user.username}</p>
-                    <p>Email: <c:out value = "${loginform.user.email}"/></p>
+                    <p class ="textprofile">Brukernavn: ${loginform.user.username}</p>
+                    <p class ="textprofile">Email: <c:out value = "${loginform.user.email}"/></p>
                     <br> 
                     <button type = "button" id ="byttBrukernavn" > Bytt brukernavn </button>
-                    <br>
-                    <button type = "button" id ="byttPassord" > Bytt passord </button>
+                    <br> 
+                    <button type = "button" id ="byttPassord"    > Bytt passord    </button>
                     <div id ="brukernavnform" >
-                        <table>
+                        <table class = "textprofile">
                             <tr> <td> Bytt brukernavn: </td> </tr>
                         <form:form method="POST" modelAttribute="editform" action ="byttBrukernavn"> 
                         <tr> <td> <form:input path = "userNew.username" placeholder = "Nytt brukernavn"/> </td>
                         <td class = "ErrorMessagesProfile"> <c:if test = "${not empty InputfeilBrukernavn}"> <c:out value = "${InputfeilBrukernavn}"/> </c:if> </td> </tr>
                         <tr> <td> <form:input path = "userOld.password" placeholder = "Bekreft passord" type = "password" /> </td>
                         <td class = "ErrorMessagesProfile"> <c:if test = "${not empty InputfeilPassord}"> <c:out value = "${InputfeilPassord}"/> </c:if> </td> </tr>
-                        <tr> <td> <input id = "button" type="submit" name="Send" value="Bytt brukernavn"/> </td> 
+                        <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt brukernavn"/> </td> 
                         <td class = "ErrorMessagesProfile"> <c:if test = "${not empty feilpassord}"> <c:out value = "${feilpassord}"/> </c:if> </td> </tr>
                         </form:form>
                         </table>
 
                     </div>
                     <div id ="passordform" >
-                        <table>
+                        <table class = "textprofile">
                             <tr> <td> Bytt passord: </td> </tr>
                         <form:form method="POST" modelAttribute="editform" action ="byttPassord"> 
                         <tr> <td> <form:input path = "userOld.password" placeholder = "Gammelt passord" type ="password"/> </td>
                         <td class = "ErrorMessagesProfile"> <c:if test = "${not empty Inputfeilgammeltpassord}"> <c:out value = "${Inputfeilgammeltpassord}"/> </c:if> </td> </tr>
                         <tr> <td> <form:input path = "userNew.password" placeholder = "Nytt passord" /> </td>
                         <td class = "ErrorMessagesProfile"> <c:if test = "${not empty Inputfeilnyttpassord}"> <c:out value = "${Inputfeilnyttpassord}"/> </c:if> </td> </tr>
-                        <tr> <td> <input id = "button" type="submit" name="Send" value="Bytt passord"/> </td> 
+                        <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt passord"/> </td> 
                         <td class = "ErrorMessagesProfile"> <c:if test = "${not empty feilpassord}"> <c:out value = "${feilpassord}"/> </c:if> </td> </tr>
                         </form:form>
                         </table>
