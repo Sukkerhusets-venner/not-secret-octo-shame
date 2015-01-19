@@ -2,6 +2,7 @@
 package prosjekt.Ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import prosjekt.Domene.Task;
 
@@ -76,7 +77,19 @@ public class Assignment {
         return task.get(id);
     }
     public void setAllTasks(List<Task> allTasks){
-        this.task = allTasks;
+        List<ArrayList<Task>> tasks = new ArrayList<ArrayList<Task>>();
+        for (int i = 0; i < 3; i++) {
+            tasks.add(new ArrayList<Task>());
+        }
+        for (Task t : allTasks) {
+            tasks.get(t.getDiff()-1).add(t);
+        }
+        for (ArrayList<Task> arrayList : tasks) {
+            Collections.shuffle(arrayList);
+            for (Task t : arrayList) {
+                task.add(t);
+            }
+        }
         delscores = new int[task.size()];
         pastRandomNumber = new double[task.size()];
     }
