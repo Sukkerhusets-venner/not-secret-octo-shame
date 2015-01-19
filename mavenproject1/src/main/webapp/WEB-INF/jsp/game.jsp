@@ -146,7 +146,7 @@
                     <!-- Ikke formater disse divene! -->
                     <div><a>Spillet</a>
                     </div><div><a href="hovedside">Resultater</a>
-                    </div><div><a href="hovedside">Profil</a>
+                    </div><div><a href="hovedside">Chat</a>
                     </div>
                     <!-- ---------------------------- -->
                 </div>
