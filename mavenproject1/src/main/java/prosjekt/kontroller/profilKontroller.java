@@ -25,6 +25,7 @@ public class profilKontroller {
         
         Loginform loginform = (Loginform) session.getAttribute("loginform");
         User currentUser = loginform.getUser();
+        model.addAttribute("godkjentListe", database.getUserScoreOverview());
         
         boolean inputfeil = false;
         
@@ -47,6 +48,46 @@ public class profilKontroller {
             currentUser.setUsername(editform.getUserNew().getUsername());
             database.editUser(currentUser);
             loginform.getUser().setUsername(editform.getUserNew().getUsername());
+            session.setAttribute("loginform", loginform);
+            System.out.println ("Riktig");
+            return "Hovedside";
+        } else {
+           model.addAttribute("feilpassord", "Passordet er ikke riktig");
+           session.setAttribute("loginform", loginform);
+           System.out.println ("feil");
+           return "Hovedside";
+        }
+    }
+    
+    @RequestMapping (value = "byttPassord")
+    public String byttPassord (Editform editform, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        
+        Loginform loginform = (Loginform) session.getAttribute("loginform");
+        User currentUser = loginform.getUser();
+        model.addAttribute("godkjentListe", database.getUserScoreOverview());
+        
+        boolean inputfeil = false;
+        
+        if (editform.getUserNew().getPassword().isEmpty()) {
+            inputfeil = true;
+            model.addAttribute("Inputfeilnyttpassord", "Feltet kan ikke være tomt");
+        }
+        
+        if (editform.getUserOld().getPassword().isEmpty()) {
+            inputfeil = true;
+            model.addAttribute("Inputfeilgammeltpassord", "Feltet kan ikke være tomt");
+        }
+        
+        if (inputfeil){
+            session.setAttribute("loginform", loginform);
+            return "Hovedside";
+        }
+
+        if (database.checkLogin(currentUser.getEmail(), editform.getUserOld().getPassword())) {
+            currentUser.setPassword(editform.getUserNew().getPassword());
+            database.editUser(currentUser);
+            loginform.getUser().setPassword(editform.getUserNew().getPassword());
             session.setAttribute("loginform", loginform);
             System.out.println ("Riktig");
             return "Hovedside";
