@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import prosjekt.Domene.User;
 import prosjekt.Domene.UserScore;
+import prosjekt.Domene.UserScoreOverview;
 import prosjekt.Ui.Loginform;
 import prosjekt.database.DatabaseConnection;
 
@@ -44,10 +45,22 @@ public class loginKontroller {
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScore(hiScores);
             loginform.getUser().setUsername(database.getUser(loginform.getUser().getEmail()).getUsername());
+            
+            ArrayList<UserScoreOverview> ov = database.getUserScoreOverview();
+            for(UserScoreOverview o : ov){
+                if(o == null){
+                    ov.remove(o);
+                }
+            }            
+            model.addAttribute("godkjentListe", database.getUserScoreOverview());
             return "Hovedside";
         } else {
             model.addAttribute("loginError", "Feil email/passord");
             return "login";
         }
+    }
+    @RequestMapping(value = "/hovedside")
+    public String showForm1(@ModelAttribute Loginform loginform){
+        return "Hovedside";
     }
 }

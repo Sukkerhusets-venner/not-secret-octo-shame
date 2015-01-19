@@ -28,7 +28,7 @@
                 </div>
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
-                    <div><a>Spillet</a>
+                    <div><a href="game" >Spillet</a>
                     </div><div><a>Resultater</a>
                     </div><div><a>Profil</a>
                     </div>
@@ -40,22 +40,36 @@
             <div id="stuff">
                 <div id="spill">
                     <h3>Spill</h3>
-                    <a href="game">Press this link</a>
+                    
                 </div>
                 <div id="hiscore">
                     <h2> Resultater </h2>
                     <div id="drWrap">
                         <h3>Dine Resultater</h3>
-                        <c:if test = "${not empty ScoreProfile}"></c:if>
-                        <c:if test= "${empty ScoreProfile}">
                             <p>Fant ingen resultater på deg</p>
-                        </c:if>
                     </div>
                     <div id="godkjWrap">
                         <h3>Godkjenning</h3>
-                        <c:if test = "${not empty ScoreProfile}"></c:if>
-                        <c:if test= "${empty ScoreProfile}">
-                            <p>Fant ingen godkjenningslister</p>
+                         <c:if test = "${not empty godkjentListe}">
+                            <table class="finTabell">
+                                <tr>
+                                    <th>Bruker</th>
+                                    <th>Godkjent</th>
+                                </tr>
+                            <c:forEach var="UserScoreOverview" items="${godkjentListe}">
+                                <c:if test="${not empty UserScoreOverview.user.username}">
+                                <tr>
+                                    <td><c:out value="${UserScoreOverview.user.username}"/></td>
+                                    <td>
+                                        <c:if test="${UserScoreOverview.passed}">Ja</c:if>
+                                        <c:if test="${not UserScoreOverview.passed}">Nei</c:if>
+                                    </td>
+                                </tr>
+                                </c:if>
+                            </c:forEach>
+                            </table>
+                        </c:if><c:if test= "${empty godkjentListe}">
+                            <p>Fant ingen resultater på deg</p>
                         </c:if>
                     </div>
                     <div id="highWrap">

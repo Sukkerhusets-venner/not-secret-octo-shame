@@ -60,8 +60,6 @@ public class DatabaseConnection {
     public boolean checkLogin(String email, String password) {
 
         password = hashString(password);
-
-        ResultSet resultSet = null;
         String query = "SELECT email, password FROM User WHERE email = ? and password = ? ";
 
         try {
@@ -69,7 +67,7 @@ public class DatabaseConnection {
             pstmt.setString(1, email);
             pstmt.setString(2, password);
 
-            resultSet = pstmt.executeQuery();
+            ResultSet resultSet = pstmt.executeQuery();
 
             if (resultSet.next()) {
                 //Login sucessfull
@@ -109,14 +107,13 @@ public class DatabaseConnection {
     }
 
     public User getUser(String email) {
-        ResultSet resultSet = null;
-        String sqlStatement = "SELECT*FROM User WHERE email=?";
+        String sqlStatement = "SELECT * FROM User WHERE email=?";
         User user = null;
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setString(1, email);
-            resultSet = pstmt.executeQuery();
+            ResultSet resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
                 int id = (Integer) resultSet.getObject(1);
@@ -137,8 +134,8 @@ public class DatabaseConnection {
     public boolean editUser(User user) {
 
         String sqlStatement = "UPDATE User SET "
-                + " id = DEFAULT, username = ? ,email = ?, password = ? "
-                + "WHERE User.id = ?";
+                + " id = DEFAULT, name = ? ,email = ?, password = ? "
+                + "WHERE User.user_id = ?";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setString(1, user.getUsername());
@@ -177,11 +174,11 @@ public class DatabaseConnection {
     public ArrayList<User> getUsers() {
         String sqlStatement = "SELECT * FROM User "; //join on score hvor godkjenningen vil ligg
         ArrayList<User> user = new ArrayList<>();
-        ResultSet resultSet = null;
+        
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
 
-            resultSet = pstmt.executeQuery();
+            ResultSet resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
                 int id = (Integer) resultSet.getObject(1);
@@ -189,7 +186,6 @@ public class DatabaseConnection {
                 String email = resultSet.getString(3);
                 String password = resultSet.getString(4);
                 user.add(new User(id, userName, email, password));
-                user.add(getUser(resultSet.getString(1)));
             }
             return user;
 
@@ -208,11 +204,10 @@ public class DatabaseConnection {
                 + "JOIN Score ON ( Game.score_id = Score.score_id)"
                 + "GROUP BY User.user_id";
         ArrayList<UserScore> hsList = new ArrayList();
-        ResultSet resultSet = null;
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            resultSet = pstmt.executeQuery();
+            ResultSet resultSet = pstmt.executeQuery();
 
             int i = 0;
             while (resultSet.next() && i < NUMBER_OF_HIGHSCORES_SHOWN) {
@@ -302,7 +297,7 @@ public class DatabaseConnection {
                 String html = resultSet.getString(5);
                 String answerHtml = resultSet.getString(6);
                 String css = resultSet.getString(7);
-                String answerCss = resultSet.getString(7);
+                String answerCss = resultSet.getString(8);
                 int points = resultSet.getInt(9);
                 list.add(new Task(task_id, des, text, diff, html, answerHtml, css, answerCss, points));
             }
@@ -323,7 +318,7 @@ public class DatabaseConnection {
         String sql2 = "INSERT INTO Game VALUES (?, ?, LAST_INSERT_ID())";
         
         ResultSet resultSet = null;
-        
+    
         try{
             connection.setAutoCommit(false);
             PreparedStatement pstmt = connection.prepareStatement(sql1);
