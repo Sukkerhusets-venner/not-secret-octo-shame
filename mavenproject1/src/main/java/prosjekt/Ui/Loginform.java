@@ -15,11 +15,12 @@ public final class Loginform {
     private User user; // bruker som er logget inn
     private List<UserScore> hiScore = null;
     private int menyValg;
-    private boolean inGame = false;
+    private boolean inGame;
      
     public Loginform () {
         setUser (new User());
         menyValg = 0;
+        inGame = false;
     }
     public int getMenyValg () {
         return menyValg;

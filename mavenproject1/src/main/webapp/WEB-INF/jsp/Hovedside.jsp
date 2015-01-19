@@ -31,7 +31,8 @@
         
     });
     function checkGame(){
-        if("${loginform.isInGame()}"){
+        var sjekk = "${loginform.isInGame()}";
+        if(sjekk === "true"){
             reset();
             alertify.set({ labels: { ok: "Fortsett", cancel: "Start et nytt" } });
             alertify.confirm("<b>Vil du fortsette det gamle spillet eller starte på et nytt et?</b><br/><br/>", function (e) {
@@ -72,7 +73,7 @@
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
                     <div><a href="javascript:checkGame()">Spillet</a>
-                        <form:form method="POST" modelAttribute="loginform" action ="game" id="game" name="game">
+                       <form:form method="POST" modelAttribute="loginform" action ="game" id="game" name="game">
                             <input type="hidden" name="inGame" value=''>
                        </form:form>
                     </div><div><a>Resultater</a>
