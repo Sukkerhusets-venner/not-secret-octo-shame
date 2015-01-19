@@ -384,7 +384,7 @@ public class DatabaseConnection {
 
     public ArrayList<Message> getChat(User currentUser, User otherUser) {
 
-        String sql = "SELECT Message.date, Message.text "
+        String sql = "SELECT Message.time, Message.text "
                 + "FROM Message "
                 + "JOIN Chat ON Message.chat_id = Chat.chat_id"
                 + "JOIN User ON (User.user_id = Chat.user_id1) "
