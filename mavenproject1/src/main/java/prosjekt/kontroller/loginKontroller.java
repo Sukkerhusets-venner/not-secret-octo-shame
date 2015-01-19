@@ -104,6 +104,8 @@ public class loginKontroller {
         
     @RequestMapping(value = "/hovedside")
     public String showForm1(@ModelAttribute(value="loginform") Loginform loginform, Editform editform){
+        ArrayList<UserScore> hiScores = database.getHighScoreList();
+        loginform.setHiScore(hiScores);
         return "Hovedside";
     }
     

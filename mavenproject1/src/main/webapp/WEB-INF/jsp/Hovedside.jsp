@@ -195,7 +195,7 @@
             </style>
             <h2 style="padding: 1rem 1rem 1rem 1rem">Du må slå på javascript for å spille spillet.</h2>
             </noscript> 
-            <a href="login" style="position:fixed; left:3rem; bottom:2rem;">Gå tilbake</a>
+            <a href="logUt" style="position:fixed; left:3rem; bottom:2rem;">Log ut</a>
             <!-- ------------------------ -->
         </div>
         <c:if test="${loggedIn}">
