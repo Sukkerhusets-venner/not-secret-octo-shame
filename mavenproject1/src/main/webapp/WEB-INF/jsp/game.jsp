@@ -144,7 +144,7 @@
                 </div>
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
-                    <div><a>Spillet</a>
+                    <div><a>Chat</a>
                     </div><div><a href="hovedside">Resultater</a>
                     </div><div><a href="hovedside">Profil</a>
                     </div>

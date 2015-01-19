@@ -55,7 +55,7 @@
                 } else {
                     poengsum = timescore;
                     svar = "Synd! Du svarte feil. <br/><br/>Poeng for riktig: 0/40.<br/>Poeng for tid: "+timescore+
-                    "/10<br/><br/>Din poengsum ble: "+poengsum+"/50. <br/><br/>Riktig svar skulle vært:<br/><br/>"+svarOppg;
+                    "/10<br/><br/>Din poengsum ble: "+poengsum+"/50. <br/><br/>Riktig svar skulle vært:<br/><br/>"+escapeHtml(svarOppg)+"<br/><br/>";
                 }
                 reset();
                 alertify.alert(svar,function (e) {
@@ -78,6 +78,18 @@
 				buttonFocus   : "ok"
 		});
             }
+            function escapeHtml(text) {
+                var map = {
+                  '&': '&amp;',
+                  '<': '&lt;',
+                  '>': '&gt;',
+                  '"': '&quot;',
+                  "'": '&#039;'
+                };
+
+                return text.replace(/[&<>"']/g, function(m) { return map[m]; 
+            });
+}
         </script>
     </head>
     <body>

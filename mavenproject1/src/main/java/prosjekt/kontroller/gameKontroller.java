@@ -49,9 +49,7 @@ public class gameKontroller {
     }
     
     @RequestMapping (value = "nesteOppgave")
-    public String nesteOppg(@ModelAttribute(value="assignment") Assignment assignment, 
-            @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, 
-                HttpServletRequest user, Model model) {
+    public String nesteOppg(@ModelAttribute(value="assignment") Assignment assignment, HttpServletRequest request, Model model) {
         if(assignment.checkNumbers()) {
             int tasknr = assignment.nextTask();
             if(tasknr != -1){
@@ -64,11 +62,9 @@ public class gameKontroller {
                         return "game";
                 }
             } else {   
-                User u = database.getUser(((User)user.getSession().getAttribute("currentUser")).getEmail());
+                User u = database.getUser(((User)request.getSession().getAttribute("currentUser")).getEmail());
                 database.registerScore( u  , assignment.sumUp() , 1);
-                request.removeAttribute("assignment", WebRequest.SCOPE_SESSION);
-                model.addAttribute("assignment", makeAssignment());
-                return "Hovedside";
+                return "score";
             }
         } else {
            if(assignment.getCurrentTaskNr() != -1){
@@ -84,5 +80,13 @@ public class gameKontroller {
                return "Hovedside";
            } 
         }
+    }
+    @RequestMapping (value = "meny")
+    public String nesteOppg(@ModelAttribute(value="assignment") Assignment assignment, 
+            @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model) {
+        
+        request.removeAttribute("assignment", WebRequest.SCOPE_SESSION);
+        model.addAttribute("assignment", makeAssignment());
+        return "Hovedside";
     }
 }
