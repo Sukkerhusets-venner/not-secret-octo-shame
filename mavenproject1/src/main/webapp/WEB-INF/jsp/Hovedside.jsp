@@ -34,7 +34,7 @@
         if("${loginform.isInGame()}"){
             reset();
             alertify.set({ labels: { ok: "Fortsett", cancel: "Start et nytt" } });
-            alertify.confirm("Vil du fortsette det gamle spillet eller starte på et nytt et?", function (e) {
+            alertify.confirm("<b>Vil du fortsette det gamle spillet eller starte på et nytt et?</b><br/><br/>", function (e) {
                 if (e) {
                     window.location.href = "game";
                 } else {
@@ -47,7 +47,7 @@
         }
     }
     function reset () {
-        $("#toggleCSS").attr("href", "../themes/alertify.default.css");
+        $("#toggleCSS").attr("href", "resources/css/alertify.default.css");
         alertify.set({
             labels : {
                 ok     : "OK",
@@ -157,6 +157,8 @@
                         <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt brukernavn"/> </td> </tr>
                         <tr> <td class = "ErrorMessagesProfile"> <c:if test = "${not empty brukernavnfeilpassord}"> <c:out value = "${brukernavnfeilpassord}"/> </c:if> </td> </tr>
                         </form:form>
+                        <br>
+                        <tr> <td> <c:if test = "${not empty suksessBrukernavn}"> <c:out value = "${suksessBrukernavn}"/> </c:if> </td> </tr>
                         </table>
 
                     </div>
@@ -171,6 +173,8 @@
                         <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt passord"/> </td> </tr>
                         <tr> <td class = "ErrorMessagesProfile"> <c:if test = "${not empty passordfeilpassord}"> <c:out value = "${passordfeilpassord}"/> </c:if> </td> </tr>
                         </form:form>
+                        <br>
+                        <tr> <td> <c:if test = "${not empty suksessPassord}"> <c:out value = "${suksessPassord}"/> </c:if> </td> </tr>
                         </table>
                     </div>
                 </div>

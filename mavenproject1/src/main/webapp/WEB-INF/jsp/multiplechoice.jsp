@@ -17,7 +17,7 @@
             var tekst = "";
             
             $(document).ready(function() {
-                timescore = 10;
+                timescore = "${assignment.getTimescore()}";
                 setInterval(function(){
                     if(timescore > 0){
                         timescore--;
@@ -44,16 +44,25 @@
                 
                 document.getElementById("oppgTekst").innerHTML = oppgTekst;
             });
-            
+            function toInt(n){ return Math.round(Number(n)); };
+            function tilHovedmeny(){
+                reset();
+                alertify.set({ labels: { ok: "Fortsett å spille", cancel: "Gå til hovedmeny" } });
+                alertify.confirm("<b>Er du sikker på at du vil returnere til hovedmenyen?<br/>Du vil kunne fortsette spillet, men timescoren din vil bli satt til 0.</b><br/><br/>", function (e) {
+                    if (!e) {
+                        window.location.href = "hovedside";
+                    }
+                });
+            }
             function pressed(nr){
                 var svar = "";
                 var poengsum = 0;
                 if(nr === riktigSvar){
-                    poengsum = 40+timescore;
+                    poengsum = toInt(40)+toInt(timescore);
                     svar = "Veldig bra! Du fikk riktig. <br/><br/>Poeng for riktig: 40/40.<br/>Poeng for tid: "+
                     timescore+"/10<br/><br/>Din poengsum ble: "+poengsum+"/50. <br/><br/>Gratulerer!!<br/><br/>";
                 } else {
-                    poengsum = timescore;
+                    poengsum = toInt(timescore);
                     svar = "Synd! Du svarte feil. <br/><br/>Poeng for riktig: 0/40.<br/>Poeng for tid: "+timescore+
                     "/10<br/><br/>Din poengsum ble: "+poengsum+"/50. <br/><br/>Riktig svar skulle vært:<br/><br/>"+escapeHtml(svarOppg)+"<br/><br/>";
                 }
@@ -106,8 +115,8 @@
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
                     <div><a>Spillet</a>
-                    </div><div><a>Resultater</a>
-                    </div><div><a>Profil</a>
+                    </div><div><a href="javascript:tilHovedmeny()">Resultater</a>
+                    </div><div><a href="javascript:tilHovedmeny()">Profil</a>
                     </div>
                     <!-- ---------------------------- -->
                 </div>
