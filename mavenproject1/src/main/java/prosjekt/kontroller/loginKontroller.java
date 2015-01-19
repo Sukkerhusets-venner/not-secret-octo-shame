@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.request.WebRequest;
 import prosjekt.Domene.User;
 import prosjekt.Domene.UserScore;
 import prosjekt.Domene.UserScoreOverview;
@@ -27,7 +28,7 @@ public class loginKontroller {
     private DatabaseConnection database;
     
     @ModelAttribute("loginform")
-    public Loginform makeAssignment(){
+    public Loginform makeLoginform(){
         return new Loginform();
     }
     @RequestMapping(value = "/*")
@@ -103,5 +104,14 @@ public class loginKontroller {
     public String showForm1(@ModelAttribute(value="loginform") Loginform loginform, Editform editform){
         return "Hovedside";
 >>>>>>> FETCH_HEAD
+    }
+     @RequestMapping (value = "logUt")
+    public String meny( Editform editform,
+            @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model) {
+        
+        loginform.setInGame(false);
+        request.removeAttribute("loginform", WebRequest.SCOPE_SESSION);
+        model.addAttribute("loginform", makeLoginform());
+        return "login";
     }
 }
