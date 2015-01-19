@@ -50,6 +50,7 @@ public class profilKontroller {
             database.editUser(currentUser);
             loginform.getUser().setUsername(editform.getUserNew().getUsername());
             session.setAttribute("loginform", loginform);
+            model.addAttribute("suksessBrukernavn", "Du har byttet brukernavn. Gratulerer!");
             return "Hovedside";
         } else {
            model.addAttribute("brukernavnfeilpassord", "Passordet er ikke riktig");
@@ -89,6 +90,7 @@ public class profilKontroller {
             database.editUser(currentUser);
             loginform.getUser().setPassword(editform.getUserNew().getPassword());
             session.setAttribute("loginform", loginform);
+            model.addAttribute("suksessPassord", "Du har byttet passord. Gratulerer!");
             return "Hovedside";
         } else {
            model.addAttribute("passordfeilpassord", "Passordet er ikke riktig");

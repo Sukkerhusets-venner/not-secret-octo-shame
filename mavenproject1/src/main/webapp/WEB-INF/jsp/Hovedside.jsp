@@ -157,6 +157,8 @@
                         <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt brukernavn"/> </td> </tr>
                         <tr> <td class = "ErrorMessagesProfile"> <c:if test = "${not empty brukernavnfeilpassord}"> <c:out value = "${brukernavnfeilpassord}"/> </c:if> </td> </tr>
                         </form:form>
+                        <br>
+                        <tr> <td> <c:if test = "${not empty suksessBrukernavn}"> <c:out value = "${suksessBrukernavn}"/> </c:if> </td> </tr>
                         </table>
 
                     </div>
@@ -171,6 +173,8 @@
                         <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt passord"/> </td> </tr>
                         <tr> <td class = "ErrorMessagesProfile"> <c:if test = "${not empty passordfeilpassord}"> <c:out value = "${passordfeilpassord}"/> </c:if> </td> </tr>
                         </form:form>
+                        <br>
+                        <tr> <td> <c:if test = "${not empty suksessPassord}"> <c:out value = "${suksessPassord}"/> </c:if> </td> </tr>
                         </table>
                     </div>
                 </div>
