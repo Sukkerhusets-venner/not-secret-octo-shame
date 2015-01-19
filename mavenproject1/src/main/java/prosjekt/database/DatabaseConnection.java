@@ -319,7 +319,7 @@ public class DatabaseConnection {
         String sql2 = "INSERT INTO Game VALUES (?, ?, LAST_INSERT_ID())";
         
         ResultSet resultSet = null;
-        
+    
         try{
             connection.setAutoCommit(false);
             PreparedStatement pstmt = connection.prepareStatement(sql1);
