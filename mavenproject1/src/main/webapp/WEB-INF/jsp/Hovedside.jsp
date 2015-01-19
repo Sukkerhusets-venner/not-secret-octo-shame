@@ -98,8 +98,8 @@
                     <p>Email: <c:out value = "${loginform.user.email}"/></p>
                     <br> 
                     <button type = "button" id ="byttBrukernavn" > Bytt brukernavn </button>
-                    <br>
-                    <button type = "button" id ="byttPassord" > Bytt passord </button>
+                    <br> 
+                    <button type = "button" id ="byttPassord"    > Bytt passord    </button>
                     <div id ="brukernavnform" >
                         <table>
                             <tr> <td> Bytt brukernavn: </td> </tr>
