@@ -13,6 +13,7 @@ public class Assignment {
     private int score;
     private double randomNumber = 0;
     private double[] pastRandomNumber;
+    private int timescore = 10;
     
     public Assignment(){}
     
@@ -46,6 +47,7 @@ public class Assignment {
     }
     public int nextTask(){
         setDelscore();
+        timescore = 10;
         if(currentTask < task.size()-1){
             return currentTask++;
         }
@@ -117,5 +119,12 @@ public class Assignment {
             }
         }
         return true;
+    }
+    public int getTimescore() {
+        return timescore;
+    }
+
+    public void setTimescore(int timescore) {
+        this.timescore = timescore;
     }
 }

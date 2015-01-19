@@ -59,7 +59,7 @@
                         if(data.misMatchPercentage <= 4){
                             skillscore = toInt((4-data.misMatchPercentage)*22.5);
                         }
-                        poengsum = timescore + skillscore;
+                        poengsum = toInt(timescore) + toInt(skillscore);
                         reset();
 			alertify.alert("Veldig bra, du har nå kommet til neste oppgave.<br/><br/> Din skillscore ble: "+skillscore+
                         "/90.<br/>Din tidscore ble "+timescore+"/10<br/><br/>Din poengsum ble: "+poengsum+"/100. <br/><br/>Gratulerer!!<br/><br/>"
@@ -73,10 +73,9 @@
                     });            
                 }
             }
-            
             function toInt(n){ return Math.round(Number(n)); };
             function setUp(){
-                timescore = 10;
+                timescore = "${assignment.getTimescore()}";
                 setInterval(function(){
                     if(timescore > 0){
                         timescore--;
@@ -132,10 +131,10 @@
     
     <body>
         
-    <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
-         <input type="hidden" name="score" value=''>
-         <input type="hidden" name="randomNumber" value=''>
-    </form:form>
+        <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
+            <input type="hidden" name="score" value=''>
+            <input type="hidden" name="randomNumber" value=''>
+        </form:form>
          <div id="wrapper"> 
               <div class="header">
                 <div class="mptitle">

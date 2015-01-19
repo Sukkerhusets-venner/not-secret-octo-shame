@@ -39,13 +39,16 @@ public class gameKontroller {
     @RequestMapping (value = "game")
     public String game (@ModelAttribute(value="assignment") Assignment assignment, @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model) {
         if(loginform.isInGame() == false){
+            assignment.setTimescore(10);
             assignment.setCurrentTask(0);
             assignment.setAllTasks(database.getTasks(1));
             loginform.setInGame(true);
+        } else {
+            assignment.setTimescore(0);
         }
         switch (assignment.getCurrentTask().getType()) {
             case "hangman":
-                return "hangmang";
+                return "hangman";
             case "mpc":
                 return "multiplechoice";
             default:
@@ -60,7 +63,7 @@ public class gameKontroller {
             if(tasknr != -1){
                 switch (assignment.getCurrentTask().getType()) {
                     case "hangman":
-                        return "hangmang";
+                        return "hangman";
                     case "mpc":
                         return "multiplechoice";
                     default:
@@ -75,7 +78,7 @@ public class gameKontroller {
            if(assignment.getCurrentTaskNr() != -1){
                 switch (assignment.getCurrentTask().getType()) {
                     case "hangman":
-                        return "hangmang";
+                        return "hangman";
                     case "mpc":
                         return "multiplechoice";
                     default:
