@@ -46,7 +46,6 @@ public class loginKontroller {
             loginform.setHiScore(hiScores);
             loginform.getUser().setUsername(database.getUser(loginform.getUser().getEmail()).getUsername());
             loginform.getUser().setId(database.getUser(loginform.getUser().getEmail()).getId());
-            loginform.setInGame(false);
             session.setAttribute("loginform", loginform);
             
             ArrayList<UserScoreOverview> ov = database.getUserScoreOverview();
