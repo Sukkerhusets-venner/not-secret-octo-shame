@@ -12,7 +12,6 @@ public class Task {
     private String answerHtml = null; //Svaret fra bruker
     private String answerCss = null;
     private int maxPoeng; // max poeng på oppgaven
-    private int poeng; // kun getter. Brukerens poeng på oppgaven
     private int diff;
     private String type = null; // setter type (snake, hangman osv)
 
@@ -25,7 +24,7 @@ public class Task {
         this.answerHtml = answerHtml;
         this.taskCss = taskCss;
         this.answerCss = answerCss;
-        this.poeng =poeng;
+        this.maxPoeng =poeng;
     }
     
     public Task(int tasknr, String stask) {
@@ -130,18 +129,6 @@ public class Task {
         return list;
     }
 
-    public int getPoeng() {
-        if (answerHtml == null) {
-            return 0;
-        }
-        int d = LevenshteinDistance(interpretAnswer(answerHtml), taskHtml);
-        if (d > maxPoeng) {
-            poeng = 0;
-        } else {
-            poeng = maxPoeng - d;
-        }
-        return d;
-    }
     // Lavenstein distance implementasjon
     public int LevenshteinDistance(String s0, String s1) {
         int len0 = s0.length() + 1;

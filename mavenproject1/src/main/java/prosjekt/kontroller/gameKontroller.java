@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 import prosjekt.Domene.User;
 import prosjekt.Ui.Assignment;
+import prosjekt.Ui.Editform;
 import prosjekt.Ui.Loginform;
 import prosjekt.database.DatabaseConnection;
 
@@ -36,8 +37,12 @@ public class gameKontroller {
     }
     
     @RequestMapping (value = "game")
-    public String game (@ModelAttribute(value="assignment") Assignment assignment, Model model) {
-        assignment.setAllTasks(database.getTasks(1));
+    public String game (@ModelAttribute(value="assignment") Assignment assignment, @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model) {
+        if(loginform.isInGame() == false){
+            assignment.setCurrentTask(0);
+            assignment.setAllTasks(database.getTasks(1));
+            loginform.setInGame(true);
+        }
         switch (assignment.getCurrentTask().getType()) {
             case "hangman":
                 return "hangmang";
@@ -82,9 +87,10 @@ public class gameKontroller {
         }
     }
     @RequestMapping (value = "meny")
-    public String nesteOppg(@ModelAttribute(value="assignment") Assignment assignment, 
+    public String meny(@ModelAttribute(value="assignment") Assignment assignment, Editform editform,
             @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model) {
         
+        loginform.setInGame(false);
         request.removeAttribute("assignment", WebRequest.SCOPE_SESSION);
         model.addAttribute("assignment", makeAssignment());
         return "Hovedside";

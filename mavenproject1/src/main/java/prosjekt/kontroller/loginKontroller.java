@@ -62,7 +62,7 @@ public class loginKontroller {
         }
     }
     @RequestMapping(value = "/hovedside")
-    public String showForm1(@ModelAttribute Loginform loginform){
+    public String showForm1(@ModelAttribute(value="loginform") Loginform loginform, Editform editform){
         return "Hovedside";
     }
 }
