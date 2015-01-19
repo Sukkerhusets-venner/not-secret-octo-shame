@@ -199,14 +199,30 @@ button, #button{
     color:white;
 }
 
+button {
+    position: relative;
+    right: 345px;
+    bottom: 56px;
+}
+
 #passordform {
     text-align: center;
     visibility:hidden;
+    position:absolute;
+    left: 340px;
+    top: 100px;
 }
 
 #brukernavnform {
     text-align: center;
     visibility:hidden;
+    position:absolute;
+    left: 340px;
+    top: 100px;
+}
+
+.ErrorMessagesProfile {
+   color:red;
 }
 
 /* 
