@@ -2,6 +2,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url var="cssUrl" value="/resources/css/godkjentListe.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <!--< c:url var="sokIkonUrl" value="/resources/img/search.svg" />
  <object type="image/svg+xml" data="${sokIkonUrl}" class="sokIkon"></object>
 -->
@@ -13,12 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h3>Godkjenning</h3>
-        
-            <form action="godkjentliste" method="post">
-                <input type="text" placeholder="søk" name="soket" />
-                <input type="submit">
-            </form><c:if test = "${not empty godkjentListe}">
+        <c:if test = "${not empty godkjentListe}">
             <table class="finTabell">
                 <tr>
                     <th>Bruker</th>
@@ -37,7 +33,7 @@
                 </c:forEach>
             </table>
         </c:if><c:if test= "${empty godkjentListe}">
-            <p>Fant ingen resultater på deg</p>
+            <p>Fant ingen resultater</p>
         </c:if>
     </body>
 </html>

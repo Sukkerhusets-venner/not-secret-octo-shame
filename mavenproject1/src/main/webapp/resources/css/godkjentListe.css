@@ -31,16 +31,16 @@ body {
   font-weight: normal;
   padding: 4px 6px;
   text-align: center;
-  border-radius: 1px;
 }
 .finTabell td {
   background-color: #eeeeee;
   color: #444;
   padding: 4px 6px;
   border: 0;
-  border-radius: 1px;
   text-align:center;
-  
+}
+.finTablell td:nth-child(odd){
+    background-color: #ccc;
 }
 h2, h3, a{
     color: #444;

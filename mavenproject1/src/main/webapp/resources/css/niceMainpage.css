@@ -147,7 +147,6 @@ body {
     display:inline-block;
 }
 #godkjWrap{
-    float: left;
     width: 16.65rem;
     height:21rem;
 }
@@ -157,9 +156,11 @@ body {
     height:21rem;
 }
 #drWrap{
+    float:left;
     width: 16.65rem;
     height:21rem;
 }
+
 #hiscore h2{
     margin-top: 0.7rem;
     margin-bottom: 0.7rem;
@@ -191,4 +192,16 @@ body {
   border: 0;
   border-radius: 1px;
   text-align: center;
+}
+.finTablell td:nth-child(2n){
+    background-color: #ccc;
+}
+#gRamme{
+    height: 16.5rem;
+}
+#iLoad{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #777;
 }

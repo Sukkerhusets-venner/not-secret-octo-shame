@@ -13,6 +13,8 @@
             <c:url var="loginUrl" value="/login" />
             <center><div id="ftknapp"><a href="${loginUrl}">Tilbake</a></div></center>
         </div>
+            <p>${error}</p>
+            <p>${status}</p>
         <p><spring:message code="feilside.unntak" /> ${unntak}</p>
 </body>
 </html>

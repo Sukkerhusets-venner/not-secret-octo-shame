@@ -67,10 +67,10 @@
             </noscript> 
             <!-- ------------------------ -->
         </div>
-                    <c:if test="${loggedIn}">
-                        <div style="position:fixed; top:2rem; right:2rem;">
-                            <a href="Hovedside">Du er logget inn!</a>
-                        </div>
-                    </c:if>
+        <c:if test="${loggedIn}">
+            <div style="position:fixed; top:2rem; right:2rem;">
+                <a href="Hovedside">Du er logget inn!</a>
+            </div>
+        </c:if>
     </body>
 </html>

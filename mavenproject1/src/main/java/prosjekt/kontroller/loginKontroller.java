@@ -14,6 +14,7 @@ import prosjekt.Domene.User;
 import prosjekt.Domene.UserScore;
 import prosjekt.Domene.UserScoreOverview;
 import prosjekt.Ui.Loginform;
+import prosjekt.annet.searchHelper;
 import prosjekt.database.DatabaseConnection;
 
 @Controller
@@ -39,8 +40,6 @@ public class loginKontroller {
         return "login";
     }
     
-    
-    
     @RequestMapping (value = "Log inn")
     public String login (@ModelAttribute(value="loginform") Loginform loginform, HttpServletRequest request, Model model) {
         if(loginform.getUser().getPassword().isEmpty() || loginform.getUser().getEmail().isEmpty()){
@@ -62,18 +61,25 @@ public class loginKontroller {
             return "login";
         }
     }
-    @RequestMapping (value = "godkjentliste")
+    @RequestMapping (value = "/godkjentliste*")
     public String getGodkjentListe(HttpServletRequest req, Model model){
-        
         HttpSession session = req.getSession();
         try{
             User bruker = (User)session.getAttribute("currentUser");
         }catch(Exception e){
             return "login";
         }
-        model.addAttribute("godkjentListe", database.getUserScoreOverview());
-        
-        
+        searchHelper sorter = new searchHelper();
+        ArrayList<UserScoreOverview> godkjentListe = new ArrayList<UserScoreOverview>();
+        String sokt =  req.getQueryString();
+        godkjentListe = database.getUserScoreOverview();
+        if(sokt == null || sokt.equals("")){
+            model.addAttribute("sokt", "Intet søk");
+        }else{
+            model.addAttribute("sokt", sokt);
+            godkjentListe = sorter.getSearch(sokt, godkjentListe, 5);
+        }
+        model.addAttribute("godkjentListe", godkjentListe);
         return "godkjentliste";
     }
 }
