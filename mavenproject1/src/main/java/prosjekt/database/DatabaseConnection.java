@@ -135,7 +135,7 @@ public class DatabaseConnection {
     public boolean editUser(User user) {
 
         String sqlStatement = "UPDATE User SET "
-                + " id = DEFAULT, username = ? ,email = ?, password = ? "
+                + " name = ? ,email = ?, password = ? "
                 + "WHERE User.user_id = ?";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);

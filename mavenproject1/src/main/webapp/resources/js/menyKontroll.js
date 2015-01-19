@@ -34,6 +34,16 @@ $(document).ready(function () {
         }
     });
     
+    $("#byttBrukernavn").click(function(){
+    $("#brukernavnform").css ("visibility", "visible");
+    $("#passordform").css ("visibility", "hidden");
+    });
+
+    $("#byttPassord").click(function(){
+    $("#passordform").css ("visibility", "visible");
+    $("#brukernavnform").css ("visibility", "hidden");
+    });
+    
     /*
     $("Link ut fra siden").click(function(event){
         $("#stuff").remove();
