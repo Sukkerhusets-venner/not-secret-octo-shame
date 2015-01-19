@@ -83,6 +83,9 @@ public class Assignment {
             return -1;
         }
     }
+    public int getTaskNr(){
+        return delscores.length;
+    }
     public double getRandomNumber() {
         return randomNumber;
     }
