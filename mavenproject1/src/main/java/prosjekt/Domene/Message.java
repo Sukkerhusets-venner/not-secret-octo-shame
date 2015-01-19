@@ -4,31 +4,28 @@
  * and open the template in the editor.
  */
 package prosjekt.Domene;
-
-import java.sql.Date;
-
 /**
  *
  * @author Solheim
  */
 public class Message implements Comparable<Message>{
-    private java.sql.Date date;
+    private java.sql.Timestamp timestamp;
     private String text;
     
     // TIL DATABASE
     public Message(User sender, String text){
-        date = new java.sql.Date(new java.util.Date().getTime());
+        timestamp = new java.sql.Timestamp(new java.util.Date().getTime());
         text = sender.getUsername() + ": " + text;
     }
     
     // FRA DATABASE 
-    public Message(java.sql.Date date, String text){
-        this.date = date;
+    public Message(java.sql.Timestamp timestamp, String text){
+        this.timestamp = timestamp;
         this.text = text;
     }
 
-    public Date getDate() {
-        return date;
+    public java.sql.Timestamp getTimestamp() {
+        return timestamp;
     }
 
     public String getText() {
@@ -37,9 +34,9 @@ public class Message implements Comparable<Message>{
 
     @Override
     public int compareTo(Message other){
-        if (this.date.getTime() > other.date.getTime()){
+        if (this.timestamp.getTime() > other.timestamp.getTime()){
             return 1;
-        } else if (this.date.getTime() < other.date.getTime()){
+        } else if (this.timestamp.getTime() < other.timestamp.getTime()){
             return -1;
         } else {
             return 0;
@@ -48,6 +45,6 @@ public class Message implements Comparable<Message>{
     
     @Override
     public String toString() {
-        return "Message{" + "date=" + date.toString() + ", text=" + text + '}';
+        return "Message{" + "date=" + timestamp.toString() + ", text=" + text + '}';
     }
 }
