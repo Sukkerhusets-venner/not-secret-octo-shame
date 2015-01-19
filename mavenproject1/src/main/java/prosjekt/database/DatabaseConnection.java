@@ -134,14 +134,14 @@ public class DatabaseConnection {
     public boolean editUser(User user) {
 
         String sqlStatement = "UPDATE User SET "
-                + " user_id = ?, name = ? ,email = ?, password = ? "
+                + " name = ? ,email = ?, password = ? "
                 + "WHERE User.user_id = ?";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setInt(1, user.getId());
             pstmt.setString(2, user.getUsername());
             pstmt.setString(3, user.getEmail());
-            pstmt.setString(4, user.getPassword());
+            pstmt.setString(4, hashString(user.getPassword()));
             pstmt.setInt(5, user.getId());
 
             pstmt.executeUpdate();
