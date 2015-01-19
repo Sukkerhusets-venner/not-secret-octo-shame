@@ -13,6 +13,9 @@ public class searchHelper {
         if(listen == null){
             return null;
         }
+        if(maxLengde > listen.size()){
+            maxLengde = listen.size();
+        }
         
         ArrayList<Integer> rtList = new ArrayList<>();
         

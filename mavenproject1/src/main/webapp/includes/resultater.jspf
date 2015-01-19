@@ -1,12 +1,12 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-    function usinp(elem){
+    function usinp(elem) {
         var s = "godkjentliste?" + $(elem).val();
         $("#gRamme").attr('src', s);
         $("#iLoad").css("visibility", "visible");
     }
-    function fjernLoader(){
+    function fjernLoader() {
         $("#iLoad").css("visibility", "hidden");
     }
 </script>
@@ -19,7 +19,14 @@
     <h3>Godkjenning</h3>
     <div id="iLoad"></div>
     <iframe id="gRamme" onload="fjernLoader()" src="godkjentliste" scrolling="no"></iframe>
-    <input oninput="usinp(this)" id='sokInp' />
+    
+    <div id="sokFrame">
+        <div>
+            <input id="sokInp" oninput="usinp(this)" name="name" type="text" required>
+            <label for="name">Søk</label></input>
+        </div>
+    </div><div id='sokButton'><div id="sokeIkon"></div></div>
+    <div id="fullListe"><a href="#">Stor liste</a></div>
 </div>
 <div id="highWrap">
     <h3>HiScores</h3>

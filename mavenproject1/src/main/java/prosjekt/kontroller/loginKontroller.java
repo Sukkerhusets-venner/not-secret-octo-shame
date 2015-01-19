@@ -1,6 +1,7 @@
 
 package prosjekt.kontroller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,8 +30,16 @@ public class loginKontroller {
         return new Loginform();
     }
     @RequestMapping(value = "/*")
-    public String showForm(@ModelAttribute Loginform loginform, HttpServletRequest req, Model model){
+    public String showForm(@ModelAttribute Loginform loginform, HttpServletRequest req, Model model)throws Exception{
         HttpSession session = req.getSession();
+        try{
+            if(!database.checkConnection()){
+                model.addAttribute("Connection", "Not connected");
+            }
+        }catch(Exception e){
+            throw e;
+        }
+        
         try{
             User bruker = (User)session.getAttribute("currentUser");
             model.addAttribute("loggedIn", true);
@@ -62,22 +71,27 @@ public class loginKontroller {
         }
     }
     @RequestMapping (value = "/godkjentliste*")
-    public String getGodkjentListe(HttpServletRequest req, Model model){
+    public String getGodkjentListe(HttpServletRequest req, Model model)throws Exception{
         HttpSession session = req.getSession();
         try{
             User bruker = (User)session.getAttribute("currentUser");
         }catch(Exception e){
             return "login";
         }
+        
         searchHelper sorter = new searchHelper();
         ArrayList<UserScoreOverview> godkjentListe = new ArrayList<UserScoreOverview>();
         String sokt =  req.getQueryString();
-        godkjentListe = database.getUserScoreOverview();
+        try{
+            godkjentListe = database.getUserScoreOverview();
+        }catch(Exception e){
+            throw e;
+        }
         if(sokt == null || sokt.equals("")){
             model.addAttribute("sokt", "Intet søk");
         }else{
             model.addAttribute("sokt", sokt);
-            godkjentListe = sorter.getSearch(sokt, godkjentListe, 5);
+            godkjentListe = sorter.getSearch(sokt, godkjentListe, 9);
         }
         model.addAttribute("godkjentListe", godkjentListe);
         return "godkjentliste";
