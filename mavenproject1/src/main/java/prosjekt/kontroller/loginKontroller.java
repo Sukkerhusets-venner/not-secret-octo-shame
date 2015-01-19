@@ -32,6 +32,11 @@ public class loginKontroller {
     public String showForm(@ModelAttribute Loginform loginform){
         return "login";
     }
+    
+    @RequestMapping (value ="/glemtPassord")
+    public String glemtPassord (@ModelAttribute Loginform loginform) {
+        String nyttPassord = database.
+    }
     @RequestMapping (value = "Log inn")
     public String login (@ModelAttribute(value="loginform") Loginform loginform, HttpServletRequest request, Model model, Editform editform) {
         if(loginform.getUser().getPassword().isEmpty() || loginform.getUser().getEmail().isEmpty()){
