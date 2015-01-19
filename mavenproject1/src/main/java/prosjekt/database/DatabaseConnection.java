@@ -454,6 +454,34 @@ public class DatabaseConnection {
         return null;
     }
 
+    public boolean registerMessage(Message message, int chatId){
+        String sql = "INSERT INTO Message "
+                + "VALUES (DEFAULT, ?, ?, ?)";
+        
+        String sql2 = "UPDATE Chat SET Chat.read = false "
+                + " WHERE Chat.chat_id = ? ";
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setDate(1, message.getDate());
+            pstmt.setString(2, message.getText());
+            pstmt.setInt(3, chatId);
+            
+            pstmt.executeUpdate();
+            
+            PreparedStatement pstmt2 = connection.prepareStatement(sql2);
+            pstmt2.setInt(1, chatId);
+            
+            pstmt.executeUpdate();
+            
+            return true;
+            
+        } catch (Exception e ){
+            printErrorMessage(e, "registrer melding");
+        }
+        return false;
+    }
+    
     private boolean checkUserName(String userName) {
 
         ResultSet resultSet = null;
