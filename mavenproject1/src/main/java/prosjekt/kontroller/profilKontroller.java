@@ -26,6 +26,7 @@ public class profilKontroller {
         Loginform loginform = (Loginform) session.getAttribute("loginform");
         User currentUser = loginform.getUser();
         model.addAttribute("godkjentListe", database.getUserScoreOverview());
+        model.addAttribute("profilbrukernavn", "haha");
         
         boolean inputfeil = false;
         
@@ -49,12 +50,10 @@ public class profilKontroller {
             database.editUser(currentUser);
             loginform.getUser().setUsername(editform.getUserNew().getUsername());
             session.setAttribute("loginform", loginform);
-            System.out.println ("Riktig");
             return "Hovedside";
         } else {
-           model.addAttribute("feilpassord", "Passordet er ikke riktig");
+           model.addAttribute("brukernavnfeilpassord", "Passordet er ikke riktig");
            session.setAttribute("loginform", loginform);
-           System.out.println ("feil");
            return "Hovedside";
         }
     }
@@ -66,6 +65,7 @@ public class profilKontroller {
         Loginform loginform = (Loginform) session.getAttribute("loginform");
         User currentUser = loginform.getUser();
         model.addAttribute("godkjentListe", database.getUserScoreOverview());
+        model.addAttribute("profilpassord", "hehe");
         
         boolean inputfeil = false;
         
@@ -89,12 +89,10 @@ public class profilKontroller {
             database.editUser(currentUser);
             loginform.getUser().setPassword(editform.getUserNew().getPassword());
             session.setAttribute("loginform", loginform);
-            System.out.println ("Riktig");
             return "Hovedside";
         } else {
-           model.addAttribute("feilpassord", "Passordet er ikke riktig");
+           model.addAttribute("passordfeilpassord", "Passordet er ikke riktig");
            session.setAttribute("loginform", loginform);
-           System.out.println ("feil");
            return "Hovedside";
         }
     }

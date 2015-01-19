@@ -17,6 +17,18 @@
         $("#spill").css("visibility", "hidden");
         $("#hiscore").css("visibility", "visible");
         
+        <c:if test = "${not empty profilbrukernavn}"> 
+         $("#hiscore").css("visibility", "hidden");
+         $("#profil").css("visibility", "visible");
+         $("#brukernavnform").css ("visibility", "visible");
+        </c:if>
+            
+        <c:if test = "${not empty profilpassord}"> 
+         $("#hiscore").css("visibility", "hidden");
+         $("#profil").css("visibility", "visible");
+         $("#passordform").css ("visibility", "visible");
+        </c:if>
+        
     });
     function checkGame(){
         if("${loginform.isInGame()}"){
@@ -142,8 +154,8 @@
                         <td class = "ErrorMessagesProfile"> <c:if test = "${not empty InputfeilBrukernavn}"> <c:out value = "${InputfeilBrukernavn}"/> </c:if> </td> </tr>
                         <tr> <td> <form:input path = "userOld.password" placeholder = "Bekreft passord" type = "password" /> </td>
                         <td class = "ErrorMessagesProfile"> <c:if test = "${not empty InputfeilPassord}"> <c:out value = "${InputfeilPassord}"/> </c:if> </td> </tr>
-                        <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt brukernavn"/> </td> 
-                        <td class = "ErrorMessagesProfile"> <c:if test = "${not empty feilpassord}"> <c:out value = "${feilpassord}"/> </c:if> </td> </tr>
+                        <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt brukernavn"/> </td> </tr>
+                        <tr> <td class = "ErrorMessagesProfile"> <c:if test = "${not empty brukernavnfeilpassord}"> <c:out value = "${brukernavnfeilpassord}"/> </c:if> </td> </tr>
                         </form:form>
                         </table>
 
@@ -156,8 +168,8 @@
                         <td class = "ErrorMessagesProfile"> <c:if test = "${not empty Inputfeilgammeltpassord}"> <c:out value = "${Inputfeilgammeltpassord}"/> </c:if> </td> </tr>
                         <tr> <td> <form:input path = "userNew.password" placeholder = "Nytt passord" /> </td>
                         <td class = "ErrorMessagesProfile"> <c:if test = "${not empty Inputfeilnyttpassord}"> <c:out value = "${Inputfeilnyttpassord}"/> </c:if> </td> </tr>
-                        <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt passord"/> </td> 
-                        <td class = "ErrorMessagesProfile"> <c:if test = "${not empty feilpassord}"> <c:out value = "${feilpassord}"/> </c:if> </td> </tr>
+                        <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt passord"/> </td> </tr>
+                        <tr> <td class = "ErrorMessagesProfile"> <c:if test = "${not empty passordfeilpassord}"> <c:out value = "${passordfeilpassord}"/> </c:if> </td> </tr>
                         </form:form>
                         </table>
                     </div>

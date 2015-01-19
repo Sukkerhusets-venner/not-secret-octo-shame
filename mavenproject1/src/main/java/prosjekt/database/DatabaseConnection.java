@@ -274,7 +274,7 @@ public class DatabaseConnection {
 
         return uso;
     }
-    
+
     public ArrayList<Task> getTasks(int set_id) {
         ArrayList<Task> list = new ArrayList();
         ResultSet resultSet = null;
@@ -374,14 +374,13 @@ public class DatabaseConnection {
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-            
+
             pstmt.setInt(1, currentUser.getId());
             pstmt.setInt(2, otherUser.getId());
-            
+
             pstmt.setInt(3, otherUser.getId());
             pstmt.setInt(4, currentUser.getId());
-            
-            
+
             ResultSet resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
@@ -425,83 +424,78 @@ public class DatabaseConnection {
         }
         return null;
     }
-    
+
     public boolean registerChat(Chat chat) {
         String sqlStatement = "INSERT INTO Chat VALUES (DEFAULT, ?, ?, ?)";
-        
+
         try {
-            
-           PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-           pstmt.setInt(1, chat.getUserCurrent().getId());
-           pstmt.setInt(2, chat.getUserOther().getId());
-           pstmt.setBoolean(3, false);
-           
-           pstmt.executeUpdate();
-           
-           return true;
-        } 
-        catch (Exception e) {
+
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            pstmt.setInt(1, chat.getUserCurrent().getId());
+            pstmt.setInt(2, chat.getUserOther().getId());
+            pstmt.setBoolean(3, false);
+
+            pstmt.executeUpdate();
+
+            return true;
+        } catch (Exception e) {
             printErrorMessage(e, "registrer chat");
         }
         return false;
     }
-    
-    public boolean checkChat(User userCurrent, User userOther) {
+
+    public boolean isChatRegistered(User userCurrent, User userOther) {
         String sqlStatement = "Select Chat.chat_id From Chat "
                 + "Where Chat.user_id1 = ? and Chat.user_id2 = ?"
-                + "Or Chat.user_id2 = ? and Chat.user_id1 = ?" ;
-        
-        ResultSet resultSet = null;
-        
-        try{
+                + "Or Chat.user_id2 = ? and Chat.user_id1 = ?";
+
+        try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-           pstmt.setInt(1, userCurrent.getId());
-           pstmt.setInt(2, userOther.getId());
-          
-           
-           resultSet = pstmt.executeQuery();
-           
-           if (resultSet.next()) {
+            pstmt.setInt(1, userCurrent.getId());
+            pstmt.setInt(2, userOther.getId());
+
+            ResultSet resultSet = pstmt.executeQuery();
+
+            if (resultSet.next()) {
                 //Allerede i databasen (Opptatt)
-                return false;
+                return true;
             }
-           
-        }
-        catch(Exception e) {
+
+        } catch (Exception e) {
             printErrorMessage(e, "feil i CheckChat");
         }
-        return true;
-            
-        }
+        return false;
 
-    public boolean registerMessage(Message message, int chatId){
+    }
+
+    public boolean registerMessage(Message message, int chatId) {
         String sql = "INSERT INTO Message "
                 + "VALUES (DEFAULT, ?, ?, ?)";
-        
+
         String sql2 = "UPDATE Chat SET Chat.read = false "
                 + " WHERE Chat.chat_id = ? ";
-        
+
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setDate(1, message.getDate());
             pstmt.setString(2, message.getText());
             pstmt.setInt(3, chatId);
-            
+
             pstmt.executeUpdate();
-            
+
             PreparedStatement pstmt2 = connection.prepareStatement(sql2);
             pstmt2.setInt(1, chatId);
-            
+
             pstmt.executeUpdate();
-            
+
             return true;
-            
-        } catch (Exception e ){
+
+        } catch (Exception e) {
             printErrorMessage(e, "registrer melding");
         }
         return false;
     }
-    
+
     private boolean checkUserName(String userName) {
 
         ResultSet resultSet = null;
