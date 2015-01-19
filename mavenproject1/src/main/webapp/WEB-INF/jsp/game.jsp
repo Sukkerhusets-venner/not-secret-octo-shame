@@ -13,39 +13,9 @@
         <script src="resources/js/alertify.min.js"></script>
         <link rel="stylesheet" href="resources/css/alertify.core.css" />
 	<link rel="stylesheet" href="resources/css/alertify.default.css" id="toggleCSS" />
-
-        <style>
-            .block {
-                float: left;
-                margin: 5px;
-                padding: 5px;
-                background-color: #f3f3f3;
-            }
-            
-            .renderedFrame, .codeBox {
-                width: 250px; height: 200px
-            }
-            
-            #compare {
-                float: right;
-                padding: 11px 25px;
-
-                font-family: 'Bree Serif', serif;
-                font-weight: 300;
-                font-size: 18px;
-                color: #fff;
-                text-shadow: 0px 1px 0 rgba(0,0,0,0.25);
-
-                background: #56c2e1;
-                border: 1px solid #46b3d3;
-                border-radius: 5px;
-                cursor: pointer;
-
-                box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
-                -moz-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
-                -webkit-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
-            }
-        </style>
+        <c:url var="nmpUrl" value="/resources/css/niceGamepage.css" />
+        <link href="${nmpUrl}" rel="stylesheet" type="text/css"/>
+       
        
         <script>
         //"Read only" variabler.
@@ -89,12 +59,13 @@
                         if(data.misMatchPercentage <= 4){
                             skillscore = toInt((4-data.misMatchPercentage)*22.5);
                         }
-                        poengsum = timescore + skillscore;
+                        poengsum = toInt(timescore) + toInt(skillscore);
                         reset();
 			alertify.alert("Veldig bra, du har nå kommet til neste oppgave.<br/><br/> Din skillscore ble: "+skillscore+
                         "/90.<br/>Din tidscore ble "+timescore+"/10<br/><br/>Din poengsum ble: "+poengsum+"/100. <br/><br/>Gratulerer!!<br/><br/>"
                         ,function (e) {
                             if(e){
+                                document.forms["nesteOppgave"].elements["randomNumber"].value = Math.random();
                                 document.forms["nesteOppgave"].elements["score"].value = poengsum;
                                 document.forms["nesteOppgave"].submit();
                             }
@@ -102,17 +73,24 @@
                     });            
                 }
             }
-            
             function toInt(n){ return Math.round(Number(n)); };
+            function tilHovedmeny(){
+                reset();
+                alertify.set({ labels: { ok: "Fortsett å spille", cancel: "Gå til hovedmeny" } });
+                alertify.confirm("<b>Er du sikker på at du vil returnere til hovedmenyen?<br/>Du vil kunne fortsette spillet, men timescoren din vil bli satt til 0.</b><br/><br/>", function (e) {
+                    if (!e) {
+                        window.location.href = "hovedside";
+                    }
+                });
+            }
             function setUp(){
-                timescore = 10;
+                timescore = "${assignment.getTimescore()}";
                 setInterval(function(){
                     if(timescore > 0){
                         timescore--;
                     }
                 },30000);
                 oppgNr = "${assignment.getCurrentTaskNr()}";
-                oppgNr++;
                 var solutionHtml = "${assignment.getCurrentTask().getAnswerHtml()}";
                 var solutionCss = "${assignment.getCurrentTask().getAnswerCss()}";
                 var type = "${assignment.getCurrentTask().getType()}";
@@ -130,6 +108,12 @@
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", true);
                     oppgTekst = "Her må du skrive Html-kode slik at bildene under blir like";
+                } else if(type === "CssHtml"){
+                    sHtml = "${assignment.getCurrentTask().getTaskHtml()}";
+                    sCss = "${assignment.getCurrentTask().getTaskCss()}";
+                    editorHtml.setOption("readOnly", false);
+                    editorCss.setOption("readOnly", false);
+                    oppgTekst = "Her må du skrive Html-kode og Css-kode slik at begge bildene blir like";
                 }
                 
                	var startingHtml = style_html(sHtml);
@@ -137,6 +121,8 @@
                 
                 setRenderedResult($("#solutionFrame"), solutionHtml, solutionCss);
                 setRenderedResult($("#resultFrame"), startingHtml, startingCss);
+                editorHtml.setSize(380,300);
+                editorCss.setSize(380,300);
                 editorHtml.getDoc().setValue(startingHtml );
                 editorCss.getDoc().setValue(startingCss);
                 
@@ -159,11 +145,30 @@
     </head>
     
     <body>
-    <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
-         <input type="hidden" name="score" value=''>
-    </form:form>
-    <section id="content">
+        
+        <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
+            <input type="hidden" name="score" value=''>
+            <input type="hidden" name="randomNumber" value=''>
+        </form:form>
+         <div id="wrapper"> 
+              <div class="header">
+                <div class="mptitle">
+                    <div id="smiley"><object type="image/svg+xml" data="resources/img/grin.svg"></object></div>
+                    <h1>Spillet</h1>
+                </div>
+                <div id="buttons">
+                    <!-- Ikke formater disse divene! -->
+                    <div><a>Chat</a>
+                    </div><div><a href="javascript:tilHovedmeny()">Resultater</a>
+                    </div><div><a href="javascript:tilHovedmeny()">Profil</a>
+                    </div>
+                    <!-- ---------------------------- -->
+                </div>
+            </div>
+             <section id="content">
         <section class="block"> 
+            
+    
             <h3 id="oppgnummer"></h3>
             <p id="oppgtekst"></p>
             <p>Løsning | Din kode</p>
@@ -171,7 +176,7 @@
                 <iframe class="renderedFrame" id="solutionFrame" src="about:blank"></iframe>
                 <iframe class="renderedFrame" id="resultFrame" src="about:blank"></iframe>
             </div>
-            <input type="button" value="SVAR" id="compare">
+            
         </section>
 
         <section class="block">        
@@ -205,6 +210,14 @@
 		</script>
         </section>
     </section>
+             <input type="button" value="SVAR" id="compare">
+             <div id="space">  
+             
+             
+             
+             </div>
+                  
+  </div>  
 </html>
 
     </body>
