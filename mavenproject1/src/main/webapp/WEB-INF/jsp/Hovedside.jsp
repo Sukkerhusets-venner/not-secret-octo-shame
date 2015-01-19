@@ -28,7 +28,7 @@
                 </div>
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
-                    <div><a>Spillet</a>
+                    <div><a href="game" >Spillet</a>
                     </div><div><a>Resultater</a>
                     </div><div><a>Profil</a>
                     </div>
@@ -40,7 +40,7 @@
             <div id="stuff">
                 <div id="spill">
                     <h3>Spill</h3>
-                    <a href="game">Press this link</a>
+                    
                 </div>
                 <div id="hiscore">
                     <h2> Resultater </h2>

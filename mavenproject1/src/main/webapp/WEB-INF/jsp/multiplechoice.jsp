@@ -55,11 +55,12 @@
                 } else {
                     poengsum = timescore;
                     svar = "Synd! Du svarte feil. <br/><br/>Poeng for riktig: 0/40.<br/>Poeng for tid: "+timescore+
-                    "/10<br/><br/>Din poengsum ble: "+poengsum+"/50. <br/><br/>Riktig svar skulle vært:<br/><br/>"+svarOppg;
+                    "/10<br/><br/>Din poengsum ble: "+poengsum+"/50. <br/><br/>Riktig svar skulle vært:<br/><br/><br/>"+escapeHtml(svarOppg);
                 }
                 reset();
                 alertify.alert(svar,function (e) {
                     if(e){
+                        document.forms["nesteOppgave"].elements["randomNumber"].value = Math.random();
                         document.forms["nesteOppgave"].elements["score"].value = poengsum;
                         document.forms["nesteOppgave"].submit();
                     }
@@ -77,11 +78,24 @@
 				buttonFocus   : "ok"
 		});
             }
+            function escapeHtml(text) {
+                var map = {
+                  '&': '&amp;',
+                  '<': '&lt;',
+                  '>': '&gt;',
+                  '"': '&quot;',
+                  "'": '&#039;'
+                };
+
+                return text.replace(/[&<>"']/g, function(m) { return map[m]; 
+            });
+}
         </script>
     </head>
     <body>
         <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
             <input type="hidden" name="score" value=''>
+            <input type="hidden" name="randomNumber" value=''>
         </form:form>
             <div id="wrapper"> 
               <div class="header">

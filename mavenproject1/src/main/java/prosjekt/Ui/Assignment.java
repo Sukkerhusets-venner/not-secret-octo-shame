@@ -11,6 +11,10 @@ public class Assignment {
     private int currentTask = 0;
     private int[] delscores;
     private int score;
+    private double randomNumber = 0;
+    private double[] pastRandomNumber;
+    
+    public Assignment(){}
     
     public int sumUp(){
         int sum = 0;
@@ -28,8 +32,6 @@ public class Assignment {
         this.score = score;
     }
     
-    public Assignment(){}
-    
     public void addTask(String strTask){
         Task t = new Task(task.size(), strTask);
         task.add(t);
@@ -39,7 +41,8 @@ public class Assignment {
         if(currentTask < task.size()-1){
             return currentTask++;
         }
-        return -1;
+        currentTask = -1;
+        return currentTask;
     }
     public Task getCurrentTask() {return task.get(currentTask);}
     public int getCurrentTaskNr() {return currentTask+1;}
@@ -65,6 +68,7 @@ public class Assignment {
     public void setAllTasks(List<Task> allTasks){
         this.task = allTasks;
         delscores = new int[task.size()];
+        pastRandomNumber = new double[task.size()];
     }
     
     public void setDelscore(){
@@ -78,5 +82,22 @@ public class Assignment {
         } else {
             return -1;
         }
+    }
+    public double getRandomNumber() {
+        return randomNumber;
+    }
+
+    public void setRandomNumber(double rn) {
+        pastRandomNumber[currentTask] = randomNumber;
+        randomNumber = rn;
+    }
+    
+    public boolean checkNumbers(){
+        for (int i = 0; i < pastRandomNumber.length; i++) {
+            if(randomNumber == pastRandomNumber[i]){
+                return false;
+            }
+        }
+        return true;
     }
 }
