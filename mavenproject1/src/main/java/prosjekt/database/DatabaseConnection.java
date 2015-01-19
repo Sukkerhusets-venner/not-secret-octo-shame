@@ -107,14 +107,13 @@ public class DatabaseConnection {
     }
 
     public User getUser(String email) {
-        ResultSet resultSet = null;
-        String sqlStatement = "SELECT*FROM User WHERE email=?";
+        String sqlStatement = "SELECT * FROM User WHERE email=?";
         User user = null;
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setString(1, email);
-            resultSet = pstmt.executeQuery();
+            ResultSet resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
                 int id = (Integer) resultSet.getObject(1);
@@ -319,7 +318,7 @@ public class DatabaseConnection {
         String sql2 = "INSERT INTO Game VALUES (?, ?, LAST_INSERT_ID())";
         
         ResultSet resultSet = null;
-        
+    
         try{
             connection.setAutoCommit(false);
             PreparedStatement pstmt = connection.prepareStatement(sql1);
