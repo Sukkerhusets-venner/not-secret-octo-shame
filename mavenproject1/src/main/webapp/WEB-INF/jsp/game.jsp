@@ -59,7 +59,7 @@
                         if(data.misMatchPercentage <= 4){
                             skillscore = toInt((4-data.misMatchPercentage)*22.5);
                         }
-                        poengsum = timescore + skillscore;
+                        poengsum = toInt(timescore) + toInt(skillscore);
                         reset();
 			alertify.alert("Veldig bra, du har nå kommet til neste oppgave.<br/><br/> Din skillscore ble: "+skillscore+
                         "/90.<br/>Din tidscore ble "+timescore+"/10<br/><br/>Din poengsum ble: "+poengsum+"/100. <br/><br/>Gratulerer!!<br/><br/>"
@@ -73,10 +73,9 @@
                     });            
                 }
             }
-            
             function toInt(n){ return Math.round(Number(n)); };
             function setUp(){
-                timescore = 10;
+                timescore = "${assignment.getTimescore()}";
                 setInterval(function(){
                     if(timescore > 0){
                         timescore--;
@@ -100,6 +99,12 @@
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", true);
                     oppgTekst = "Her må du skrive Html-kode slik at bildene under blir like";
+                } else if(type === "CssHtml"){
+                    sHtml = "${assignment.getCurrentTask().getTaskHtml()}";
+                    sCss = "${assignment.getCurrentTask().getTaskCss()}";
+                    editorHtml.setOption("readOnly", false);
+                    editorCss.setOption("readOnly", false);
+                    oppgTekst = "Her må du skrive Html-kode og Css-kode slik at begge bildene blir like";
                 }
                 
                	var startingHtml = style_html(sHtml);
@@ -132,10 +137,10 @@
     
     <body>
         
-    <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
-         <input type="hidden" name="score" value=''>
-         <input type="hidden" name="randomNumber" value=''>
-    </form:form>
+        <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
+            <input type="hidden" name="score" value=''>
+            <input type="hidden" name="randomNumber" value=''>
+        </form:form>
          <div id="wrapper"> 
               <div class="header">
                 <div class="mptitle">

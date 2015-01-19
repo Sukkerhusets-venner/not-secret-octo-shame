@@ -34,7 +34,7 @@
         if("${loginform.isInGame()}"){
             reset();
             alertify.set({ labels: { ok: "Fortsett", cancel: "Start et nytt" } });
-            alertify.confirm("Vil du fortsette det gamle spillet eller starte på et nytt et?", function (e) {
+            alertify.confirm("<b>Vil du fortsette det gamle spillet eller starte på et nytt et?</b><br/><br/>", function (e) {
                 if (e) {
                     window.location.href = "game";
                 } else {
@@ -47,7 +47,7 @@
         }
     }
     function reset () {
-        $("#toggleCSS").attr("href", "../themes/alertify.default.css");
+        $("#toggleCSS").attr("href", "resources/css/alertify.default.css");
         alertify.set({
             labels : {
                 ok     : "OK",
