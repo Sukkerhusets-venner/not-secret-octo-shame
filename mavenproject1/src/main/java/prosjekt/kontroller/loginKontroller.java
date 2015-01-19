@@ -60,7 +60,7 @@ public class loginKontroller {
             HttpSession session = request.getSession();
 
             session.setAttribute("currentUser", new User( database.getUser(loginform.getUser().getEmail()).getUsername(), 
-                    loginform.getUser().getEmail(), loginform.getUser().getPassword()));
+            loginform.getUser().getEmail(), loginform.getUser().getPassword()));
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScore(hiScores);
             loginform.getUser().setUsername(database.getUser(loginform.getUser().getEmail()).getUsername());
