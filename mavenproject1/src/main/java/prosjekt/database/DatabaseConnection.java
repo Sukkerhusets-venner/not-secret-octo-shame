@@ -107,14 +107,13 @@ public class DatabaseConnection {
     }
 
     public User getUser(String email) {
-        ResultSet resultSet = null;
-        String sqlStatement = "SELECT*FROM User WHERE email=?";
+        String sqlStatement = "SELECT * FROM User WHERE email=?";
         User user = null;
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setString(1, email);
-            resultSet = pstmt.executeQuery();
+            ResultSet resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
                 int id = (Integer) resultSet.getObject(1);
@@ -135,7 +134,7 @@ public class DatabaseConnection {
     public boolean editUser(User user) {
 
         String sqlStatement = "UPDATE User SET "
-                + " id = DEFAULT, username = ? ,email = ?, password = ? "
+                + " id = DEFAULT, name = ? ,email = ?, password = ? "
                 + "WHERE User.user_id = ?";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
