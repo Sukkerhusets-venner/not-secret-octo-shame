@@ -73,7 +73,7 @@ public class loginKontroller {
             return "login";
         }
     }
-<<<<<<< HEAD
+    
     @RequestMapping (value = "/godkjentliste*")
     public String getGodkjentListe(HttpServletRequest req, Model model)throws Exception{
         HttpSession session = req.getSession();
@@ -99,16 +99,16 @@ public class loginKontroller {
         }
         model.addAttribute("godkjentListe", godkjentListe);
         return "godkjentliste";
-=======
+    }  
+        
+        
     @RequestMapping(value = "/hovedside")
     public String showForm1(@ModelAttribute(value="loginform") Loginform loginform, Editform editform){
         return "Hovedside";
->>>>>>> FETCH_HEAD
     }
-     @RequestMapping (value = "logUt")
-    public String meny( Editform editform,
-            @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model) {
-        
+    
+    @RequestMapping (value = "logUt")
+    public String meny(Editform editform, @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model) {
         loginform.setInGame(false);
         request.removeAttribute("loginform", WebRequest.SCOPE_SESSION);
         model.addAttribute("loginform", makeLoginform());

@@ -13,35 +13,18 @@ public final class Loginform {
     @Valid
     private User user; // bruker som er logget inn
     private List<UserScore> hiScore = null;
-<<<<<<< HEAD
-     
-    public Loginform () {
-        setUser (new User());
-=======
-    private int menyValg;
     private boolean inGame;
      
     public Loginform () {
         setUser (new User());
-        menyValg = 0;
         inGame = false;
     }
-    public int getMenyValg () {
-        return menyValg;
-    }
-    public void setMenyValg (int valg) {
-        this.menyValg = valg;
->>>>>>> FETCH_HEAD
-    }
-    
     public User getUser () {
         return user;
     }
-    
     public void setUser (User user) {
         this.user = user;
     }
-    
     public void setHiScore(ArrayList<UserScore> list){
         this.hiScore = list;
     }

@@ -90,9 +90,7 @@
                     
                 </div>
                 <div id="hiscore">
-<<<<<<< HEAD
                     <%@include file="../../includes/resultater.jspf"%>
-=======
                     <h2> Resultater </h2>
                     <div id="drWrap">
                         <h3>Dine Resultater</h3>
@@ -141,8 +139,6 @@
                             <p> Fant ingen Hiscores</p>
                             </c:if>
                     </div>
-                    
->>>>>>> FETCH_HEAD
                 </div>
                 <div id="profil">
                     <p class ="textprofile">Brukernavn: ${loginform.user.username}</p>
