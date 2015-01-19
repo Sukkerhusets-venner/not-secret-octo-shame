@@ -104,7 +104,7 @@
                         <form:form method="POST" modelAttribute="editform" action ="byttBrukernavn"> 
                         <tr> <td> <form:input path = "userNew.username" placeholder = "Nytt brukernavn"/> </td>
                         <td> <c:if test = "${not empty InputfeilBrukernavn}"> <c:out value = "${InputfeilBrukernavn}"/> </c:if> </td> </tr>
-                        <tr> <td> <form:input path = "userOld.password" placeholder = "Bekreft passord" /> </td>
+                        <tr> <td> <form:input path = "userOld.password" placeholder = "Bekreft passord" type = "password" /> </td>
                         <td> <c:if test = "${not empty InputfeilPassord}"> <c:out value = "${InputfeilPassord}"/> </c:if> </td> </tr>
                         <tr> <td> <input id = "button" type="submit" name="Send" value="byttBrukernavn"/> </td> </tr>
                         <tr> <td> <c:if test = "${not empty feilpassord}"> <c:out value = "${feilpassord}"/> </c:if> </td> </tr>
