@@ -24,6 +24,14 @@ public class Assignment {
         return sum;
     }
     
+    public int getMaxScore(){
+        int sum = 0;
+        for (Task t : task) {
+            sum += t.getMaxPoeng();
+        }
+        return sum;
+    }
+    
     public int getScore() {
         return score;
     }
@@ -79,6 +87,13 @@ public class Assignment {
     public int getDelscore(int nummer){
         if (nummer > -1 && nummer < task.size()){
             return delscores[nummer];
+        } else {
+            return -1;
+        }
+    }
+    public int getMaxPoeng(int nummer){
+        if (nummer > -1 && nummer < task.size()){
+            return task.get(nummer).getMaxPoeng();
         } else {
             return -1;
         }

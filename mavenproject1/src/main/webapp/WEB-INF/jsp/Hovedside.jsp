@@ -3,6 +3,9 @@
 <c:url var="nmpUrl" value="/resources/css/niceMainpage.css" />
 <c:url var="loaderUrl" value="/resources/css/loader.css" />
 <c:url var="mkjsUrl" value="/resources/js/menyKontroll.js" />
+<script src="resources/js/alertify.min.js"></script>
+<link rel="stylesheet" href="resources/css/alertify.core.css" />
+<link rel="stylesheet" href="resources/css/alertify.default.css" id="toggleCSS" />
 <link href="${nmpUrl}" rel="stylesheet" type="text/css"/>
 <link href="${loaderUrl}" rel="stylesheet" type="text/css" />
 <title>Hovedside</title>
@@ -27,6 +30,34 @@
         </c:if>
         
     });
+    function checkGame(){
+        if("${loginform.isInGame()}"){
+            reset();
+            alertify.set({ labels: { ok: "Fortsett", cancel: "Start et nytt" } });
+            alertify.confirm("Vil du fortsette det gamle spillet eller starte på et nytt et?", function (e) {
+                if (e) {
+                    window.location.href = "game";
+                } else {
+                    document.forms["game"].elements["inGame"].value = false;
+                    document.forms["game"].submit();
+                }
+            });
+        } else {
+            window.location.href = "game";
+        }
+    }
+    function reset () {
+        $("#toggleCSS").attr("href", "../themes/alertify.default.css");
+        alertify.set({
+            labels : {
+                ok     : "OK",
+                cancel : "Cancel"
+            },
+            delay : 5000,
+            buttonReverse : false,
+            buttonFocus   : "ok"
+        });
+    }
 </script>
 </head>
 <html>
@@ -40,7 +71,10 @@
                 </div>
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
-                    <div><a href="game" >Spillet</a>
+                    <div><a href="javascript:checkGame()">Spillet</a>
+                        <form:form method="POST" modelAttribute="loginform" action ="game" id="game" name="game">
+                            <input type="hidden" name="inGame" value=''>
+                       </form:form>
                     </div><div><a>Resultater</a>
                     </div><div><a>Profil</a>
                     </div>

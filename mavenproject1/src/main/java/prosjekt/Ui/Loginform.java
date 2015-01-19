@@ -15,6 +15,7 @@ public final class Loginform {
     private User user; // bruker som er logget inn
     private List<UserScore> hiScore = null;
     private int menyValg;
+    private boolean inGame = false;
      
     public Loginform () {
         setUser (new User());
@@ -43,5 +44,12 @@ public final class Loginform {
     }
     public List<UserScore> getHiScore(){
         return hiScore;
+    }
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
     }
 }
