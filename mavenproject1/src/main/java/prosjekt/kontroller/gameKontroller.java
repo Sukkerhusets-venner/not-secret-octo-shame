@@ -8,6 +8,7 @@ package prosjekt.kontroller;
 
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,6 +61,21 @@ public class gameKontroller {
     
     @RequestMapping (value = "nesteOppgave")
     public String nesteOppg(@ModelAttribute(value="assignment") Assignment assignment, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        try{
+            User bruker = (User)session.getAttribute("currentUser");
+            if(bruker.getId() >= 1){
+                model.addAttribute("loggedIn", true);
+                model.addAttribute("currentUser", bruker.getUsername());
+            }else{
+                model.addAttribute("loggedIn", false);
+                return "login";
+            }
+        }catch(Exception e){
+            model.addAttribute("loggedIn", false);
+        }
+        
+        
         if(assignment.checkNumbers()) {
             int tasknr = assignment.nextTask();
             if(tasknr != -1){
@@ -93,7 +109,21 @@ public class gameKontroller {
     }
     @RequestMapping (value = "meny")
     public String meny(@ModelAttribute(value="assignment") Assignment assignment, Editform editform,
-            @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model) {
+            @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model, HttpServletRequest req) {
+        
+        HttpSession session = req.getSession();
+        try{
+            User bruker = (User)session.getAttribute("currentUser");
+            if(bruker.getId() >= 1){
+                model.addAttribute("loggedIn", true);
+                model.addAttribute("currentUser", bruker.getUsername());
+            }else{
+                model.addAttribute("loggedIn", false);
+                return "login";
+            }
+        }catch(Exception e){
+            model.addAttribute("loggedIn", false);
+        }
         
         loginform.setInGame(false);
         request.removeAttribute("assignment", WebRequest.SCOPE_SESSION);

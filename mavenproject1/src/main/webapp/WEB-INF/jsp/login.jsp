@@ -19,7 +19,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <c:if test="${not Connection}">
+        <c:if test="${notConnected}">
         <div id="notConnected">
             <p>Du er ikke tilkoblet databasen</p>
             <a href="login">Prøv på nytt</a>
@@ -27,7 +27,7 @@
         </c:if>
         <c:if test="${loggedIn}">
         <div id="notConnected">
-            <p>Du er allerede logged inn</p>
+            <p>Du er allerede logget inn ${currentUser}</p>
             <a href="hovedside">Til hovedsiden</a>
         </div>
         </c:if>

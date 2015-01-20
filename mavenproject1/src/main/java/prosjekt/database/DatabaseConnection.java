@@ -23,7 +23,10 @@ public class DatabaseConnection {
     private DataSource dataSource;
 
     public DatabaseConnection() {
-
+        refreshConnecton();
+    }
+    
+    public void refreshConnecton(){
         connection = null;
         String databasePath = "jdbc:mysql://158.38.48.10:3306/team6";
         String databaseUserName = "team6";
@@ -57,6 +60,8 @@ public class DatabaseConnection {
         }
     }
 
+    
+    // CRUD METHODS FOR THE WEB-APPLICATION ** **
     public boolean checkLogin(String email, String password) {
 
         password = hashString(password);
@@ -365,11 +370,11 @@ public class DatabaseConnection {
     public String getNewPassword(User user) {
         
         String sql = "UPDATE User SET User.password = ? WHERE User.user_id = ?";
-        String newPassword = hashString(generatePassword());
+        String newPassword = generatePassword();
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, newPassword);
+            pstmt.setString(1, hashString(newPassword));
             pstmt.setInt(2, user.getId());
             pstmt.executeUpdate();
 
@@ -381,7 +386,9 @@ public class DatabaseConnection {
 
         return null;
     }
-
+    // ** ** ** ** ** *** ** ** ** **
+    
+    // CHAT API ** ** **
     public ArrayList<Message> getChat(User currentUser, User otherUser) {
 
         String sql = "SELECT Message.time, Message.text "
@@ -461,11 +468,26 @@ public class DatabaseConnection {
     }
 
     public boolean gotMessage(User currentUser) {
+        
         String sql = "SELECT User.user_id FROM User "
                 + "JOIN Chat ON "
                 + "(Chat.user_id1 = ? OR chat.user_id2 = ?) "
                 + "WHERE chat.read = false;";
-
+        try{
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, currentUser.getId());
+            pstmt.setInt(2, currentUser.getId());
+            
+            ResultSet resultSet = pstmt.executeQuery();
+            
+            if (resultSet.next()){
+                // Bruker har fatt en melding
+                return true;
+            }
+        } catch (Exception e){
+            printErrorMessage(e, "gotMessage");
+        }
+        
         return false;
     }
 
@@ -539,7 +561,10 @@ public class DatabaseConnection {
         }
         return false;
     }
-
+    // ** ** ** ** ** **
+    
+    
+    // PRIVATE HELPER METHODS
     private boolean checkUserName(String userName) {
 
         ResultSet resultSet = null;
@@ -599,7 +624,7 @@ public class DatabaseConnection {
         }
     }
 
-    public String hashString(String string) {
+    private String hashString(String string) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
 
