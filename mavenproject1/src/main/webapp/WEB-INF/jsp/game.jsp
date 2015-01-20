@@ -74,6 +74,13 @@
                 }
             }
             function toInt(n){ return Math.round(Number(n)); };
+            function addSpace(){
+                var spaces = "";
+                for(var i=0; i<200; i++){
+                    spaces += "                 ";
+                }
+                return spaces;
+            }
             function tilHovedmeny(){
                 reset();
                 alertify.set({ labels: { ok: "Fortsett å spille", cancel: "Gå til hovedmeny" } });
