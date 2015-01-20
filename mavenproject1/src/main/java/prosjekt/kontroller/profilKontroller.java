@@ -85,9 +85,10 @@ public class profilKontroller {
             model.addAttribute("Inputfeilnyttpassordbekreft", "Det nye passordet må være minst 6 karakterer");
         }
         
-        if (!(editform.getUserNew().getEmail().equals(editform.getUserNew().getEmail())))
+        if (!editform.getUserNew().getEmail().equals(editform.getUserNew().getPassword())) {
             inputfeil = true;
             model.addAttribute("passordfeilpassord", "Felt 2 og 3 stemmer ikke overens");
+        }
         
         if (inputfeil){
             session.setAttribute("loginform", loginform);
