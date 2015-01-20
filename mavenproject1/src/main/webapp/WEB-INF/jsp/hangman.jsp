@@ -10,7 +10,7 @@
         <script src="resources/js/alertify.min.js"></script>
         <link rel="stylesheet" href="resources/css/alertify.core.css" />
 	<link rel="stylesheet" href="resources/css/alertify.default.css" id="toggleCSS" />
-        <c:url var="nmpUrl" value="/resources/css/niceMultichoice.css" />
+        <c:url var="nmpUrl" value="/resources/css/hangman.css" />
         <link href="${nmpUrl}" rel="stylesheet" type="text/css"/>
  
         
@@ -254,7 +254,7 @@
                 <h3 id="question_input"></h3><br/><br/>
                 <div class="user_input">
                     <span class="user_input_text_message">Your Guess: </span>
-                    <input type="text" class="single_char" />
+                    <input type="text" maxlength='1' class="single_char" />
                 </div>
                 <div id="input_fields"></div>
                 <div class="previous_inputs">
