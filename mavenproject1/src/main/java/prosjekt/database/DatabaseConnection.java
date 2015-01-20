@@ -345,7 +345,7 @@ public class DatabaseConnection {
 
     public String changePassword(User user) {
         String sql = "UPDATE User SET User.password = ? WHERE User.user_id = ?";
-        String newPassword = hashString(generatePassword());
+        String newPassword = hashString(user.getPassword());
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -362,18 +362,41 @@ public class DatabaseConnection {
         return null;
     }
 
+    public String getNewPassword(User user) {
+        
+        String sql = "UPDATE User SET User.password = ? WHERE User.user_id = ?";
+        String newPassword = hashString(generatePassword());
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, newPassword);
+            pstmt.setInt(2, user.getId());
+            pstmt.executeUpdate();
+
+            return newPassword;
+
+        } catch (Exception e) {
+            printErrorMessage(e, "nytt passord");
+        }
+
+        return null;
+    }
+
     public ArrayList<Message> getChat(User currentUser, User otherUser) {
 
-        String sqlStatement = "SELECT Message.date, Message.text "
+        String sql = "SELECT Message.time, Message.text "
                 + "FROM Message "
                 + "JOIN Chat ON Message.chat_id = Chat.chat_id"
-                + "JOIN User ON (Chat.user_id1 = ? AND Chat.user_id2 = ?)"
-                + "OR (Chat.user_id1 = ? AND chat.user_id2 = ?)";
+                + "JOIN User ON (User.user_id = Chat.user_id1) "
+                + "OR (User.user_id = Chat.user_id2)"
+                + "WHERE (Chat.user_id1 = ? AND Chat.user_id2 != ?)"
+                + "OR (Chat.user_id1 = ? AND chat.user_id2 != ?)"
+                + "GROUP BY Message.message_id";
 
         ArrayList<Message> chat = new ArrayList<>();
 
         try {
-            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            PreparedStatement pstmt = connection.prepareStatement(sql);
 
             pstmt.setInt(1, currentUser.getId());
             pstmt.setInt(2, otherUser.getId());
@@ -384,7 +407,7 @@ public class DatabaseConnection {
             ResultSet resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
-                java.sql.Date date = resultSet.getDate(1);
+                java.sql.Timestamp date = resultSet.getTimestamp(1);
                 String text = resultSet.getString(2);
 
                 chat.add(new Message(date, text));
@@ -397,17 +420,24 @@ public class DatabaseConnection {
         return null;
     }
 
-    public ArrayList<User> getChatList(User currentUser) {
+    public ArrayList<Chat> getChatList(User currentUser) {
 
-        String sql = "SELECT User.user_id, User.name, User.email, User.password"
-                + " FROM User"
-                + " JOIN Chat ON (Chat.user_id1 = ? OR Chat.user_id2 = ?)";
+        String sql = "SELECT User.user_id, User.name, User.email, User.password, Chat.read"
+                +"FROM User"
+                +"JOIN Chat ON (User.user_id = Chat.user_id1 OR User.user_id = Chat.user_id2)" 
+                +"WHERE (Chat.user_id1 = ? AND Chat.user_id2 != ?) OR" 
+                +"(Chat.user_id1 != ? AND Chat.user_id2 = ?)"
+                +"GROUP BY User.user_id";
 
-        ArrayList<User> chatList = new ArrayList<>();
+        ArrayList<Chat> chatList = new ArrayList<>();
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, currentUser.getId());
+            pstmt.setInt(2, currentUser.getId());
+            pstmt.setInt(3, currentUser.getId());
+            pstmt.setInt(4, currentUser.getId());
+            
             ResultSet resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
@@ -415,7 +445,12 @@ public class DatabaseConnection {
                 String name = resultSet.getString(2);
                 String email = resultSet.getString(3);
                 String password = resultSet.getString(4);
-                chatList.add(new User(id, name, email, password));
+                boolean read = resultSet.getBoolean(5);
+                User otherUser = new User(id, name, email, password);
+                
+                if (currentUser.getId() != otherUser.getId()){
+                    chatList.add(new Chat(currentUser, otherUser, read));
+                }
             }
             return chatList;
 
@@ -423,6 +458,15 @@ public class DatabaseConnection {
             printErrorMessage(e, "getChatList");
         }
         return null;
+    }
+
+    public boolean gotMessage(User currentUser) {
+        String sql = "SELECT User.user_id FROM User "
+                + "JOIN Chat ON "
+                + "(Chat.user_id1 = ? OR chat.user_id2 = ?) "
+                + "WHERE chat.read = false;";
+
+        return false;
     }
 
     public boolean registerChat(Chat chat) {
@@ -477,7 +521,7 @@ public class DatabaseConnection {
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setDate(1, message.getDate());
+            pstmt.setTimestamp(1, message.getTimestamp());
             pstmt.setString(2, message.getText());
             pstmt.setInt(3, chatId);
 

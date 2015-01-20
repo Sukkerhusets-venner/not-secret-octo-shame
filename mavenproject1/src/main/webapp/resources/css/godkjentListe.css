@@ -1,0 +1,47 @@
+body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    text-align: center;
+    text-decoration: none;
+}
+*{
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+}
+::selection {
+    color: #fff;
+    background: #f676b2;
+}
+::-moz-selection {
+    color: #fff;
+    background: #f676b2;
+}
+.finTabell {
+  display: block;
+  font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+  border-collapse: collapse;
+  width: 14rem;
+}
+.finTabell th {
+  background-color: #70c469;
+  color: white;
+  font-weight: normal;
+  padding: 4px 6px;
+  text-align: center;
+}
+.finTabell td {
+  background-color: #eeeeee;
+  color: #444;
+  padding: 4px 6px;
+  border: 0;
+  text-align:center;
+}
+.finTablell td:nth-child(odd){
+    background-color: #ccc;
+}
+h2, h3, a{
+    color: #444;
+}
+

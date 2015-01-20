@@ -6,6 +6,7 @@
 
 package prosjekt.kontroller;
 
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 import prosjekt.Domene.User;
+import prosjekt.Domene.UserScore;
 import prosjekt.Ui.Assignment;
 import prosjekt.Ui.Editform;
 import prosjekt.Ui.Loginform;
@@ -96,6 +98,8 @@ public class gameKontroller {
         loginform.setInGame(false);
         request.removeAttribute("assignment", WebRequest.SCOPE_SESSION);
         model.addAttribute("assignment", makeAssignment());
+        ArrayList<UserScore> hiScores = database.getHighScoreList();
+        loginform.setHiScore(hiScores);
         return "Hovedside";
     }
 }

@@ -74,6 +74,15 @@
                 }
             }
             function toInt(n){ return Math.round(Number(n)); };
+            function tilHovedmeny(){
+                reset();
+                alertify.set({ labels: { ok: "Fortsett å spille", cancel: "Gå til hovedmeny" } });
+                alertify.confirm("<b>Er du sikker på at du vil returnere til hovedmenyen?<br/>Du vil kunne fortsette spillet, men timescoren din vil bli satt til 0.</b><br/><br/>", function (e) {
+                    if (!e) {
+                        window.location.href = "hovedside";
+                    }
+                });
+            }
             function setUp(){
                 timescore = "${assignment.getTimescore()}";
                 setInterval(function(){
@@ -150,8 +159,8 @@
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
                     <div><a>Chat</a>
-                    </div><div><a href="hovedside">Resultater</a>
-                    </div><div><a href="hovedside">Profil</a>
+                    </div><div><a href="javascript:tilHovedmeny()">Resultater</a>
+                    </div><div><a href="javascript:tilHovedmeny()">Profil</a>
                     </div>
                     <!-- ---------------------------- -->
                 </div>
