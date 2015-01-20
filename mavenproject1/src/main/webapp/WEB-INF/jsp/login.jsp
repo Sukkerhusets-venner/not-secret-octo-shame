@@ -13,7 +13,11 @@
         $("#GlemtPassordForm").css ("visibility", "visible");
     }
     
-    
+    $(document).ready(function () {
+        <c:if test = "${not empty GlemtPassordError}"> 
+            $("#GlemtPassordForm").css ("visibility", "visible");
+        </c:if>
+    });
 </script>
 <title>Log inn</title>
 </head>
@@ -61,8 +65,10 @@
                 <tr> <td> Din Email: </td> </tr>
                 <tr> <td> <form:input path ="user.email" type ="email" placeholder = "Email" /> </td> </tr> 
                 <tr> <td> <input type ="submit" value ="Send nytt passord" id = "NyttPassordButton"> </td> </tr>
-            </table>
         </form:form>
+                <br>
+                <tr> <td id = "errormessageGP"> <c:if test="${not empty GlemtPassordError}"> <c:out value ="${GlemtPassordError}"/> </c:if> <tr> <td>
+            </table>
     </div>
     <!-- Husk å fjerne! -->
     <a href="logincheat" style="position:fixed; left:3rem; bottom:2rem;">Logincheat</a>

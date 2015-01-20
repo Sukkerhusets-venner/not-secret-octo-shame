@@ -69,8 +69,16 @@ public class loginKontroller {
     }
     
     @RequestMapping (value ="/glemtPassord")
-    public String glemtPassord (@ModelAttribute Loginform loginform) {
+    public String glemtPassord (@ModelAttribute Loginform loginform, Model model) {
+        if (loginform.getUser().getEmail().isEmpty()) {
+            model.addAttribute("GlemtPassordError", "Email feltet kan ikke være tomt");
+            return "login";
+        }
         User user = database.getUser(loginform.getUser().getEmail());
+        if (user == null) {
+            model.addAttribute("GlemtPassordError", "Ingen bruker er tilknyttet til denne emailen");
+            return "login";
+        }
         String nyttPassord = database.getNewPassword(user);
         emailer.email (user.getEmail(), user.getUsername(), nyttPassord);
         return "login";
