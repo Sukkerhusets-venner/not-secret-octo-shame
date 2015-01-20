@@ -25,10 +25,10 @@
                         <tr>
                             <td><c:out value="${UserScoreOverview.user.username}"/></td>
                             <td>
-                                <c:if test="${UserScoreOverview.passed}">Ja</c:if>
-                                <c:if test="${not UserScoreOverview.passed}">Nei</c:if>
+                                <c:if test="${UserScoreOverview.passed}"><p style="color:#70c469;">&check;</p></c:if>
+                                <c:if test="${not UserScoreOverview.passed}"><p style="color:red;"></p>&Cross;</c:if>
                                 </td>
-                            </tr>
+                        </tr>
                     </c:if>
                 </c:forEach>
             </table>

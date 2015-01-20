@@ -10,7 +10,14 @@
 <link href="${loaderUrl}" rel="stylesheet" type="text/css" />
 <title>Hovedside</title>
 <script src="${mkjsUrl}"></script>
-<script>var sjekk = "${loginform.isInGame()}";</script>
+<script>
+    var sjekk = "${loginform.isInGame()}";
+        <c:if test = "${not empty profilbrukernavn}"> 
+         $("#hiscore").css("visibility", "hidden");
+         $("#profil").css("visibility", "visible");
+         $("#brukernavnform").css ("visibility", "visible");
+        </c:if>
+</script>
 </head>
 <html>
     <body>
@@ -35,11 +42,12 @@
             <div id="stuff">
                 <div id="spill">
                     <h3>Spill</h3>
-                    <a id="spilLink"href="javascript:checkGame()">Spillet</a>
+                    
                     <form:form method="POST" modelAttribute="loginform" action ="game" id="game" name="game">
                         <input type="hidden" name="inGame" value=''>
                     </form:form>
                     <c:url var="spaceInvaderUrl" value="/resources/css/spaceInvader.css" />
+                    <div id="invadeBanner"><h2>Dette er css!</h2><div id="arrow"></div><a id="spilLink" href="javascript:checkGame()"> Spill Spillet!</a></div>
                     <link href="${spaceInvaderUrl}" rel="stylesheet" type="text/css"/>
                     <div class="space">
                         <div class="invader"></div>

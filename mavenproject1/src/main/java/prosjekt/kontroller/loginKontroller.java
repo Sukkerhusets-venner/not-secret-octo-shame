@@ -40,7 +40,6 @@ public class loginKontroller {
         HttpSession session = req.getSession();
         
         try{
-            
             if(!database.checkConnection()){
                 database.closeConnection();
                 database = new DatabaseConnection();
