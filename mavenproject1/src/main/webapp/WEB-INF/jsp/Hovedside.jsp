@@ -66,7 +66,7 @@
         </div>
         <c:if test="${loggedIn}">
             <div style="position:fixed; top:2rem; right:2rem;">
-                <a href="Hovedside">Du er logget inn!</a>
+                <a href="Hovedside">Du er logget inn! <%=session.getAttribute("currentUser")%></a>
             </div>
         </c:if>
     </body>

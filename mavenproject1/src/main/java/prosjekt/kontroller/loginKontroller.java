@@ -34,9 +34,15 @@ public class loginKontroller {
     @RequestMapping(value = "/*")
     public String showForm(@ModelAttribute Loginform loginform, HttpServletRequest req, Model model)throws Exception{
         HttpSession session = req.getSession();
+        
         try{
+            
             if(!database.checkConnection()){
-                model.addAttribute("Connection", false);
+                database.closeConnection();
+                database = new DatabaseConnection();
+                if(!database.checkConnection()){
+                    model.addAttribute("Connection", false); 
+                }
             }else{
                 model.addAttribute("Connection", true);
             }
@@ -46,7 +52,12 @@ public class loginKontroller {
         
         try{
             User bruker = (User)session.getAttribute("currentUser");
-            model.addAttribute("loggedIn", true);
+            if(bruker.getId() >= 1){
+                model.addAttribute("loggedIn", true);
+                model.addAttribute("currentUser", bruker.getUsername());
+            }else{
+                model.addAttribute("loggedIn", false);
+            }
         }catch(Exception e){
             model.addAttribute("loggedIn", false);
         }
@@ -60,14 +71,14 @@ public class loginKontroller {
             return "login";
         }else if (database.checkLogin(loginform.getUser().getEmail(), loginform.getUser().getPassword())) {
             HttpSession session = request.getSession();
-
-            session.setAttribute("currentUser", new User( database.getUser(loginform.getUser().getEmail()).getUsername(), 
-            loginform.getUser().getEmail(), loginform.getUser().getPassword()));
+            
+            User bruker = database.getUser(loginform.getUser().getEmail());
+            
+            session.setAttribute("currentUser", bruker);
+            
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScore(hiScores);
-            loginform.getUser().setUsername(database.getUser(loginform.getUser().getEmail()).getUsername());
-            loginform.getUser().setId(database.getUser(loginform.getUser().getEmail()).getId());
-            session.setAttribute("loginform", loginform);
+            loginform.setUser(bruker);
             
             return "Hovedside";
         } else {
@@ -105,10 +116,22 @@ public class loginKontroller {
         
         
     @RequestMapping(value = "/hovedside")
-    public String showForm1(@ModelAttribute(value="loginform") Loginform loginform, Editform editform){
-        ArrayList<UserScore> hiScores = database.getHighScoreList();
-        loginform.setHiScore(hiScores);
-        return "Hovedside";
+    public String showForm1(@ModelAttribute(value="loginform") Loginform loginform, Editform editform, Model model, HttpServletRequest req){
+        HttpSession session = req.getSession();
+        try{
+            User bruker = (User)session.getAttribute("currentUser");
+            if(bruker.getId() >= 1){
+                ArrayList<UserScore> hiScores = database.getHighScoreList();
+                loginform.setHiScore(hiScores);
+                return "Hovedside";
+            }else{
+                model.addAttribute("loggedIn", false);
+                return "login";
+            }
+        }catch(Exception e){
+            model.addAttribute("loggedIn", false);
+            return "login";
+        }
     }
     
     @RequestMapping (value = "logUt")

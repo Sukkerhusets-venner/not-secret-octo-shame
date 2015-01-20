@@ -21,7 +21,7 @@
         </c:if>
         <c:if test="${loggedIn}">
         <div id="notConnected">
-            <p>Du er allerede logged inn</p>
+            <p>Du er allerede logget inn ${currentUser}</p>
             <a href="hovedside">Til hovedsiden</a>
         </div>
         </c:if>
