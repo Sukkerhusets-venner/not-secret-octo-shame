@@ -10,56 +10,6 @@
 <link href="${loaderUrl}" rel="stylesheet" type="text/css" />
 <title>Hovedside</title>
 <script src="${mkjsUrl}"></script>
-
-<script>
-    $(document).ready(function(){
-        //fjernes
-        $("#spill").css("visibility", "hidden");
-        $("#hiscore").css("visibility", "visible");
-        
-        <c:if test = "${not empty profilbrukernavn}"> 
-         $("#hiscore").css("visibility", "hidden");
-         $("#profil").css("visibility", "visible");
-         $("#brukernavnform").css ("visibility", "visible");
-        </c:if>
-            
-        <c:if test = "${not empty profilpassord}"> 
-         $("#hiscore").css("visibility", "hidden");
-         $("#profil").css("visibility", "visible");
-         $("#passordform").css ("visibility", "visible");
-        </c:if>
-        
-    });
-    function checkGame(){
-        var sjekk = "${loginform.isInGame()}";
-        if(sjekk === "true"){
-            reset();
-            alertify.set({ labels: { ok: "Fortsett", cancel: "Start et nytt" } });
-            alertify.confirm("<b>Vil du fortsette det gamle spillet eller starte på et nytt et?</b><br/><br/>", function (e) {
-                if (e) {
-                    window.location.href = "game";
-                } else {
-                    document.forms["game"].elements["inGame"].value = false;
-                    document.forms["game"].submit();
-                }
-            });
-        } else {
-            window.location.href = "game";
-        }
-    }
-    function reset () {
-        $("#toggleCSS").attr("href", "resources/css/alertify.default.css");
-        alertify.set({
-            labels : {
-                ok     : "OK",
-                cancel : "Cancel"
-            },
-            delay : 5000,
-            buttonReverse : false,
-            buttonFocus   : "ok"
-        });
-    }
-</script>
 </head>
 <html>
     <body>
@@ -93,43 +43,7 @@
                     <%@include file="../../includes/resultater.jspf"%>
                 </div>
                 <div id="profil">
-                    <p class ="textprofile">Brukernavn: ${loginform.user.username}</p>
-                    <p class ="textprofile">Email: <c:out value = "${loginform.user.email}"/></p>
-                    <br> 
-                    <button type = "button" id ="byttBrukernavn" > Bytt brukernavn </button>
-                    <br> 
-                    <button type = "button" id ="byttPassord"    > Bytt passord    </button>
-                    <div id ="brukernavnform" >
-                        <table class = "textprofile">
-                            <tr> <td> Bytt brukernavn: </td> </tr>
-                        <form:form method="POST" modelAttribute="editform" action ="byttBrukernavn"> 
-                        <tr> <td> <form:input path = "userNew.username" placeholder = "Nytt brukernavn"/> </td>
-                        <td class = "ErrorMessagesProfile"> <c:if test = "${not empty InputfeilBrukernavn}"> <c:out value = "${InputfeilBrukernavn}"/> </c:if> </td> </tr>
-                        <tr> <td> <form:input path = "userOld.password" placeholder = "Bekreft passord" type = "password" /> </td>
-                        <td class = "ErrorMessagesProfile"> <c:if test = "${not empty InputfeilPassord}"> <c:out value = "${InputfeilPassord}"/> </c:if> </td> </tr>
-                        <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt brukernavn"/> </td> </tr>
-                        <tr> <td class = "ErrorMessagesProfile"> <c:if test = "${not empty brukernavnfeilpassord}"> <c:out value = "${brukernavnfeilpassord}"/> </c:if> </td> </tr>
-                        </form:form>
-                        <br>
-                        <tr> <td> <c:if test = "${not empty suksessBrukernavn}"> <c:out value = "${suksessBrukernavn}"/> </c:if> </td> </tr>
-                        </table>
-
-                    </div>
-                    <div id ="passordform" >
-                        <table class = "textprofile">
-                            <tr> <td> Bytt passord: </td> </tr>
-                        <form:form method="POST" modelAttribute="editform" action ="byttPassord"> 
-                        <tr> <td> <form:input path = "userOld.password" placeholder = "Gammelt passord" type ="password"/> </td>
-                        <td class = "ErrorMessagesProfile"> <c:if test = "${not empty Inputfeilgammeltpassord}"> <c:out value = "${Inputfeilgammeltpassord}"/> </c:if> </td> </tr>
-                        <tr> <td> <form:input path = "userNew.password" placeholder = "Nytt passord" /> </td>
-                        <td class = "ErrorMessagesProfile"> <c:if test = "${not empty Inputfeilnyttpassord}"> <c:out value = "${Inputfeilnyttpassord}"/> </c:if> </td> </tr>
-                        <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt passord"/> </td> </tr>
-                        <tr> <td class = "ErrorMessagesProfile"> <c:if test = "${not empty passordfeilpassord}"> <c:out value = "${passordfeilpassord}"/> </c:if> </td> </tr>
-                        </form:form>
-                        <br>
-                        <tr> <td> <c:if test = "${not empty suksessPassord}"> <c:out value = "${suksessPassord}"/> </c:if> </td> </tr>
-                        </table>
-                    </div>
+                    <%@include file="../../includes/profil.jspf"%>
                 </div>
             </div>
             <!-- Loader; styres av script -->
