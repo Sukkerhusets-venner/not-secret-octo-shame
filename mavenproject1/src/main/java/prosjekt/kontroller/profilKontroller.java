@@ -72,7 +72,7 @@ public class profilKontroller {
         
         if (editform.getUserNew().getPassword().length() < 6) {
             inputfeil = true;
-            model.addAttribute("Inputfeilnyttpassord", "Det nye passordet må være minst 6 karakterer");
+            model.addAttribute("Inputfeilnyttpassord", "Det nye passordet må ha minst 6 tegn");
         }
         
         if (editform.getUserOld().getPassword().isEmpty()) {
@@ -82,7 +82,7 @@ public class profilKontroller {
         
         if (editform.getUserNew().getEmail().length() < 6) {
             inputfeil = true;
-            model.addAttribute("Inputfeilnyttpassordbekreft", "Det nye passordet må være minst 6 karakterer");
+            model.addAttribute("Inputfeilnyttpassordbekreft", "Det nye passordet må ha minst 6 tegn");
         }
         
         if (!editform.getUserNew().getEmail().equals(editform.getUserNew().getPassword())) {
