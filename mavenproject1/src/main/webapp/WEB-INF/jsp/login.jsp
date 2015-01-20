@@ -8,6 +8,8 @@
         var Re = new RegExp("\\s", "g");
         $(elem).val(s.replace(Re,""));
     }
+    
+    
 </script>
 <title>Log inn</title>
 </head>
@@ -28,6 +30,7 @@
             <div class="footer">
                 <a href="<c:url value="registrer"/>" class="register" >Registrer</a>
                 <input type="submit" name="submit" value="Login" class="button" />
+                <a href="<c:url value="glemtPassord"/>" class="register" id ="glemtPassord" >Glemt passord</a>
                 <i class="errorMessage" id="loginError">
                     <c:out value = "${loginError}"/>
                     <form:errors path="user.email" />

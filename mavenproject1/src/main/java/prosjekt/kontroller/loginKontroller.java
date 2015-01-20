@@ -16,14 +16,18 @@ import prosjekt.Domene.UserScoreOverview;
 import prosjekt.Ui.Editform;
 import prosjekt.Ui.Loginform;
 import prosjekt.database.DatabaseConnection;
+import prosjekt.mailservice.emailer;
 
 @Controller
 @SessionAttributes({"loginform"})
 public class loginKontroller {
     
     @Autowired
-    private DatabaseConnection database;
+    private DatabaseConnection database;    
     
+    @Autowired
+    private emailer emailer;
+   
     @ModelAttribute("loginform")
     public Loginform makeAssignment(){
         return new Loginform();
@@ -35,7 +39,11 @@ public class loginKontroller {
     
     @RequestMapping (value ="/glemtPassord")
     public String glemtPassord (@ModelAttribute Loginform loginform) {
-        String nyttPassord = database.
+        User user = database.getUser(email);
+        String nyttPassord = database.changePassword(user);
+        emailer.email (user.getEmail(), user.getUsername(), nyttPassord);
+        return "login";
+        
     }
     @RequestMapping (value = "Log inn")
     public String login (@ModelAttribute(value="loginform") Loginform loginform, HttpServletRequest request, Model model, Editform editform) {
