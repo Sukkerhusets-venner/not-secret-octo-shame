@@ -1,3 +1,63 @@
+/* Search Loader */
+#iLoad {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  margin: -30px 0 -30px;
+  border: 0px solid black;
+  -webkit-animation: animasjon 750ms linear infinite;
+  animation: animasjon 750ms linear infinite;
+  border-width: 15px 15px;
+  right: 50%;
+  top: 50%;
+}
+@keyframes animasjon {
+  0% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-top-color: black;
+  }
+  25% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-right-color: black;
+  }
+  50% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-bottom-color: black;
+  }
+  75% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-left-color: black;
+  }
+  100% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-top-color: black;
+  }
+}
+
+@-webkit-keyframes animasjon {
+  0% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-top-color: black;
+  }
+  25% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-right-color: black;
+  }
+  50% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-bottom-color: black;
+  }
+  75% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-left-color: black;
+  }
+  100% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-top-color: black;
+  }
+}
+
+
 /*
     Loader 1
     (html): <div class="container">
@@ -7,7 +67,7 @@
                     <div class="part"></div>
                     <div class="part"></div>
             </div>
-*/
+
 .container {
   width: 100%;
   margin-top: 8rem;
@@ -91,7 +151,7 @@
   100% {
     border-radius: 4px;
   }
-}
+}*/
 /*
 //   Loader 2
 //  (html): <figure></figure>

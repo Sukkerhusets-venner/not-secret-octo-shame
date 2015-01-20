@@ -54,18 +54,8 @@ public class registrerKontroller {
             return "registrer";
         }
     }
-    
-    @RequestMapping (value = "/login")
-    public String showlogin (@ModelAttribute Loginform loginform) {
-        return "login";
-    }
-    
     @RequestMapping (value = "/registrertest")
     public String registertest () {
         return "registerSuccess";
     }    
-    @RequestMapping (value = "/hangman")
-    public String hangman () {
-        return "hangman";
-    }
 }

@@ -177,6 +177,8 @@ Hangman.prototype = {
         if (self.result) {
             self.insertMessage("won");
             self.points += self.attempts_left * 10;
+            self.processData(self.points, 'point_input');
+            self.attempts_left = 5;
             self.task_done.push(self.current_task);
             if (self.task_done.length === self.all_questions.length){
                 self.single_char.val("").attr("disabled", "disabled").removeClass("red");

@@ -23,7 +23,10 @@ public class DatabaseConnection {
     private DataSource dataSource;
 
     public DatabaseConnection() {
-
+        refreshConnecton();
+    }
+    
+    public void refreshConnecton(){
         connection = null;
         String databasePath = "jdbc:mysql://158.38.48.10:3306/team6";
         String databaseUserName = "team6";
