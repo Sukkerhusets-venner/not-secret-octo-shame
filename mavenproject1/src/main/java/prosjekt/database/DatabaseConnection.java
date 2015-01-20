@@ -494,11 +494,11 @@ public class DatabaseConnection {
     public ArrayList<Chat> getChatList(User currentUser) {
 
         String sql = "SELECT User.user_id, User.name, User.email, User.password, Chat.read"
-                + "FROM User"
-                + "JOIN Chat ON (User.user_id = Chat.user_id1 OR User.user_id = Chat.user_id2)"
-                + "WHERE (Chat.user_id1 = ? AND Chat.user_id2 != ?) OR"
-                + "(Chat.user_id1 != ? AND Chat.user_id2 = ?)"
-                + "GROUP BY User.user_id";
+                + " FROM User"
+                + " JOIN Chat ON (User.user_id = Chat.user_id1 OR User.user_id = Chat.user_id2)"
+                + " WHERE (Chat.user_id1 = ? AND Chat.user_id2 != ?) OR"
+                + " (Chat.user_id1 != ? AND Chat.user_id2 = ?)"
+                + " GROUP BY User.user_id";
 
         ArrayList<Chat> chatList = new ArrayList<>();
 
