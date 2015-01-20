@@ -2,7 +2,6 @@
  * Bruker jquery 2.1.*
  */
 function checkGame() {
-    var sjekk = "${loginform.isInGame()}";
     if (sjekk === "true") {
         reset();
         alertify.set({labels: {ok: "Fortsett", cancel: "Start et nytt"}});
