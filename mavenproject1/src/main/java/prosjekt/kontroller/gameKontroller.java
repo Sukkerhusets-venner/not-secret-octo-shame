@@ -44,7 +44,7 @@ public class gameKontroller {
         if(loginform.isInGame() == false){
             assignment.setTimescore(10);
             assignment.setCurrentTask(0);
-            assignment.setAllTasks(database.getTasks(1));
+            assignment.setAllTasks(database.getTasks());
             loginform.setInGame(true);
         } else {
             assignment.setTimescore(0);
@@ -106,30 +106,5 @@ public class gameKontroller {
                return "Hovedside";
            } 
         }
-    }
-    @RequestMapping (value = "meny")
-    public String meny(@ModelAttribute(value="assignment") Assignment assignment, Editform editform,
-            @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model, HttpServletRequest req) {
-        
-        HttpSession session = req.getSession();
-        try{
-            User bruker = (User)session.getAttribute("currentUser");
-            if(bruker.getId() >= 1){
-                model.addAttribute("loggedIn", true);
-                model.addAttribute("currentUser", bruker.getUsername());
-            }else{
-                model.addAttribute("loggedIn", false);
-                return "login";
-            }
-        }catch(Exception e){
-            model.addAttribute("loggedIn", false);
-        }
-        
-        loginform.setInGame(false);
-        request.removeAttribute("assignment", WebRequest.SCOPE_SESSION);
-        model.addAttribute("assignment", makeAssignment());
-        ArrayList<UserScore> hiScores = database.getHighScoreList();
-        loginform.setHiScore(hiScores);
-        return "Hovedside";
     }
 }

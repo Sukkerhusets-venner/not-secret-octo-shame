@@ -1,7 +1,6 @@
 
 package prosjekt.kontroller;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -135,7 +134,13 @@ public class loginKontroller {
         
         
     @RequestMapping(value = "/hovedside")
-    public String showForm1(@ModelAttribute(value="loginform") Loginform loginform, Editform editform, Model model, HttpServletRequest req){
+    public String showForm1(@ModelAttribute(value="loginform") Loginform loginform, WebRequest webReq, Editform editform, Model model, HttpServletRequest req){
+        try{
+            loginform.setInGame(false);
+            webReq.removeAttribute("assignment", WebRequest.SCOPE_SESSION);
+        }catch(Exception e){/*ikke sikkert feil*/}
+        
+        
         HttpSession session = req.getSession();
         try{
             User bruker = (User)session.getAttribute("currentUser");

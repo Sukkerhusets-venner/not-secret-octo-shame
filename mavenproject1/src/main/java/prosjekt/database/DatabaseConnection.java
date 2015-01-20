@@ -301,16 +301,19 @@ public class DatabaseConnection {
     public ArrayList<Task> getTasks(){
         //Returns a random problemsSet
         
-        String sql = "SELECT COUNT(Problemset.set_id) FROM Problemset";
+        String sql = "SELECT Problemset.set_id FROM Problemset";
+        ArrayList<Integer> list = new ArrayList();
         Random random = new Random();
         
         try{
             PreparedStatement pstmt = connection.prepareStatement(sql);
             ResultSet resultSet = pstmt.executeQuery();
+            
             while (resultSet.next()){
-                int numberOfSets = resultSet.getInt(1);
-                return getTasks(random.nextInt(numberOfSets) + 1);
+                list.add(resultSet.getInt(1));
             }
+            
+            return getTasks(list.get(random.nextInt(list.size())));
         } catch (Exception e){
             printErrorMessage(e, "getTask");
         }
