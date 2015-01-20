@@ -10,6 +10,7 @@
 <link href="${loaderUrl}" rel="stylesheet" type="text/css" />
 <title>Hovedside</title>
 <script src="${mkjsUrl}"></script>
+<script>var sjekk = "${loginform.isInGame()}";</script>
 </head>
 <html>
     <body>
