@@ -57,6 +57,8 @@ public class DatabaseConnection {
         }
     }
 
+    
+    // CRUD METHODS FOR THE WEB-APPLICATION ** **
     public boolean checkLogin(String email, String password) {
 
         password = hashString(password);
@@ -381,7 +383,9 @@ public class DatabaseConnection {
 
         return null;
     }
-
+    // ** ** ** ** ** *** ** ** ** **
+    
+    // CHAT API ** ** **
     public ArrayList<Message> getChat(User currentUser, User otherUser) {
 
         String sql = "SELECT Message.time, Message.text "
@@ -539,7 +543,10 @@ public class DatabaseConnection {
         }
         return false;
     }
-
+    // ** ** ** ** ** **
+    
+    
+    // PRIVATE HELPER METHODS
     private boolean checkUserName(String userName) {
 
         ResultSet resultSet = null;
@@ -599,7 +606,7 @@ public class DatabaseConnection {
         }
     }
 
-    public String hashString(String string) {
+    private String hashString(String string) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
 
