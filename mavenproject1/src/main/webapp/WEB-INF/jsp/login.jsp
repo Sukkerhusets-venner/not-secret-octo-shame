@@ -10,7 +10,13 @@
     }
     
     function glemtPassord() {
+        var s = $("#GlemtPassordForm").css("display");
         $("#GlemtPassordForm").css ("visibility", "visible");
+        if(s == "none"){
+            $("#GlemtPassordForm").fadeIn("slow");
+        }else{
+            $("#GlemtPassordForm").fadeOut("slow");
+        }
     }
     
     $(document).ready(function () {
@@ -50,7 +56,6 @@
             <div class="footer">
                 <a href="<c:url value="registrer"/>" class="register" >Registrer</a>
                 <input type="submit" name="submit" value="Login" class="button" />
-                <a href="javascript:glemtPassord()" class="register" id ="glemtPassord"> Glemt passord</a>
                 <i class="errorMessage" id="loginError">
                     <c:out value = "${loginError}"/>
                     <form:errors path="user.email" />
@@ -61,17 +66,20 @@
     </div>
     <div id ="GlemtPassordForm">
         <form:form method ="POST" modelAttribute = "loginform" action = "glemtPassord">
-            <table> 
-                <tr> <td> Din Email: </td> </tr>
-                <tr> <td> <form:input path ="user.email" type ="email" placeholder = "Email" /> </td> </tr> 
-                <tr> <td> <input type ="submit" value ="Send nytt passord" id = "NyttPassordButton"> </td> </tr>
+                <form:input id="inpGlemt" path ="user.email" type ="email" placeholder = "Email" />
+                <input type ="submit" value ="Send nytt passord" id = "NyttPassordButton">
+                <c:if test="${newPassSuccess}">
+                    <p>Sendt!</p>
+                    <style>#GlemtPassordForm{visibility: visible;}</style>
+                </c:if>
         </form:form>
-                <br>
-                <tr> <td id = "errormessageGP"> <c:if test="${not empty GlemtPassordError}"> <c:out value ="${GlemtPassordError}"/> </c:if> <tr> <td>
-            </table>
-    </div>
+        <p id = "errormessageGP" style="color:red;"> <c:if test="${not empty GlemtPassordError}"> <c:out value ="${GlemtPassordError}"/> </c:if></p>
+    </div>     
+    <a href="javascript:glemtPassord()" style="position:fixed; right:2rem; bottom:2rem;"> Glemt passord</a>
+            
     <!-- Husk å fjerne! -->
     <a href="logincheat" style="position:fixed; left:3rem; bottom:2rem;">Logincheat</a>
     <a href="testError" style="position:fixed; left:3rem; bottom:1rem;">Generer en feil</a>
+    <!-- -------------- -->
 </body>
 </html>
