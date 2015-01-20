@@ -10,13 +10,17 @@
     }
     
     function glemtPassord() {
-        $("#GlemtPassordForm").css ("visibility", "visible");
+        if ($("#GlemtPassordForm").css ("visibility").valueOf() === "hidden".valueOf()) {
+            $("#GlemtPassordForm").css ("visibility", "visible");
+        } else {
+            $("#GlemtPassordForm").css ("visibility", "hidden");
+        }
     }
     
     $(document).ready(function () {
-        <c:if test = "${not empty GlemtPassordError}"> 
+        if(${not empty GlemtPassordError}) {
             $("#GlemtPassordForm").css ("visibility", "visible");
-        </c:if>
+        }
     });
 </script>
 <title>Log inn</title>

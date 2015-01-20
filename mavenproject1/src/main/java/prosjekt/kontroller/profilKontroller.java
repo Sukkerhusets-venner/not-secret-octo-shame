@@ -70,14 +70,24 @@ public class profilKontroller {
         
         boolean inputfeil = false;
         
-        if (editform.getUserNew().getPassword().isEmpty()) {
+        if (editform.getUserNew().getPassword().length() < 6) {
             inputfeil = true;
-            model.addAttribute("Inputfeilnyttpassord", "Feltet kan ikke være tomt");
+            model.addAttribute("Inputfeilnyttpassord", "Det nye passordet må være minst 6 karakterer");
         }
         
         if (editform.getUserOld().getPassword().isEmpty()) {
             inputfeil = true;
             model.addAttribute("Inputfeilgammeltpassord", "Feltet kan ikke være tomt");
+        }
+        
+        if (editform.getUserNew().getEmail().length() < 6) {
+            inputfeil = true;
+            model.addAttribute("Inputfeilnyttpassordbekreft", "Det nye passordet må være minst 6 karakterer");
+        }
+        
+        if (!editform.getUserNew().getEmail().equals(editform.getUserNew().getPassword())) {
+            inputfeil = true;
+            model.addAttribute("passordfeilpassord", "Felt 2 og 3 stemmer ikke overens");
         }
         
         if (inputfeil){
@@ -93,7 +103,7 @@ public class profilKontroller {
             model.addAttribute("suksessPassord", "Du har byttet passord. Gratulerer!");
             return "Hovedside";
         } else {
-           model.addAttribute("passordfeilpassord", "Passordet er ikke riktig");
+           model.addAttribute("passordfeilpassord", "Det gamle passordet er ikke riktig");
            session.setAttribute("loginform", loginform);
            return "Hovedside";
         }
