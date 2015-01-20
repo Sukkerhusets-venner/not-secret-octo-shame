@@ -468,11 +468,26 @@ public class DatabaseConnection {
     }
 
     public boolean gotMessage(User currentUser) {
+        
         String sql = "SELECT User.user_id FROM User "
                 + "JOIN Chat ON "
                 + "(Chat.user_id1 = ? OR chat.user_id2 = ?) "
                 + "WHERE chat.read = false;";
-
+        try{
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, currentUser.getId());
+            pstmt.setInt(2, currentUser.getId());
+            
+            ResultSet resultSet = pstmt.executeQuery();
+            
+            if (resultSet.next()){
+                // Bruker har fatt en melding
+                return true;
+            }
+        } catch (Exception e){
+            printErrorMessage(e, "gotMessage");
+        }
+        
         return false;
     }
 
