@@ -124,6 +124,7 @@
                         } else if (val.trim() !== "") {
                             self.insertMessage("invalid");
                         }
+                        self.single_char.val("").removeClass("red");
                         if (val.trim() !== ""){
                             self.attempts_left--;
                         }
@@ -147,10 +148,23 @@
                     var self = this;
                     if (self.result) {
                         self.insertMessage("won");
-                        self.single_char.val("").addClass("red");
+                        self.points += self.attempts_left * 10;
+                        alertify.alert("Supert! Det var riktig svar! Du har fått " + self.points + " poeng!", function (e) {
+                            if(e){
+                                document.forms["nesteOppgave"].elements["randomNumber"].value = Math.random();
+                                document.forms["nesteOppgave"].elements["score"].value = self.points;
+                                document.forms["nesteOppgave"].submit();
+                            }
+                        });
                     } else {
                         self.insertMessage("lost");
-                        self.single_char.val("").addClass("red");                       
+                        alertify.alert("Beklager! Det var feil svar! Du har fått " + self.points + " poeng!", function (e) {
+                            if(e){
+                                document.forms["nesteOppgave"].elements["randomNumber"].value = Math.random();
+                                document.forms["nesteOppgave"].elements["score"].value = self.points;
+                                document.forms["nesteOppgave"].submit();
+                            }
+                        });
                     }
                 }
             };
