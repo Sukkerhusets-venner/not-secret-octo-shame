@@ -13,7 +13,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <c:if test="${not Connection}">
+        <c:if test="${notConnected}">
         <div id="notConnected">
             <p>Du er ikke tilkoblet databasen</p>
             <a href="login">Prøv på nytt</a>

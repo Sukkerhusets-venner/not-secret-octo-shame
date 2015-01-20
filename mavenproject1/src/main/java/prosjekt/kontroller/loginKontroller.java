@@ -41,10 +41,10 @@ public class loginKontroller {
                 database.closeConnection();
                 database = new DatabaseConnection();
                 if(!database.checkConnection()){
-                    model.addAttribute("Connection", false); 
+                    model.addAttribute("notConnected", true);
                 }
             }else{
-                model.addAttribute("Connection", true);
+                model.addAttribute("notConnected", false);
             }
         }catch(Exception e){
             throw e;
@@ -135,10 +135,16 @@ public class loginKontroller {
     }
     
     @RequestMapping (value = "logUt")
-    public String meny(Editform editform, @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model) {
+    public String meny(Editform editform, @ModelAttribute(value="loginform") Loginform loginform,HttpServletRequest req, WebRequest request, Model model) {
         loginform.setInGame(false);
+        loginform = null;
+        HttpSession session = req.getSession();
+        session.invalidate();
         request.removeAttribute("loginform", WebRequest.SCOPE_SESSION);
         model.addAttribute("loginform", makeLoginform());
+        if(!database.checkConnection()){
+            model.addAttribute("notConnected", true); 
+        }
         return "login";
     }
 }
