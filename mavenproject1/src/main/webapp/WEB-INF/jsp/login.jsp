@@ -9,6 +9,10 @@
         $(elem).val(s.replace(Re,""));
     }
     
+    function glemtPassord() {
+        $("#GlemtPassordForm").css ("visibility", "visible");
+    }
+    
     
 </script>
 <title>Log inn</title>
@@ -42,13 +46,22 @@
             <div class="footer">
                 <a href="<c:url value="registrer"/>" class="register" >Registrer</a>
                 <input type="submit" name="submit" value="Login" class="button" />
-                <a href="<c:url value="glemtPassord"/>" class="register" id ="glemtPassord" >Glemt passord</a>
+                <a href="javascript:glemtPassord()" class="register" id ="glemtPassord"> Glemt passord</a>
                 <i class="errorMessage" id="loginError">
                     <c:out value = "${loginError}"/>
                     <form:errors path="user.email" />
                     <form:errors path="user.password" />
                 </i>
             </div>
+        </form:form>
+    </div>
+    <div id ="GlemtPassordForm">
+        <form:form method ="POST" modelAttribute = "loginform" action = "glemtPassord">
+            <table> 
+                <tr> <td> Din Email: </td> </tr>
+                <tr> <td> <form:input path ="user.email" type ="email" placeholder = "Email" /> </td> </tr> 
+                <tr> <td> <input type ="submit" value ="Send nytt passord" id = "NyttPassordButton"> </td> </tr>
+            </table>
         </form:form>
     </div>
     <!-- Husk å fjerne! -->
