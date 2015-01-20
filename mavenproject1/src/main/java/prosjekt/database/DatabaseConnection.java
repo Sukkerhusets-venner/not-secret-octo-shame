@@ -25,8 +25,8 @@ public class DatabaseConnection {
     public DatabaseConnection() {
         refreshConnecton();
     }
-    
-    public void refreshConnecton(){
+
+    public void refreshConnecton() {
         connection = null;
         String databasePath = "jdbc:mysql://158.38.48.10:3306/team6";
         String databaseUserName = "team6";
@@ -60,7 +60,6 @@ public class DatabaseConnection {
         }
     }
 
-    
     // CRUD METHODS FOR THE WEB-APPLICATION ** **
     public boolean checkLogin(String email, String password) {
 
@@ -175,27 +174,52 @@ public class DatabaseConnection {
         }
         return false;
     }
-    
-    public boolean isAdmin(User user){
+
+    public boolean isAdmin(User user) {
         String sql = "SELECT User.user_id FROM User"
                 + " JOIN Admin ON Admin.user_id = User.user_id "
                 + " WHERE User.user_id = ?";
-        
-        try{
+
+        try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             ResultSet resultSet = pstmt.executeQuery();
-            
-            while(resultSet.next()){
+
+            while (resultSet.next()) {
                 return true;
             }
-        } catch(Exception e){
-            
+        } catch (Exception e) {
+
         }
         return false;
     }
 
+    public ArrayList<User> getAdminList() {
+        String sql = "SELECT * FROM User JOIN Admin "
+                + "On User.user_id = Admin.user_id";
+        ArrayList<User> user = new ArrayList<>();
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+
+            ResultSet resultSet = pstmt.executeQuery();
+
+            while (resultSet.next()) {
+                int id = (Integer) resultSet.getObject(1);
+                String userName = resultSet.getString(2);
+                String email = resultSet.getString(3);
+                String password = resultSet.getString(4);
+                user.add(new User(id, userName, email, password));
+            }
+            return user;
+
+        } catch (Exception e) {
+            printErrorMessage(e, "getAdmin");
+        }
+        return null;
+    }
+
     public ArrayList<User> getUsers() {
-        String sqlStatement = "SELECT * FROM User "; //join on score hvor godkjenningen vil ligg
+        String sqlStatement = "SELECT * FROM User "; 
         ArrayList<User> user = new ArrayList<>();
 
         try {
@@ -213,7 +237,7 @@ public class DatabaseConnection {
             return user;
 
         } catch (Exception e) {
-            printErrorMessage(e, "feil i getUsers list");
+            printErrorMessage(e, "getUsers");
         }
         return null;
     }
@@ -298,25 +322,28 @@ public class DatabaseConnection {
         return uso;
     }
 
-    public ArrayList<Task> getTasks(){
+    public ArrayList<Task> getTasks() {
         //Returns a random problemsSet
-        
-        String sql = "SELECT COUNT(Problemset.set_id) FROM Problemset";
+
+        String sql = "SELECT Problemset.set_id FROM Problemset";
+        ArrayList<Integer> list = new ArrayList();
         Random random = new Random();
-        
-        try{
+
+        try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             ResultSet resultSet = pstmt.executeQuery();
-            while (resultSet.next()){
-                int numberOfSets = resultSet.getInt(1);
-                return getTasks(random.nextInt(numberOfSets) + 1);
+
+            while (resultSet.next()) {
+                list.add(resultSet.getInt(1));
             }
-        } catch (Exception e){
+
+            return getTasks(list.get(random.nextInt(list.size())));
+        } catch (Exception e) {
             printErrorMessage(e, "getTask");
         }
         return null;
     }
-    
+
     public ArrayList<Task> getTasks(int set_id) {
         ArrayList<Task> list = new ArrayList();
         ResultSet resultSet = null;
@@ -405,7 +432,7 @@ public class DatabaseConnection {
     }
 
     public String getNewPassword(User user) {
-        
+
         String sql = "UPDATE User SET User.password = ? WHERE User.user_id = ?";
         String newPassword = generatePassword();
 
@@ -424,7 +451,7 @@ public class DatabaseConnection {
         return null;
     }
     // ** ** ** ** ** *** ** ** ** **
-    
+
     // CHAT API ** ** **
     public ArrayList<Message> getChat(User currentUser, User otherUser) {
 
@@ -467,11 +494,11 @@ public class DatabaseConnection {
     public ArrayList<Chat> getChatList(User currentUser) {
 
         String sql = "SELECT User.user_id, User.name, User.email, User.password, Chat.read"
-                +"FROM User"
-                +"JOIN Chat ON (User.user_id = Chat.user_id1 OR User.user_id = Chat.user_id2)" 
-                +"WHERE (Chat.user_id1 = ? AND Chat.user_id2 != ?) OR" 
-                +"(Chat.user_id1 != ? AND Chat.user_id2 = ?)"
-                +"GROUP BY User.user_id";
+                + "FROM User"
+                + "JOIN Chat ON (User.user_id = Chat.user_id1 OR User.user_id = Chat.user_id2)"
+                + "WHERE (Chat.user_id1 = ? AND Chat.user_id2 != ?) OR"
+                + "(Chat.user_id1 != ? AND Chat.user_id2 = ?)"
+                + "GROUP BY User.user_id";
 
         ArrayList<Chat> chatList = new ArrayList<>();
 
@@ -481,7 +508,7 @@ public class DatabaseConnection {
             pstmt.setInt(2, currentUser.getId());
             pstmt.setInt(3, currentUser.getId());
             pstmt.setInt(4, currentUser.getId());
-            
+
             ResultSet resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
@@ -491,8 +518,8 @@ public class DatabaseConnection {
                 String password = resultSet.getString(4);
                 boolean read = resultSet.getBoolean(5);
                 User otherUser = new User(id, name, email, password);
-                
-                if (currentUser.getId() != otherUser.getId()){
+
+                if (currentUser.getId() != otherUser.getId()) {
                     chatList.add(new Chat(currentUser, otherUser, read));
                 }
             }
@@ -505,25 +532,25 @@ public class DatabaseConnection {
     }
 
     public boolean gotMessage(User currentUser) {
-        
+
         String sql = "SELECT User.user_id FROM User "
                 + "JOIN Chat ON "
                 + "(Chat.user_id1 = User.user_id OR chat.user_id2 = User.user_id) "
                 + "WHERE (chat.read = false AND User.user_id = ? )";
-        try{
+        try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, currentUser.getId());
-            
+
             ResultSet resultSet = pstmt.executeQuery();
-            
-            if (resultSet.next()){
+
+            if (resultSet.next()) {
                 // Bruker har fatt en melding
                 return true;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             printErrorMessage(e, "gotMessage");
         }
-        
+
         return false;
     }
 
@@ -598,8 +625,7 @@ public class DatabaseConnection {
         return false;
     }
     // ** ** ** ** ** **
-    
-    
+
     // PRIVATE HELPER METHODS
     private boolean checkUserName(String userName) {
 
@@ -660,8 +686,7 @@ public class DatabaseConnection {
         }
     }
     // ** ** ** ** ** **
-    
-    
+
     // PASSWORD GENERATION AND HASHING
     private String hashString(String string) {
         try {

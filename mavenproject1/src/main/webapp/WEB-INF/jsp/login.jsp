@@ -10,19 +10,26 @@
     }
     
     function glemtPassord() {
+<<<<<<< HEAD
         var s = $("#GlemtPassordForm").css("display");
         $("#GlemtPassordForm").css ("visibility", "visible");
         if(s == "none"){
             $("#GlemtPassordForm").fadeIn("slow");
         }else{
             $("#GlemtPassordForm").fadeOut("slow");
+=======
+        if ($("#GlemtPassordForm").css ("visibility").valueOf() === "hidden".valueOf()) {
+            $("#GlemtPassordForm").css ("visibility", "visible");
+        } else {
+            $("#GlemtPassordForm").css ("visibility", "hidden");
+>>>>>>> FETCH_HEAD
         }
     }
     
     $(document).ready(function () {
-        <c:if test = "${not empty GlemtPassordError}"> 
+        if(${not empty GlemtPassordError}) {
             $("#GlemtPassordForm").css ("visibility", "visible");
-        </c:if>
+        }
     });
 </script>
 <title>Log inn</title>

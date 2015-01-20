@@ -26,8 +26,10 @@
         <form:form method="POST" modelAttribute="editform" action ="byttPassord"> 
             <tr> <td> <form:input path = "userOld.password" placeholder = "Gammelt passord" type ="password"/> </td>
             <td class = "ErrorMessagesProfile"> <c:if test = "${not empty Inputfeilgammeltpassord}"> <c:out value = "${Inputfeilgammeltpassord}"/> </c:if> </td> </tr>
-            <tr> <td> <form:input path = "userNew.password" type="password" placeholder = "Nytt passord" /> </td>
+            <tr> <td> <form:input path = "userNew.password" type="password" placeholder = "Nytt passord"/> </td>
             <td class = "ErrorMessagesProfile"> <c:if test = "${not empty Inputfeilnyttpassord}"> <c:out value = "${Inputfeilnyttpassord}"/> </c:if> </td> </tr>
+            <tr> <td> <form:input path = "userNew.email" type ="password" placeholder ="Bekreft nytt passord" /> </td>
+            <td class = "ErrorMessagesProfile"> <c:if test = "${not empty Inputfeilnyttpassordbekreft}"> <c:out value = "${Inputfeilnyttpassordbekreft}"/> </c:if> </td> </tr>            
             <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt passord"/> </td> </tr>
             <tr> <td class = "ErrorMessagesProfile"> <c:if test = "${not empty passordfeilpassord}"> <c:out value = "${passordfeilpassord}"/> </c:if> </td> </tr>
         </form:form>

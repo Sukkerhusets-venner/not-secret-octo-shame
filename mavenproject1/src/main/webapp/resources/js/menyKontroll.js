@@ -43,6 +43,8 @@ $(document).ready(function () {
     a.css("visibility", "visible");
     b.css("visibility", "hidden");
     c.css("visibility", "hidden");
+    
+    
 
     $("#buttons div a").click(function (event) {
         var elem = $(event.target).html();

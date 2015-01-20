@@ -35,7 +35,7 @@ public class gameKontroller {
         if(loginform.isInGame() == false){
             assignment.setTimescore(10);
             assignment.setCurrentTask(0);
-            assignment.setAllTasks(database.getTasks(1));
+            assignment.setAllTasks(database.getTasks());
             loginform.setInGame(true);
         } else {
             assignment.setTimescore(0);
