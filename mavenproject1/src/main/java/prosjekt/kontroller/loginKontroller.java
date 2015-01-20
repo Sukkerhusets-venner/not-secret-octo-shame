@@ -77,10 +77,14 @@ public class loginKontroller {
             model.addAttribute("GlemtPassordError", "Ingen bruker er tilknyttet til denne emailen");
             return "login";
         }
-        String nyttPassord = database.getNewPassword(user);
-        emailer.email (user.getEmail(), user.getUsername(), nyttPassord);
-        return "login";
-        
+        try{
+            String nyttPassord = database.getNewPassword(user);
+            emailer.email (user.getEmail(), user.getUsername(), nyttPassord);
+            model.addAttribute("newPassSuccess", true);
+            return "login";
+        }catch(Exception e){
+            return "login";
+        }
     }
     @RequestMapping (value = "Log inn")
     public String login (@ModelAttribute(value="loginform") Loginform loginform, HttpServletRequest request, Model model, Editform editform) {

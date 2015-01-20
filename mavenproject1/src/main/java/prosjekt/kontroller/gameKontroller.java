@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package prosjekt.kontroller;
 
-import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 import prosjekt.Domene.User;
-import prosjekt.Domene.UserScore;
 import prosjekt.Ui.Assignment;
-import prosjekt.Ui.Editform;
 import prosjekt.Ui.Loginform;
 import prosjekt.database.DatabaseConnection;
 
@@ -60,13 +51,14 @@ public class gameKontroller {
     }
     
     @RequestMapping (value = "nesteOppgave")
-    public String nesteOppg(@ModelAttribute(value="assignment") Assignment assignment, HttpServletRequest request, Model model) {
+    public String nesteOppg(@ModelAttribute(value="loginform") Loginform loginform, @ModelAttribute(value="assignment") Assignment assignment, HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
+        boolean loggedInOk = false;
         try{
             User bruker = (User)session.getAttribute("currentUser");
             if(bruker.getId() >= 1){
                 model.addAttribute("loggedIn", true);
-                model.addAttribute("currentUser", bruker.getUsername());
+                loggedInOk = true;
             }else{
                 model.addAttribute("loggedIn", false);
                 return "login";
@@ -74,7 +66,9 @@ public class gameKontroller {
         }catch(Exception e){
             model.addAttribute("loggedIn", false);
         }
-        
+        if(!loggedInOk){
+            return "login";
+        }
         
         if(assignment.checkNumbers()) {
             int tasknr = assignment.nextTask();
