@@ -2,6 +2,7 @@
 package prosjekt.Ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import prosjekt.Domene.Task;
 
@@ -13,6 +14,7 @@ public class Assignment {
     private int score;
     private double randomNumber = 0;
     private double[] pastRandomNumber;
+    private int timescore = 10;
     
     public Assignment(){}
     
@@ -20,6 +22,14 @@ public class Assignment {
         int sum = 0;
         for (int i = 0; i < delscores.length; i++) {
             sum += delscores[i];
+        }
+        return sum;
+    }
+    
+    public int getMaxScore(){
+        int sum = 0;
+        for (Task t : task) {
+            sum += t.getMaxPoeng();
         }
         return sum;
     }
@@ -38,6 +48,7 @@ public class Assignment {
     }
     public int nextTask(){
         setDelscore();
+        timescore = 10;
         if(currentTask < task.size()-1){
             return currentTask++;
         }
@@ -66,7 +77,19 @@ public class Assignment {
         return task.get(id);
     }
     public void setAllTasks(List<Task> allTasks){
-        this.task = allTasks;
+        List<ArrayList<Task>> tasks = new ArrayList<ArrayList<Task>>();
+        for (int i = 0; i < 3; i++) {
+            tasks.add(new ArrayList<Task>());
+        }
+        for (Task t : allTasks) {
+            tasks.get(t.getDiff()-1).add(t);
+        }
+        for (ArrayList<Task> arrayList : tasks) {
+            Collections.shuffle(arrayList);
+            for (Task t : arrayList) {
+                task.add(t);
+            }
+        }
         delscores = new int[task.size()];
         pastRandomNumber = new double[task.size()];
     }
@@ -82,6 +105,16 @@ public class Assignment {
         } else {
             return -1;
         }
+    }
+    public int getMaxPoeng(int nummer){
+        if (nummer > -1 && nummer < task.size()){
+            return task.get(nummer).getMaxPoeng();
+        } else {
+            return -1;
+        }
+    }
+    public int getTaskNr(){
+        return delscores.length;
     }
     public double getRandomNumber() {
         return randomNumber;
@@ -99,5 +132,12 @@ public class Assignment {
             }
         }
         return true;
+    }
+    public int getTimescore() {
+        return timescore;
+    }
+
+    public void setTimescore(int timescore) {
+        this.timescore = timescore;
     }
 }

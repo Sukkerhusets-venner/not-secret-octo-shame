@@ -13,6 +13,18 @@
 </head>
 <body>
     <div id="wrapper">
+        <c:if test="${not Connection}">
+        <div id="notConnected">
+            <p>Du er ikke tilkoblet databasen</p>
+            <a href="login">Prøv på nytt</a>
+        </div>
+        </c:if>
+        <c:if test="${loggedIn}">
+        <div id="notConnected">
+            <p>Du er allerede logged inn</p>
+            <a href="hovedside">Til hovedsiden</a>
+        </div>
+        </c:if>
         <form:form method="POST" modelAttribute="loginform" action ="Log inn" name="login-form" class="login-form">
             <div class="header">
                 <h1>Login</h1>
