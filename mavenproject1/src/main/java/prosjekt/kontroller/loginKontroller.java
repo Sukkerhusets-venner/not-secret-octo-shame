@@ -19,14 +19,18 @@ import prosjekt.Ui.Editform;
 import prosjekt.Ui.Loginform;
 import prosjekt.annet.searchHelper;
 import prosjekt.database.DatabaseConnection;
+import prosjekt.mailservice.emailer;
 
 @Controller
 @SessionAttributes({"loginform"})
 public class loginKontroller {
     
     @Autowired
-    private DatabaseConnection database;
+    private DatabaseConnection database;    
     
+    @Autowired
+    private emailer emailer;
+   
     @ModelAttribute("loginform")
     public Loginform makeLoginform(){
         return new Loginform();
@@ -36,7 +40,6 @@ public class loginKontroller {
         HttpSession session = req.getSession();
         
         try{
-            
             if(!database.checkConnection()){
                 database.closeConnection();
                 database = new DatabaseConnection();
@@ -64,6 +67,22 @@ public class loginKontroller {
         return "login";
     }
     
+    @RequestMapping (value ="/glemtPassord")
+    public String glemtPassord (@ModelAttribute Loginform loginform, Model model) {
+        if (loginform.getUser().getEmail().isEmpty()) {
+            model.addAttribute("GlemtPassordError", "Email feltet kan ikke være tomt");
+            return "login";
+        }
+        User user = database.getUser(loginform.getUser().getEmail());
+        if (user == null) {
+            model.addAttribute("GlemtPassordError", "Ingen bruker er tilknyttet til denne emailen");
+            return "login";
+        }
+        String nyttPassord = database.getNewPassword(user);
+        emailer.email (user.getEmail(), user.getUsername(), nyttPassord);
+        return "login";
+        
+    }
     @RequestMapping (value = "Log inn")
     public String login (@ModelAttribute(value="loginform") Loginform loginform, HttpServletRequest request, Model model, Editform editform) {
         if(loginform.getUser().getPassword().isEmpty() || loginform.getUser().getEmail().isEmpty()){

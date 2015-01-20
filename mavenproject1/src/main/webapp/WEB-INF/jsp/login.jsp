@@ -8,6 +8,16 @@
         var Re = new RegExp("\\s", "g");
         $(elem).val(s.replace(Re,""));
     }
+    
+    function glemtPassord() {
+        $("#GlemtPassordForm").css ("visibility", "visible");
+    }
+    
+    $(document).ready(function () {
+        <c:if test = "${not empty GlemtPassordError}"> 
+            $("#GlemtPassordForm").css ("visibility", "visible");
+        </c:if>
+    });
 </script>
 <title>Log inn</title>
 </head>
@@ -40,6 +50,7 @@
             <div class="footer">
                 <a href="<c:url value="registrer"/>" class="register" >Registrer</a>
                 <input type="submit" name="submit" value="Login" class="button" />
+                <a href="javascript:glemtPassord()" class="register" id ="glemtPassord"> Glemt passord</a>
                 <i class="errorMessage" id="loginError">
                     <c:out value = "${loginError}"/>
                     <form:errors path="user.email" />
@@ -47,6 +58,17 @@
                 </i>
             </div>
         </form:form>
+    </div>
+    <div id ="GlemtPassordForm">
+        <form:form method ="POST" modelAttribute = "loginform" action = "glemtPassord">
+            <table> 
+                <tr> <td> Din Email: </td> </tr>
+                <tr> <td> <form:input path ="user.email" type ="email" placeholder = "Email" /> </td> </tr> 
+                <tr> <td> <input type ="submit" value ="Send nytt passord" id = "NyttPassordButton"> </td> </tr>
+        </form:form>
+                <br>
+                <tr> <td id = "errormessageGP"> <c:if test="${not empty GlemtPassordError}"> <c:out value ="${GlemtPassordError}"/> </c:if> <tr> <td>
+            </table>
     </div>
     <!-- Husk å fjerne! -->
     <a href="logincheat" style="position:fixed; left:3rem; bottom:2rem;">Logincheat</a>
