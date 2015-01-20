@@ -12,11 +12,29 @@
 <script src="${mkjsUrl}"></script>
 <script>
     var sjekk = "${loginform.isInGame()}";
-        <c:if test = "${not empty profilbrukernavn}"> 
-         $("#hiscore").css("visibility", "hidden");
-         $("#profil").css("visibility", "visible");
-         $("#brukernavnform").css ("visibility", "visible");
-        </c:if>
+    $(document).ready(function () {
+        
+        var a = $("#spill");
+        var b = $("#hiscore");
+        var c = $("#profil");
+        if(${not empty profilpassord}) {
+        a.css("visibility", "hidden");
+        b.css("visibility", "hidden");
+        c.css("visibility", "visible");
+        $("#passordform").css("visibility", "visible");
+        $("#brukernavnform").css("visibility", "hidden");
+        
+    }
+    
+    if(${not empty profilbrukernavn}) {
+        a.css("visibility", "hidden");
+        b.css("visibility", "hidden");
+        c.css("visibility", "visible");
+        $("#brukernavnform").css("visibility", "visible");
+        $("#passordform").css("visibility", "hidden");
+        
+    }
+});
 </script>
 </head>
 <html>
