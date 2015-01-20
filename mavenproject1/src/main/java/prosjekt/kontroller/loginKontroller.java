@@ -71,7 +71,7 @@ public class loginKontroller {
     @RequestMapping (value ="/glemtPassord")
     public String glemtPassord (@ModelAttribute Loginform loginform) {
         User user = database.getUser(loginform.getUser().getEmail());
-        String nyttPassord = database.changePassword(user);
+        String nyttPassord = database.getNewPassword(user);
         emailer.email (user.getEmail(), user.getUsername(), nyttPassord);
         return "login";
         
