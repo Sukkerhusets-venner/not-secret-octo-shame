@@ -370,11 +370,11 @@ public class DatabaseConnection {
     public String getNewPassword(User user) {
         
         String sql = "UPDATE User SET User.password = ? WHERE User.user_id = ?";
-        String newPassword = hashString(generatePassword());
+        String newPassword = generatePassword();
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, newPassword);
+            pstmt.setString(1, hashString(newPassword));
             pstmt.setInt(2, user.getId());
             pstmt.executeUpdate();
 
