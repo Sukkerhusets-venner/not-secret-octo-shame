@@ -190,7 +190,7 @@ body {
 }
 #gRamme{
     height: 16.5rem;
-    margin-left: 1rem;
+    width:14rem;
 }
 * {
     box-sizing: border-box;
