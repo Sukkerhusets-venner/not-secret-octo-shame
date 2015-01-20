@@ -298,6 +298,25 @@ public class DatabaseConnection {
         return uso;
     }
 
+    public ArrayList<Task> getTasks(){
+        //Returns a random problemsSet
+        
+        String sql = "SELECT COUNT(Problemset.set_id) FROM Problemset";
+        Random random = new Random();
+        
+        try{
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()){
+                int numberOfSets = resultSet.getInt(1);
+                return getTasks(random.nextInt(numberOfSets) + 1);
+            }
+        } catch (Exception e){
+            printErrorMessage(e, "getTask");
+        }
+        return null;
+    }
+    
     public ArrayList<Task> getTasks(int set_id) {
         ArrayList<Task> list = new ArrayList();
         ResultSet resultSet = null;
@@ -640,7 +659,10 @@ public class DatabaseConnection {
             printErrorMessage(e, "rollback()");
         }
     }
-
+    // ** ** ** ** ** **
+    
+    
+    // PASSWORD GENERATION AND HASHING
     private String hashString(String string) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -681,4 +703,5 @@ public class DatabaseConnection {
         String passord = new String(buf);
         return passord;
     }
+    // ** ** ** ** ** **
 }
