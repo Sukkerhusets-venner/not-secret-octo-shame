@@ -23,10 +23,7 @@
                 </div>
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
-                    <div><a href="javascript:checkGame()">Spillet</a>
-                       <form:form method="POST" modelAttribute="loginform" action ="game" id="game" name="game">
-                            <input type="hidden" name="inGame" value=''>
-                       </form:form>
+                    <div><a>Spillet</a>
                     </div><div><a>Resultater</a>
                     </div><div><a>Profil</a>
                     </div>
@@ -38,7 +35,15 @@
             <div id="stuff">
                 <div id="spill">
                     <h3>Spill</h3>
-                    
+                    <a id="spilLink"href="javascript:checkGame()">Spillet</a>
+                    <form:form method="POST" modelAttribute="loginform" action ="game" id="game" name="game">
+                        <input type="hidden" name="inGame" value=''>
+                    </form:form>
+                    <c:url var="spaceInvaderUrl" value="/resources/css/spaceInvader.css" />
+                    <link href="${spaceInvaderUrl}" rel="stylesheet" type="text/css"/>
+                    <div class="space">
+                        <div class="invader"></div>
+                    </div>
                 </div>
                 <div id="hiscore">
                     <%@include file="../../includes/resultater.jspf"%>
