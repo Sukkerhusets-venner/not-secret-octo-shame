@@ -175,6 +175,24 @@ public class DatabaseConnection {
         }
         return false;
     }
+    
+    public boolean isAdmin(User user){
+        String sql = "SELECT User.user_id FROM User"
+                + " JOIN Admin ON Admin.user_id = User.user_id "
+                + " WHERE User.user_id = ?";
+        
+        try{
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            ResultSet resultSet = pstmt.executeQuery();
+            
+            while(resultSet.next()){
+                return true;
+            }
+        } catch(Exception e){
+            
+        }
+        return false;
+    }
 
     public ArrayList<User> getUsers() {
         String sqlStatement = "SELECT * FROM User "; //join on score hvor godkjenningen vil ligg
@@ -348,23 +366,23 @@ public class DatabaseConnection {
         return false;
     }
 
-    public String changePassword(User user) {
+    public boolean changePassword(User user) {
         String sql = "UPDATE User SET User.password = ? WHERE User.user_id = ?";
-        String newPassword = hashString(user.getPassword());
+        String newPassword = user.getPassword();
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, newPassword);
+            pstmt.setString(1, hashString(newPassword));
             pstmt.setInt(2, user.getId());
             pstmt.executeUpdate();
 
-            return newPassword;
+            return true;
 
         } catch (Exception e) {
             printErrorMessage(e, "Passordforandring");
         }
 
-        return null;
+        return false;
     }
 
     public String getNewPassword(User user) {
@@ -471,12 +489,11 @@ public class DatabaseConnection {
         
         String sql = "SELECT User.user_id FROM User "
                 + "JOIN Chat ON "
-                + "(Chat.user_id1 = ? OR chat.user_id2 = ?) "
-                + "WHERE chat.read = false;";
+                + "(Chat.user_id1 = User.user_id OR chat.user_id2 = User.user_id) "
+                + "WHERE (chat.read = false AND User.user_id = ? )";
         try{
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, currentUser.getId());
-            pstmt.setInt(2, currentUser.getId());
             
             ResultSet resultSet = pstmt.executeQuery();
             
