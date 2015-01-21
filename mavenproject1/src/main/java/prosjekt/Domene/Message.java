@@ -15,7 +15,7 @@ public class Message implements Comparable<Message>{
     // TIL DATABASE
     public Message(User sender, String text){
         timestamp = new java.sql.Timestamp(new java.util.Date().getTime());
-        text = sender.getUsername() + ": " + text;
+        this.text = sender.getUsername() + ": " + text;
     }
     
     // FRA DATABASE 

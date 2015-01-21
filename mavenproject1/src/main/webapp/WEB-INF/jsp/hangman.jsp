@@ -241,7 +241,7 @@
                 </div>
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
-                    <div><a>Spillet</a>
+                    <div><a href="chat">Chat</a>
                     </div><div><a href="javascript:tilHovedmeny()">Resultater</a>
                     </div><div><a href="javascript:tilHovedmeny()">Profil</a>
                     </div>
