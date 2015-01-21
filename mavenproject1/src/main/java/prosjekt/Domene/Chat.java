@@ -12,12 +12,14 @@ package prosjekt.Domene;
 public class Chat {
     User userCurrent;
     User userOther;
-    boolean read;
+    boolean readBy1;
+    boolean readBy2;
 
-    public Chat(User userCurrent, User userOther, boolean read) {
+    public Chat(User userCurrent, User userOther, boolean readBy1, boolean readBy2) {
         this.userCurrent = userCurrent;
         this.userOther = userOther;
-        this.read = read;
+        this.readBy1 = readBy1;
+        this.readBy2 = readBy2;
     }
 
     public User getUserCurrent() {
@@ -36,13 +38,11 @@ public class Chat {
         this.userOther = userOther;
     }
 
-    public boolean isRead() {
-        return read;
-    }
-
-    public void setRead(boolean read) {
-        this.read = read;
+    public boolean isReadBy1() {
+        return readBy1;
     }
     
-    
+    public boolean isReadBy2() {
+        return readBy2;
+    }
 }
