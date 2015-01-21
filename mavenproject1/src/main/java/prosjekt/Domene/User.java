@@ -16,6 +16,7 @@ public class User {
     @Email
     String email;
     String password;
+    boolean messaged = false;
 
     public User() {
     };
@@ -32,7 +33,15 @@ public class User {
         this.password = password;
         this.email = email;
     }
+ 
+    public boolean isMessaged() {
+        return messaged;
+    }
 
+    public void setMessaged(boolean messaged) {
+        this.messaged = messaged;
+    }
+    
     public int getId() {
         return id;
     }

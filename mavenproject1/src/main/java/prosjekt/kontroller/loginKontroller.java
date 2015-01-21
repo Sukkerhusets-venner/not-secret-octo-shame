@@ -104,6 +104,7 @@ public class loginKontroller {
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScore(hiScores);
             loginform.setUser(bruker);
+            loginform.setMessages(database.gotMessage(loginform.getUser()));
             
             return "Hovedside";
         } else {
@@ -156,6 +157,7 @@ public class loginKontroller {
                 model.addAttribute("brukerScore", brukerScore);
                 ArrayList<UserScore> hiScores = database.getHighScoreList();
                 loginform.setHiScore(hiScores);
+                loginform.setMessages(database.gotMessage(loginform.getUser()));
                 return "Hovedside";
             }else{
                 model.addAttribute("loggedIn", false);

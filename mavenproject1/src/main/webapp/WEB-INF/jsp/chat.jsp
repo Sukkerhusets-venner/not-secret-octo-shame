@@ -6,33 +6,11 @@
 	<link rel="stylesheet" href="resources/css/alertify.default.css" id="toggleCSS" />
         <c:url var="nmpUrl" value="/resources/css/niceChat.css" />
         <link href="${nmpUrl}" rel="stylesheet" type="text/css"/>  
-        <style>
-            #scrollable {
-                border:4px solid #70c469;
-                overflow-y:scroll;
-                height:200px;
-                width: 600px;
-                display:block;
-            }
-            #scrollable2 {
-                padding: 10px;
-                float: left;
-                border:4px solid #70c469;
-                overflow-y:scroll;
-                height:260px;
-                width:225px;
-                display:block;
-            }
-            .listHeader{
-                display: inline;
-                float: left;
-                width: 250px;
-            }
-            .input{
-                width: 600px;
-            }
-        </style>
         <script>
+            function setClass(Id){
+                document.getElementById(Id).className = "messaged";
+            }
+    
             function tilHovedmeny(){
                 reset();
                 alertify.set({ labels: { ok: "Fortsett å spille", cancel: "Gå til hovedmeny" } });
@@ -61,6 +39,9 @@
               <div class="header">
                 <div class="mptitle">
                     <div id="smiley"><object type="image/svg+xml" data="resources/img/grin.svg"></object></div>
+                    <c:if test="${loginform.getMessages()>0}">
+                        <div id="circle">${loginform.getMessages()}</div>
+                    </c:if>
                     <h1>Spillet</h1>
                 </div>
                 <div id="buttons">
@@ -84,7 +65,10 @@
                             <br/>
                             <table id="scrollable2">
                             <c:forEach var="user" items="${chatform.getChatUserlist()}">
-                                <tr><td><input type="submit" class="knapp" name="chosen" value="${user.getEmail()}" ><br/></td></tr>
+                                <tr><td><input type="submit" id="${user.getEmail()}" class="knapp" name="chosen" value="${user.getEmail()}" ><br/></td></tr>
+                                <c:if test="${user.isMessaged()}">
+                                    <script>setClass("${user.getEmail()}");</script>
+                                </c:if>
                             </c:forEach>
                             </table>
                             <table id="scrollable2">

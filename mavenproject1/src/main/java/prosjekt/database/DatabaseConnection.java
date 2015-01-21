@@ -488,21 +488,26 @@ public class DatabaseConnection {
 
     public ArrayList<Chat> getChatList(User currentUser) {
 
-        String sql = "SELECT User.user_id, User.name, User.email, User.password, Chat.read1, Chat.read2"
+        /*String sql = "SELECT User.user_id, User.name, User.email, User.password, Chat.read1, Chat.read2"
                 + " FROM User"
                 + " JOIN Chat ON (User.user_id = Chat.user_id1 OR User.user_id = Chat.user_id2)"
                 + " WHERE (Chat.user_id1 = ? AND Chat.user_id2 != ?) OR"
                 + " (Chat.user_id1 != ? AND Chat.user_id2 = ?)"
-                + " GROUP BY User.user_id";
+                + " GROUP BY User.user_id";*/
+        String sql1 = "SELECT User.user_id, User.name, User.email, User.password, Chat.read1, Chat.read2"
+                + " FROM User"
+                + " JOIN Chat ON (User.user_id = Chat.user_id1)"
+                + " WHERE (Chat.user_id2 = ?)";
+        String sql2 = "SELECT User.user_id, User.name, User.email, User.password, Chat.read1, Chat.read2"
+                + " FROM User"
+                + " JOIN Chat ON (User.user_id = Chat.user_id2)"
+                + " WHERE (Chat.user_id1 = ?)";
 
         ArrayList<Chat> chatList = new ArrayList<>();
 
         try {
-            PreparedStatement pstmt = connection.prepareStatement(sql);
+            PreparedStatement pstmt = connection.prepareStatement(sql1);
             pstmt.setInt(1, currentUser.getId());
-            pstmt.setInt(2, currentUser.getId());
-            pstmt.setInt(3, currentUser.getId());
-            pstmt.setInt(4, currentUser.getId());
 
             ResultSet resultSet = pstmt.executeQuery();
 
@@ -513,6 +518,24 @@ public class DatabaseConnection {
                 String password = resultSet.getString(4);
                 boolean read1 = resultSet.getBoolean(5);
                 boolean read2 = resultSet.getBoolean(6);
+                User otherUser = new User(id, name, email, password);
+
+                if (currentUser.getId() != otherUser.getId()) {
+                    chatList.add(new Chat(currentUser, otherUser, read2, read1));
+                }
+            }
+            PreparedStatement pstmt2 = connection.prepareStatement(sql2);
+            pstmt2.setInt(1, currentUser.getId());
+
+            ResultSet resultSet2 = pstmt2.executeQuery();
+
+            while (resultSet2.next()) {
+                int id = resultSet2.getInt(1);
+                String name = resultSet2.getString(2);
+                String email = resultSet2.getString(3);
+                String password = resultSet2.getString(4);
+                boolean read1 = resultSet2.getBoolean(5);
+                boolean read2 = resultSet2.getBoolean(6);
                 User otherUser = new User(id, name, email, password);
 
                 if (currentUser.getId() != otherUser.getId()) {
@@ -557,7 +580,6 @@ public class DatabaseConnection {
 
         return -1;
     }
-    
     public int gotMessage(User currentUser) {
         int numberOfMessages = 0;
 
@@ -621,7 +643,7 @@ public class DatabaseConnection {
     public boolean isChatRegistered(User userCurrent, User userOther) {
         String sqlStatement = "SELECT Chat.chat_id FROM Chat "
                 + " WHERE (Chat.user_id1 = ? AND Chat.user_id2 = ? )"
-                + " OR (Chat.user_id2 = ? AND Chat.user_id1 = ? )";
+                + " OR (Chat.user_id1 = ? AND Chat.user_id2 = ? )";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
@@ -648,7 +670,7 @@ public class DatabaseConnection {
         String sql = "INSERT INTO Message "
                 + "VALUES (DEFAULT, ?, ?, ?)";
 
-        String sql2 = "UPDATE Chat SET (Chat.read1 = false, Chat.read2 = false) "
+        String sql2 = "UPDATE Chat SET Chat.read1 = ?, Chat.read2 = ?"
                 + " WHERE Chat.chat_id = ? ";
 
         try {
@@ -660,7 +682,9 @@ public class DatabaseConnection {
             pstmt.executeUpdate();
 
             PreparedStatement pstmt2 = connection.prepareStatement(sql2);
-            pstmt2.setInt(1, chatId);
+            pstmt2.setBoolean(1, false);
+            pstmt2.setBoolean(2, false);
+            pstmt2.setInt(3, chatId);
 
             pstmt2.executeUpdate();
 

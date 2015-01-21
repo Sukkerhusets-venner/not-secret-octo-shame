@@ -88,6 +88,7 @@ public class Chatform {
     public List<User> getChatUserlist() {
         List<User> chatUserList = new ArrayList<User>();
         for (Chat chat : chatlist) {
+            chat.getUserOther().setMessaged(!chat.isReadBy1());
             chatUserList.add(chat.getUserOther());
         }
         return chatUserList;

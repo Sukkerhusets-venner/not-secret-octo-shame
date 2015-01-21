@@ -110,6 +110,9 @@
               <div class="header">
                 <div class="mptitle">
                     <div id="smiley"><object type="image/svg+xml" data="resources/img/grin.svg"></object></div>
+                    <c:if test="${loginform.getMessages()>0}">
+                        <div id="circle">${loginform.getMessages()}</div>
+                    </c:if>
                     <h1>Spillet</h1>
                 </div>
                 <div id="buttons">

@@ -40,7 +40,6 @@ public class gameKontroller {
         } else {
             assignment.setTimescore(0);
         }
-
         loginform.setMessages(database.gotMessage(loginform.getUser()));
         switch (assignment.getCurrentTask().getType()) {
             case "hangman":

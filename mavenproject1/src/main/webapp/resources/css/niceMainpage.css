@@ -392,6 +392,17 @@ button{
    color:red;
    font-size: 14px;
 }
+          #circle {
+                width: 20px;
+                height: 20px;
+                border-radius: 10px;
+                font-size: 10px;
+                color: black;
+                line-height: 20px;
+                text-align: center;
+                background: red;
+                float: right;
+            }
 
 /* 
 Css profil slutter her
