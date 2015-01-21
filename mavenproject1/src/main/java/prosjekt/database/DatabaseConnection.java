@@ -23,10 +23,6 @@ public class DatabaseConnection {
     private DataSource dataSource;
 
     public DatabaseConnection() {
-        refreshConnecton();
-    }
-
-    public void refreshConnecton() {
         connection = null;
         String databasePath = "jdbc:mysql://158.38.48.10:3306/team6";
         String databaseUserName = "team6";
@@ -279,24 +275,23 @@ public class DatabaseConnection {
 
         ArrayList<ScoreProfile> list = new ArrayList();
         ResultSet resultSet = null;
-        String sqlStatement = "SELECT Problemset.set_id, Problemset.max_points,"
-                + " Score.score, Score.date FROM User"
-                + " JOIN Game ON User.user_id = ?"
-                + " JOIN Problemset ON Problemset.set_id = Game.set_id"
-                + " JOIN Score ON Score.score_id = Game.score_id";
+        String sqlStatement = "SELECT Problemset.set_id, Problemset.max_points, Score.score, Score.date FROM Score, Problemset, Game WHERE Score.score_id = Game.score_id AND Problemset.set_id = Game.set_id AND Game.user_id =?";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setInt(1, user.getId());
-            resultSet = pstmt.executeQuery();
-            ScoreProfile sp = null;
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                int maxPoints = resultSet.getInt(2);
-                int points = resultSet.getInt(3);
-                String date = resultSet.getString(4);
-                list.add(new ScoreProfile(id, maxPoints, points, date));
+            resultSet = pstmt.executeQuery();    
+            if (!resultSet.isBeforeFirst()) {
+                return null;
+            } else {
+                ScoreProfile sp = null;
+                while(resultSet.next()){
+                    int id = resultSet.getInt(1);
+                    int maxPoints = resultSet.getInt(2);
+                    int points = resultSet.getInt(3);
+                    String date = resultSet.getString(4);
+                    list.add(new ScoreProfile(id, maxPoints, points, date));
+                }
             }
 
             return list;
@@ -562,6 +557,11 @@ public class DatabaseConnection {
 
         return -1;
     }
+<<<<<<< HEAD
+
+    public boolean gotMessage(User currentUser) {
+=======
+>>>>>>> FETCH_HEAD
 
     public int gotMessage(User currentUser) {
         int numberOfMessages = 0;
@@ -677,6 +677,23 @@ public class DatabaseConnection {
     }
 
     public boolean markAsRead(User currentUser, int chatId) {
+<<<<<<< HEAD
+
+        String sql = "IF (Chat.user_id1 = ? ) BEGIN"
+                + "  UPDATE Chat SET (Chat.read1 = true) WHERE Chat.chat_id = ?"
+                + " END "
+                + " ELSE IF (Chat.user_id2 = ? BEGIN "
+                + "  UPDATE Chat SET (Chat.read2 = true) WHERE Chat.chat_id = ?"
+                + " END";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, currentUser.getId());
+            pstmt.setInt(2, chatId);
+            pstmt.setInt(3, currentUser.getId());
+            pstmt.setInt(4, chatId);
+
+            pstmt.executeUpdate();
+=======
         boolean isUserOne = false;
 
         String sql1 = "SELECT Chat.user_id1 FROM Chat WHERE Chat.chat_id = ?";
@@ -715,6 +732,7 @@ public class DatabaseConnection {
                 printErrorMessage(e, "markAsRead del 2");
             }
 
+>>>>>>> FETCH_HEAD
         } catch (Exception e) {
             printErrorMessage(e, "markAsRead");
         }

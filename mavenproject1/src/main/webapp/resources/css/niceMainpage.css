@@ -198,7 +198,7 @@ body {
 #sokFrame{
     width: 11rem;
     float: left;
-    margin-left: 1.5rem;
+    margin-left: 1.8rem;
     display: inline-block;
 }
 #sokFrame > div {
@@ -280,7 +280,7 @@ body {
 }
 #fullListe{
     margin-top: .3rem;
-    margin-left: 1.5rem;
+    margin-left: 1.8rem;
     width: 13rem;
     height: 2rem;
     background: none;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
+import prosjekt.Domene.ScoreProfile;
 import prosjekt.Domene.User;
 import prosjekt.Domene.UserScore;
 import prosjekt.Domene.UserScoreOverview;
@@ -97,6 +98,8 @@ public class loginKontroller {
             User bruker = database.getUser(loginform.getUser().getEmail());
             
             session.setAttribute("currentUser", bruker);
+            ArrayList<ScoreProfile> brukerScore = database.getScoreProfile(bruker);
+            model.addAttribute("brukerScore", brukerScore);
             
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScore(hiScores);
@@ -149,6 +152,8 @@ public class loginKontroller {
         try{
             User bruker = (User)session.getAttribute("currentUser");
             if(bruker.getId() >= 1){
+                ArrayList<ScoreProfile> brukerScore = database.getScoreProfile(bruker);
+                model.addAttribute("brukerScore", brukerScore);
                 ArrayList<UserScore> hiScores = database.getHighScoreList();
                 loginform.setHiScore(hiScores);
                 return "Hovedside";
