@@ -557,28 +557,50 @@ public class DatabaseConnection {
 
         return -1;
     }
+<<<<<<< HEAD
 
     public boolean gotMessage(User currentUser) {
+=======
+>>>>>>> FETCH_HEAD
 
-        String sql = "SELECT User.user_id FROM User "
-                + "JOIN Chat ON "
-                + "(Chat.user_id1 = User.user_id OR chat.user_id2 = User.user_id) "
-                + "WHERE (chat.read = false AND User.user_id = ? )";
+    public int gotMessage(User currentUser) {
+        int numberOfMessages = 0;
+
+        String sql1 = "SELECT COUNT(Chat.chat_id) FROM Chat "
+                + "WHERE ((Chat.user_id1 = ?) AND (Chat.read1 = false)) ";
+
+        String sql2 = "SELECT COUNT(Chat.chat_id) FROM Chat "
+                + "WHERE ((Chat.user_id2 = ?) AND (Chat.read2 = fasle))";
+
         try {
-            PreparedStatement pstmt = connection.prepareStatement(sql);
+            PreparedStatement pstmt = connection.prepareStatement(sql1);
             pstmt.setInt(1, currentUser.getId());
 
             ResultSet resultSet = pstmt.executeQuery();
 
             if (resultSet.next()) {
-                // Bruker har fatt en melding
-                return true;
+                numberOfMessages += resultSet.getInt(1);
             }
         } catch (Exception e) {
             printErrorMessage(e, "gotMessage");
+            return -1;
         }
 
-        return false;
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql2);
+            pstmt.setInt(1, currentUser.getId());
+
+            ResultSet resultSet = pstmt.executeQuery();
+
+            if (resultSet.next()) {
+                numberOfMessages += resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            printErrorMessage(e, "gotMessage");
+            return -1;
+        }
+
+        return numberOfMessages;
     }
 
     public boolean registerChat(Chat chat) {
@@ -644,7 +666,7 @@ public class DatabaseConnection {
             PreparedStatement pstmt2 = connection.prepareStatement(sql2);
             pstmt2.setInt(1, chatId);
 
-            pstmt.executeUpdate();
+            pstmt2.executeUpdate();
 
             return true;
 
@@ -655,6 +677,7 @@ public class DatabaseConnection {
     }
 
     public boolean markAsRead(User currentUser, int chatId) {
+<<<<<<< HEAD
 
         String sql = "IF (Chat.user_id1 = ? ) BEGIN"
                 + "  UPDATE Chat SET (Chat.read1 = true) WHERE Chat.chat_id = ?"
@@ -670,6 +693,43 @@ public class DatabaseConnection {
             pstmt.setInt(4, chatId);
 
             pstmt.executeUpdate();
+=======
+        boolean isUserOne = false;
+
+        String sql1 = "SELECT Chat.user_id1 FROM Chat WHERE Chat.chat_id = ?";
+        String sql2 = "UPDATE Chat SET (Chat.read1 = true) WHERE Chat.chat_id = ?";
+        String sql3 = "UPDATE Chat SET (Chat.read2 = true) WHERE Chat.chat_id = ?";
+
+        // CHECKS IF THE CURRENT USER IS STORED AS USER-2 OR USER-2
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql1);
+            pstmt.setInt(1, chatId);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                if (resultSet.getInt(1) > 0) {
+                    isUserOne = true;
+                } else {
+                    isUserOne = false;
+                }
+            }
+
+            try {
+                if (isUserOne) {
+                    pstmt = connection.prepareStatement(sql2);
+                    pstmt.setInt(1, chatId);
+                } else {
+                    pstmt = connection.prepareStatement(sql3);
+                    pstmt.setInt(1, chatId);
+                }
+
+                pstmt.executeUpdate();
+                return true;
+            } catch (Exception e) {
+                printErrorMessage(e, "markAsRead del 2");
+            }
+
+>>>>>>> FETCH_HEAD
         } catch (Exception e) {
             printErrorMessage(e, "markAsRead");
         }

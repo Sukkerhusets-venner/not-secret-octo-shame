@@ -28,6 +28,19 @@ public class Message implements Comparable<Message>{
         return timestamp;
     }
 
+    public String getName() {
+        String[] split = text.split(":");
+        return split[0];
+    }
+    public String getTextPart() {
+        String[] split = text.split(":");
+        String ret="";
+        for (int i = 1; i < split.length; i++) {
+            ret+=":"+split[i];
+        }
+        return ret;
+    }
+    
     public String getText() {
         return text;
     }

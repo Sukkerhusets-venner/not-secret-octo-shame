@@ -51,6 +51,8 @@ public class chatController {
     public String chatValgt(@ModelAttribute(value="loginform") Loginform loginform, 
              @ModelAttribute(value="chatform") Chatform chatform, Model model) {
         chatform.setMessages(database.getChat(loginform.getUser(), database.getUser(chatform.getChosen())));
+        int chatId = database.getChatId(loginform.getUser(), database.getUser(chatform.getChosen()));
+        database.markAsRead(loginform.getUser(), chatId);
         return "chat";
     }
     
@@ -63,6 +65,7 @@ public class chatController {
         Message message = new Message(loginform.getUser(), chatform.getMelding());
         int chatId = database.getChatId(loginform.getUser(), database.getUser(chatform.getChosen()));
         database.registerMessage(message, chatId);
+        database.markAsRead(loginform.getUser(), chatId);
        
         chatform.setMessages(database.getChat(loginform.getUser(), database.getUser(chatform.getChosen())));
         return "chat";
