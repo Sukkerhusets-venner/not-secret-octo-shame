@@ -574,14 +574,17 @@ public class DatabaseConnection {
     }
 
     public boolean isChatRegistered(User userCurrent, User userOther) {
-        String sqlStatement = "Select Chat.chat_id From Chat "
-                + "Where Chat.user_id1 = ? and Chat.user_id2 = ?"
-                + "Or Chat.user_id2 = ? and Chat.user_id1 = ?";
+        String sqlStatement = "SELECT Chat.chat_id FROM Chat "
+                + " WHERE (Chat.user_id1 = ? AND Chat.user_id2 = ? )"
+                + " OR (Chat.user_id2 = ? AND Chat.user_id1 = ? )";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setInt(1, userCurrent.getId());
             pstmt.setInt(2, userOther.getId());
+            pstmt.setInt(3, userOther.getId());
+            pstmt.setInt(4, userCurrent.getId());
+            
 
             ResultSet resultSet = pstmt.executeQuery();
 
