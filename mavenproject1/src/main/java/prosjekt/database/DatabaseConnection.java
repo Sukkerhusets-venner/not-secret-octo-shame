@@ -570,7 +570,7 @@ public class DatabaseConnection {
                 + "WHERE ((Chat.user_id1 = ?) AND (Chat.read1 = false)) ";
 
         String sql2 = "SELECT COUNT(Chat.chat_id) FROM Chat "
-                + "WHERE ((Chat.user_id2 = ?) AND (Chat.read2 = fasle))";
+                + "WHERE ((Chat.user_id2 = ?) AND (Chat.read2 = false))";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql1);
@@ -582,7 +582,7 @@ public class DatabaseConnection {
                 numberOfMessages += resultSet.getInt(1);
             }
         } catch (Exception e) {
-            printErrorMessage(e, "gotMessage");
+            printErrorMessage(e, "gotMessage DEL 1");
             return -1;
         }
 
@@ -596,7 +596,7 @@ public class DatabaseConnection {
                 numberOfMessages += resultSet.getInt(1);
             }
         } catch (Exception e) {
-            printErrorMessage(e, "gotMessage");
+            printErrorMessage(e, "gotMessage DEL 2");
             return -1;
         }
 
@@ -683,17 +683,20 @@ public class DatabaseConnection {
         String sql2 = "UPDATE Chat SET (Chat.read1 = true) WHERE Chat.chat_id = ?";
         String sql3 = "UPDATE Chat SET (Chat.read2 = true) WHERE Chat.chat_id = ?";
 
-        // CHECKS IF THE CURRENT USER IS STORED AS USER-2 OR USER-2
+        // CHECKS IF THE CURRENT USER IS STORED AS USER-1 OR USER-2
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql1);
             pstmt.setInt(1, chatId);
 
             ResultSet resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
-                if (resultSet.getInt(1) > 0) {
+                if (resultSet.getInt(1) == currentUser.getId()) {
                     isUserOne = true;
-                } else {
+                } else if (resultSet.getInt(1) == currentUser.getId()) {
                     isUserOne = false;
+                } else {
+                    // Bruker var verken 1 eller 2,  metoden avbrytes
+                    return false;
                 }
             }
 
