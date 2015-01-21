@@ -516,11 +516,12 @@ public class DatabaseConnection {
                 String name = resultSet.getString(2);
                 String email = resultSet.getString(3);
                 String password = resultSet.getString(4);
-                boolean read = resultSet.getBoolean(5);
+                boolean read1 = resultSet.getBoolean(5);
+                boolean read2 = resultSet.getBoolean(6);
                 User otherUser = new User(id, name, email, password);
 
                 if (currentUser.getId() != otherUser.getId()) {
-                    chatList.add(new Chat(currentUser, otherUser, read));
+                    chatList.add(new Chat(currentUser, otherUser, read1, read2));
                 }
             }
             return chatList;
@@ -636,7 +637,7 @@ public class DatabaseConnection {
         String sql = "INSERT INTO Message "
                 + "VALUES (DEFAULT, ?, ?, ?)";
 
-        String sql2 = "UPDATE Chat SET Chat.read = false "
+        String sql2 = "UPDATE Chat SET (Chat.read1 = false, Chat.read2 = false) "
                 + " WHERE Chat.chat_id = ? ";
 
         try {
@@ -657,6 +658,32 @@ public class DatabaseConnection {
         } catch (Exception e) {
             printErrorMessage(e, "registrer melding");
         }
+        return false;
+    }
+    
+    public boolean markAsRead(User currentUser, int chatId){
+        
+        String sql = "IF (Chat.user_id1 = ? ) BEGIN"
+                + "  UPDATE Chat SET (Chat.read1 = true) WHERE Chat.chat_id = ?"
+                + " END "
+                + " ELSE IF (Chat.user_id2 = ? BEGIN "
+                + "  UPDATE Chat SET (Chat.read2 = true) WHERE Chat.chat_id = ?"
+                + " END";
+        try{
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, currentUser.getId());
+            pstmt.setInt(2, chatId);
+            pstmt.setInt(3, currentUser.getId());
+            pstmt.setInt(4, chatId);
+            
+            
+            
+            pstmt.executeUpdate();
+        } catch (Exception e){
+            printErrorMessage(e, "markAsRead");
+        }
+        
+        
         return false;
     }
     // ** ** ** ** ** **
