@@ -7,23 +7,32 @@
         <c:url var="nmpUrl" value="/resources/css/niceChat.css" />
         <link href="${nmpUrl}" rel="stylesheet" type="text/css"/>  
         <style>
-            .melding { display: inline };
-            #name { color: gray};
+            #scrollable {
+                border:4px solid #70c469;
+                overflow-y:scroll;
+                height:200px;
+                width: 600px;
+                display:block;
+            }
+            #scrollable2 {
+                padding: 10px;
+                float: left;
+                border:4px solid #70c469;
+                overflow-y:scroll;
+                height:260px;
+                width:225px;
+                display:block;
+            }
+            .listHeader{
+                display: inline;
+                float: left;
+                width: 250px;
+            }
+            .input{
+                width: 600px;
+            }
         </style>
         <script>
-            function getBrukernavn(text){
-                var split = text.split(":");
-                return split[0];
-            } 
-            function getMelding(text){
-                var split = text.split(":");
-                var ret = "";
-                for(var i=1; i<split.length; i++){
-                    ret+=":"+split[i];
-                }
-                return ret;
-            } 
-            
             function tilHovedmeny(){
                 reset();
                 alertify.set({ labels: { ok: "Fortsett å spille", cancel: "Gå til hovedmeny" } });
@@ -65,29 +74,35 @@
             </div>
         <section id="content">
             <section class="block"> 
+                <h1>Chat</h1><br/>
                 <c:choose>
                     <c:when test="${chatform.isInChat() == false}">
                         <form:form method="POST" modelAttribute="chatform" action ="velgChat" id="velgChat" name="velgChat">
-                            <h1>Chat</h3><br/>
-                            <h3>Aktive samtaler:</h3> 
+                            <h3 class="listHeader">Dine aktive samtaler:</h3>
+                            <h3 class="listHeader">Andre elever:</h3>
+                            <br/>
+                            <table id="scrollable2">
                             <c:forEach var="user" items="${chatform.getChatUserlist()}">
-                                <input type="submit" class="knapp" name="chosen" value="${user.getEmail()}" ><br/>
+                                <tr><td><input type="submit" class="knapp" name="chosen" value="${user.getEmail()}" ><br/></td></tr>
                             </c:forEach>
-                                <br/><h3>Andre brukere:</h3>
+                            </table>
+                            <table id="scrollable2">
                             <c:forEach var="user" items="${chatform.getUserlist()}">
-                                <input type="submit" class="knapp" name="chosen" value="${user.getEmail()}" ><br/>
+                                <tr><td><input type="submit" class="knapp" name="chosen" value="${user.getEmail()}" ><br/></td></tr>
                             </c:forEach>
+                            </table>
                         </form:form>
                     </c:when>
                     <c:otherwise>
                         <form:form method="POST" modelAttribute="chatform" action ="sendMeldning" id="sendMeldning" name="sendMeldning">
-                            <h1>Chat</h3><br/>
                             <h3>Din samtale med ${chatform.getChosen()}:</h3> 
-                            <c:forEach var="msg" items="${chatform.getMessages()}">
-                                <p id="name" class="melding"><c:out value="${getBrukernavn(msg)}"/></p>
-                                <p id="meld" class="melding"><c:out value="${getMelding(msg)}"/></p><br/>
-                            </c:forEach>
-                            <form:input path="melding" required="true" class="input melding" placeholder="skriv din melding her.." />
+                            <table id="scrollable">
+                                <c:forEach var="msg" items="${chatform.getMessages()}">
+                                    <tr><td><p>${msg.getText()}</p></td></tr>
+                                </c:forEach>
+                            </table>
+                            <br/>
+                            <form:input path="melding" required="true" class="input" placeholder="skriv din melding her.." />
                             <br/><br/>
                             <input type="submit" class="knapp" value='Send melding' ><br/>
                         </form:form>
