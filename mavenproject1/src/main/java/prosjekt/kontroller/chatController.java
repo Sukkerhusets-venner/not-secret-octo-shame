@@ -58,7 +58,7 @@ public class chatController {
     public String sendMessage(@ModelAttribute(value="loginform") Loginform loginform,  
             @ModelAttribute(value="chatform") Chatform chatform, Model model) {
         if(!database.isChatRegistered(loginform.getUser(), database.getUser(chatform.getChosen()))){
-            database.registerChat(new Chat(loginform.getUser(),database.getUser(chatform.getChosen()),false));
+            database.registerChat(new Chat(loginform.getUser(),database.getUser(chatform.getChosen()),false,false));
         } 
         Message message = new Message(loginform.getUser(), chatform.getMelding());
         int chatId = database.getChatId(loginform.getUser(), database.getUser(chatform.getChosen()));
