@@ -17,23 +17,20 @@
         var a = $("#spill");
         var b = $("#hiscore");
         var c = $("#profil");
-        if(${not empty profilpassord}) {
+    <c:if test = "${not empty profilpassord}">
         a.css("visibility", "hidden");
         b.css("visibility", "hidden");
         c.css("visibility", "visible");
         $("#passordform").css("visibility", "visible");
         $("#brukernavnform").css("visibility", "hidden");
-        
-    }
-    
-    if(${not empty profilbrukernavn}) {
+    </c:if>
+    <c:if test="${not empty profilbrukernavn}">
         a.css("visibility", "hidden");
         b.css("visibility", "hidden");
         c.css("visibility", "visible");
         $("#brukernavnform").css("visibility", "visible");
         $("#passordform").css("visibility", "hidden");
-        
-    }
+    </c:if>
 });
 </script>
 </head>

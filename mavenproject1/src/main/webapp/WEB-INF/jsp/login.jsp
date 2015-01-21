@@ -77,10 +77,5 @@
         <p id = "errormessageGP" style="color:red;"> <c:if test="${not empty GlemtPassordError}"> <c:out value ="${GlemtPassordError}"/> </c:if></p>
     </div>     
     <a href="javascript:glemtPassord()" style="position:fixed; right:2rem; bottom:2rem;"> Glemt passord</a>
-            
-    <!-- Husk å fjerne! -->
-    <a href="logincheat" style="position:fixed; left:3rem; bottom:2rem;">Logincheat</a>
-    <a href="testError" style="position:fixed; left:3rem; bottom:1rem;">Generer en feil</a>
-    <!-- -------------- -->
 </body>
 </html>

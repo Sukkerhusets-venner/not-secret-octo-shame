@@ -13,8 +13,27 @@
 <h2> Resultater </h2>
 <div id="drWrap">
     <h3>Dine Resultater</h3>
-    <p>Fant ingen resultater på deg</p>
+        <c:if test="${not empty brukerScore}">
+        <table class="finTabell">
+            <tr>
+                <th>Dato</th>
+                <th>Resultat</th>
+                <th>Godkjent</th>
+            </tr>
+    
+        <c:forEach var="ScoreProfile" items="${brukerScore}">
+            <tr>
+                <td>${ScoreProfile.date}</td>
+                <td>${ScoreProfile.points}</td>
+                <td>${ScoreProfile.passed}</td>
+            </tr>
+        </c:forEach>
+        </table></c:if>
+        <c:if test="${empty brukerScore}">
+            <p>Fant ingen resultater på deg</p> 
+        </c:if>
 </div>
+
 <div id="godkjWrap">
     <h3>Godkjenning</h3>
     <div id="iLoad"></div>
