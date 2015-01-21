@@ -676,8 +676,8 @@ public class DatabaseConnection {
         boolean isUserOne = false;
 
         String sql1 = "SELECT Chat.user_id1 FROM Chat WHERE Chat.chat_id = ?";
-        String sql2 = "UPDATE Chat SET (Chat.read1 = true) WHERE Chat.chat_id = ?";
-        String sql3 = "UPDATE Chat SET (Chat.read2 = true) WHERE Chat.chat_id = ?";
+        String sql2 = "UPDATE Chat SET Chat.read1 = true WHERE Chat.chat_id = ?";
+        String sql3 = "UPDATE Chat SET Chat.read2 = true WHERE Chat.chat_id = ?";
 
         // CHECKS IF THE CURRENT USER IS STORED AS USER-1 OR USER-2
         try {
