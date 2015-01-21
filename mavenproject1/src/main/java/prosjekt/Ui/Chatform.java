@@ -20,13 +20,22 @@ import prosjekt.Domene.User;
 public class Chatform {
     private List<Chat> chatlist = new ArrayList<Chat>();
     private List<User> userlist = new ArrayList<User>();
+    private List<User> adminlist = new ArrayList<User>();
     private List<Message> messages = new ArrayList<Message>();
     private String chosen;
     private boolean inChat = false;
     private String melding;
 
     public Chatform(){}
+    
+    public List<User> getAdminlist() {
+        return adminlist;
+    }
 
+    public void setAdminlist(List<User> adminlist) {
+        this.adminlist = adminlist;
+    }
+    
     public String getMelding() {
         return melding;
     }

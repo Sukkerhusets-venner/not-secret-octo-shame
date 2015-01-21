@@ -37,13 +37,19 @@ public class chatController {
             @ModelAttribute(value="chatform") Chatform chatform, Model model) {
         chatform.setInChat(false);
         List<User> users = database.getUsers();
+        List<User> admins = database.getAdminList();
         List<Chat> chats = database.getChatList(loginform.getUser());
         for (Chat chat : chats) {
             users.remove(chat.getUserOther());
+            admins.remove(chat.getUserOther());
+        }
+        for (User admin : admins) {
+            users.remove(admin);
         }
         users.remove(loginform.getUser());
         chatform.setChatlist(chats);
         chatform.setUserlist(users);
+        chatform.setAdminlist(admins);
         return "chat";
     }
     
