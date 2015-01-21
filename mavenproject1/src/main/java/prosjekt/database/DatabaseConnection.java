@@ -456,13 +456,13 @@ public class DatabaseConnection {
     public ArrayList<Message> getChat(User currentUser, User otherUser) {
 
         String sql = "SELECT Message.time, Message.text "
-                + "FROM Message "
-                + "JOIN Chat ON Message.chat_id = Chat.chat_id"
-                + "JOIN User ON (User.user_id = Chat.user_id1) "
-                + "OR (User.user_id = Chat.user_id2)"
-                + "WHERE (Chat.user_id1 = ? AND Chat.user_id2 != ?)"
-                + "OR (Chat.user_id1 = ? AND chat.user_id2 != ?)"
-                + "GROUP BY Message.message_id";
+                + " FROM Message "
+                + " JOIN Chat ON Message.chat_id = Chat.chat_id "
+                + " JOIN User ON (User.user_id = Chat.user_id1) "
+                + " OR (User.user_id = Chat.user_id2)"
+                + " WHERE (Chat.user_id1 = ? AND Chat.user_id2 != ?)"
+                + " OR (Chat.user_id1 = ? AND Chat.user_id2 != ?)"
+                + " GROUP BY Message.message_id";
 
         ArrayList<Message> chat = new ArrayList<>();
 
