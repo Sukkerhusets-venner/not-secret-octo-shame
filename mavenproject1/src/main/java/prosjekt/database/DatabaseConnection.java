@@ -531,6 +531,38 @@ public class DatabaseConnection {
         return null;
     }
 
+    public int getChatId(User currentUser, User otherUser){
+        
+        String sql = "SELECT Chat.chat_id FROM Chat "
+                + " JOIN User ON (User.user_id = Chat.user_id1) "
+                + " OR (User.user_id = Chat.user_id2) "
+                + " WHERE (Chat.user_id1 = ? AND Chat.user_id2 = ?)"
+                + " OR (Chat.user_id1 = ? AND Chat.user_id2 = ?)"
+                + " GROUP BY Chat.chat_id";
+
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, currentUser.getId());
+            pstmt.setInt(2, otherUser.getId());
+            pstmt.setInt(3, otherUser.getId());
+            pstmt.setInt(4, currentUser.getId());
+            
+            ResultSet resultSet = pstmt.executeQuery();
+            int chatId = 0;
+            
+            while (resultSet.next()) {
+                chatId = resultSet.getInt(1);
+            }
+            
+            return chatId;
+        } catch (Exception e){
+            printErrorMessage(e, "getChatId");
+        }
+        
+        return -1;
+    }
+    
     public boolean gotMessage(User currentUser) {
 
         String sql = "SELECT User.user_id FROM User "
