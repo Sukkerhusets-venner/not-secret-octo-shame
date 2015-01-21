@@ -14,21 +14,21 @@ public final class Loginform {
     private User user; // bruker som er logget inn
     private List<UserScore> hiScore = null;
     private boolean inGame;
-    private boolean gotMessage;
+    private int messages;
      
     public Loginform () {
         setUser (new User());
         inGame = false;
     }
+
+    public int getMessages() {
+        return messages;
+    }
+
+    public void setMessages(int messages) {
+        this.messages = messages;
+    }
     
-    public boolean isGotMessage() {
-        return gotMessage;
-    }
-
-    public void setGotMessage(boolean gotMessage) {
-        this.gotMessage = gotMessage;
-    }
-
     public User getUser () {
         return user;
     }

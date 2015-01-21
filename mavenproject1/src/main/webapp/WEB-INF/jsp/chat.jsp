@@ -79,10 +79,16 @@
                     <c:when test="${chatform.isInChat() == false}">
                         <form:form method="POST" modelAttribute="chatform" action ="velgChat" id="velgChat" name="velgChat">
                             <h3 class="listHeader">Dine aktive samtaler:</h3>
-                            <h3 class="listHeader">Andre elever:</h3>
+                            <h3 class="listHeader">Lærere:</h3>
+                            <h3 class="listHeader">Elever:</h3>
                             <br/>
                             <table id="scrollable2">
                             <c:forEach var="user" items="${chatform.getChatUserlist()}">
+                                <tr><td><input type="submit" class="knapp" name="chosen" value="${user.getEmail()}" ><br/></td></tr>
+                            </c:forEach>
+                            </table>
+                            <table id="scrollable2">
+                            <c:forEach var="user" items="${chatform.getAdminlist()}">
                                 <tr><td><input type="submit" class="knapp" name="chosen" value="${user.getEmail()}" ><br/></td></tr>
                             </c:forEach>
                             </table>
