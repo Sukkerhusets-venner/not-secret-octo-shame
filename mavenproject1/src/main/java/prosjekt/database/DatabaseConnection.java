@@ -599,7 +599,7 @@ public class DatabaseConnection {
     }
 
     public boolean registerChat(Chat chat) {
-        String sqlStatement = "INSERT INTO Chat VALUES (DEFAULT, ?, ?, ?)";
+        String sqlStatement = "INSERT INTO Chat VALUES (DEFAULT, ?, ?, ?, ?)";
 
         try {
 
@@ -607,6 +607,7 @@ public class DatabaseConnection {
             pstmt.setInt(1, chat.getUserCurrent().getId());
             pstmt.setInt(2, chat.getUserOther().getId());
             pstmt.setBoolean(3, false);
+            pstmt.setBoolean(4, false);
 
             pstmt.executeUpdate();
 
