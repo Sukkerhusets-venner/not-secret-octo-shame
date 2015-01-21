@@ -688,11 +688,6 @@ public class DatabaseConnection {
             while (resultSet.next()) {
                 if (resultSet.getInt(1) == currentUser.getId()) {
                     isUserOne = true;
-                } else if (resultSet.getInt(1) == currentUser.getId()) {
-                    isUserOne = false;
-                } else {
-                    // Bruker var verken 1 eller 2,  metoden avbrytes
-                    return false;
                 }
             }
 
