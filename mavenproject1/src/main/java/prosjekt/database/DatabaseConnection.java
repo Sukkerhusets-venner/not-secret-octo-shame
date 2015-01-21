@@ -557,12 +557,7 @@ public class DatabaseConnection {
 
         return -1;
     }
-<<<<<<< HEAD
-
-    public boolean gotMessage(User currentUser) {
-=======
->>>>>>> FETCH_HEAD
-
+    
     public int gotMessage(User currentUser) {
         int numberOfMessages = 0;
 
@@ -677,23 +672,7 @@ public class DatabaseConnection {
     }
 
     public boolean markAsRead(User currentUser, int chatId) {
-<<<<<<< HEAD
 
-        String sql = "IF (Chat.user_id1 = ? ) BEGIN"
-                + "  UPDATE Chat SET (Chat.read1 = true) WHERE Chat.chat_id = ?"
-                + " END "
-                + " ELSE IF (Chat.user_id2 = ? BEGIN "
-                + "  UPDATE Chat SET (Chat.read2 = true) WHERE Chat.chat_id = ?"
-                + " END";
-        try {
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1, currentUser.getId());
-            pstmt.setInt(2, chatId);
-            pstmt.setInt(3, currentUser.getId());
-            pstmt.setInt(4, chatId);
-
-            pstmt.executeUpdate();
-=======
         boolean isUserOne = false;
 
         String sql1 = "SELECT Chat.user_id1 FROM Chat WHERE Chat.chat_id = ?";
@@ -732,7 +711,6 @@ public class DatabaseConnection {
                 printErrorMessage(e, "markAsRead del 2");
             }
 
->>>>>>> FETCH_HEAD
         } catch (Exception e) {
             printErrorMessage(e, "markAsRead");
         }
@@ -742,6 +720,8 @@ public class DatabaseConnection {
     // ** ** ** ** ** **
 
     // PRIVATE HELPER METHODS
+    
+
     private boolean checkUserName(String userName) {
 
         ResultSet resultSet = null;
