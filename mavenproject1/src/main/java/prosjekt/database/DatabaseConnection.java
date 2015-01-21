@@ -651,7 +651,7 @@ public class DatabaseConnection {
             PreparedStatement pstmt2 = connection.prepareStatement(sql2);
             pstmt2.setInt(1, chatId);
 
-            pstmt.executeUpdate();
+            pstmt2.executeUpdate();
 
             return true;
 

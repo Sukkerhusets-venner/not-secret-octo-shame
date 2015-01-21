@@ -6,24 +6,7 @@
 	<link rel="stylesheet" href="resources/css/alertify.default.css" id="toggleCSS" />
         <c:url var="nmpUrl" value="/resources/css/niceChat.css" />
         <link href="${nmpUrl}" rel="stylesheet" type="text/css"/>  
-        <style>
-            .melding { display: inline };
-            #name { color: gray};
-        </style>
         <script>
-            function getBrukernavn(text){
-                var split = text.split(":");
-                return split[0];
-            } 
-            function getMelding(text){
-                var split = text.split(":");
-                var ret = "";
-                for(var i=1; i<split.length; i++){
-                    ret+=":"+split[i];
-                }
-                return ret;
-            } 
-            
             function tilHovedmeny(){
                 reset();
                 alertify.set({ labels: { ok: "Fortsett å spille", cancel: "Gå til hovedmeny" } });
@@ -84,8 +67,7 @@
                             <h1>Chat</h3><br/>
                             <h3>Din samtale med ${chatform.getChosen()}:</h3> 
                             <c:forEach var="msg" items="${chatform.getMessages()}">
-                                <p id="name" class="melding"><c:out value="${getBrukernavn(msg)}"/></p>
-                                <p id="meld" class="melding"><c:out value="${getMelding(msg)}"/></p><br/>
+                                <p>${msg.getText()}</p>
                             </c:forEach>
                             <form:input path="melding" required="true" class="input melding" placeholder="skriv din melding her.." />
                             <br/><br/>
