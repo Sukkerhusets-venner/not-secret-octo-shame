@@ -57,10 +57,10 @@ public class chatController {
     @RequestMapping (value = "velgChat")
     public String chatValgt(@ModelAttribute(value="loginform") Loginform loginform, 
              @ModelAttribute(value="chatform") Chatform chatform, Model model) {
-        loginform.setMessages(database.gotMessage(loginform.getUser()));
         chatform.setMessages(database.getChat(loginform.getUser(), database.getUser(chatform.getChosen())));
         int chatId = database.getChatId(loginform.getUser(), database.getUser(chatform.getChosen()));
         database.markAsRead(loginform.getUser(), chatId);
+        loginform.setMessages(database.gotMessage(loginform.getUser()));
         return "chat";
     }
     
