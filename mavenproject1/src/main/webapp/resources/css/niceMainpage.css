@@ -501,4 +501,12 @@ button{
     -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
+#chatNotifier{
+    position: fixed;
+    right: 0rem;
+    bottom: 0rem;
+    z-index: 0;
+    width: 1.9rem;
+    height:1.9rem;
+}
 

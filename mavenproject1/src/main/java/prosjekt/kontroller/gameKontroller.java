@@ -40,7 +40,6 @@ public class gameKontroller {
         } else {
             assignment.setTimescore(0);
         }
-        loginform.setMessages(database.gotMessage(loginform.getUser()));
         switch (assignment.getCurrentTask().getType()) {
             case "hangman":
                 return "hangman";
@@ -73,7 +72,6 @@ public class gameKontroller {
         if(!loggedInOk){
             return "login";
         }
-        loginform.setMessages(database.gotMessage(loginform.getUser()));
         if(assignment.checkNumbers()) {
             int tasknr = assignment.nextTask();
             if(tasknr != -1){

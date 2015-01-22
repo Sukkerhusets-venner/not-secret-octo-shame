@@ -104,7 +104,6 @@ public class loginKontroller {
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScore(hiScores);
             loginform.setUser(bruker);
-            loginform.setMessages(database.gotMessage(loginform.getUser()));
             
             return "Hovedside";
         } else {

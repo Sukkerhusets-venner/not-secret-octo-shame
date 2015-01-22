@@ -34,16 +34,12 @@
 });
 </script>
 </head>
-<html>
     <body>
         <div class="headspace"></div>
         <div id="wrapper">
             <div class="header">
                 <div class="mptitle">
                     <div id="smiley"><object type="image/svg+xml" data="resources/img/grin.svg"></object></div>
-                    <c:if test="${loginform.getMessages()>0}">
-                        <div id="circle">${loginform.getMessages()}</div>
-                    </c:if>
                     <h1>Velkommen</h1>
                 </div>
                 <div id="buttons">
@@ -70,7 +66,6 @@
                     <div class="space">
                         <div class="invader"></div>
                     </div>
-                    <a href="chat">Gå til chat</a>
                 </div>
                 <div id="hiscore">
                     <%@include file="../../includes/resultater.jspf"%>
@@ -104,6 +99,7 @@
         </c:if>
         <iframe id="chatRamme" scrolling="no" src="chat"></iframe>
         <div id="chatWrap">
+            <iframe id="chatNotifier" scrolling="no" src="chatNotifier"></iframe>
             <c:url var="chatImgUrl" value="/resources/img/bubble.svg" />
             <object type="image/svg+xml" data="${chatImgUrl}" id="chatImg"></object>
             <p>Chat</p>

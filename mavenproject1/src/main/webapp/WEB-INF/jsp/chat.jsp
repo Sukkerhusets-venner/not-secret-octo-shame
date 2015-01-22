@@ -35,7 +35,7 @@
         </script>
     </head>
     <body>
-            <div id="wrapper"> 
+            <div id="wrapper">
         <section id="content">
             <section class="block">
                 <c:choose>
@@ -82,7 +82,7 @@
                 </c:choose>
                 <br/>
             </section>
-        </section>
+    </section>
             </div>
     </body>
 </html>

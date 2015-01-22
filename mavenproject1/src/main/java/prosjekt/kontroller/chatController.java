@@ -36,7 +36,6 @@ public class chatController {
     public String chat(@ModelAttribute(value="loginform") Loginform loginform,
             @ModelAttribute(value="chatform") Chatform chatform, Model model) {
         chatform.setInChat(false);
-        loginform.setMessages(database.gotMessage(loginform.getUser()));
         List<User> users = database.getUsers();
         List<User> admins = database.getAdminList();
         List<Chat> chats = database.getChatList(loginform.getUser());
@@ -60,14 +59,12 @@ public class chatController {
         chatform.setMessages(database.getChat(loginform.getUser(), database.getUser(chatform.getChosen())));
         int chatId = database.getChatId(loginform.getUser(), database.getUser(chatform.getChosen()));
         database.markAsRead(loginform.getUser(), chatId);
-        loginform.setMessages(database.gotMessage(loginform.getUser()));
         return "chat";
     }
     
     @RequestMapping (value = "sendMeldning")
     public String sendMessage(@ModelAttribute(value="loginform") Loginform loginform,  
             @ModelAttribute(value="chatform") Chatform chatform, Model model) {
-        loginform.setMessages(database.gotMessage(loginform.getUser()));
         if(!database.isChatRegistered(loginform.getUser(), database.getUser(chatform.getChosen()))){
             database.registerChat(new Chat(loginform.getUser(),database.getUser(chatform.getChosen()),false,false));
         } 
@@ -78,5 +75,11 @@ public class chatController {
        
         chatform.setMessages(database.getChat(loginform.getUser(), database.getUser(chatform.getChosen())));
         return "chat";
+    }
+    
+    @RequestMapping(value = "chatNotifier")
+    public String chatNotifier(@ModelAttribute(value="loginform") Loginform loginform){
+        loginform.setMessages(database.gotMessage(loginform.getUser()));
+        return "chatNotifier";
     }
 }

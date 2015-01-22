@@ -90,6 +90,7 @@
                     }
                 },30000);
                 oppgNr = "${assignment.getCurrentTaskNr()}";
+                oppgTekst = "${assignment.getCurrentTask().getText()}"
                 var solutionHtml = "${assignment.getCurrentTask().getAnswerHtml()}";
                 var solutionCss = "${assignment.getCurrentTask().getAnswerCss()}";
                 var type = "${assignment.getCurrentTask().getType()}";
@@ -100,19 +101,16 @@
                     sCss = "${assignment.getCurrentTask().getTaskCss()}";
                     editorHtml.setOption("readOnly", true);
                     editorCss.setOption("readOnly", false);
-                    oppgTekst = "Her må du skrive Css-kode slik at bildene under blir like";
                 } else if(type === "Html"){
                     sHtml = "${assignment.getCurrentTask().getTaskHtml()}";
                     sCss = solutionCss;
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", true);
-                    oppgTekst = "Her må du skrive Html-kode slik at bildene under blir like";
                 } else if(type === "CssHtml"){
                     sHtml = "${assignment.getCurrentTask().getTaskHtml()}";
                     sCss = "${assignment.getCurrentTask().getTaskCss()}";
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", false);
-                    oppgTekst = "Her må du skrive Html-kode og Css-kode slik at begge bildene blir like";
                 }
                 
                	var startingHtml = style_html(sHtml);
