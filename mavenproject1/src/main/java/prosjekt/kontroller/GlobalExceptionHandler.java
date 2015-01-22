@@ -44,10 +44,7 @@ class GlobalExceptionHandler implements  HandlerExceptionResolver, Thread.Uncaug
     @ResponseStatus(value = org.springframework.http.HttpStatus.NOT_FOUND)
     @ExceptionHandler(RuntimeException.class)
     public ModelAndView handleMyError(HttpServletRequest req, Exception e){
-        //return createMV(e, req.getRequestURL(), "404");
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("error");
-        return mav;
+        return createMV(e, req.getRequestURL(), "404");
     }
     
     @ResponseStatus(HttpStatus.BAD_REQUEST)
