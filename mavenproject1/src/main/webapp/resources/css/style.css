@@ -13,6 +13,7 @@
     padding: 0;
     border: none;
     outline: none;
+    -webkit-font-smoothing: antialiased;
 }
 html, body{
     min-width: 100%;

@@ -100,6 +100,9 @@ public class loginKontroller {
             session.setAttribute("currentUser", bruker);
             ArrayList<ScoreProfile> brukerScore = database.getScoreProfile(bruker, 10);
             model.addAttribute("brukerScore", brukerScore);
+            if(brukerScore.size() > 9){
+                    model.addAttribute("flereRes", true);
+            }
             
             ArrayList<UserScore> hiScores = database.getHighScoreList();
             loginform.setHiScore(hiScores);
@@ -112,63 +115,6 @@ public class loginKontroller {
             return "login";
         }
     }
-    
-    @RequestMapping (value = "/godkjentliste*")
-    public String getGodkjentListe(HttpServletRequest req, Model model)throws Exception{
-        HttpSession session = req.getSession();
-        try{
-            User bruker = (User)session.getAttribute("currentUser");
-        }catch(Exception e){
-            return "login";
-        }
-        
-        searchHelper sorter = new searchHelper();
-        ArrayList<UserScoreOverview> godkjentListe = new ArrayList<UserScoreOverview>();
-        String sokt =  req.getQueryString();
-        try{
-            godkjentListe = database.getUserScoreOverview();
-        }catch(Exception e){
-            throw e;
-        }
-        if(sokt == null || sokt.equals("")){
-            model.addAttribute("sokt", "Intet søk");
-        }else{
-            model.addAttribute("sokt", sokt);
-            godkjentListe = sorter.getSearch(sokt, godkjentListe, 9);
-        }
-        model.addAttribute("godkjentListe", godkjentListe);
-        return "godkjentliste";
-    }  
-        
-        
-    @RequestMapping(value = "/hovedside")
-    public String showForm1(@ModelAttribute(value="loginform") Loginform loginform, WebRequest webReq, Editform editform, Model model, HttpServletRequest req){
-        try{
-            loginform.setInGame(false);
-            webReq.removeAttribute("assignment", WebRequest.SCOPE_SESSION);
-        }catch(Exception e){/*ikke sikkert feil*/}
-        
-        
-        HttpSession session = req.getSession();
-        try{
-            User bruker = (User)session.getAttribute("currentUser");
-            if(bruker.getId() >= 1){
-                ArrayList<ScoreProfile> brukerScore = database.getScoreProfile(bruker, 10);
-                model.addAttribute("brukerScore", brukerScore);
-                ArrayList<UserScore> hiScores = database.getHighScoreList();
-                loginform.setHiScore(hiScores);
-                loginform.setMessages(database.gotMessage(loginform.getUser()));
-                return "Hovedside";
-            }else{
-                model.addAttribute("loggedIn", false);
-                return "login";
-            }
-        }catch(Exception e){
-            model.addAttribute("loggedIn", false);
-            return "login";
-        }
-    }
-    
     @RequestMapping (value = "logUt")
     public String meny(Editform editform, @ModelAttribute(value="loginform") Loginform loginform,HttpServletRequest req, WebRequest request, Model model) {
         loginform.setInGame(false);

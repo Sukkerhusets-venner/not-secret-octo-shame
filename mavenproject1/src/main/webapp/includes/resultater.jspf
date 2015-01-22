@@ -30,7 +30,9 @@
             </tr>
         </c:forEach>
         </table>
-        <a href="#">Alle resultater</a>
+        <c:if test="${flereRes}">
+            <div id="alleRes"><a href="#">Alle resultater</a></div>
+        </c:if>
         </c:if>
         <c:if test="${empty brukerScore}">
             <p>Fant ingen resultater på deg</p> 
@@ -48,7 +50,7 @@
             <label for="name">Søk</label></input>
         </div>
     </div><div id='sokButton'><div id="sokeIkon"></div></div>
-    <div id="fullListe"><a href="#">Stor liste</a></div>
+    <div id="fullListe"><a href="fullGodkjentListe">Stor liste</a></div>
 </div>
 <div id="highWrap">
     <h3>HiScores</h3>
