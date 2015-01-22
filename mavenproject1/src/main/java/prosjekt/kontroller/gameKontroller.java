@@ -45,6 +45,9 @@ public class gameKontroller {
             case "hangman":
                 return "hangman";
             case "mpc":
+                if(assignment.getTimescore()==10){
+                    assignment.setTimescore(5);
+                }
                 return "multiplechoice";
             default:
                 return "game";
@@ -78,6 +81,9 @@ public class gameKontroller {
                     case "hangman":
                         return "hangman";
                     case "mpc":
+                        if(assignment.getTimescore()==10){
+                            assignment.setTimescore(5);
+                        }
                         return "multiplechoice";
                     default:
                         return "game";
@@ -93,6 +99,9 @@ public class gameKontroller {
                     case "hangman":
                         return "hangman";
                     case "mpc":
+                        if(assignment.getTimescore()==10){
+                            assignment.setTimescore(5);
+                        }
                         return "multiplechoice";
                     default:
                         return "game";

@@ -58,13 +58,13 @@
                 var svar = "";
                 var poengsum = 0;
                 if(nr === riktigSvar){
-                    poengsum = toInt(40)+toInt(timescore);
-                    svar = "Veldig bra! Du fikk riktig. <br/><br/>Poeng for riktig: 40/40.<br/>Poeng for tid: "+
-                    timescore+"/10<br/><br/>Din poengsum ble: "+poengsum+"/50. <br/><br/>Gratulerer!!<br/><br/>";
+                    poengsum = toInt(45)+toInt(timescore);
+                    svar = "Veldig bra! Du fikk riktig. <br/><br/>Poeng for riktig: 45/45.<br/>Poeng for tid: "+
+                    timescore+"/5<br/><br/>Din poengsum ble: "+poengsum+"/50. <br/><br/>Gratulerer!!<br/><br/>";
                 } else {
                     poengsum = toInt(timescore);
-                    svar = "Synd! Du svarte feil. <br/><br/>Poeng for riktig: 0/40.<br/>Poeng for tid: "+timescore+
-                    "/10<br/><br/>Din poengsum ble: "+poengsum+"/50. <br/><br/>Riktig svar skulle vært:<br/><br/>"+escapeHtml(svarOppg)+"<br/><br/>";
+                    svar = "Synd! Du svarte feil. <br/><br/>Poeng for riktig: 0/45.<br/>Poeng for tid: "+timescore+
+                    "/5<br/><br/>Din poengsum ble: "+poengsum+"/50. <br/><br/>Riktig svar skulle vært:<br/><br/>"+escapeHtml(svarOppg)+"<br/><br/>";
                 }
                 reset();
                 alertify.alert(svar,function (e) {
