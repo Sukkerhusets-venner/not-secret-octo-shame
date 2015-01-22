@@ -36,23 +36,6 @@
     </head>
     <body>
             <div id="wrapper"> 
-              <div class="header">
-                <div class="mptitle">
-                    <div id="smiley"><object type="image/svg+xml" data="resources/img/grin.svg"></object></div>
-                    <c:if test="${loginform.getMessages()>0}">
-                        <div id="circle">${loginform.getMessages()}</div>
-                    </c:if>
-                    <h1>Spillet</h1>
-                </div>
-                <div id="buttons">
-                    <!-- Ikke formater disse divene! -->
-                    <div><a href="game">Game</a>
-                    </div><div><a href="javascript:tilHovedmeny()">Resultater</a>
-                    </div><div><a href="javascript:tilHovedmeny()">Profil</a>
-                    </div>
-                    <!-- ---------------------------- -->
-                </div>
-            </div>
         <section id="content">
             <section class="block"> 
                 <h1>Chat</h1><br/>
@@ -99,7 +82,7 @@
                     </c:otherwise>
                 </c:choose>
                 <br/>
-                <a href="chat">Tilbake</a>
+                <a id="tebaks" href="chat">Tilbake</a>
             </section>
         </section>
             </div>

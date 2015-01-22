@@ -230,7 +230,7 @@ body {
     padding-top: 0.4rem;
 }
 #sokFrame input:valid{
-  background: #f3f3f3;
+    background: #f3f3f3;
 }
 #sokFrame label {
     -webkit-font-smoothing: antialiased;
@@ -287,7 +287,7 @@ body {
     border: 3px solid #7a8a9f;
     border-radius: 2px;
     //box-shadow: 1px 2px 1px #60b459;
-    
+
     -webkit-transition: background .5s ease-out;
     -moz-transition: background .5s ease-out;
     -o-transition: background .5s ease-out;
@@ -389,20 +389,38 @@ button{
 }
 
 .ErrorMessagesProfile {
-   color:red;
-   font-size: 14px;
+    color:red;
+    font-size: 14px;
 }
-          #circle {
-                width: 20px;
-                height: 20px;
-                border-radius: 10px;
-                font-size: 10px;
-                color: black;
-                line-height: 20px;
-                text-align: center;
-                background: red;
-                float: right;
-            }
+#circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    font-size: 10px;
+    color: black;
+    line-height: 20px;
+    text-align: center;
+    background: red;
+    float: right;
+}
+#chatWrap{
+    position:fixed; 
+    width:5rem; 
+    height: 1rem;
+    background:#444; 
+    bottom:1rem; 
+    right:1rem;
+}
+#toggleChat{
+    
+    
+}
+
+#chatRamme{
+    display: none;
+    visibility: hidden;
+}
+
 
 /* 
 Css profil slutter her

@@ -102,5 +102,11 @@
                 <a href="Hovedside">Du er logget inn! <%=session.getAttribute("currentUser")%></a>
             </div>
         </c:if>
+        <div id="chatWrap">
+            <p>Vis chat</p>
+            <iframe id="chatRamme" src="chat"></iframe>
+        </div>
+                
+       
     </body>
 </html>
