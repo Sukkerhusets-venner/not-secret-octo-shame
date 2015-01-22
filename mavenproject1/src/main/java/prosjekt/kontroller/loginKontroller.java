@@ -98,7 +98,7 @@ public class loginKontroller {
             User bruker = database.getUser(loginform.getUser().getEmail());
             
             session.setAttribute("currentUser", bruker);
-            ArrayList<ScoreProfile> brukerScore = database.getScoreProfile(bruker);
+            ArrayList<ScoreProfile> brukerScore = database.getScoreProfile(bruker, 10);
             model.addAttribute("brukerScore", brukerScore);
             
             ArrayList<UserScore> hiScores = database.getHighScoreList();
@@ -153,7 +153,7 @@ public class loginKontroller {
         try{
             User bruker = (User)session.getAttribute("currentUser");
             if(bruker.getId() >= 1){
-                ArrayList<ScoreProfile> brukerScore = database.getScoreProfile(bruker);
+                ArrayList<ScoreProfile> brukerScore = database.getScoreProfile(bruker, 10);
                 model.addAttribute("brukerScore", brukerScore);
                 ArrayList<UserScore> hiScores = database.getHighScoreList();
                 loginform.setHiScore(hiScores);

@@ -167,8 +167,9 @@ body {
     font-family: sans-serif;
     -webkit-font-smoothing: antialiased;
     border-collapse: collapse;
-    width: 14rem;
+    width: 16rem;
 }
+
 .finTabell th {
     background-color: #70c469;
     color: white;

@@ -25,10 +25,13 @@
             <tr>
                 <td>${ScoreProfile.date}</td>
                 <td>${ScoreProfile.points}</td>
-                <td>${ScoreProfile.passed}</td>
+                <c:if test="${ScoreProfile.passed}"><td style="color:#70c469;">&check;</td></c:if>
+                <c:if test="${not ScoreProfile.passed}"><td style="color:#ff0000;">&cross;</td></c:if>
             </tr>
         </c:forEach>
-        </table></c:if>
+        </table>
+        <a href="#">Alle resultater</a>
+        </c:if>
         <c:if test="${empty brukerScore}">
             <p>Fant ingen resultater på deg</p> 
         </c:if>
