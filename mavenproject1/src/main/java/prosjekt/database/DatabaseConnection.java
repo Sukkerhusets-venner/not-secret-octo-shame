@@ -271,7 +271,7 @@ public class DatabaseConnection {
         return null;
     }
 
-    public ArrayList<ScoreProfile> getScoreProfile(User user) {
+    public ArrayList<ScoreProfile> getScoreProfile(User user, int maxAnt) {
 
         ArrayList<ScoreProfile> list = new ArrayList();
         ResultSet resultSet = null;
@@ -280,17 +280,23 @@ public class DatabaseConnection {
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setInt(1, user.getId());
-            resultSet = pstmt.executeQuery();    
+            resultSet = pstmt.executeQuery();
             if (!resultSet.isBeforeFirst()) {
                 return null;
             } else {
+                int k = 0;
                 ScoreProfile sp = null;
-                while(resultSet.next()){
-                    int id = resultSet.getInt(1);
-                    int maxPoints = resultSet.getInt(2);
-                    int points = resultSet.getInt(3);
-                    String date = resultSet.getString(4);
-                    list.add(new ScoreProfile(id, maxPoints, points, date));
+                while (resultSet.next()) {
+                    if (k >= maxAnt && maxAnt != -1) {
+                        break;
+                    } else {
+                        int id = resultSet.getInt(1);
+                        int maxPoints = resultSet.getInt(2);
+                        int points = resultSet.getInt(3);
+                        String date = resultSet.getString(4);
+                        list.add(new ScoreProfile(id, maxPoints, points, date));
+                        k++;
+                    }
                 }
             }
 
@@ -309,7 +315,7 @@ public class DatabaseConnection {
         ArrayList<User> users = getUsers();
 
         for (User user : users) {
-            ArrayList<ScoreProfile> sp = getScoreProfile(user);
+            ArrayList<ScoreProfile> sp = getScoreProfile(user, -1);
 
             uso.add(new UserScoreOverview(user, sp));
         }
@@ -489,11 +495,11 @@ public class DatabaseConnection {
     public ArrayList<Chat> getChatList(User currentUser) {
 
         /*String sql = "SELECT User.user_id, User.name, User.email, User.password, Chat.read1, Chat.read2"
-                + " FROM User"
-                + " JOIN Chat ON (User.user_id = Chat.user_id1 OR User.user_id = Chat.user_id2)"
-                + " WHERE (Chat.user_id1 = ? AND Chat.user_id2 != ?) OR"
-                + " (Chat.user_id1 != ? AND Chat.user_id2 = ?)"
-                + " GROUP BY User.user_id";*/
+         + " FROM User"
+         + " JOIN Chat ON (User.user_id = Chat.user_id1 OR User.user_id = Chat.user_id2)"
+         + " WHERE (Chat.user_id1 = ? AND Chat.user_id2 != ?) OR"
+         + " (Chat.user_id1 != ? AND Chat.user_id2 = ?)"
+         + " GROUP BY User.user_id";*/
         String sql1 = "SELECT User.user_id, User.name, User.email, User.password, Chat.read1, Chat.read2"
                 + " FROM User"
                 + " JOIN Chat ON (User.user_id = Chat.user_id1)"
@@ -580,6 +586,7 @@ public class DatabaseConnection {
 
         return -1;
     }
+
     public int gotMessage(User currentUser) {
         int numberOfMessages = 0;
 
@@ -740,8 +747,6 @@ public class DatabaseConnection {
     // ** ** ** ** ** **
 
     // PRIVATE HELPER METHODS
-    
-
     private boolean checkUserName(String userName) {
 
         ResultSet resultSet = null;
