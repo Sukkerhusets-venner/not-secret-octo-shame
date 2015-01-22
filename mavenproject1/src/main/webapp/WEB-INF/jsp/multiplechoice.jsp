@@ -15,6 +15,10 @@
             var timescore = 0;
             var svarOppg = "";
             var tekst = "";
+            var svar1 = "";
+            var svar2 = "";
+            var svar3 = "";
+            var svar4 = "";
             
             $(document).ready(function() {
                 timescore = "${assignment.getTimescore()}";
@@ -24,10 +28,10 @@
                     }
                 },20000);
                 
-                var svar1 = "${assignment.getCurrentTask().getTaskHtml()}";
-                var svar2 = "${assignment.getCurrentTask().getAnswerHtml()}";
-                var svar3 = "${assignment.getCurrentTask().getTaskCss()}";
-                var svar4 = "${assignment.getCurrentTask().getAnswerCss()}";
+                svar1 = "${assignment.getCurrentTask().getTaskHtml()}";
+                svar2 = "${assignment.getCurrentTask().getAnswerHtml()}";
+                svar3 = "${assignment.getCurrentTask().getTaskCss()}";
+                svar4 = "${assignment.getCurrentTask().getAnswerCss()}";
                 tekst = "${assignment.getCurrentTask().getText()}";
                 var split = tekst.split("$");
                 riktigSvar = parseInt(split[0],10);
@@ -41,7 +45,10 @@
                     svarOppg = svar4; 
                 }
                 oppgTekst = split[1];
-                
+                document.getElementById("svar1").value = svar1;
+                document.getElementById("svar2").value = svar2;
+                document.getElementById("svar3").value = svar3;
+                document.getElementById("svar4").value = svar4;
                 document.getElementById("oppgTekst").innerHTML = oppgTekst;
             });
             function toInt(n){ return Math.round(Number(n)); };
@@ -97,8 +104,8 @@
                 };
 
                 return text.replace(/[&<>"']/g, function(m) { return map[m]; 
-            });
-}
+                });
+            }
         </script>
     </head>
     <body>
@@ -128,11 +135,11 @@
             <section class="block"> 
                 <h1>Oppgave ${assignment.getCurrentTaskNr()}</h3><br/>
                 <h3 id="oppgTekst"></h3><br/><br/>
-                <input type="button" value="${assignment.getCurrentTask().getTaskHtml()}" id="svar1" class="knapp" onclick="pressed(1)">
-                <input type="button" value="${assignment.getCurrentTask().getAnswerHtml()}" id="svar2" class="knapp" onclick="pressed(2)">
+                <input type="button" value="" id="svar1" class="knapp" onclick="pressed(1)">
+                <input type="button" value="$" id="svar2" class="knapp" onclick="pressed(2)">
                 <br/><br/>
-                <input type="button" value="${assignment.getCurrentTask().getTaskCss()}" id="svar3" class="knapp" onclick="pressed(3)">
-                <input type="button" value="${assignment.getCurrentTask().getAnswerCss()}" id="svar4" class="knapp" onclick="pressed(4)">
+                <input type="button" value="" id="svar3" class="knapp" onclick="pressed(3)">
+                <input type="button" value="" id="svar4" class="knapp" onclick="pressed(4)">
             </section>
         </section>
             </div>

@@ -58,7 +58,7 @@
                 createGame: function (){
                     var self = this;
                     self.answer = "${assignment.getCurrentTask().getAnswerHtml()}";
-                    self.question = "${assignment.getCurrentTask().getText()}".split("$");
+                    self.question = escapeHtml("${assignment.getCurrentTask().getText()}");
                     self.processData(self.question, 'question_input');
                     self.processData(Array(self.answer.length+1).join("_"), 'input_fields');
                 },
