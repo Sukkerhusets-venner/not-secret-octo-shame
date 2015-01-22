@@ -70,7 +70,6 @@
                     <div class="space">
                         <div class="invader"></div>
                     </div>
-                    <a href="chat">Gå til chat</a>
                 </div>
                 <div id="hiscore">
                     <%@include file="../../includes/resultater.jspf"%>

@@ -11,6 +11,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <h2 id="godkjHead" style="visiblity:hidden; display:none;">Godkjentliste</h2>
         <c:if test = "${not empty godkjentListe}">
             <table class="finTabell">
                 <tr>
@@ -25,7 +26,7 @@
                                 <c:if test="${UserScoreOverview.passed}"><p style="color:#70c469;">&check;</p></c:if>
                                 <c:if test="${not UserScoreOverview.passed}"><p style="color: Red;">&cross;</p></c:if>
                                 </td>
-                        </tr>
+                            </tr>
                     </c:if>
                 </c:forEach>
             </table>
@@ -34,6 +35,20 @@
         </c:if>
         <c:if test="${fulListe}">
             <div id="tebakst"><a href="hovedside">Tilbake</a></div>
+            <style>
+                .finTabell{
+                    margin: 0 auto !important;
+                    width: 16rem !important;
+                }
+                #tebakst{
+                    margin: 0 auto !important;
+                }
+                #godkjHead{
+                    margin: 0 auto !important;
+                    visibility: visible !important;
+                    display: block !important;
+                }
+            </style>
         </c:if>
     </body>
 </html>

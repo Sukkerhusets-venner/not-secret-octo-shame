@@ -65,6 +65,7 @@ h2, h3, a{
     top: .3rem;
     color: #444;
     font-weight: 500;
+    padding: 1rem 5rem 1rem 5rem;
 }
 #tebakst:hover{
     background: #70c469;

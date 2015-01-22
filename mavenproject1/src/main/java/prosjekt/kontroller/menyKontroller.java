@@ -107,5 +107,22 @@ public class menyKontroller {
         }
         return "login";
     }
+    @RequestMapping("alleBrukerRes")
+    public String alleBrukerRes(HttpServletRequest req, Model model){
+        HttpSession session = req.getSession();
+        try{
+            User bruker = (User)session.getAttribute("currentUser");
+            if(bruker.getId() >= 1){
+                ArrayList<ScoreProfile> brukerScore = database.getScoreProfile(bruker, -1);
+                model.addAttribute("brukerScore", brukerScore);
+                model.addAttribute("fulListe", true);
+                return "alleBrukerResultater";
+            }
+        }catch(Exception e){
+            return "error";
+        }
+        return "login";
+    }
+    
       
 }
