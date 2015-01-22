@@ -94,7 +94,7 @@
             </style>
             <h2 style="padding: 1rem 1rem 1rem 1rem">Du må slå på javascript for å spille spillet.</h2>
             </noscript> 
-            <a href="logUt" style="position:fixed; left:3rem; bottom:2rem;">Log ut</a>
+            
             <!-- ------------------------ -->
         </div>
         <c:if test="${loggedIn}">
@@ -102,11 +102,15 @@
                 <a href="Hovedside">Du er logget inn! <%=session.getAttribute("currentUser")%></a>
             </div>
         </c:if>
+        <iframe id="chatRamme" scrolling="no" src="chat"></iframe>
         <div id="chatWrap">
-            <p>Vis chat</p>
-            <iframe id="chatRamme" src="chat"></iframe>
+            <c:url var="chatImgUrl" value="/resources/img/bubble.svg" />
+            <object type="image/svg+xml" data="${chatImgUrl}" id="chatImg"></object>
+            <p>Chat</p>
         </div>
-                
-       
+        <div id="logWrap">
+            <a href="logUt">Log ut</a>
+        </div>
+        
     </body>
 </html>

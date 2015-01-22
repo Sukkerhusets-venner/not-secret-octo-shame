@@ -84,12 +84,18 @@ $(document).ready(function () {
         $("#brukernavnform").css("visibility", "hidden");
     });
 
-    /*
-     $("Link ut fra siden").click(function(event){
-     $("#stuff").remove();
-     $(".container").css("height", "5rem");
-     $(".container").css("margin-top", "8rem");
-     $(".container div").css("visibility", "visible");
-     });
-     */
+    var chat = $("#chatRamme");
+    var showChatB = $("#chatWrap");
+    
+    showChatB.click(function(){
+       var s = chat.css("display");
+       chat.css ("visibility", "visible");
+       if(s == "none"){
+            showChatB.animate({width:"32.17rem"}, 300);
+            chat.fadeIn("slow");
+       }else{
+            showChatB.animate({width:"8rem"}, 300);
+            chat.fadeOut("slow");
+       }
+    });
 });
