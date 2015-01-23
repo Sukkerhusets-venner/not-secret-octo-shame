@@ -16,9 +16,9 @@
         <c:if test="${not empty brukerScore}">
         <table class="finTabell">
             <tr>
-                <th>Dato</th>
-                <th>Resultat</th>
-                <th>Godkjent</th>
+                <th style="background:rgba(245, 120, 90, 1);">Dato</th>
+                <th style="background:rgba(245, 120, 90, 1);">Resultat</th>
+                <th style="background:rgba(245, 120, 90, 1);">Godkjent</th>
             </tr>
     
         <c:forEach var="ScoreProfile" items="${brukerScore}">

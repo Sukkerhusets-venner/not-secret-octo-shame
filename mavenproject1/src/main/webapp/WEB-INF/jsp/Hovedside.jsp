@@ -54,13 +54,11 @@
             <sec:authorize access="hasRole('admin')"></sec:authorize> -->
             <div id="stuff">
                 <div id="spill">
-                    <h3>Spill</h3>
-                    
                     <form:form method="POST" modelAttribute="loginform" action ="game" id="game" name="game">
                         <input type="hidden" name="inGame" value=''>
                     </form:form>
                     <c:url var="spaceInvaderUrl" value="/resources/css/spaceInvader.css" />
-                    <div id="invadeBanner"><h2>Dette er css!</h2><div id="arrow"></div><a id="spilLink" href="javascript:checkGame()"> Spill Spillet!</a></div>
+                    <div id="perspective"><a id="spilLink" href="javascript:checkGame()">Spill Spillet!</a></div>
                     <link href="${spaceInvaderUrl}" rel="stylesheet" type="text/css"/>
                     <div class="space">
                         <div class="invader"></div>

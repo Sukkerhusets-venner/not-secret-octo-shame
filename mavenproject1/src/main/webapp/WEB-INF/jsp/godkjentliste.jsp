@@ -15,8 +15,8 @@
         <c:if test = "${not empty godkjentListe}">
             <table class="finTabell">
                 <tr>
-                    <th>Bruker</th>
-                    <th>Godkjent</th>
+                    <th style="background:rgba(81, 184, 226, 1);">Bruker</th>
+                    <th style="background:rgba(81, 184, 226, 1);">Godkjent</th>
                 </tr>
                 <c:forEach var="UserScoreOverview" items="${godkjentListe}">
                     <c:if test="${not empty UserScoreOverview.user.username}">

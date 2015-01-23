@@ -22,7 +22,6 @@ public class InitialiserDispatcherServlet implements WebApplicationInitializer {
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
     }
-    
     private AnnotationConfigWebApplicationContext getContext(){
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.register(Konfigurasjon.class);

@@ -31,6 +31,10 @@ function reset() {
 }
 $(document).ready(function () {
 
+    /*
+     * Navigering (hovedside)
+     */
+
     $(".container").css("height", "0");
     $(".container").css("margin-top", "0");
     $(".container div").css("visibility", "hidden");
@@ -43,9 +47,162 @@ $(document).ready(function () {
     a.css("visibility", "visible");
     b.css("visibility", "hidden");
     c.css("visibility", "hidden");
-    
-    
 
+    /*
+     * Profiltab
+     */
+
+    var pi = $("#profilInfo");
+    var bnf = $("#brukernavnform");
+    var pnf = $("#passordform");
+    var it = $("#infotab");
+    var et = $("#endretab");
+    var pt = $("#passordtab");
+    var lastTab = 0;
+    
+    function hideAllTabs(){
+        pi.css("visibility", "hidden");
+        bnf.css("visibility", "hidden");
+        pnf.css("visibility", "hidden");
+    }
+    
+    function showLastTab(){
+        if(lastTab === 0){
+            showInfoTab();
+        }else if(lastTab === 1){
+            showEndreTab();
+        }else{
+            showPassordTab();
+        }
+    }
+    showLastTab();
+    function showInfoTab() {
+        it.css("box-shadow", "none");
+        it.css("-moz-box-shadow", "none");
+        it.css("-webkit-box-shadow", "none");
+        it.css("background", "#f3f3f3");
+        et.css("box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        et.css("-moz-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        et.css("-webkit-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        et.css("background", "-webkit-radial-gradient(top,#dee8e9,#d2dcdd),radial-gradient(at top,#dee8e9,#d2dcdd)");
+        pt.css("box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        pt.css("-moz-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        pt.css("-webkit-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        pt.css("background", "-webkit-radial-gradient(top,#dee8e9,#d2dcdd),radial-gradient(at top,#dee8e9,#d2dcdd)");
+        
+        pi.css("visibility", "visible");
+        bnf.css("visibility", "hidden");
+        pnf.css("visibility", "hidden");
+        
+        lastTab = 0;
+    }
+
+    function showEndreTab() {
+        et.css("box-shadow", "none");
+        et.css("-moz-box-shadow", "none");
+        et.css("-webkit-box-shadow", "none");
+        et.css("background", "#f3f3f3");
+        it.css("box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        it.css("-moz-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        it.css("-webkit-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        it.css("background", "-webkit-radial-gradient(top,#dee8e9,#d2dcdd),radial-gradient(at top,#dee8e9,#d2dcdd)");
+        pt.css("box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        pt.css("-moz-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        pt.css("-webkit-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        pt.css("background", "-webkit-radial-gradient(top,#dee8e9,#d2dcdd),radial-gradient(at top,#dee8e9,#d2dcdd)");
+    
+        pi.css("visibility", "hidden");
+        bnf.css("visibility", "visible");
+        pnf.css("visibility", "hidden");
+        
+        lastTab = 1;
+    }
+    
+    function showPassordTab(){
+        pt.css("box-shadow", "none");
+        pt.css("-moz-box-shadow", "none");
+        pt.css("-webkit-box-shadow", "none");
+        pt.css("background", "#f3f3f3");
+        it.css("box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        it.css("-moz-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        it.css("-webkit-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        it.css("background", "-webkit-radial-gradient(top,#dee8e9,#d2dcdd),radial-gradient(at top,#dee8e9,#d2dcdd)");
+        et.css("box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        et.css("-moz-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        et.css("-webkit-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
+        et.css("background", "-webkit-radial-gradient(top,#dee8e9,#d2dcdd),radial-gradient(at top,#dee8e9,#d2dcdd)");
+        
+        pi.css("visibility", "hidden");
+        bnf.css("visibility", "hidden");
+        pnf.css("visibility", "visible");
+        
+        lastTab = 3;
+    }
+
+
+    $("#profiltabs div").click(function (event) {
+        var qo = $(event.target);
+        switch(qo.html()){
+            case it.html():
+                if (it.css("background") !== "#f3f3f3") {
+                    showInfoTab();
+                }
+                break;
+            case et.html(): 
+                if (et.css("visibility") !== "#f3f3f3") {
+                    showEndreTab();
+                }
+                break;
+            case pt.html(): 
+                if (pt.css("visibility") !== "#f3f3f3") {
+                    showPassordTab();
+                }
+                break;
+        }
+        
+        switch (qo.html().trim()){
+            case "Info":
+                if (it.css("background") !== "#f3f3f3") {
+                    showInfoTab();
+                }
+                break;
+            case "Endre":
+                if (et.css("visibility") !== "#f3f3f3") {
+                    showEndreTab();
+                }
+                break;
+            case "Passord":
+                if (pt.css("visibility") !== "#f3f3f3") {
+                    showPassordTab();
+                }
+                break;
+        }
+    });
+
+    /*
+     * Chatbox
+     */
+
+    var chat = $("#chatRamme");
+    var showChatB = $("#chatWrap");
+
+    showChatB.click(function () {
+        var s = chat.css("display");
+        chat.css("visibility", "visible");
+        if (s == "none") {
+            showChatB.animate({width: "32.17rem"}, 300);
+            chat.fadeIn("slow");
+        } else {
+            showChatB.animate({width: "8rem"}, 300);
+            chat.fadeOut("slow");
+        }
+    });
+    
+    /*
+     * Navigering (hovedside) 
+     *  p.s må komme sist fordi den kaller metoder over
+     */
+    hideAllTabs();
     $("#buttons div a").click(function (event) {
         var elem = $(event.target).html();
         switch (elem) {
@@ -53,49 +210,25 @@ $(document).ready(function () {
                 a.css("visibility", "visible");
                 b.css("visibility", "hidden");
                 c.css("visibility", "hidden");
-                $("#brukernavnform").css("visibility", "hidden");
-                $("#passordform").css("visibility", "hidden");
+                hideAllTabs();
                 break;
             case 'Resultater':
                 b.css("visibility", "visible");
                 a.css("visibility", "hidden");
                 c.css("visibility", "hidden");
-                $("#brukernavnform").css("visibility", "hidden");
-                $("#passordform").css("visibility", "hidden");
+                hideAllTabs();
                 break;
             case 'Profil':
                 c.css("visibility", "visible");
                 a.css("visibility", "hidden");
                 b.css("visibility", "hidden");
+                showLastTab();
                 break;
                 // slettes
             default:
                 alert("Si ifra om du får denne meldingen" + elem.toString());
         }
     });
-
-    $("#byttBrukernavn").click(function () {
-        $("#brukernavnform").css("visibility", "visible");
-        $("#passordform").css("visibility", "hidden");
-    });
-
-    $("#byttPassord").click(function () {
-        $("#passordform").css("visibility", "visible");
-        $("#brukernavnform").css("visibility", "hidden");
-    });
-
-    var chat = $("#chatRamme");
-    var showChatB = $("#chatWrap");
     
-    showChatB.click(function(){
-       var s = chat.css("display");
-       chat.css ("visibility", "visible");
-       if(s == "none"){
-            showChatB.animate({width:"32.17rem"}, 300);
-            chat.fadeIn("slow");
-       }else{
-            showChatB.animate({width:"8rem"}, 300);
-            chat.fadeOut("slow");
-       }
-    });
+    
 });
