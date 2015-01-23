@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 import prosjekt.Domene.ScoreProfile;
 import prosjekt.Domene.User;
@@ -24,6 +26,7 @@ import prosjekt.annet.searchHelper;
 import prosjekt.database.DatabaseConnection;
 
 @Controller
+@SessionAttributes({"loginform"})
 public class menyKontroller {
     @Autowired
     private DatabaseConnection database;    
@@ -60,13 +63,13 @@ public class menyKontroller {
     }
         
     @RequestMapping(value = "/hovedside")
-    public String showForm1(@ModelAttribute(value="loginform") Loginform loginform, WebRequest webReq, Editform editform, Model model, HttpServletRequest req){
-        try{
-            loginform.setInGame(false);
-            webReq.removeAttribute("assignment", WebRequest.SCOPE_SESSION);
-        }catch(Exception e){/*ikke sikkert feil selv om denne blir fanget*/}
-        
-        
+    public String showForm1(@ModelAttribute(value="loginform") Loginform loginform, WebRequest webReq, Editform editform, Model model, HttpServletRequest req, SessionStatus status){
+        if(loginform.isFerdig()){
+            try{
+                    loginform.setInGame(false);
+                    webReq.removeAttribute("assignment", WebRequest.SCOPE_SESSION);
+            }catch(Exception e){/*ikke sikkert feil selv om denne blir fanget*/}
+        }
         HttpSession session = req.getSession();
         try{
             User bruker = (User)session.getAttribute("currentUser");
@@ -78,7 +81,6 @@ public class menyKontroller {
                 }
                 ArrayList<UserScore> hiScores = database.getHighScoreList();
                 loginform.setHiScore(hiScores);
-                loginform.setMessages(database.gotMessage(loginform.getUser()));
                 return "Hovedside";
             }else{
                 model.addAttribute("loggedIn", false);

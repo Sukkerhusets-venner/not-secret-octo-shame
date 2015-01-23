@@ -91,24 +91,24 @@
                 },30000);
                 oppgNr = "${assignment.getCurrentTaskNr()}";
                 oppgTekst = "${assignment.getCurrentTask().getText()}"
-                var solutionHtml = "${assignment.getCurrentTask().getAnswerHtml()}";
-                var solutionCss = "${assignment.getCurrentTask().getAnswerCss()}";
+                var solutionHtml = fixFromDb("${assignment.getCurrentTask().getAnswerHtml()}");
+                var solutionCss = fixFromDb("${assignment.getCurrentTask().getAnswerCss()}");
                 var type = "${assignment.getCurrentTask().getType()}";
                 var sHtml = "";
                 var sCss = "";
                 if(type === "Css"){
                     sHtml = solutionHtml;
-                    sCss = "${assignment.getCurrentTask().getTaskCss()}";
+                    sCss = fixFromDb("${assignment.getCurrentTask().getTaskCss()}");
                     editorHtml.setOption("readOnly", true);
                     editorCss.setOption("readOnly", false);
                 } else if(type === "Html"){
-                    sHtml = "${assignment.getCurrentTask().getTaskHtml()}";
+                    sHtml = fixFromDb("${assignment.getCurrentTask().getTaskHtml()}");
                     sCss = solutionCss;
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", true);
                 } else if(type === "CssHtml"){
-                    sHtml = "${assignment.getCurrentTask().getTaskHtml()}";
-                    sCss = "${assignment.getCurrentTask().getTaskCss()}";
+                    sHtml = fixFromDb("${assignment.getCurrentTask().getTaskHtml()}");
+                    sCss = fixFromDb("${assignment.getCurrentTask().getTaskCss()}");
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", false);
                 }
@@ -138,6 +138,14 @@
 				buttonFocus   : "ok"
 			});
 		}
+            function fixFromDb(text){
+                var s = text.split("¤")
+                var retur = s[0];
+                for(var i=1; i<s.length; i++){
+                    retur += "'"+s[i]
+                }
+                return retur;
+            }
         </script>
     </head>
     

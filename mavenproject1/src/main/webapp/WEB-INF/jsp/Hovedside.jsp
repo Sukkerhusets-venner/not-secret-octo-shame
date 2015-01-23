@@ -13,7 +13,6 @@
 <script>
     var sjekk = "${loginform.isInGame()}";
     $(document).ready(function () {
-        
         var a = $("#spill");
         var b = $("#hiscore");
         var c = $("#profil");

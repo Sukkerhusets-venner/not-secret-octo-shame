@@ -15,12 +15,21 @@ public final class Loginform {
     private List<UserScore> hiScore = null;
     private boolean inGame;
     private int messages;
-     
+    private boolean ferdig; 
+    
     public Loginform () {
         setUser (new User());
         inGame = false;
     }
 
+    public boolean isFerdig() {
+        return ferdig;
+    }
+
+    public void setFerdig(boolean ferdig) {
+        this.ferdig = ferdig;
+    }
+    
     public int getMessages() {
         return messages;
     }

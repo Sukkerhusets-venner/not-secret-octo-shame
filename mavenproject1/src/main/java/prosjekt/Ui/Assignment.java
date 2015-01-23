@@ -15,7 +15,7 @@ public class Assignment {
     private double randomNumber = 0;
     private double[] pastRandomNumber;
     private int timescore = 10;
-    
+
     public Assignment(){}
     
     public int sumUp(){
