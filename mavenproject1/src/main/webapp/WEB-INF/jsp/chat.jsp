@@ -7,6 +7,11 @@
         <c:url var="nmpUrl" value="/resources/css/niceChat.css" />
         <link href="${nmpUrl}" rel="stylesheet" type="text/css"/>  
         <script>
+            $(document).ready(function() {
+                var elem = document.getElementById('scrollable');
+                elem.scrollTop = elem.scrollHeight;
+                document.getElementById('inputFelt').value = "";
+            });
             function setClass(Id){
                 document.getElementById(Id).className = "messaged";
             }
@@ -73,7 +78,7 @@
                                     <tr><td><p>${msg.getText()}</p></td></tr>
                                 </c:forEach>
                             </table>
-                            <form:input path="melding" required="true" class="input" placeholder="skriv din melding her.." />
+                            <form:input id="inputFelt" path="melding" required="true" class="input" placeholder="skriv din melding her.." />
                             <br/><br/>
                             <input type="submit" id="sndMld" class="knapp" value='Send melding' >
                             <a id="tebaks" href="chat">Tilbake</a>
