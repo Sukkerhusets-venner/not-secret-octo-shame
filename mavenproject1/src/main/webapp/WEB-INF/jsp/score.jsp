@@ -26,11 +26,11 @@
                 </div>
             </div>
             <div id="plassering"> <h3>Oppsummering</h3>
-        <c:forEach var="i" begin="1" end="${assignment.getTaskNr()}" >
-            <p>Oppgave ${i}:  ${assignment.getDelscore(i-1)} / ${assignment.getMaxPoeng(i-1)}</p>
+        <c:forEach var="i" begin="1" end="${loginform.getAssignment().getTaskNr()}" >
+            <p>Oppgave ${i}:  ${loginform.getAssignment().getDelscore(i-1)} / ${loginform.getAssignment().getMaxPoeng(i-1)}</p>
         </c:forEach>
             <br/>
-            <p><b>Sum: ${assignment.sumUp()} / ${assignment.getMaxScore()}</b></p>
+            <p><b>Sum: ${loginform.getAssignment().sumUp()} / ${loginform.getAssignment().getMaxScore()}</b></p>
             <br/><br/>
             <form:form method="POST" modelAttribute="loginform" action ="hovedside" id="hovedside" name="hovedside"> 
                 <input type="hidden" name="ferdig" value='true'>

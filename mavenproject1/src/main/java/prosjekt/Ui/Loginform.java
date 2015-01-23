@@ -15,6 +15,7 @@ public final class Loginform {
     private List<UserScore> hiScore = null;
     private boolean inGame;
     private int messages;
+    Assignment assignment;
     private boolean ferdig; 
     
     public Loginform () {
@@ -22,11 +23,22 @@ public final class Loginform {
         inGame = false;
     }
 
+    public Assignment getAssignment() {
+        return assignment;
+    }
+
+    public void setAssignment(Assignment assignment) {
+        this.assignment = assignment;
+    }
+    
     public boolean isFerdig() {
         return ferdig;
     }
 
     public void setFerdig(boolean ferdig) {
+        if(ferdig){
+            inGame = false;
+        }
         this.ferdig = ferdig;
     }
     

@@ -44,7 +44,7 @@
                 attachHandlers: function () {
                     var self = this;
                     $(document).ready(function () {
-                        timescore = "${assignment.getTimescore()}";
+                        timescore = "${loginform.getAssignment().getTimescore()}";
                         setInterval(function(){
                             if(timescore > 0){
                                 timescore--;
@@ -57,8 +57,8 @@
             
                 createGame: function (){
                     var self = this;
-                    self.answer = "${assignment.getCurrentTask().getAnswerHtml()}";
-                    self.question = escapeHtml("${assignment.getCurrentTask().getText()}");
+                    self.answer = "${loginform.getAssignment().getCurrentTask().getAnswerHtml()}";
+                    self.question = escapeHtml("${loginform.getAssignment().getCurrentTask().getText()}");
                     self.processData(self.question, 'question_input');
                     self.processData(Array(self.answer.length+1).join("_"), 'input_fields');
                 },
@@ -151,8 +151,8 @@
                         self.points += self.attempts_left * 10;
                         alertify.alert("Supert! Det var riktig svar! Du har fått " + self.points + " poeng!", function (e) {
                             if(e){
-                                document.forms["nesteOppgave"].elements["randomNumber"].value = Math.random();
-                                document.forms["nesteOppgave"].elements["score"].value = self.points;
+                                document.forms["nesteOppgave"].elements["assignment.randomNumber"].value = Math.random();
+                                document.forms["nesteOppgave"].elements["assignment.score"].value = self.points;
                                 document.forms["nesteOppgave"].submit();
                             }
                         });
@@ -160,8 +160,8 @@
                         self.insertMessage("lost");
                         alertify.alert("Beklager! Det var feil svar! Du har fått " + self.points + " poeng!", function (e) {
                             if(e){
-                                document.forms["nesteOppgave"].elements["randomNumber"].value = Math.random();
-                                document.forms["nesteOppgave"].elements["score"].value = self.points;
+                                document.forms["nesteOppgave"].elements["assignment.randomNumber"].value = Math.random();
+                                document.forms["nesteOppgave"].elements["assignment.score"].value = self.points;
                                 document.forms["nesteOppgave"].submit();
                             }
                         });
@@ -196,8 +196,8 @@
                 reset();
                 alertify.alert(svar,function (e) {
                     if(e){
-                        document.forms["nesteOppgave"].elements["randomNumber"].value = Math.random();
-                        document.forms["nesteOppgave"].elements["score"].value = poengsum;
+                        document.forms["nesteOppgave"].elements["assignment.randomNumber"].value = Math.random();
+                        document.forms["nesteOppgave"].elements["assignment.score"].value = poengsum;
                         document.forms["nesteOppgave"].submit();
                     }
                 });
@@ -229,9 +229,9 @@
         </script>
     </head>
     <body>
-        <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
-            <input type="hidden" name="score" value=''>
-            <input type="hidden" name="randomNumber" value=''>
+        <form:form method="POST" modelAttribute="loginform" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
+            <input type="hidden" name="assignment.score" value=''>
+            <input type="hidden" name="assignment.randomNumber" value=''>
         </form:form>
             <div id="wrapper"> 
               <div class="header">
@@ -253,7 +253,7 @@
             </div>
         <section id="content">
             <section class="block"> 
-                <h1>Oppgave ${assignment.getCurrentTaskNr()}</h3><br/>
+                <h1>Oppgave ${loginform.getAssignment().getCurrentTaskNr()}</h3><br/>
                 <h3 id="question_input"></h3><br/><br/>
                 <div class="user_input">
                     <span class="user_input_text_message">Your Guess: </span>

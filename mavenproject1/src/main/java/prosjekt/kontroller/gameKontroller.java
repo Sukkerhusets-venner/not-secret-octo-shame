@@ -19,33 +19,29 @@ import prosjekt.database.DatabaseConnection;
  * @author balder
  */
 @Controller
-@SessionAttributes({"assignment","loginform"})
+@SessionAttributes({"loginform"})
 public class gameKontroller {
     
     @Autowired
     private DatabaseConnection database;
     
-    @ModelAttribute("assignment")
-    public Assignment makeAssignment(){
-        return new Assignment();
-    }
-    
     @RequestMapping (value = "game")
-    public String game (@ModelAttribute(value="assignment") Assignment assignment, @ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model) {
+    public String game (@ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model) {
         if(loginform.isInGame() == false){
-            assignment.setTimescore(10);
-            assignment.setCurrentTask(0);
-            assignment.setAllTasks(database.getTasks());
+            loginform.setAssignment(new Assignment());
+            loginform.getAssignment().setTimescore(10);
+            loginform.getAssignment().setCurrentTask(0);
+            loginform.getAssignment().setAllTasks(database.getTasks());
             loginform.setInGame(true);
         } else {
-            assignment.setTimescore(0);
+             loginform.getAssignment().setTimescore(0);
         }
-        switch (assignment.getCurrentTask().getType()) {
+        switch ( loginform.getAssignment().getCurrentTask().getType()) {
             case "hangman":
                 return "hangman";
             case "mpc":
-                if(assignment.getTimescore()==10){
-                    assignment.setTimescore(5);
+                if( loginform.getAssignment().getTimescore()==10){
+                     loginform.getAssignment().setTimescore(5);
                 }
                 return "multiplechoice";
             default:
@@ -54,7 +50,7 @@ public class gameKontroller {
     }
     
     @RequestMapping (value = "nesteOppgave")
-    public String nesteOppg(@ModelAttribute(value="loginform") Loginform loginform, @ModelAttribute(value="assignment") Assignment assignment, HttpServletRequest request, Model model) {
+    public String nesteOppg(@ModelAttribute(value="loginform") Loginform loginform, HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         boolean loggedInOk = false;
         try{
@@ -72,15 +68,15 @@ public class gameKontroller {
         if(!loggedInOk){
             return "login";
         }
-        if(assignment.checkNumbers()) {
-            int tasknr = assignment.nextTask();
+        if( loginform.getAssignment().checkNumbers()) {
+            int tasknr =  loginform.getAssignment().nextTask();
             if(tasknr != -1){
-                switch (assignment.getCurrentTask().getType()) {
+                switch ( loginform.getAssignment().getCurrentTask().getType()) {
                     case "hangman":
                         return "hangman";
                     case "mpc":
-                        if(assignment.getTimescore()==10){
-                            assignment.setTimescore(5);
+                        if( loginform.getAssignment().getTimescore()==10){
+                             loginform.getAssignment().setTimescore(5);
                         }
                         return "multiplechoice";
                     default:
@@ -88,17 +84,17 @@ public class gameKontroller {
                 }
             } else {   
                 User u = database.getUser(((User)request.getSession().getAttribute("currentUser")).getEmail());
-                database.registerScore( u  , assignment.sumUp() , 1);
+                database.registerScore( u  ,  loginform.getAssignment().sumUp() , 1);
                 return "score";
             }
         } else {
-           if(assignment.getCurrentTaskNr() != -1){
-                switch (assignment.getCurrentTask().getType()) {
+           if( loginform.getAssignment().getCurrentTaskNr() != -1){
+                switch ( loginform.getAssignment().getCurrentTask().getType()) {
                     case "hangman":
                         return "hangman";
                     case "mpc":
-                        if(assignment.getTimescore()==10){
-                            assignment.setTimescore(5);
+                        if(loginform.getAssignment().getTimescore()==10){
+                             loginform.getAssignment().setTimescore(5);
                         }
                         return "multiplechoice";
                     default:

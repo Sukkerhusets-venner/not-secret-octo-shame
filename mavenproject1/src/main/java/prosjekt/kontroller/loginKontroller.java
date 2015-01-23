@@ -14,10 +14,8 @@ import org.springframework.web.context.request.WebRequest;
 import prosjekt.Domene.ScoreProfile;
 import prosjekt.Domene.User;
 import prosjekt.Domene.UserScore;
-import prosjekt.Domene.UserScoreOverview;
 import prosjekt.Ui.Editform;
 import prosjekt.Ui.Loginform;
-import prosjekt.annet.searchHelper;
 import prosjekt.database.DatabaseConnection;
 import prosjekt.mailservice.emailer;
 

@@ -64,8 +64,8 @@
                         "/90.<br/>Din tidscore ble "+timescore+"/10<br/><br/>Din poengsum ble: "+poengsum+"/100. <br/><br/>Gratulerer!!<br/><br/>"
                         ,function (e) {
                             if(e){
-                                document.forms["nesteOppgave"].elements["randomNumber"].value = Math.random();
-                                document.forms["nesteOppgave"].elements["score"].value = poengsum;
+                                document.forms["nesteOppgave"].elements["assignment.randomNumber"].value = Math.random();
+                                document.forms["nesteOppgave"].elements["assignment.score"].value = poengsum;
                                 document.forms["nesteOppgave"].submit();
                             }
                         });
@@ -83,32 +83,32 @@
                 });
             }
             function setUp(){
-                timescore = "${assignment.getTimescore()}";
+                timescore = "${loginform.getAssignment().getTimescore()}";
                 setInterval(function(){
                     if(timescore > 0){
                         timescore--;
                     }
                 },30000);
-                oppgNr = "${assignment.getCurrentTaskNr()}";
-                oppgTekst = "${assignment.getCurrentTask().getText()}"
-                var solutionHtml = fixFromDb("${assignment.getCurrentTask().getAnswerHtml()}");
-                var solutionCss = fixFromDb("${assignment.getCurrentTask().getAnswerCss()}");
-                var type = "${assignment.getCurrentTask().getType()}";
+                oppgNr = "${loginform.getAssignment().getCurrentTaskNr()}";
+                oppgTekst = "${loginform.getAssignment().getCurrentTask().getText()}"
+                var solutionHtml = fixFromDb("${loginform.getAssignment().getCurrentTask().getAnswerHtml()}");
+                var solutionCss = fixFromDb("${loginform.getAssignment().getCurrentTask().getAnswerCss()}");
+                var type = "${loginform.getAssignment().getCurrentTask().getType()}";
                 var sHtml = "";
                 var sCss = "";
                 if(type === "Css"){
                     sHtml = solutionHtml;
-                    sCss = fixFromDb("${assignment.getCurrentTask().getTaskCss()}");
+                    sCss = fixFromDb("${loginform.getAssignment().getCurrentTask().getTaskCss()}");
                     editorHtml.setOption("readOnly", true);
                     editorCss.setOption("readOnly", false);
                 } else if(type === "Html"){
-                    sHtml = fixFromDb("${assignment.getCurrentTask().getTaskHtml()}");
+                    sHtml = fixFromDb("${loginform.getAssignment().getCurrentTask().getTaskHtml()}");
                     sCss = solutionCss;
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", true);
                 } else if(type === "CssHtml"){
-                    sHtml = fixFromDb("${assignment.getCurrentTask().getTaskHtml()}");
-                    sCss = fixFromDb("${assignment.getCurrentTask().getTaskCss()}");
+                    sHtml = fixFromDb("${loginform.getAssignment().getCurrentTask().getTaskHtml()}");
+                    sCss = fixFromDb("${loginform.getAssignment().getCurrentTask().getTaskCss()}");
                     editorHtml.setOption("readOnly", false);
                     editorCss.setOption("readOnly", false);
                 }
@@ -151,9 +151,9 @@
     
     <body>
         
-        <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
-            <input type="hidden" name="score" value=''>
-            <input type="hidden" name="randomNumber" value=''>
+        <form:form method="POST" modelAttribute="loginform" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
+            <input type="hidden" name="assignment.score" value=''>
+            <input type="hidden" name="assignment.randomNumber" value=''>
         </form:form>
          <div id="wrapper"> 
               <div class="header">

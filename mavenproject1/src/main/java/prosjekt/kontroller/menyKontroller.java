@@ -64,12 +64,6 @@ public class menyKontroller {
         
     @RequestMapping(value = "/hovedside")
     public String showForm1(@ModelAttribute(value="loginform") Loginform loginform, WebRequest webReq, Editform editform, Model model, HttpServletRequest req, SessionStatus status){
-        if(loginform.isFerdig()){
-            try{
-                    loginform.setInGame(false);
-                    webReq.removeAttribute("assignment", WebRequest.SCOPE_SESSION);
-            }catch(Exception e){/*ikke sikkert feil selv om denne blir fanget*/}
-        }
         HttpSession session = req.getSession();
         try{
             User bruker = (User)session.getAttribute("currentUser");

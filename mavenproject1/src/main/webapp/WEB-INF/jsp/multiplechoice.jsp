@@ -21,18 +21,18 @@
             var svar4 = "";
             
             $(document).ready(function() {
-                timescore = "${assignment.getTimescore()}";
+                timescore = "${loginform.getAssignment().getTimescore()}";
                 setInterval(function(){
                     if(timescore > 0){
                         timescore--;
                     }
                 },20000);
                 
-                svar1 = "${assignment.getCurrentTask().getTaskHtml()}";
-                svar2 = "${assignment.getCurrentTask().getAnswerHtml()}";
-                svar3 = "${assignment.getCurrentTask().getTaskCss()}";
-                svar4 = "${assignment.getCurrentTask().getAnswerCss()}";
-                tekst = "${assignment.getCurrentTask().getText()}";
+                svar1 = "${loginform.getAssignment().getCurrentTask().getTaskHtml()}";
+                svar2 = "${loginform.getAssignment().getCurrentTask().getAnswerHtml()}";
+                svar3 = "${loginform.getAssignment().getCurrentTask().getTaskCss()}";
+                svar4 = "${loginform.getAssignment().getCurrentTask().getAnswerCss()}";
+                tekst = "${loginform.getAssignment().getCurrentTask().getText()}";
                 var split = tekst.split("$");
                 riktigSvar = parseInt(split[0],10);
                 if(riktigSvar === 1){
@@ -76,8 +76,8 @@
                 reset();
                 alertify.alert(svar,function (e) {
                     if(e){
-                        document.forms["nesteOppgave"].elements["randomNumber"].value = Math.random();
-                        document.forms["nesteOppgave"].elements["score"].value = poengsum;
+                        document.forms["nesteOppgave"].elements["assignment.randomNumber"].value = Math.random();
+                        document.forms["nesteOppgave"].elements["assignment.score"].value = poengsum;
                         document.forms["nesteOppgave"].submit();
                     }
                 });
@@ -109,9 +109,9 @@
         </script>
     </head>
     <body>
-        <form:form method="POST" modelAttribute="assignment" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
-            <input type="hidden" name="score" value=''>
-            <input type="hidden" name="randomNumber" value=''>
+        <form:form method="POST" modelAttribute="loginform" action ="nesteOppgave" id="nesteOppgave" name="nesteOppgave">
+            <input type="hidden" name="assignment.score" value=''>
+            <input type="hidden" name="assignment.randomNumber" value=''>
         </form:form>
             <div id="wrapper"> 
               <div class="header">
@@ -133,7 +133,7 @@
             </div>
         <section id="content">
             <section class="block"> 
-                <h1>Oppgave ${assignment.getCurrentTaskNr()}</h3><br/>
+                <h1>Oppgave ${loginform.getAssignment().getCurrentTaskNr()}</h3><br/>
                 <h3 id="oppgTekst"></h3><br/><br/>
                 <input type="button" value="" id="svar1" class="knapp" onclick="pressed(1)">
                 <input type="button" value="$" id="svar2" class="knapp" onclick="pressed(2)">
