@@ -275,7 +275,7 @@ public class DatabaseConnection {
 
         ArrayList<ScoreProfile> list = new ArrayList();
         ResultSet resultSet = null;
-        String sqlStatement = "SELECT Problemset.set_id, Problemset.max_points, Score.score, Score.date FROM Score, Problemset, Game WHERE Score.score_id = Game.score_id AND Problemset.set_id = Game.set_id AND Game.user_id =?";
+        String sqlStatement = "SELECT Problemset.set_id, Problemset.max_points, Score.score, Score.date FROM Score, Problemset, Game WHERE Score.score_id = Game.score_id AND Problemset.set_id = Game.set_id AND Game.user_id =? ORDER BY Score.score DESC";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
