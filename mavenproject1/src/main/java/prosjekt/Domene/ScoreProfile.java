@@ -23,7 +23,7 @@ public class ScoreProfile {
         this.points = points;
         this.date = date;
         
-        passed = (points * 2) > maxPoints;
+        passed = points > ((maxPoints * 7)/10);
     }
 
     public int getMaxPoints() {
