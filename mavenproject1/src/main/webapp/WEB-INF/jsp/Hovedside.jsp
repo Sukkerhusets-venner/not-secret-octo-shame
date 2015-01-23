@@ -33,7 +33,7 @@
 });
 </script>
 </head>
-    <body>
+    <body scroll="no">
         <div class="headspace"></div>
         <div id="wrapper">
             <div class="header">
