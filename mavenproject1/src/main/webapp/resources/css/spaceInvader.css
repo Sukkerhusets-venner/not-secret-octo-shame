@@ -19,45 +19,24 @@
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     transition: all 0.3s;
-}
-
-#spilLink:after {
-    content: '';
-    position: absolute;
-    z-index: -1;
+    display: block;
+    background: #5cbcf6;
+    //outline: 1px solid transparent; /* FF jagged edges fix */
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     transition: all 0.3s;
 }
-
-#spilLink{
-    display: block;
-    background: #5cbcf6;
-    outline: 1px solid transparent; /* FF jagged edges fix */
-    -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-}
-
 #spilLink:active {
     background: #55b7f3;
 }
-#spilLink:before {
-	width: 100%;
-	height: 40%;
-	left: 0;
-	top: 100%;
-	background: #49a7df;
-	-webkit-transform-origin: 0% 0%;
-	-webkit-transform: rotateX(-90deg);
-	-moz-transform-origin: 0% 0%;
-	-moz-transform: rotateX(-90deg);
-	-ms-transform-origin: 0% 0%;
-	-ms-transform: rotateX(-90deg);
-	transform-origin: 0% 0%;
-	transform: rotateX(-90deg);
-}
 #spilLink:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
     width: 100%;
     height: 42%; /* Gap in Chrome Version 34.0.1847.131 */
     left: 0;
