@@ -14,7 +14,6 @@
 <div id="drWrap">
     <h3>Dine Resultater</h3>
         <c:if test="${not empty brukerScore}">
-        <div style="height: 13rem; overflow:hidden;">
         <table class="finTabell">
             <tr>
                 <th style="background:rgba(245, 120, 90, 1);">Dato</th>
@@ -31,7 +30,6 @@
             </tr>
         </c:forEach>
         </table>
-        </div>
         <c:if test="${flereRes}">
             <div id="alleRes"><a href="#">Alle resultater</a></div>
         </c:if>
