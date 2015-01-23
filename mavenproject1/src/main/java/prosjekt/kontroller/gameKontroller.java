@@ -68,6 +68,9 @@ public class gameKontroller {
         if(!loggedInOk){
             return "login";
         }
+        if(loginform.isFerdig()){
+            return "score";
+        }
         if( loginform.getAssignment().checkNumbers()) {
             int tasknr =  loginform.getAssignment().nextTask();
             if(tasknr != -1){
@@ -85,6 +88,7 @@ public class gameKontroller {
             } else {   
                 User u = database.getUser(((User)request.getSession().getAttribute("currentUser")).getEmail());
                 database.registerScore( u  ,  loginform.getAssignment().sumUp() , 1);
+                loginform.setFerdig(true);
                 return "score";
             }
         } else {

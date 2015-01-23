@@ -2,12 +2,6 @@
  <c:url var="nmpUrl" value="/resources/css/niceScorepage.css" />
  <link href="${nmpUrl}" rel="stylesheet" type="text/css"/>
         <title>Score</title>
-        <script>
-            function hovedside(){
-                document.forms["hovedside"].elements["ferdig"].value = true;
-                document.forms["hovedside"].submit();
-            }
-        </script>
     </head>
     <body>
         <div id="wrapper"> 
@@ -19,8 +13,8 @@
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
                     <div><a>Spillet</a>
-                    </div><div><a href="javascript:hovedside()">Resultater</a>
-                    </div><div><a href="javascript:hovedside()">Profil</a>
+                    </div><div><a href="hovedside">Resultater</a>
+                    </div><div><a href="hovedside">Profil</a>
                     </div>
                     <!-- ---------------------------- -->
                 </div>
@@ -32,8 +26,7 @@
             <br/>
             <p><b>Sum: ${loginform.getAssignment().sumUp()} / ${loginform.getAssignment().getMaxScore()}</b></p>
             <br/><br/>
-            <form:form method="POST" modelAttribute="loginform" action ="hovedside" id="hovedside" name="hovedside"> 
-                <input type="hidden" name="ferdig" value='true'>
+            <form:form action ="hovedside" id="hovedside" name="hovedside"> 
                 <input type="submit" value="Tilbake til hovedsiden" id="tilbake">
             </form:form>
             </div>
