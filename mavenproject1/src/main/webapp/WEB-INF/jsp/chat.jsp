@@ -15,6 +15,10 @@
             function setClass(Id){
                 document.getElementById(Id).className = "messaged";
             }
+            function addClassAdmin(Id){
+                var elem = document.getElementById(Id)
+                elem.className = elem.className+" admin";
+            }
     
             function tilHovedmeny(){
                 reset();
@@ -56,6 +60,9 @@
                                 <c:if test="${user.isMessaged()}">
                                     <script>setClass("${user.getEmail()}");</script>
                                 </c:if>
+                                <c:if test="${user.isAdmin()}">
+                                    <script>addClassAdmin("${user.getEmail()}");</script>
+                                </c:if>
                             </c:forEach>
                             </table>
                             <!--<table id="scrollable2">
@@ -66,6 +73,9 @@
                             <table id="scrollable2">
                             <c:forEach var="user" items="${chatform.getUserlist()}">
                                 <tr><td><input type="submit" class="knapp" name="chosen" value="${user.getEmail()}" ><br/></td></tr>
+                                <c:if test="${user.isAdmin()}">
+                                    <script>addClassAdmin("${user.getEmail()}");</script>
+                                </c:if>
                             </c:forEach>
                             </table>
                         </form:form>

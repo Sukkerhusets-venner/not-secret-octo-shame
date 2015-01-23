@@ -41,10 +41,18 @@ public class chatController {
         List<Chat> chats = database.getChatList(loginform.getUser());
         for (Chat chat : chats) {
             users.remove(chat.getUserOther());
-            admins.remove(chat.getUserOther());
+            for (User admin : admins) {
+                if(admin.getEmail().equals(chat.getUserOther().getEmail())){
+                    chat.getUserOther().setAdmin(true);
+                }
+            }
         }
-        for (User admin : admins) {
-            users.remove(admin);
+        for (User user : users) {
+            for (User admin : admins) {
+                if(admin.getEmail().equals(user.getEmail())){
+                    user.setAdmin(true);
+                }
+            }
         }
         users.remove(loginform.getUser());
         chatform.setChatlist(chats);

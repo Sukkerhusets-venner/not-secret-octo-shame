@@ -17,10 +17,18 @@ public class User {
     String email;
     String password;
     boolean messaged = false;
+    boolean admin = false;
 
     public User() {
     };
     
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
     public User(int id, String username, String email, String password) {
         this.id = id;
         this.username = username;
