@@ -20,7 +20,7 @@
     <br>
     <h3>Dine Resultater</h3>
         <c:if test="${not empty brukerScore}">
-        <table class="finTabell" style="margin-left:17rem;">
+        <table class="finTabell" style="margin-left:17rem; height: 10rem;">
             <tr>
                 <th style="background:rgba(245, 120, 90, 1);">Dato</th>
                 <th style="background:rgba(245, 120, 90, 1);">Resultat</th>
