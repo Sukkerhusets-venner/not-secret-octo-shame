@@ -42,9 +42,9 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
     
     @Override //Setter statiske ressurser som bilder/ css/ js osv.
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/").setCachePeriod(31556926);
                 //.addResourceLocations("classpath:/Web Pages/resources/")
-                //.setCachePeriod(31556926); //vi bruker gc
+                //.setCachePeriod(31556926);
     }
     
     @Override

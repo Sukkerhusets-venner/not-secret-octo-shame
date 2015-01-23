@@ -1,16 +1,58 @@
-<p class ="textprofile">Brukernavn: ${loginform.user.username}</p>
+<!--<p class ="textprofile">Brukernavn: ${loginform.user.username}</p>
 <p class ="textprofile">Email: <c:out value = "${loginform.user.email}"/></p>
 <br> 
 <button type = "button" id ="byttBrukernavn" > Bytt brukernavn </button>
 <br> 
-<button type = "button" id ="byttPassord"    > Bytt passord    </button>
+<button type = "button" id ="byttPassord"    > Bytt passord    </button>-->
+
+
+
+<div id="profiltabs">
+    <div id="infotab"><a>Info
+    </a></div><div id="endretab"><a>Endre
+    </a></div><div id="passordtab"><a>Passord
+    </a></div>
+</div>
+
+<div id="profilInfo"><br>
+    <p class ="textprofile">Brukernavn: ${loginform.user.username}</p>
+    <p class ="textprofile">Email: <c:out value = "${loginform.user.email}"/></p>
+    <br>
+    <h3>Dine Resultater</h3>
+        <c:if test="${not empty brukerScore}">
+        <table class="finTabell" style="margin-left:17rem;">
+            <tr>
+                <th style="background:rgba(245, 120, 90, 1);">Dato</th>
+                <th style="background:rgba(245, 120, 90, 1);">Resultat</th>
+                <th style="background:rgba(245, 120, 90, 1);">Godkjent</th>
+            </tr>
+    
+        <c:forEach var="ScoreProfile" items="${brukerScore}">
+            <tr>
+                <td>${ScoreProfile.date}</td>
+                <td>${ScoreProfile.points}</td>
+                <c:if test="${ScoreProfile.passed}"><td style="color:#70c469;">&check;</td></c:if>
+                <c:if test="${not ScoreProfile.passed}"><td style="color:#ff0000;">&cross;</td></c:if>
+            </tr>
+        </c:forEach>
+        </table>
+        <c:if test="${flereRes}">
+            <div id="alleRes"><a href="#">Alle resultater</a></div>
+        </c:if>
+        </c:if>
+        <c:if test="${empty brukerScore}">
+            <p>Fant ingen resultater på deg</p> 
+        </c:if>
+</div>
+
+
 <div id ="brukernavnform" >
     <table class = "textprofile">
-        <tr> <td> Bytt brukernavn: </td> </tr>
+        <tr> <th> Bytt brukernavn: </th> </tr>
         <form:form method="POST" modelAttribute="editform" action ="byttBrukernavn"> 
-            <tr> <td> <form:input path = "userNew.username" placeholder = "Nytt brukernavn"/> </td>
+            <tr> <td> <form:input class="inp" path = "userNew.username" placeholder = "Nytt brukernavn"/> </td>
             <td class = "ErrorMessagesProfile"> <c:if test = "${not empty InputfeilBrukernavn}"> <c:out value = "${InputfeilBrukernavn}"/> </c:if> </td> </tr>
-            <tr> <td> <form:input path = "userOld.password" placeholder = "Bekreft passord" type = "password" /> </td>
+            <tr> <td> <form:input  class="inp" path = "userOld.password" placeholder = "Bekreft passord" type = "password" /> </td>
             <td class = "ErrorMessagesProfile"> <c:if test = "${not empty InputfeilPassord}"> <c:out value = "${InputfeilPassord}"/> </c:if> </td> </tr>
             <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt brukernavn"/> </td> </tr>
             <tr> <td class = "ErrorMessagesProfile"> <c:if test = "${not empty brukernavnfeilpassord}"> <c:out value = "${brukernavnfeilpassord}"/> </c:if> </td> </tr>
@@ -18,17 +60,16 @@
         <br>
         <tr> <td> <c:if test = "${not empty suksessBrukernavn}"> <c:out value = "${suksessBrukernavn}"/> </c:if> </td> </tr>
     </table>
-
 </div>
 <div id ="passordform" >
     <table class = "textprofile">
-        <tr> <td> Bytt passord: </td> </tr>
+        <tr> <th> Bytt passord: </th> </tr>
         <form:form method="POST" modelAttribute="editform" action ="byttPassord"> 
-            <tr> <td> <form:input path = "userOld.password" placeholder = "Gammelt passord" type ="password"/> </td>
+            <tr> <td> <form:input  class="inp" path = "userOld.password" placeholder = "Gammelt passord" type ="password"/> </td>
             <td class = "ErrorMessagesProfile"> <c:if test = "${not empty Inputfeilgammeltpassord}"> <c:out value = "${Inputfeilgammeltpassord}"/> </c:if> </td> </tr>
-            <tr> <td> <form:input path = "userNew.password" type="password" placeholder = "Nytt passord"/> </td>
-            <td class = "ErrorMessagesProfile"> <c:if test = "${not empty Inputfeilnyttpassord}"> <c:out value = "${Inputfeilnyttpassord}"/> </c:if> </td> </tr>
-            <tr> <td> <form:input path = "userNew.email" type ="password" placeholder ="Bekreft nytt passord" /> </td>
+            <tr> <td> <form:input  class="inp" path = "userNew.password" type="password" placeholder = "Nytt passord"/> </td>
+            <td class = "ErrorMessa gesProfile"> <c:if test = "${not empty Inputfeilnyttpassord}"> <c:out value = "${Inputfeilnyttpassord}"/> </c:if> </td> </tr>
+            <tr> <td> <form:input  class="inp" path = "userNew.email" type ="password" placeholder ="Bekreft nytt passord" /> </td>
             <td class = "ErrorMessagesProfile"> <c:if test = "${not empty Inputfeilnyttpassordbekreft}"> <c:out value = "${Inputfeilnyttpassordbekreft}"/> </c:if> </td> </tr>            
             <tr> <td> <input class = "submitbuttonprofile" type="submit" name="Send" value="Bytt passord"/> </td> </tr>
             <tr> <td class = "ErrorMessagesProfile"> <c:if test = "${not empty passordfeilpassord}"> <c:out value = "${passordfeilpassord}"/> </c:if> </td> </tr>

@@ -68,10 +68,10 @@ body {
     background: rgba(81, 184, 226, 1);
 }
 #buttons div:nth-child(3):hover{
-    background: rgba(90, 225, 80, 1);
+    background: rgba(112, 196, 105, 1);
 }
 #buttons div:nth-child(3){
-    background: rgba(150, 200, 150, 0.05);
+    background: rgba(112, 196, 105, 0.05);
 }
 #buttons div:hover{
     transform: scale(1.05, 1.05);
@@ -377,22 +377,37 @@ button{
     bottom: 56px;    
 }
 
+#profilinfo{
+    visibility: hidden;
+    top: 3rem;
+}
+
 #passordform {
+    position: relative;
+    left: 20rem;
+    bottom: 9rem;
     text-align: center;
     visibility:hidden;
-    position:absolute;
-    left: 340px;
-    top: 100px;
+    visibility: hidden;
+}
+#brukernavnform th, #passordfor th{
+    margin-bottom: .5rem;
+}
+.inp{
+    width: 9.2rem;
+    height: 1.5rem;
+    margin-bottom: .2rem;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 #brukernavnform {
+    position: relative;
+    left: 20rem;
     text-align: center;
     visibility:hidden;
-    position:absolute;
-    left: 340px;
-    top: 100px;
+    visibility: hidden;
 }
-
 .ErrorMessagesProfile {
     color:red;
     font-size: 14px;
@@ -501,3 +516,42 @@ button{
     height:1.5rem;
 }
 
+
+#profiltabs{
+    border-bottom: 1px solid #bbb;
+    width: 100%;
+    margin-top: 2rem;
+}
+#profiltabs div{
+    display: inline-block;
+    text-align: center;
+    width: 5rem;
+    height: 1.5rem;
+    border: 1px solid #000;
+    border-bottom: 0;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 1rem 1rem 1.1rem 1rem;
+    cursor: pointer;
+    
+    background: -webkit-radial-gradient(top,#dee8e9,#d2dcdd),
+                radial-gradient(at top,#dee8e9,#d2dcdd);
+    
+    box-shadow: inset 0 -1px 4px rgba(0,0,0,0.4);
+    -moz-box-shadow: inset 0 -1px 4px rgba(0,0,0,0.4);
+    -webkit-box-shadow: inset 0 -1px 4px rgba(0,0,0,0.4);
+}
+#profiltabs div a{
+    position:relative;
+    bottom: .5rem;
+}
+#profiltabs div:last-child{
+    padding-right: 4.5rem;
+}
+.selectedTab{
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    
+    background: #f3f3f3;
+}
