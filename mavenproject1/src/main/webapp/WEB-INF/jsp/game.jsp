@@ -61,9 +61,15 @@
             
             
             function setRenderedResult(frame, html, css) {
-                frame.contents().find("html").html(html);
+                var html2 = removeScript(html);
+                var css2 = removeScript(css);
+                if((html2 === "script") || (css2 === "script")){
+                    css2 = "h4{color: white;} h6{ color: white;} body{ background-image: url('http://weknowmemes.com/generator/uploads/generated/g1334693036781255327.jpg'); background-size: 250px 200px;}"
+                    html2 = "<h4>ONE DOES NOT SIMPLY</h4><br/><p><br/><br/><br/><h6>CROSS SITE SCRIPT INTO MORDOR</h6>";
+                }
+                frame.contents().find("html").html(html2);
                 var $head = frame.contents().find("head");                
-                $head.append("<style>" + css + "</style>") 
+                $head.append("<style>" + css2 + "</style>") 
             }
 
             function resembleIfBothLoaded(resultUrl, solutionUrl) { 
@@ -161,6 +167,17 @@
                     retur += "'"+s[i]
                 }
                 return retur;
+            }
+            function removeScript(text){
+                var editText1 = text.toLowerCase();
+                var editText2 = editText1.split('script').join('');
+                var scr = "<" + "%";
+                editText2 = editText2.split(scr).join('');
+                if(editText1 === editText2){
+                    return text;
+                } else {
+                    return "script";
+                }
             }
         </script>
     </head>
