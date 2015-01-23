@@ -210,3 +210,106 @@
                 background: red;
                 float: right;
             }
+#chatWrap{
+    position:fixed; 
+    width:8rem; 
+    height: 1.5rem;
+    bottom: 0; 
+    right: 0;
+    cursor: pointer;
+    background: #d2dcdd;
+    background: -webkit-radial-gradient(top,#dee8e9,#d2dcdd),
+                radial-gradient(at top,#dee8e9,#d2dcdd);
+    border: 1px solid #fff;
+    border-radius: 2px;
+    text-align: center;
+    
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+#chatWrap:hover #chatImg{
+    -webkit-animation: wiggle 1s infinite;
+    animation: wiggle 1s infinite;
+    margin-right: .2rem;
+}
+@-webkit-keyframes wiggle {
+	0% { -webkit-transform: rotate(0deg); }
+	10% { -webkit-transform: rotate(-5deg); }
+	20% { -webkit-transform: rotate(5deg); }
+	30% { -webkit-transform: rotate(0deg); }
+	40% { -webkit-transform: rotate(5deg); }
+	50% { -webkit-transform: rotate(-5deg); }
+	60% { -webkit-transform: rotate(0deg); }
+	70% { -webkit-transform: rotate(-5deg); }
+	80% { -webkit-transform: rotate(5deg); }
+	90% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(-5deg); }
+}
+@keyframes wiggle {
+	0% { -webkit-transform: rotate(0deg); }
+	10% { -webkit-transform: rotate(-5deg); }
+	20% { -webkit-transform: rotate(5deg); }
+	30% { -webkit-transform: rotate(0deg); }
+	40% { -webkit-transform: rotate(5deg); }
+	50% { -webkit-transform: rotate(-5deg); }
+	60% { -webkit-transform: rotate(0deg); }
+	70% { -webkit-transform: rotate(-5deg); }
+	80% { -webkit-transform: rotate(5deg); }
+	90% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(-5deg); }
+}
+
+#logWrap{
+    position:fixed;
+    left: 2rem;
+    bottom: 2rem;
+    padding: .5rem 1rem .5rem 1rem;
+    border-radius: 2px;
+    border: 1px solid rgba(250, 250, 250, 0.3);
+    background: rgba(120, 120, 120, 0.2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+#logWrap:hover a{
+    color: #eaeaea;
+}
+#logWrap:hover{
+    background: rgba(180, 20, 210, 0.4);
+}
+
+#chatWrap p{
+    display: inline-block;
+    position: relative;
+    bottom: .2rem;
+}
+#chatImg{
+    width: 1.3rem;
+    display: inline-block;
+    position: relative;
+    top: .1rem;
+}
+#chatRamme{
+    position: fixed;
+    right: .2rem;
+    bottom: 1.5rem;
+    z-index: 2;
+    width: 32rem;
+    height:18.1rem;
+    visibility: hidden;
+    display: none;
+    border-radius: 2px;
+    
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+#chatNotifier{
+    position: fixed;
+    right: 0rem;
+    bottom: 0rem;
+    z-index: 0;
+    width: 1.5rem;
+    height:1.5rem;
+}

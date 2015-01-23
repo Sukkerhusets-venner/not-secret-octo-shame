@@ -171,6 +171,23 @@
             var game = new Hangman('abcd');
             game.init();
             
+            $(document).ready(function() {
+                var chat = $("#chatRamme");
+                var showChatB = $("#chatWrap");
+
+                showChatB.click(function(){
+                   var s = chat.css("display");
+                   chat.css ("visibility", "visible");
+                   if(s == "none"){
+                        showChatB.animate({width:"32.17rem"}, 300);
+                        chat.fadeIn("slow");
+                   }else{
+                        showChatB.animate({width:"8rem"}, 300);
+                        chat.fadeOut("slow");
+                   }
+                });
+            });
+     
      
             function tilHovedmeny(){
                 reset();
@@ -240,11 +257,11 @@
                     <c:if test="${loginform.getMessages()>0}">
                         <div id="circle">${loginform.getMessages()}</div>
                     </c:if>
-                    <h1>Spillet</h1>
+                    <h1>C. H. I. L.</h1>
                 </div>
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
-                    <div><a href="chat">Chat</a>
+                    <div><a>Spillet</a>
                     </div><div><a href="javascript:tilHovedmeny()">Resultater</a>
                     </div><div><a href="javascript:tilHovedmeny()">Profil</a>
                     </div>
@@ -278,5 +295,15 @@
 
         </section>
             </div>
+        <iframe id="chatRamme" scrolling="no" src="chat"></iframe>
+        <div id="chatWrap">
+            <iframe id="chatNotifier" scrolling="no" src="chatNotifier"></iframe>
+            <c:url var="chatImgUrl" value="/resources/img/bubble.svg" />
+            <object type="image/svg+xml" data="${chatImgUrl}" id="chatImg"></object>
+            <p>Chat</p>
+        </div>
+        <div id="logWrap">
+            <a href="logUt">Log ut</a>
+        </div>
     </body>
 </html>

@@ -14,11 +14,11 @@
               <div class="header">
                 <div class="mptitle">
                     <div id="smiley"><object type="image/svg+xml" data="resources/img/grin.svg"></object></div>
-                    <h1>Spillet</h1>
+                    <h1>C. H. I. L.</h1>
                 </div>
                 <div id="buttons">
                     <!-- Ikke formater disse divene! -->
-                    <div><a>Chat</a>
+                    <div><a>Spillet</a>
                     </div><div><a href="javascript:hovedside()">Resultater</a>
                     </div><div><a href="javascript:hovedside()">Profil</a>
                     </div>
@@ -37,6 +37,16 @@
                 <input type="submit" value="Tilbake til hovedsiden" id="tilbake">
             </form:form>
             </div>
+        </div>
+        <iframe id="chatRamme" scrolling="no" src="chat"></iframe>
+        <div id="chatWrap">
+            <iframe id="chatNotifier" scrolling="no" src="chatNotifier"></iframe>
+            <c:url var="chatImgUrl" value="/resources/img/bubble.svg" />
+            <object type="image/svg+xml" data="${chatImgUrl}" id="chatImg"></object>
+            <p>Chat</p>
+        </div>
+        <div id="logWrap">
+            <a href="logUt">Log ut</a>
         </div>
     </body>
 </html>
