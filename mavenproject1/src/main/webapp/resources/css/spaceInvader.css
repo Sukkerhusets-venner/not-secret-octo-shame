@@ -9,7 +9,7 @@
     font-weight: 300;
     text-shadow: 1px 1px 0 rgba(256,256,256,0.1);
     cursor: pointer;
-    padding: 5rem 15rem;
+    padding: 2.5rem 7.5rem;
     display: inline-block;
     margin: 0;
     position: relative;
@@ -19,8 +19,9 @@
     -moz-transition: all 0.3s;
     transition: all 0.3s;
     display: block;
-    background: #5cbcf6;
+    border: .2rem solid #5cbcf6;
     font-size: 2rem;
+    border-radius: 3px;
     
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
@@ -41,24 +42,49 @@
     content: '';
     position: absolute;
     z-index: -1;
-    width: 100%;
-    height: 39.8%; /* Gap in Chrome Version 34.0.1847.131 */
-    left: 0;
+    width: 97%;
+    height: 23.64%;
+    left: -.5%;
+    border: .5rem solid #49a7df;
+    border-radius: 3px;
+    //height: 39.8%;
+    //left: 0;
+    //background: #49a7df;
     top: -40%;
-    background: #49a7df;
     -webkit-transform-origin: 0% 100%;
     -webkit-transform: rotateX(90deg);
     -moz-transform-origin: 0% 100%;
     -moz-transform: rotateX(90deg);
     transform-origin: 0% 100%;
     transform: rotateX(90deg);
+    
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    
 }
 #spilLink:hover {
     -webkit-transform: rotateX(-15deg);
     -moz-transform: rotateX(-15deg);
     -ms-transform: rotateX(-15deg);
     transform: rotateX(-15deg);
+    
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    
+    background: #5cbcf6;
 }
+#spilLink:hover:after{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    
+    background: #49a7df;
+}
+
 #spilLink:active {
     -webkit-transform: rotateX(15deg);
     -moz-transform: rotateX(15deg);
@@ -70,7 +96,7 @@
     width:110px; 
     height:80px; 
     overflow:hidden; 
-    margin:50px 10px;
+    margin:7rem 1rem;
     top: 5rem;
 }
 .invader {
