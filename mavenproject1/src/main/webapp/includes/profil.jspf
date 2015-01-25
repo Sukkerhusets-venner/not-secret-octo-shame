@@ -39,8 +39,8 @@
         </table>
         </div>
         <c:if test="${flereRes}">
-        
-        </c:if><div id="alleRes"><a href="alleBrukerRes">Alle resultater</a></div>
+            <div id="alleRes"><a href="alleBrukerRes">Alle resultater</a></div>
+        </c:if>
         </c:if>
         <c:if test="${empty brukerScore}">
             <p>Fant ingen resultater på deg</p> 
