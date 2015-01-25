@@ -388,7 +388,7 @@ button{
 #passordform {
     position: relative;
     left: 20rem;
-    bottom: 20rem;
+    bottom: 25rem;
     text-align: center;
     visibility:hidden;
     visibility: hidden;
@@ -407,7 +407,7 @@ button{
 #brukernavnform {
     position: relative;
     left: 20rem;
-    bottom: 10rem;
+    bottom: 15rem;
     text-align: center;
     visibility:hidden;
     visibility: hidden;
@@ -514,7 +514,7 @@ button{
     right: 0rem;
     bottom: 0rem;
     z-index: 0;
-    width: 2.0rem;
+    width: 2rem;
     height:1.5rem;
 }
 #profiltabs{

@@ -29,6 +29,11 @@ function reset() {
         buttonFocus: "ok"
     });
 }
+
+function removePH(){
+    $("#chPlaceholder").css("visibility", "hidden");
+}
+
 $(document).ready(function () {
 
     /*
@@ -59,19 +64,19 @@ $(document).ready(function () {
     var et = $("#endretab");
     var pt = $("#passordtab");
     var lastTab = 0;
-    
-    function hideAllTabs(){
+
+    function hideAllTabs() {
         pi.css("visibility", "hidden");
         bnf.css("visibility", "hidden");
         pnf.css("visibility", "hidden");
     }
-    
-    function showLastTab(){
-        if(lastTab === 0){
+
+    function showLastTab() {
+        if (lastTab === 0) {
             showInfoTab();
-        }else if(lastTab === 1){
+        } else if (lastTab === 1) {
             showEndreTab();
-        }else{
+        } else {
             showPassordTab();
         }
     }
@@ -89,11 +94,11 @@ $(document).ready(function () {
         pt.css("-moz-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
         pt.css("-webkit-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
         pt.css("background", "-webkit-radial-gradient(top,#dee8e9,#d2dcdd),radial-gradient(at top,#dee8e9,#d2dcdd)");
-        
+
         pi.css("visibility", "visible");
         bnf.css("visibility", "hidden");
         pnf.css("visibility", "hidden");
-        
+
         lastTab = 0;
     }
 
@@ -110,15 +115,15 @@ $(document).ready(function () {
         pt.css("-moz-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
         pt.css("-webkit-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
         pt.css("background", "-webkit-radial-gradient(top,#dee8e9,#d2dcdd),radial-gradient(at top,#dee8e9,#d2dcdd)");
-    
+
         pi.css("visibility", "hidden");
         bnf.css("visibility", "visible");
         pnf.css("visibility", "hidden");
-        
+
         lastTab = 1;
     }
-    
-    function showPassordTab(){
+
+    function showPassordTab() {
         pt.css("box-shadow", "none");
         pt.css("-moz-box-shadow", "none");
         pt.css("-webkit-box-shadow", "none");
@@ -131,36 +136,36 @@ $(document).ready(function () {
         et.css("-moz-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
         et.css("-webkit-box-shadow", "inset 0 -1px 4px rgba(0,0,0,0.4)");
         et.css("background", "-webkit-radial-gradient(top,#dee8e9,#d2dcdd),radial-gradient(at top,#dee8e9,#d2dcdd)");
-        
+
         pi.css("visibility", "hidden");
         bnf.css("visibility", "hidden");
         pnf.css("visibility", "visible");
-        
+
         lastTab = 3;
     }
 
 
     $("#profiltabs div").click(function (event) {
         var qo = $(event.target);
-        switch(qo.html()){
+        switch (qo.html()) {
             case it.html():
                 if (it.css("background") !== "#f3f3f3") {
                     showInfoTab();
                 }
                 break;
-            case et.html(): 
+            case et.html():
                 if (et.css("visibility") !== "#f3f3f3") {
                     showEndreTab();
                 }
                 break;
-            case pt.html(): 
+            case pt.html():
                 if (pt.css("visibility") !== "#f3f3f3") {
                     showPassordTab();
                 }
                 break;
         }
-        
-        switch (qo.html().trim()){
+
+        switch (qo.html().trim()) {
             case "Info":
                 if (it.css("background") !== "#f3f3f3") {
                     showInfoTab();
@@ -197,7 +202,7 @@ $(document).ready(function () {
             chat.fadeOut("slow");
         }
     });
-    
+
     /*
      * Navigering (hovedside) 
      *  p.s må komme sist fordi den kaller metoder over
@@ -229,6 +234,9 @@ $(document).ready(function () {
                 alert("Si ifra om du får denne meldingen" + elem.toString());
         }
     });
-    
-    
+
+    setTimeout(function () {
+       $("#chatNotifier").attr('src', 'chat');
+       $("#cnPlaceholder").css("visibility", "visible");
+    }, 5000);
 });

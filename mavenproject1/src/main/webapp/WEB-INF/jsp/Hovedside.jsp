@@ -88,15 +88,16 @@
             </noscript> 
             
             <!-- ------------------------ -->
-        </div>
+        </div><!--
         <c:if test="${loggedIn}">
             <div style="position:fixed; top:2rem; right:2rem;">
                 <a href="Hovedside">Du er logget inn! <%=session.getAttribute("currentUser")%></a>
             </div>
-        </c:if>
+        </c:if>-->
         <iframe id="chatRamme" scrolling="no" src="chat"></iframe>
         <div id="chatWrap">
-            <iframe id="chatNotifier" scrolling="no" src="chatNotifier"></iframe>
+            <iframe onload="removePH()" id="chatNotifier" scrolling="no" src="chatNotifier"></iframe>
+            <div id="cnPlaceholder" style="visibility:hidden; width:2rem; position:fixed; right: 0rem;bottom: 0rem;z-index: 1;width: 2.0rem;height:1.5rem;"></div>
             <c:url var="chatImgUrl" value="/resources/img/bubble.svg" />
             <object type="image/svg+xml" data="${chatImgUrl}" id="chatImg"></object>
             <p>Chat</p>

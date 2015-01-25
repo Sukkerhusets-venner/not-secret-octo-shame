@@ -28,11 +28,6 @@
                 bottom: 0.5rem; 
             }
         </style>
-        <script>
-            setTimeout(function(){
-                window.location.reload(1);
-            }, 5000);
-        </script>
     </head>
     <body background="#d2dcdd">
         <c:if test="${loginform.getMessages()>0}">
