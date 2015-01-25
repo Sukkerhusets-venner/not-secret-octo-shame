@@ -7,6 +7,8 @@
 package prosjekt.kontroller;
 
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,8 +35,16 @@ public class chatController {
     }
     
     @RequestMapping (value = "chat")
-    public String chat(@ModelAttribute(value="loginform") Loginform loginform,
-            @ModelAttribute(value="chatform") Chatform chatform, Model model) {
+    public String chat(@ModelAttribute(value="loginform") Loginform loginform, @ModelAttribute(value="chatform") Chatform chatform, HttpServletRequest req, Model model) {
+        HttpSession session = req.getSession();
+        try{
+            User bruker = (User)session.getAttribute("currentUser");
+            if(bruker.getId() < 1){
+                return "login";
+            }
+        }catch(Exception e){
+            return "login";
+        }
         chatform.setInChat(false);
         List<User> users = database.getUsers();
         List<User> admins = database.getAdminList();
@@ -62,8 +72,16 @@ public class chatController {
     }
     
     @RequestMapping (value = "velgChat")
-    public String chatValgt(@ModelAttribute(value="loginform") Loginform loginform, 
-             @ModelAttribute(value="chatform") Chatform chatform, Model model) {
+    public String chatValgt(@ModelAttribute(value="loginform") Loginform loginform,  @ModelAttribute(value="chatform") Chatform chatform,HttpServletRequest req, Model model) {
+        HttpSession session = req.getSession();
+        try{
+            User bruker = (User)session.getAttribute("currentUser");
+            if(bruker.getId() < 1){
+                return "login";
+            }
+        }catch(Exception e){
+            return "login";
+        }
         chatform.setMessages(database.getChat(loginform.getUser(), database.getUser(chatform.getChosen())));
         int chatId = database.getChatId(loginform.getUser(), database.getUser(chatform.getChosen()));
         database.markAsRead(loginform.getUser(), chatId);
@@ -71,8 +89,16 @@ public class chatController {
     }
     
     @RequestMapping (value = "sendMeldning")
-    public String sendMessage(@ModelAttribute(value="loginform") Loginform loginform,  
-            @ModelAttribute(value="chatform") Chatform chatform, Model model) {
+    public String sendMessage(@ModelAttribute(value="loginform") Loginform loginform,@ModelAttribute(value="chatform") Chatform chatform,HttpServletRequest req, Model model) {
+        HttpSession session = req.getSession();
+        try{
+            User bruker = (User)session.getAttribute("currentUser");
+            if(bruker.getId() < 1){
+                return "login";
+            }
+        }catch(Exception e){
+            return "login";
+        }
         if(!database.isChatRegistered(loginform.getUser(), database.getUser(chatform.getChosen()))){
             database.registerChat(new Chat(loginform.getUser(),database.getUser(chatform.getChosen()),false,false));
         } 
@@ -86,7 +112,16 @@ public class chatController {
     }
     
     @RequestMapping(value = "chatNotifier")
-    public String chatNotifier(@ModelAttribute(value="loginform") Loginform loginform){
+    public String chatNotifier(@ModelAttribute(value="loginform") Loginform loginform, HttpServletRequest req){
+        HttpSession session = req.getSession();
+        try{
+            User bruker = (User)session.getAttribute("currentUser");
+            if(bruker.getId() < 1){
+                return "login";
+            }
+        }catch(Exception e){
+            return "login";
+        }
         loginform.setMessages(database.gotMessage(loginform.getUser()));
         return "chatNotifier";
     }

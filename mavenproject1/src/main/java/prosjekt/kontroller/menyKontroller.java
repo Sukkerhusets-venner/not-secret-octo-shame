@@ -99,7 +99,7 @@ public class menyKontroller {
                 return "godkjentliste";
             }
         }catch(Exception e){
-            return "error";
+            return "login";
         }
         return "login";
     }
@@ -115,7 +115,7 @@ public class menyKontroller {
                 return "alleBrukerResultater";
             }
         }catch(Exception e){
-            return "error";
+            return "login";
         }
         return "login";
     }

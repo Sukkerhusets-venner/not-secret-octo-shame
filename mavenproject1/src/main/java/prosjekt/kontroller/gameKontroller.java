@@ -26,7 +26,16 @@ public class gameKontroller {
     private DatabaseConnection database;
     
     @RequestMapping (value = "game")
-    public String game (@ModelAttribute(value="loginform") Loginform loginform, WebRequest request, Model model) {
+    public String game (@ModelAttribute(value="loginform") Loginform loginform, HttpServletRequest req, WebRequest request, Model model) {
+        HttpSession session = req.getSession();
+        try{
+            User bruker = (User)session.getAttribute("currentUser");
+            if(bruker.getId() < 1){
+                return "login";
+            }
+        }catch(Exception e){
+            return "login";
+        }
         if(loginform.isInGame() == false){
             loginform.setAssignment(new Assignment());
             loginform.getAssignment().setTimescore(10);
@@ -51,8 +60,7 @@ public class gameKontroller {
     
     @RequestMapping (value = "nesteOppgave")
     public String nesteOppg(@ModelAttribute(value="loginform") Loginform loginform, HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
-        boolean loggedInOk = false;
+        HttpSession session = request.getSession();boolean loggedInOk = false;
         try{
             User bruker = (User)session.getAttribute("currentUser");
             if(bruker.getId() >= 1){

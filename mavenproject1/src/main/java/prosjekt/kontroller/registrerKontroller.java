@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import prosjekt.Ui.Loginform;
 import prosjekt.Ui.Registreringform;
 import prosjekt.database.DatabaseConnection;
 import prosjekt.mailservice.emailer;
@@ -53,9 +52,5 @@ public class registrerKontroller {
             model.addAttribute("registerError", "En bruker med denne emailen er allerede registrert");
             return "registrer";
         }
-    }
-    @RequestMapping (value = "/registrertest")
-    public String registertest () {
-        return "registerSuccess";
-    }    
+    }  
 }
