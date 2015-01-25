@@ -282,7 +282,7 @@ public class DatabaseConnection {
             pstmt.setInt(1, user.getId());
             resultSet = pstmt.executeQuery();
             if (!resultSet.isBeforeFirst()) {
-                return null;
+                return new ArrayList<ScoreProfile>();
             } else {
                 int k = 0;
                 ScoreProfile sp = null;
