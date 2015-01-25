@@ -31,7 +31,7 @@ function reset() {
 }
 
 function removePH(){
-    $("#chPlaceholder").css("visibility", "hidden");
+    $("#cnPlaceholder").css("visibility", "hidden");
 }
 
 $(document).ready(function () {
@@ -187,18 +187,37 @@ $(document).ready(function () {
     /*
      * Chatbox
      */
+    
+    // vi må legge til en 'overlay' fordi vi har dokumenter som fremtrer forran selve beholderen
+    var chatOverlay = "<div id='chatOverlay' style='cursor: pointer; position:fixed; bottom:0; right:0; width: 8rem; height: 1.5rem;'></div>";
+    $('body').append(chatOverlay);
+    chatOverlay = $("#chatOverlay");
 
     var chat = $("#chatRamme");
     var showChatB = $("#chatWrap");
-
-    showChatB.click(function () {
+    
+    // animasjon på chat bobblen
+    chatOverlay.mouseover(function(){
+        $("#chatImg").css('-webkit-animation-play-state', 'running');
+        $("#chatImg").css('animation-play-state', 'running');
+    });
+    
+    chatOverlay.mouseout(function(){
+        $("#chatImg").css('-webkit-animation-play-state', 'paused');
+        $("#chatImg").css('animation-play-state', 'paused');
+    });
+    
+    // trykker på chat knappen
+    chatOverlay.click(function () {
         var s = chat.css("display");
         chat.css("visibility", "visible");
         if (s == "none") {
             showChatB.animate({width: "32.17rem"}, 300);
+            chatOverlay.css("width",  "32.17rem");
             chat.fadeIn("slow");
         } else {
             showChatB.animate({width: "8rem"}, 300);
+            chatOverlay.css("width",  "8rem");
             chat.fadeOut("slow");
         }
     });
@@ -236,7 +255,7 @@ $(document).ready(function () {
     });
 
     setTimeout(function () {
-       $("#chatNotifier").attr('src', 'chat');
+       $("#chatNotifier").attr('src', 'chatNotifier');
        $("#cnPlaceholder").css("visibility", "visible");
     }, 5000);
 });

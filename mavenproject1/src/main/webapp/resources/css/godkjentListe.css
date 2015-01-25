@@ -45,7 +45,8 @@ h2, h3, a{
     color: #444;
 }
 #tebakst{
-    margin-top: .3rem;
+    position:relative;
+    top: .5rem;
     width: 13rem;
     height: 2rem;
     background: none;

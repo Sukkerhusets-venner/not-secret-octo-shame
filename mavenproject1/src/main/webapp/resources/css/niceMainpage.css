@@ -279,9 +279,14 @@ body {
     -ms-transform: rotate(45deg);
     -o-transform: rotate(45deg);
 }
+#alleRes{
+    margin: 0 auto !important;
+}
+#fullListe{
+    margin-left: 1.8rem;
+}
 #fullListe, #alleRes{
     margin-top: .3rem;
-    margin-left: 1.8rem;
     width: 13rem;
     height: 2rem;
     background: none;
@@ -434,10 +439,13 @@ button{
     -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
-#chatWrap:hover #chatImg{
+#chatImg{
     -webkit-animation: wiggle 1s infinite;
     animation: wiggle 1s infinite;
     margin-right: .2rem;
+    
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
 }
 @-webkit-keyframes wiggle {
     0% { -webkit-transform: rotate(0deg); }

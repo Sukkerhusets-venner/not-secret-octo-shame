@@ -31,7 +31,7 @@
         </c:forEach>
         </table>
         <c:if test="${flereRes}">
-            <div id="alleRes"><a href="#">Alle resultater</a></div>
+            <div id="alleRes"><a href="alleBrukerRes">Alle resultater</a></div>
         </c:if>
         </c:if>
         <c:if test="${empty brukerScore}">
