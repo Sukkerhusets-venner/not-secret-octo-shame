@@ -72,7 +72,7 @@
                             </table>-->
                             <table id="scrollable2">
                             <c:forEach var="user" items="${chatform.getUserlist()}">
-                                <tr><td><input type="submit" class="knapp" name="chosen" value="${user.getEmail()}" ><br/></td></tr>
+                                <tr><td><input type="submit" id="${user.getEmail()}" class="knapp" name="chosen" value="${user.getEmail()}" ><br/></td></tr>
                                 <c:if test="${user.isAdmin()}">
                                     <script>addClassAdmin("${user.getEmail()}");</script>
                                 </c:if>
