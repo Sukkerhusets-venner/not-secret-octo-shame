@@ -8,6 +8,7 @@
         <link href="resources/css/style.css" type="text/css" rel="stylesheet" />
         <link href="resources/css/redir.css" type="text/css" rel="stylesheet" />
         <title>Suksess!</title>
+        <!-- Weeeeeeeeeeeeeeee! ^-^ -->
     </head>
     <body>
         <div class="headspace"></div>

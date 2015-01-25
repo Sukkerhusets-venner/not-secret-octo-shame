@@ -15,11 +15,12 @@ public class InitialiserDispatcherServlet implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         WebApplicationContext context = getContext();
-        servletContext.addListener(new contextListener(context));
+        servletContext.addListener(new contextListener(context)); // <-- viktig
         DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
-        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", dispatcherServlet);
-        dispatcher.setLoadOnStartup(1);
+        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true); // <-- fallback
+        // Selve dispatcherservletten - implementasjoner i dispatcher må foregå før denne legges til
+        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", dispatcherServlet); 
+        dispatcher.setLoadOnStartup(1); // default = 0, resource = -1
         dispatcher.addMapping("/");
     }
     private AnnotationConfigWebApplicationContext getContext(){

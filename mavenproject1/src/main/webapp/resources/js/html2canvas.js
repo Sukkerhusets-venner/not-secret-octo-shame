@@ -6,6 +6,17 @@
   Released under MIT License
 */
 
+/*
+ * Brukt i spill??
+ *
+ * ** ---------------  **
+ * 
+ * @param {type} window
+ * @param {type} document
+ * @param {type} undefined
+ * @returns {undefined}
+ */
+
 (function(window, document, undefined){
 
 "use strict";

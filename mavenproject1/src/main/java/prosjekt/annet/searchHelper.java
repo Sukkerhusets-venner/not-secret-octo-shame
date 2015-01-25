@@ -3,6 +3,12 @@ package prosjekt.annet;
 import java.util.ArrayList;
 import prosjekt.Domene.UserScoreOverview;
 
+/*
+ * Brukes i hovedsiden for å sortere godkjentlisten   
+ * Implementerer en metode som gir kostnader istedenfor å filtrere, dermed kan vi få mange resultater
+ * Resultatene vil da være sortert etter 'nærmeste' streng. (lek med kostnadene i lavenstein metoden for å se nærmere :D) 
+*/
+
 
 public class searchHelper {
     
@@ -23,31 +29,32 @@ public class searchHelper {
         for(UserScoreOverview uso : listen){ // får alle distanser
             rtList.add(LevenshteinDistance(sokt.toLowerCase(), uso.getUser().getUsername().toLowerCase()));
             k++;
-        } 
+        } // litt meningsløst å bruke en så fin algoritme når vi har allt dette tullet, men men
+        // kunne dumpet arraylist.toArray(), men orker ikke 
         ArrayList<UserScoreOverview> rt = new ArrayList<>();
         int minElem = 0;
         int elemIndex = 0;
         for(int i = 0; i < maxLengde; i++){
-            if(rtList.isEmpty()){
-                break;
+            if(rtList.isEmpty()){ 
+                break; // hvis tom
             }
             for(int j = 0; j < rtList.size(); j++){
-                if(j == 0){
-                    minElem = rtList.get(j);
+                if(j == 0){ // første element
+                    minElem = rtList.get(j); // setter 'nærmeste'
                     elemIndex = 0;
-                }else if(rtList.get(j) < minElem){
-                    minElem = rtList.get(j);
-                    elemIndex = j;
+                }else if(rtList.get(j) < minElem){ // i >= 1
+                    minElem = rtList.get(j); // setter 'nærmeste'
+                    elemIndex = j; //hvis legges til, hvor (j)
                 }
             }
             rt.add(listen.get(elemIndex));
-            listen.remove(elemIndex);
+            listen.remove(elemIndex); // fjernes for å ikke legges til igjen 
             rtList.remove(elemIndex);
         }
         return rt;
     }
     
-     // Lavenstein distance implementasjon
+     // Lavenstein distance implementasjon - fant den på engelsk wikipedia xD
     private int LevenshteinDistance(String s0, String s1) {
         int len0 = s0.length() + 1;
         int len1 = s1.length() + 1;
@@ -72,9 +79,9 @@ public class searchHelper {
                 int match = (s0.charAt(i - 1) == s1.charAt(j - 1)) ? 0 : 1;
 
                 // computing cost for each transformation                               
-                int cost_replace = cost[i - 1] + match;
-                int cost_insert = cost[i] +0;
-                int cost_delete = newcost[i - 1] +1;
+                int cost_replace = cost[i - 1] + match; // bokstav ulik søkt bokstav (satt .toLowerCase() så vi får ingen store forskjeller her, unntak er æøå da ascii er 130+ for disse tegnene)
+                int cost_insert = cost[i] +0; // +1 gir søkt "j" - nora = jonas, det liker vi ikke
+                int cost_delete = newcost[i - 1] +1; // navn kortere enn søkt streng
 
                 // keep minimum cost                                                    
                 newcost[i] = Math.min(Math.min(cost_insert, cost_delete), cost_replace);

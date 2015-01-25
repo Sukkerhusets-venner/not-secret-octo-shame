@@ -14,18 +14,12 @@ public class contextListener extends ContextLoaderListener {
         super(context);
     }
     
-    @Override // Trigger = åpner program
+    @Override
     public void contextInitialized(ServletContextEvent event){
         System.gc();
     }
-    @Override // Trigger = lukker program
+    @Override 
     public void contextDestroyed(ServletContextEvent event){
         System.gc(); // rydder opp - vil ikke bruke unødig data
     }
-    /*  
-    * Her kan du legge til en lytter for events mot servlets.  
-    *   - Veldig kjekt for å jobbe rundt spring
-    private appListener implements SerlvetEventListener{
-
-    }*/
 }

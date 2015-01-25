@@ -1,4 +1,7 @@
 /* 
+ * Kontroller for menytabber
+ * Blitt opprettet fallback for systemer som har slått av scripting (<noscript>)
+ * 
  * Bruker jquery 2.1.*
  */
 function checkGame() {

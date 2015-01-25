@@ -1,3 +1,7 @@
+/*
+ * Brukes ikke - tenkt brukt i spill - ikke fått tid eller idé for god implementasjon!
+ */
+
 $(document).ready(function () {
     //Canvas stuff
     var canvas = $("#canvas")[0];

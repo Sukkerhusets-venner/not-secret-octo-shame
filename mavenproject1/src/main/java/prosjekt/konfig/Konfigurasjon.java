@@ -4,7 +4,7 @@ import java.util.Properties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+//import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -31,20 +31,21 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
         resolver.setSuffix(".jsp");
         return resolver;
     }
-    
-    @Bean
+    /* 
+    *   Kommentert ut for å ikke bruke unødig data
+    *
+    @Bean // ikke brukt - dersom vi bruker messages
     public ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
         source.setBasename("/WEB-INF/messages/messages");
         return source;
-    }
+    }*/
     
     
     @Override //Setter statiske ressurser som bilder/ css/ js osv.
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/").setCachePeriod(31556926);
                 //.addResourceLocations("classpath:/Web Pages/resources/")
-                //.setCachePeriod(31556926);
     }
     
     @Override
@@ -76,6 +77,7 @@ public class Konfigurasjon extends WebMvcConfigurationSupport {
         return new Loginform();
     }
     
+    // Litt meningsløst, men fallback i tilfellet vi får en mindre fremtredende feil (som vi da ikke har tatt til høyde for)
     @Bean(name="simpleMappingExceptionResolver")
     public SimpleMappingExceptionResolver createSimpleMappingExceptionResolver() {
         SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();

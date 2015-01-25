@@ -1,3 +1,7 @@
+/*
+ * Hangman implementasjon for spillet!
+ */
+
 "use strict";
 
 function Hangman(user_id) {

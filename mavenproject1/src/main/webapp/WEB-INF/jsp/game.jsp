@@ -1,7 +1,6 @@
 <%@include file="../../includes/head.jspf" %>
-        <title>Start Page</title>
+        <title>Gehm!</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="resources/js/resemble.js"></script>
 	<script src="resources/js/html2canvas.js"></script>
 	<link rel="stylesheet" href="resources/css/codemirror.css">
@@ -13,8 +12,8 @@
         <script src="resources/js/alertify.min.js"></script>
         <link rel="stylesheet" href="resources/css/alertify.core.css" />
 	<link rel="stylesheet" href="resources/css/alertify.default.css" id="toggleCSS" />
-        <c:url var="nmpUrl" value="/resources/css/niceGamepage.css" />
-        <link href="${nmpUrl}" rel="stylesheet" type="text/css"/>
+        <c:url var="ngpUrl" value="/resources/css/niceGamepage.css" />
+        <link href="${ngpUrl}" rel="stylesheet" type="text/css"/>
        
        
         <script>
