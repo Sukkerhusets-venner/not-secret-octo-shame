@@ -9,11 +9,12 @@
         <script>
             $(document).ready(function() {
                 var elem = document.getElementById('scrollable');
+               
                 elem.scrollTop = elem.scrollHeight;
                 document.getElementById('inputFelt').value = "";
             });
             function setClass(Id){
-                document.getElementById(Id).className = "messaged";
+                document.getElementById(Id).className = "messaged"; //$("#")
             }
             function addClassAdmin(Id){
                 var elem = document.getElementById(Id)
