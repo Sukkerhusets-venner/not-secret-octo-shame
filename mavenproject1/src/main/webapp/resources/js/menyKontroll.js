@@ -257,7 +257,7 @@ $(document).ready(function () {
         }
     });
 
-    setTimeout(function () {
+    setInterval(function () {
        $("#chatNotifier").attr('src', 'chatNotifier');
        $("#cnPlaceholder").css("visibility", "visible");
     }, 5000);
