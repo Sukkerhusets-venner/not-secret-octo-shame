@@ -41,11 +41,6 @@ public class Assignment {
     public void setScore(int score) {
         this.score = score;
     }
-    
-    public void addTask(String strTask){
-        Task t = new Task(task.size(), strTask);
-        task.add(t);
-    }
     public int nextTask(){
         setDelscore();
         timescore = 10;

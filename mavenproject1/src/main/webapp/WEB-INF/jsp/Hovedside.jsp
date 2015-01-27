@@ -33,7 +33,7 @@
 });
 </script>
 </head>
-    <body scroll="no">
+    <body scrolling="no">
         <div class="headspace"></div>
         <div id="wrapper">
             <div class="header">
@@ -50,8 +50,6 @@
                     <!-- ---------------------------- -->
                 </div>
             </div>
-            <!--  Eksempel: admin::
-            <sec:authorize access="hasRole('admin')"></sec:authorize> -->
             <div id="stuff">
                 <div id="spill">
                     <form:form method="POST" modelAttribute="loginform" action ="game" id="game" name="game">
@@ -79,21 +77,17 @@
                 <div class="part"></div>
                 <div class="part"></div>
             </div>
-            <noscript><!-- Hvis javascript er slått av -->
+            <noscript>
+            <!-- Hvis javascript er slått av -->
             <style>
                 .container{visibility:hidden;}
                 #stuff{visibility:hidden;}
             </style>
-            <h2 style="padding: 1rem 1rem 1rem 1rem">Du må slå på javascript for å spille spillet.</h2>
+            <h2 style="padding: 1rem">Du må slå på javascript for å spille spillet.</h2>
             </noscript> 
             
             <!-- ------------------------ -->
-        </div><!--
-        <c:if test="${loggedIn}">
-            <div style="position:fixed; top:2rem; right:2rem;">
-                <a href="Hovedside">Du er logget inn! <%=session.getAttribute("currentUser")%></a>
-            </div>
-        </c:if>-->
+        </div>
         <iframe id="chatRamme" scrolling="no" src="chat"></iframe>
         <div id="chatWrap">
             <iframe onload="removePH()" id="chatNotifier" scrolling="no" src="chatNotifier"></iframe>
