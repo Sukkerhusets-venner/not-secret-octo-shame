@@ -261,6 +261,7 @@ public class DatabaseConnection {
                 i++;
             }
             Collections.sort(hsList);
+            Collections.reverse(hsList);
             ArrayList<UserScore> tmp = new ArrayList();
             if(hsList.size() > HIGHSCORES_SHOWN){
                 for(int k = 0; k < HIGHSCORES_SHOWN; k++){
@@ -268,7 +269,7 @@ public class DatabaseConnection {
                 }
                 hsList = tmp;
             }
-            Collections.reverse(hsList);
+            
 
             return hsList;
         } catch (Exception e) {
