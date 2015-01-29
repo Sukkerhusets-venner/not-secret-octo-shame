@@ -264,7 +264,7 @@ public class DatabaseConnection {
             ArrayList<UserScore> tmp = new ArrayList();
             if(hsList.size() > HIGHSCORES_SHOWN){
                 for(int k = 0; k < HIGHSCORES_SHOWN; k++){
-                    tmp.add(hsList.get(i));
+                    tmp.add(hsList.get(k));
                 }
                 hsList = tmp;
             }
