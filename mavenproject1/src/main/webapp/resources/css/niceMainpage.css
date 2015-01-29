@@ -167,6 +167,9 @@ body {
     border-collapse: collapse;
     width: 16rem;
 }
+.finTabell tbody{
+    width: 100%;
+}
 
 .finTabell th {
     background-color: #70c469;

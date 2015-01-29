@@ -260,13 +260,13 @@ public class DatabaseConnection {
                 hsList.add(new UserScore(userName, hiScore));
                 i++;
             }
-            
             Collections.sort(hsList);
-            int k = 0;
-            for(UserScore us: hsList){
-                if(k > HIGHSCORES_SHOWN){
-                    hsList.remove(k);
-                }k++;
+            ArrayList<UserScore> tmp = new ArrayList();
+            if(hsList.size() > HIGHSCORES_SHOWN){
+                for(int k = 0; k < HIGHSCORES_SHOWN; k++){
+                    tmp.add(hsList.get(i));
+                }
+                hsList = tmp;
             }
             Collections.reverse(hsList);
 

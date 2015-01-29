@@ -56,7 +56,7 @@
     <h3>HiScores</h3>
 
     <c:if test = "${not empty loginform.hiScore}">
-        <table class="finTabell">
+        <table class="finTabell" style="width: 15rem;">
             <tr>
                 <th>Bruker</th>
                 <th>Score</th>
