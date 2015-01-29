@@ -4,10 +4,6 @@ import javax.servlet.ServletContextEvent;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 
-/**
- *
- * @author joooog
- */
 public class contextListener extends ContextLoaderListener {
     
     public contextListener(WebApplicationContext context){

@@ -43,7 +43,8 @@
         </c:if>
         </c:if>
         <c:if test="${empty brukerScore}">
-            <p>Fant ingen resultater på deg</p> 
+            <p>Fant ingen resultater på deg</p>
+            <div style="height: 11rem;"></div> <!-- har ikke testet dette, kan være displayfeil uten resultater -->
         </c:if>
 </div>
 

@@ -10,8 +10,6 @@ import prosjekt.Ui.Registreringform;
 import prosjekt.database.DatabaseConnection;
 import prosjekt.mailservice.emailer;
 
-
-
 @Controller
 public class registrerKontroller {
     
