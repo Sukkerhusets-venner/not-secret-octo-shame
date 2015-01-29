@@ -240,7 +240,7 @@ public class DatabaseConnection {
 
     public ArrayList<UserScore> getHighScoreList() {
 
-        final int NUMBER_OF_HIGHSCORES_SHOWN = 10;
+        final int HIGHSCORES_SHOWN = 10;
 
         String sql = "SELECT  User.name, MAX(Score.score) FROM User "
                 + "JOIN Game ON ( User.user_id = Game.user_id)"
@@ -253,14 +253,21 @@ public class DatabaseConnection {
             ResultSet resultSet = pstmt.executeQuery();
 
             int i = 0;
-            while (resultSet.next() && i < NUMBER_OF_HIGHSCORES_SHOWN) {
+            while (resultSet.next()) {
                 String userName = resultSet.getString(1);
                 int hiScore = resultSet.getInt(2);
 
                 hsList.add(new UserScore(userName, hiScore));
                 i++;
             }
+            
             Collections.sort(hsList);
+            int k = 0;
+            for(UserScore us: hsList){
+                if(k > HIGHSCORES_SHOWN){
+                    hsList.remove(k);
+                }k++;
+            }
             Collections.reverse(hsList);
 
             return hsList;
